@@ -68,8 +68,8 @@ class PhoneNumberLoginView extends StatelessWidget {
                     onPressed: () async {
                       if (formKey.currentState!.validate()) {
                         await NotificationService.showNotification(
-                          title: "Login",
-                          body: "Kode masuk telah dikirim ke nomor telepon Anda.",
+                          title: "OTP Verifikasi",
+                          body: "Kode OTP untuk verifikasi nomor telepon Anda adalah 123456",
                         );
 
                         Navigator.pushNamed(context, Routes.homePage);

@@ -5,7 +5,7 @@ class NotificationService {
 
   static Future<void> init() async {
     const AndroidInitializationSettings androidSettings =
-        AndroidInitializationSettings('@mipmap/ic_launcher');
+        AndroidInitializationSettings('ic_notification'); // Your custom icon here
 
     const InitializationSettings settings =
         InitializationSettings(android: androidSettings);
@@ -22,6 +22,7 @@ class NotificationService {
       'Login Notifications',
       importance: Importance.max,
       priority: Priority.high,
+      icon: 'ic_notification', // Optional, explicitly set here too
     );
 
     const NotificationDetails details = NotificationDetails(android: androidDetails);
