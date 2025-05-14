@@ -71,8 +71,7 @@ class PhoneNumberLoginView extends StatelessWidget {
                           title: "OTP Verifikasi",
                           body: "Kode OTP untuk verifikasi nomor telepon Anda adalah 123456",
                         );
-
-                        Navigator.pushNamed(context, Routes.homePage);
+                        Navigator.pushNamed(context, Routes.otpVerification);
                       } else {
                         print("Validation failed");
                       }
