@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import 'login_widget.dart';
 
@@ -7,8 +8,20 @@ import '../../../config/routes.dart';
 import '../../../shared/styles/colors.dart';
 import '../../../shared/styles/fonts.dart';
 
-class LoginView extends StatelessWidget {
+class LoginView extends StatefulWidget {
   const LoginView({super.key});
+
+  @override
+  State<LoginView> createState() => _LoginViewState();
+}
+
+class _LoginViewState extends State<LoginView> {
+  final GoogleSignIn _googleSignIn = GoogleSignIn(
+    scopes: <String>[
+      'email',
+      'https://www.googleapis.com/auth/userinfo.profile',
+    ],
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +42,6 @@ class LoginView extends StatelessWidget {
                 ),
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.0375),
-              // Add Image Logo
               Image.asset(
                 'assets/images/transparentAppLogo.png',
                 width: 250,
@@ -51,8 +63,13 @@ class LoginView extends StatelessWidget {
                     LoginButton.withImage(
                       imagePath: 'assets/images/media/google.png',
                       text: "Login dengan Akun Google",
-                      onPressed: () =>
-                          Navigator.pushNamed(context, Routes.homePage),
+                      onPressed: () async {
+                        final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+                        if (googleUser == null) {
+                          return;
+                        }
+                        Navigator.pushNamed(context, Routes.homePage);
+                      },
                     ),
                   ],
                 ),
