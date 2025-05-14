@@ -1,4 +1,4 @@
-package com.example.ta_nutrisenior_app
+package com.ta_nutrisenior_app
 
 import io.flutter.embedding.android.FlutterActivity
 
