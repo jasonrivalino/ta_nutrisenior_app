@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../shared/styles/colors.dart';
 import '../../../config/constants.dart';
+import '../../../shared/utils/validate_otp.dart';
 
 class OTPVerificationInput extends StatefulWidget {
   final GlobalKey<FormState>? formKey;
@@ -18,19 +19,8 @@ class OTPVerificationInputState extends State<OTPVerificationInput> {
   String? _errorText;
   String? get errorText => _errorText;
 
-  String? _validateOTP() {
-    final enteredCode = _controllers.map((c) => c.text).join();
-    if (enteredCode.length < 6 || _controllers.any((c) => c.text.isEmpty)) {
-      return 'Kode verifikasi tidak boleh kosong';
-    }
-    if (enteredCode != AppConstants.otpVerificationCode) {
-      return 'Kode verifikasi tidak sesuai';
-    }
-    return null;
-  }
-
   void validateAndSetState() {
-    final result = _validateOTP();
+    final result = validateOTP(_controllers, AppConstants.otpVerificationCode);
     setState(() {
       _errorText = result;
     });

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'phone_number_login_notification.dart';
+import '../../../shared/utils/otp_notification.dart';
 import "phone_number_login_widget.dart";
 import "../../../shared/widgets/submit_button.dart";
 

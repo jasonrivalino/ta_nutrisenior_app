@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../features/LoginProcess/PhoneNumber/phone_number_login_notification.dart';
+import 'shared/utils/otp_notification.dart';
 
 import './app.dart';
 

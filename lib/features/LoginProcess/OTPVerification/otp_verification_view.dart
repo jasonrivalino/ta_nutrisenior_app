@@ -5,7 +5,7 @@ import "../../../shared/widgets/submit_button.dart";
 import '../../../config/routes.dart';
 import '../../../shared/styles/colors.dart';
 import '../../../shared/styles/fonts.dart';
-import '../PhoneNumber/phone_number_login_notification.dart';
+import '../../../shared/utils/otp_notification.dart';
 import 'otp_verifivation_widget.dart';
 
 class OTPVerificationView extends StatefulWidget {
