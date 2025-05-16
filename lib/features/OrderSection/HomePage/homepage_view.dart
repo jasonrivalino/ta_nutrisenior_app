@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../shared/widgets/appbar.dart';
 import '../../../shared/widgets/bottom_navbar.dart';
 
 class HomePageView extends StatelessWidget {
@@ -8,6 +9,10 @@ class HomePageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: CustomAppBar(
+        title: 'Home',
+        showBackButton: false,
+      ),
       backgroundColor: Colors.blue[50],
       body: Center(
         child: Text(

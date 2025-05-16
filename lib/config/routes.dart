@@ -5,8 +5,8 @@ import '../features/LoginProcess/PhoneNumber/phone_number_login_view.dart';
 import '../features/LoginProcess/OTPVerification/otp_verification_view.dart';
 
 import '../features/OrderSection/HomePage/homepage_view.dart';
-import '../features/PromoSection/RestaurantPromo/recommend_restaurant_promo.dart';
-import '../features/HistorySection/DoneHistory/done_history_list_widget.dart';
+import '../features/PromoSection/RestaurantPromo/recommend_restaurant_promo_view.dart';
+import '../features/HistorySection/DoneHistory/done_history_list_view.dart';
 import '../features/ContactSection/ChatList/chat_list_view.dart';
 
 class Routes {

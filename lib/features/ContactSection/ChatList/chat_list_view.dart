@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '../../../shared/styles/colors.dart';
+import '../../../shared/widgets/appbar.dart';
 import '../../../shared/widgets/bottom_navbar.dart';
+import 'chat_list_data.dart';
+import 'chat_list_widget.dart';
 
 class ChatListView extends StatelessWidget {
   const ChatListView({super.key});
@@ -8,12 +12,22 @@ class ChatListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.pink[50],
-      body: Center(
-        child: Text(
-          'This is chat list page',
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-        ),
+      appBar: CustomAppBar(
+        title: 'Kontak',
+        showBackButton: false,
+      ),
+      backgroundColor: AppColors.soapstone,
+      body: ListView(
+        padding: const EdgeInsets.symmetric(vertical: 5.0),
+        children: chatDummyData.map((chat) {
+          return ChatMessageTile(
+            profileImage: chat['profileImage'] as String,
+            driverName: chat['driverName'] as String,
+            message: chat['message'] as String,
+            datetime: chat['datetime'] as String,
+            numberMessageReceived: chat['numberMessageReceived'] as int?,
+          );
+        }).toList(),
       ),
       bottomNavigationBar: const BottomNavBar(currentIndex: 3),
     );

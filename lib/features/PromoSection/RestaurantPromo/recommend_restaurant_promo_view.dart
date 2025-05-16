@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../shared/widgets/appbar.dart';
 import '../../../shared/widgets/bottom_navbar.dart';
 
 class RecommendRestaurantPromoView extends StatelessWidget {
@@ -8,6 +9,10 @@ class RecommendRestaurantPromoView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: CustomAppBar(
+        title: 'Promo Aplikasi',
+        showBackButton: false,
+      ),
       backgroundColor: Colors.green[50],
       body: Center(
         child: Text(

@@ -1,4 +1,3 @@
-// shared/widgets/bottom_nav_bar.dart
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -60,7 +59,7 @@ class BottomNavBar extends StatelessWidget {
           items: const [
             BottomNavigationBarItem(
               icon: FaIcon(FontAwesomeIcons.house, size: 20),
-              label: 'Home',
+              label: 'Beranda',
             ),
             BottomNavigationBarItem(
               icon: FaIcon(FontAwesomeIcons.percent, size: 20),
@@ -68,11 +67,11 @@ class BottomNavBar extends StatelessWidget {
             ),
             BottomNavigationBarItem(
               icon: 	FaIcon(FontAwesomeIcons.clipboardList, size: 20),
-              label: 'History',
+              label: 'Transaksi',
             ),
             BottomNavigationBarItem(
               icon: FaIcon(Icons.chat, size: 20),
-              label: 'Chat',
+              label: 'Kontak',
             ),
           ],
           selectedItemColor: AppColors.dark,

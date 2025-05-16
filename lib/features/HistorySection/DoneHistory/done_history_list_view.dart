@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../shared/widgets/appbar.dart';
 import '../../../shared/widgets/bottom_navbar.dart';
 
 class DoneHistoryListView extends StatelessWidget {
@@ -8,6 +9,10 @@ class DoneHistoryListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: CustomAppBar(
+        title: 'Aktivitas Pembelian',
+        showBackButton: false,
+      ),
       backgroundColor: Colors.yellow[50],
       body: Center(
         child: Text(
