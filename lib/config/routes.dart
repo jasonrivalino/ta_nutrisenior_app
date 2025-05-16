@@ -7,6 +7,8 @@ import '../features/LoginProcess/OTPVerification/otp_verification_view.dart';
 import '../features/OrderSection/HomePage/homepage_view.dart';
 import '../features/PromoSection/RestaurantPromo/recommend_restaurant_promo_view.dart';
 import '../features/HistorySection/DoneHistory/done_history_list_view.dart';
+
+import '../features/ContactSection/ChatDetails/chat_details_view.dart';
 import '../features/ContactSection/ChatList/chat_list_view.dart';
 
 class Routes {
@@ -15,8 +17,11 @@ class Routes {
 
   static const String homePage = '/homepage';
   static const String recommendRestaurantPromo = '/restaurantpromo';
-  static const String chatList = '/chatlist';
   static const String doneHistory = '/donehistory';
+
+  // Chat Feature
+  static const String chatList = '/chatlist';
+  static const String chatDetail = '/chatlist/detail';
 
   static final Map<String, WidgetBuilder> appRoutes = {
     // Login Process
@@ -27,6 +32,9 @@ class Routes {
     homePage: (_) => HomePageView(),
     recommendRestaurantPromo: (_) => const RecommendRestaurantPromoView(),
     doneHistory: (_) => const DoneHistoryListView(),
+
+    // Chat Feature
     chatList: (_) => const ChatListView(),
+    chatDetail: (_) => const ChatDetailView(),
   };
 }

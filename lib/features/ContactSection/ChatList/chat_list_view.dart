@@ -19,13 +19,21 @@ class ChatListView extends StatelessWidget {
       backgroundColor: AppColors.soapstone,
       body: ListView(
         padding: const EdgeInsets.symmetric(vertical: 5.0),
-        children: chatDummyData.map((chat) {
+        children: chatListData.asMap().entries.map((entry) {
+          final index = entry.key;
+          final chat = entry.value;
+
           return ChatMessageTile(
             profileImage: chat['profileImage'] as String,
             driverName: chat['driverName'] as String,
             message: chat['message'] as String,
             datetime: chat['datetime'] as String,
             numberMessageReceived: chat['numberMessageReceived'] as int?,
+            onTap: index == 4
+                ? () {
+                    Navigator.pushNamed(context, '/chatlist/detail');
+                  }
+                : null,
           );
         }).toList(),
       ),

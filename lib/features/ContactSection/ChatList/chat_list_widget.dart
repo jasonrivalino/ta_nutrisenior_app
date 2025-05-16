@@ -8,6 +8,7 @@ class ChatMessageTile extends StatelessWidget {
   final String message;
   final String datetime;
   final int? numberMessageReceived;
+  final VoidCallback? onTap; // Optional onTap for routing
 
   const ChatMessageTile({
     super.key,
@@ -16,11 +17,12 @@ class ChatMessageTile extends StatelessWidget {
     required this.message,
     required this.datetime,
     this.numberMessageReceived,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    final tileContent = Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -54,7 +56,7 @@ class ChatMessageTile extends StatelessWidget {
                     const SizedBox(width: 10),
                     Text(
                       datetime,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 14,
                         color: AppColors.dark,
                       ),
@@ -68,7 +70,7 @@ class ChatMessageTile extends StatelessWidget {
                     Expanded(
                       child: Text(
                         message,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 14,
                           color: AppColors.dark,
                         ),
@@ -76,7 +78,7 @@ class ChatMessageTile extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
-                    SizedBox(width: 12),
+                    const SizedBox(width: 12),
                     if (numberMessageReceived != null)
                       Container(
                         margin: const EdgeInsets.only(left: 8),
@@ -101,5 +103,15 @@ class ChatMessageTile extends StatelessWidget {
         ],
       ),
     );
+
+    // If onTap is provided, make the tile clickable
+    return onTap != null
+        ? InkWell(
+            onTap: onTap,
+            splashColor: Colors.grey.withValues(alpha: 0.2),
+            borderRadius: BorderRadius.circular(8),
+            child: tileContent,
+          )
+        : tileContent;
   }
 }

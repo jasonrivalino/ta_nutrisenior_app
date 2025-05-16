@@ -1,4 +1,4 @@
-const List<Map<String, dynamic>> chatDummyData = [
+const List<Map<String, dynamic>> chatListData = [
   {
     'profileImage': 'assets/images/dummy/chat/driver.png',
     'driverName': 'Driver #1',
@@ -18,7 +18,7 @@ const List<Map<String, dynamic>> chatDummyData = [
     'driverName': 'Driver #3',
     'message': 'Makanannya sudah sampai',
     'datetime': '18/05',
-    'numberMessageReceived': 1,
+    'numberMessageReceived': null,
   },
   {
     'profileImage': 'assets/images/dummy/chat/driver.png',
