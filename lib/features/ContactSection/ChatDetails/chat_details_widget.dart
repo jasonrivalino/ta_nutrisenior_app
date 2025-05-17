@@ -150,6 +150,7 @@ class BottomChatWidget extends StatelessWidget {
                   icon: const Icon(Icons.image),
                   color: AppColors.woodland,
                   iconSize: 30,
+                  padding: EdgeInsets.zero,
                   onPressed: onChooseImage,
                 ),
                 IconButton(

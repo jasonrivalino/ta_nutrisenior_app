@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+import '../../../shared/utils/google_auth_service.dart';
 import 'login_widget.dart';
 
 import '../../../config/routes.dart';
@@ -16,13 +17,6 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
-  final GoogleSignIn _googleSignIn = GoogleSignIn(
-    scopes: <String>[
-      'email',
-      'https://www.googleapis.com/auth/userinfo.profile',
-    ],
-  );
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,7 +48,7 @@ class _LoginViewState extends State<LoginView> {
                   children: [
                     LoginButton(
                       icon: FaIcon(FontAwesomeIcons.phone),
-                      text: "Login dengan Nomor Telepon",
+                      text: "Login Nomor Telepon",
                       onPressed: () {
                         Navigator.pushNamed(context, Routes.phoneNumberLogin);
                       },
@@ -62,10 +56,11 @@ class _LoginViewState extends State<LoginView> {
                     SizedBox(height: MediaQuery.of(context).size.height * 0.015),
                     LoginButton.withImage(
                       imagePath: 'assets/images/media/google.png',
-                      text: "Login dengan Akun Google",
+                      text: "Login Akun Google",
                       onPressed: () async {
-                        final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+                        final GoogleSignInAccount? googleUser = await GoogleAuthService.googleSignIn.signIn();
                         if (googleUser == null) {
+                          // The user canceled the sign-in
                           return;
                         }
                         Navigator.pushNamed(context, Routes.homePage);
