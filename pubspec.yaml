@@ -90,6 +90,7 @@ flutter:
     - assets/images/transparentAppLogo.png
     - assets/images/media/google.png
     - assets/images/dummy/chat/driver.png
+    - assets/images/dummy/restaurant/ristorante.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

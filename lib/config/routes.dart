@@ -7,6 +7,7 @@ import '../features/LoginProcess/PhoneNumber/phone_number_login_view.dart';
 import '../features/LoginProcess/OTPVerification/otp_verification_view.dart';
 
 import '../features/OrderSection/HomePage/homepage_view.dart';
+import '../features/PromoSection/MarketPromo/recommend_market_promo_view.dart';
 import '../features/PromoSection/RestaurantPromo/recommend_restaurant_promo_view.dart';
 import '../features/HistorySection/DoneHistory/done_history_list_view.dart';
 
@@ -21,6 +22,8 @@ class Routes {
   static const String homePage = '/homepage';
   static const String profile = '/profile';
   static const String recommendRestaurantPromo = '/restaurantpromo';
+  static const String recommendMarketPromo = '/marketpromo';
+
   static const String doneHistory = '/donehistory';
 
   // Chat Feature
@@ -38,6 +41,7 @@ class Routes {
     profile: (_) => const ProfileView(),
     
     recommendRestaurantPromo: (_) => const RecommendRestaurantPromoView(),
+    recommendMarketPromo: (_) => const RecommendMarketPromoView(),
     doneHistory: (_) => const DoneHistoryListView(),
 
     // Chat Feature
