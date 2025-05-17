@@ -8,13 +8,18 @@ import '../../../config/routes.dart';
 import '../../../shared/styles/colors.dart';
 import '../../../shared/styles/fonts.dart';
 
-class PhoneNumberLoginView extends StatelessWidget {
+class PhoneNumberLoginView extends StatefulWidget {
   const PhoneNumberLoginView({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  State<PhoneNumberLoginView> createState() => _PhoneNumberLoginViewState();
+}
 
+class _PhoneNumberLoginViewState extends State<PhoneNumberLoginView> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.ecruWhite,
       body: SafeArea(
@@ -23,7 +28,7 @@ class PhoneNumberLoginView extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.075),
             child: SingleChildScrollView(
               child: Form(
-                key: formKey,
+                key: _formKey,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -31,7 +36,7 @@ class PhoneNumberLoginView extends StatelessWidget {
                       "Login\nNomor Telepon",
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: 48,
+                        fontSize: 40,
                         fontFamily: AppFonts.fontBold,
                         fontWeight: FontWeight.bold,
                         color: AppColors.dark,
@@ -67,7 +72,7 @@ class PhoneNumberLoginView extends StatelessWidget {
                     SizedBox(height: MediaQuery.of(context).size.height * 0.175),
                     SubmitButton(
                       onPressed: () async {
-                        if (formKey.currentState!.validate()) {
+                        if (_formKey.currentState!.validate()) {
                           await NotificationService.showNotification(
                             title: "OTP Verifikasi",
                             body: "Kode OTP untuk verifikasi nomor telepon Anda adalah 123456",

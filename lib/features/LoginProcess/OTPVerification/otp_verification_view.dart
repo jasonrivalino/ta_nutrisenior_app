@@ -1,11 +1,9 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import "../../../shared/widgets/submit_button.dart";
 import '../../../config/routes.dart';
 import '../../../shared/styles/colors.dart';
 import '../../../shared/styles/fonts.dart';
-import '../../../shared/utils/otp_notification.dart';
 import 'otp_verifivation_widget.dart';
 
 class OTPVerificationView extends StatefulWidget {
@@ -33,7 +31,7 @@ class _OTPVerificationViewState extends State<OTPVerificationView> {
                     "Verifikasi OTP\nNomor Telepon",
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 48,
+                      fontSize: 40,
                       fontFamily: AppFonts.fontBold,
                       fontWeight: FontWeight.bold,
                       color: AppColors.dark,
@@ -55,42 +53,6 @@ class _OTPVerificationViewState extends State<OTPVerificationView> {
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                   OTPVerificationInput(key: _otpWidgetKey),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                  // Add text like "Kirim ulang OTP" here
-                  Padding(
-                    padding: const EdgeInsets.only(left: 6),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: RichText(
-                        text: TextSpan(
-                          text: 'Tidak mendapat kode, ',
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontFamily: AppFonts.fontBold,
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.dark,
-                          ),
-                          children: [
-                            TextSpan(
-                              text: 'kirim ulang',
-                              style: const TextStyle(
-                                decoration: TextDecoration.underline,
-                                color: Colors.blue,
-                              ),
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () async {
-                                  print('Kirim ulang clicked');
-                                  await NotificationService.showNotification(
-                                    title: "OTP Verifikasi",
-                                    body: "Kode OTP untuk verifikasi nomor telepon Anda adalah 123456",
-                                  );
-                                },
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.175),
                   SubmitButton(
                   onPressed: () {

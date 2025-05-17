@@ -1,6 +1,9 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import '../../../shared/styles/colors.dart';
 import '../../../config/constants.dart';
+import '../../../shared/styles/fonts.dart';
+import '../../../shared/utils/otp_notification.dart';
 import '../../../shared/utils/validate_otp.dart';
 
 class OTPVerificationInput extends StatefulWidget {
@@ -47,64 +50,100 @@ class OTPVerificationInputState extends State<OTPVerificationInput> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: List.generate(6, (index) {
-              return Container(
-                width: 50,
-                margin: const EdgeInsets.symmetric(horizontal: 4),
-                child: TextFormField(
-                  focusNode: _focusNodes[index],
-                  controller: _controllers[index],
-                  keyboardType: TextInputType.number,
-                  textAlign: TextAlign.center,
-                  maxLength: 1,
-                  showCursor: false,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    color: AppColors.dark,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  decoration: InputDecoration(
-                    counterText: '',
-                    filled: true,
-                    fillColor: AppColors.soapstone,
-                    contentPadding: const EdgeInsets.all(12),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: BorderSide(color: isError ? AppColors.persianRed : AppColors.dark, width: 2.0),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: BorderSide(color: isError ? AppColors.persianRed : AppColors.dark, width: 2.0),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: BorderSide(color: isError ? AppColors.persianRed : AppColors.dark, width: 2.0),
-                    ),
-                  ),
-                  onChanged: (value) {
-                    if (value.isNotEmpty && index < 5) {
-                      _focusNodes[index + 1].requestFocus();
-                    } else if (value.isEmpty && index > 0) {
-                      _focusNodes[index - 1].requestFocus();
-                    }
-                  },
+          SizedBox(
+            width: (48 + 6) * 6.0, // width of all OTP boxes with margins
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: List.generate(6, (index) {
+                    return Container(
+                      width: 48,
+                      margin: const EdgeInsets.symmetric(horizontal: 3),
+                      child: TextFormField(
+                        focusNode: _focusNodes[index],
+                        controller: _controllers[index],
+                        keyboardType: TextInputType.number,
+                        textAlign: TextAlign.center,
+                        maxLength: 1,
+                        showCursor: false,
+                        style: const TextStyle(
+                          fontSize: 20,
+                          color: AppColors.dark,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        decoration: InputDecoration(
+                          counterText: '',
+                          filled: true,
+                          fillColor: AppColors.soapstone,
+                          contentPadding: const EdgeInsets.all(12),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: BorderSide(color: isError ? AppColors.persianRed : AppColors.dark, width: 2.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: BorderSide(color: isError ? AppColors.persianRed : AppColors.dark, width: 2.0),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: BorderSide(color: isError ? AppColors.persianRed : AppColors.dark, width: 2.0),
+                          ),
+                        ),
+                        onChanged: (value) {
+                          if (value.isNotEmpty && index < 5) {
+                            _focusNodes[index + 1].requestFocus();
+                          } else if (value.isEmpty && index > 0) {
+                            _focusNodes[index - 1].requestFocus();
+                          }
+                        },
+                      ),
+                    );
+                  }),
                 ),
-              );
-            }),
-          ),
-          if (isError)
-            Padding(
-              padding: const EdgeInsets.only(top: 12, left: 6),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  _errorText!,
-                  style: const TextStyle(color: AppColors.persianRed, fontSize: 14),
+                const SizedBox(height: 12),
+                RichText(
+                  text: TextSpan(
+                    text: 'Tidak mendapat kode, ',
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontFamily: AppFonts.fontBold,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.dark,
+                    ),
+                    children: [
+                      TextSpan(
+                        text: 'kirim ulang',
+                        style: const TextStyle(
+                          decoration: TextDecoration.underline,
+                          color: Colors.blue,
+                        ),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () async {
+                            print('Kirim ulang clicked');
+                            await NotificationService.showNotification(
+                              title: "OTP Verifikasi",
+                              body: "Kode OTP untuk verifikasi nomor telepon Anda adalah 123456",
+                            );
+                          },
+                      ),
+                    ],
+                  ),
                 ),
-              ),
+                if (isError)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 12),
+                    child: Text(
+                      _errorText!,
+                      style: const TextStyle(
+                        color: AppColors.persianRed,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ),
+              ],
             ),
+          ),
         ],
       ),
     );
