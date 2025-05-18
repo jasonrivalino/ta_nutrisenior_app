@@ -53,6 +53,8 @@ class PromoRestoSection extends StatelessWidget {
                   image: restaurant['image'],
                   name: restaurant['name'],
                   type: restaurant['type'],
+                  rate: restaurant['rate'],
+                  location: restaurant['location'],
                   percentage: restaurant['percentage'],
                 ),
               );

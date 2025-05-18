@@ -41,9 +41,21 @@ class _SelectionToggleState extends State<RestoMarketSelectionToggle> {
   Widget build(BuildContext context) {
     final List<String> options = ['Restoran', 'Pusat Belanja'];
     final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
+    final double paddingVertical = (screenHeight * 0.045).clamp(20.0, 40.0);
+
+    print('Screen Width: $screenWidth');
+    print('Screen Height: $screenHeight');
+    print('Padding Vertical: $paddingVertical');
 
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: screenWidth * 0.075),
+      padding: EdgeInsets.symmetric(
+        vertical: (screenHeight * 0.045).clamp(
+          20.0,
+          screenHeight > 900 ? 40.0 : 25.0,
+        ),
+      ),
       child: Center(
         child: SizedBox(
           width: screenWidth * 0.7,

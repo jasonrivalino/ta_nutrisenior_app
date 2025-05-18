@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ta_nutrisenior_app/features/PromoSection/RestaurantPromo/recommend_restaurant_promo_widget.dart';
 
+import '../../../shared/styles/colors.dart';
 import '../../../shared/widgets/appbar.dart';
 import '../../../shared/widgets/bottom_navbar.dart';
 
@@ -16,16 +17,18 @@ class RecommendRestaurantPromoView extends StatelessWidget {
     final screenHeight = MediaQuery.of(context).size.height;
 
     // Constraint for responsive height
-    final heightCardDiscount = (screenHeight * 0.24).clamp(200.0, double.infinity);
-    final gapHeight = (screenHeight * 0.04).clamp(0.0, 35.0);
-    final heightCardFreeShipment = (screenHeight * 0.205).clamp(172.5, double.infinity);
+    final heightCard = (screenHeight * 0.235).clamp(205.0, double.infinity);
+    final gapHeight = (screenHeight * 0.03).clamp(0.0, screenHeight > 900 ? 30.0 : 17.5);
+
+    print('Gap Height: $gapHeight');
+    print('Height Card: $heightCard');
     
     return Scaffold(
       appBar: CustomAppBar(
         title: 'Promo Aplikasi',
         showBackButton: false,
       ),
-      backgroundColor: Colors.green[50],
+      backgroundColor: AppColors.soapstone,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -39,14 +42,14 @@ class RecommendRestaurantPromoView extends StatelessWidget {
             PromoRestoSection(
                 title: 'Promo Diskon',
                 routeDetail: '/restaurantpromo',
-                heightCard: heightCardDiscount,
+                heightCard: heightCard,
                 restaurants: discountRestaurant
             ),
             SizedBox(height: gapHeight),
             PromoRestoSection(
               title: 'Gratis Ongkir',
               routeDetail: '/restaurantpromo', 
-              heightCard: heightCardFreeShipment,
+              heightCard: heightCard,
               restaurants: freeShipmentRestaurant,
             ),
           ],

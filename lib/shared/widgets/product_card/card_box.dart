@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:ta_nutrisenior_app/shared/styles/colors.dart';
 import '../../styles/fonts.dart';
 
 class CardBox extends StatefulWidget {
   final String image;
   final String name;
   final String type;
-  final double? rate;
-  final String? location;
+  final double rate;
+  final double location;
   final int? percentage;
 
   const CardBox({
@@ -14,8 +16,8 @@ class CardBox extends StatefulWidget {
     required this.image,
     required this.name,
     required this.type,
-    this.rate,
-    this.location,
+    required this.rate,
+    required this.location,
     this.percentage,
   });
 
@@ -34,6 +36,13 @@ class _CardBoxState extends State<CardBox> {
 
   @override
   Widget build(BuildContext context) {
+    // Print
+    final screenHeight = MediaQuery.of(context).size.height;
+    final imageHeight = (screenHeight * 0.10).clamp(95.0, 120.0);
+
+    // Print the height of the image
+    print('Image Height: $imageHeight');
+
     return GestureDetector(
       onTapDown: (_) => _setPressed(true),
       onTapUp: (_) => _setPressed(false),
@@ -60,6 +69,7 @@ class _CardBoxState extends State<CardBox> {
           borderRadius: BorderRadius.circular(12),
         ),
         child: Card(
+          color: AppColors.soapstone,
           elevation: 0, // Use shadow from AnimatedContainer instead
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           margin: EdgeInsets.zero,
@@ -70,14 +80,14 @@ class _CardBoxState extends State<CardBox> {
                 borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
                 child: Image.asset(
                   widget.image,
-                  height: MediaQuery.of(context).size.height * 0.125,
+                  height: (MediaQuery.of(context).size.height * 0.1).clamp(90.0, 120.0),
                   width: double.infinity,
                   fit: BoxFit.cover,
                 ),
               ),
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 6.0),
+                  padding: const EdgeInsets.all(8.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -91,13 +101,56 @@ class _CardBoxState extends State<CardBox> {
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      if (widget.type == 'recommend' || widget.type == 'discount') const Spacer(),
-                      if (widget.type == 'recommend') ...[
-                        Text('⭐ ${widget.rate?.toStringAsFixed(1) ?? "-"}'),
-                        Text(widget.location ?? ""),
-                      ] else if (widget.type == 'discount') ...[
-                        Text('Diskon ${widget.percentage ?? 0}%'),
-                      ],
+                      const Spacer(),
+                      Row(
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              color: AppColors.lightGray,
+                              borderRadius: BorderRadius.circular(8), // Rounded corners
+                            ),
+                            padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const FaIcon(FontAwesomeIcons.solidStar, size: 12, color: AppColors.dark),
+                                const SizedBox(width: 3),
+                                Text(
+                                  '${widget.rate.toStringAsFixed(1)}/5',
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    fontFamily: AppFonts.fontMedium,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(width: 6),
+                          Container(
+                            decoration: BoxDecoration(
+                              color: AppColors.lightGray,
+                              borderRadius: BorderRadius.circular(8), // Rounded corners
+                            ),
+                            padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const Icon(Icons.location_on, size: 16, color: AppColors.dark),
+                                const SizedBox(width: 2),
+                                Text(
+                                  '${widget.location.toStringAsFixed(1)} km',
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    fontFamily: AppFonts.fontMedium,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ),
