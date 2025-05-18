@@ -86,10 +86,12 @@ class _CardBoxState extends State<CardBox> {
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontFamily: AppFonts.fontBold,
-                          fontSize: 16,
+                          fontSize: 17,
                         ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
                       ),
-                      const Spacer(),
+                      if (widget.type == 'recommend' || widget.type == 'discount') const Spacer(),
                       if (widget.type == 'recommend') ...[
                         Text('⭐ ${widget.rate?.toStringAsFixed(1) ?? "-"}'),
                         Text(widget.location ?? ""),
