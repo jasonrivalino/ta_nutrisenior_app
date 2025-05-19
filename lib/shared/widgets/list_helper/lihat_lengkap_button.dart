@@ -16,20 +16,25 @@ class LihatLengkapButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColors.woodland,
         foregroundColor: AppColors.soapstone,
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 1.0),
+        padding: const EdgeInsets.symmetric(horizontal: 12.0),
+        minimumSize: const Size(0, 30),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
         ),
-        elevation: 0, 
-        shadowColor: Colors.transparent, // Removes shadow completely
+        elevation: 0,
+        shadowColor: Colors.transparent,
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap, // Removes extra vertical space
       ),
-      child: const Text(
-        'Lihat Lengkap >',
-        style: TextStyle(
-          fontSize: 14,
-          fontWeight: FontWeight.w700,
-          fontFamily: AppFonts.fontBold,
-          color: AppColors.soapstone,
+      child: const Padding(
+        padding: EdgeInsets.symmetric(vertical: 2.0),
+        child: Text(
+          'Lihat Lengkap >',
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w700,
+            fontFamily: AppFonts.fontBold,
+            color: AppColors.soapstone,
+          ),
         ),
       ),
     );

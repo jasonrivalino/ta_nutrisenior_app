@@ -18,10 +18,10 @@ class RecommendRestaurantPromoView extends StatelessWidget {
 
     // Constraint for responsive height
     final heightCard = (screenHeight * 0.235).clamp(205.0, double.infinity);
-    final gapHeight = (screenHeight * 0.03).clamp(0.0, screenHeight > 900 ? 30.0 : 17.5);
+    final gapHeight = (screenHeight * 0.03).clamp(0.0, screenHeight > 900 ? 30.0 : 12.0);
 
-    print('Gap Height: $gapHeight');
-    print('Height Card: $heightCard');
+    // print('Gap Height: $gapHeight');
+    // print('Height Card: $heightCard');
     
     return Scaffold(
       appBar: CustomAppBar(

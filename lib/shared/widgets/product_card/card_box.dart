@@ -41,7 +41,7 @@ class _CardBoxState extends State<CardBox> {
     final imageHeight = (screenHeight * 0.10).clamp(95.0, 120.0);
 
     // Print the height of the image
-    print('Image Height: $imageHeight');
+    // print('Image Height: $imageHeight');
 
     return GestureDetector(
       onTapDown: (_) => _setPressed(true),
@@ -78,16 +78,51 @@ class _CardBoxState extends State<CardBox> {
             children: [
               ClipRRect(
                 borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
-                child: Image.asset(
-                  widget.image,
-                  height: (MediaQuery.of(context).size.height * 0.1).clamp(90.0, 120.0),
-                  width: double.infinity,
-                  fit: BoxFit.cover,
+                child: Stack(
+                  children: [
+                    Image.asset(
+                      widget.image,
+                      height: imageHeight,
+                      width: double.infinity,
+                      fit: BoxFit.cover,
+                    ),
+                    if (widget.percentage != null)
+                      Positioned(
+                        bottom: 4,
+                        right: 4,
+                        child: Transform.translate(
+                          offset: const Offset(0, -2), // Offset upwards by 2 pixels
+                        child: Container(
+                          padding: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            color: AppColors.orangyYellow,
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              color: AppColors.dark,
+                              width: 1,
+                            ),
+                          ),
+                          child: Transform.rotate(
+                            angle: -5 * (22/7) / 180,
+                            child: Text(
+                              '${widget.percentage}%',
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12,
+                                color: Colors.black,
+                                fontFamily: AppFonts.fontBold,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.fromLTRB(8, 6, 8, 8),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
