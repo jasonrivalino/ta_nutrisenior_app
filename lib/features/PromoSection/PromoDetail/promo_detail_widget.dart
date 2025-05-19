@@ -15,41 +15,43 @@ class PromoDetailWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        ListTitle(title: title),
-        const SizedBox(height: 17.5),
-        // Vertically scrollable card list
-        Container(
-          decoration: BoxDecoration(
-            border: Border.symmetric(
-              horizontal: BorderSide(
-                color: AppColors.darkGray,
-                width: 0.5,
+    return Expanded(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ListTitle(title: title),
+          const SizedBox(height: 17.5),
+          // Scrollable list only
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                border: Border.symmetric(
+                  horizontal: BorderSide(
+                    color: AppColors.darkGray,
+                    width: 0.5,
+                  ),
+                ),
+              ),
+              child: ListView.builder(
+                itemCount: businesses.length,
+                itemBuilder: (context, index) {
+                  final business = businesses[index];
+                  return CardList(
+                    image: business['image'],
+                    name: business['name'],
+                    type: business['type'],
+                    rate: business['rate'],
+                    location: business['location'],
+                    percentage: business['percentage'],
+                    onTap: () {},
+                  );
+                },
               ),
             ),
           ),
-          child: ListView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: businesses.length,
-            itemBuilder: (context, index) {
-              final business = businesses[index];
-              return CardList(
-                image: business['image'],
-                name: business['name'],
-                type: business['type'],
-                rate: business['rate'],
-                location: business['location'],
-                percentage: business['percentage'],
-                onTap:() {},
-              );
-            },
-          ),
-        ),
-        const SizedBox(height: 5),
-      ],
+          const SizedBox(height: 5),
+        ],
+      ),
     );
   }
 }

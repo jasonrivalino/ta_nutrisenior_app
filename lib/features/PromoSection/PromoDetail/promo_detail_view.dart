@@ -32,21 +32,21 @@ class PromoDetailView extends StatelessWidget {
         showBackButton: true,
       ),
       backgroundColor: AppColors.soapstone,
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            RestoMarketSelectionToggle(
-              initialIndex: initialIndex,
-              restoRoute: restoRoute,
-              marketRoute: marketRoute,
-            ),
-            PromoDetailWidget(
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          RestoMarketSelectionToggle(
+            initialIndex: initialIndex,
+            restoRoute: restoRoute,
+            marketRoute: marketRoute,
+          ),
+          Expanded(
+            child: PromoDetailWidget(
               title: promoTitle,
               businesses: freeShipmentBusinesses,
             ),
-          ],
-        ),
+          ),
+        ],
       ),
       bottomNavigationBar: const BottomNavBar(currentIndex: 1),
     );
