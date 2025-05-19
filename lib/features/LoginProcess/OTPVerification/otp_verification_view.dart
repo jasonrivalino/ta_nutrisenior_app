@@ -24,48 +24,52 @@ class _OTPVerificationViewState extends State<OTPVerificationView> {
         child: Center(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.075),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    "Verifikasi OTP\nNomor Telepon",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 40,
-                      fontFamily: AppFonts.fontBold,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.dark,
-                    ),
-                  ),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.15),
-                  const Align(
-                    alignment: Alignment.center,
-                    child: Text(
-                      "Masukkan Kode Verifikasi",
-                      textAlign: TextAlign.left,
+            child: SingleChildScrollView( // 🔁 Wrap in scroll view to avoid overflow
+              child: Form(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      "Verifikasi OTP\nNomor Telepon",
+                      textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 40,
                         fontFamily: AppFonts.fontBold,
                         fontWeight: FontWeight.bold,
                         color: AppColors.dark,
                       ),
                     ),
-                  ),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                  OTPVerificationInput(key: _otpWidgetKey),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.175),
-                  SubmitButton(
-                  onPressed: () {
-                    _otpWidgetKey.currentState?.validateAndSetState();
-                    if (_otpWidgetKey.currentState?.errorText == null) {
-                      Navigator.pushNamed(context, Routes.homePage);
-                      print("OTP valid!");
-                    } else {
-                      print("OTP not valid!");
-                    }
-                  },
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.15),
+                    const Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        "Masukkan Kode Verifikasi",
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontFamily: AppFonts.fontBold,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.dark,
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                    OTPVerificationInput(key: _otpWidgetKey),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.175),
+                    SubmitButton(
+                      onPressed: () {
+                        _otpWidgetKey.currentState?.validateAndSetState();
+                        if (_otpWidgetKey.currentState?.errorText == null) {
+                          Navigator.pushNamed(context, Routes.homePage);
+                          print("OTP valid!");
+                        } else {
+                          print("OTP not valid!");
+                        }
+                      },
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
         ),
