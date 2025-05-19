@@ -1,32 +1,44 @@
-// config/routes.dart
 import 'package:flutter/material.dart';
-import 'package:ta_nutrisenior_app/features/OrderSection/Profile/profile_view.dart';
 
 import '../features/LoginProcess/LoginOption/login_view.dart';
 import '../features/LoginProcess/PhoneNumber/phone_number_login_view.dart';
 import '../features/LoginProcess/OTPVerification/otp_verification_view.dart';
 
 import '../features/OrderSection/HomePage/homepage_view.dart';
-import '../features/PromoSection/MarketPromo/recommend_market_promo_view.dart';
-import '../features/PromoSection/RestaurantPromo/recommend_restaurant_promo_view.dart';
+import '../features/OrderSection/Profile/profile_view.dart';
+
+import '../features/PromoSection/data/recommend_market_promo_data.dart';
+import '../features/PromoSection/data/recommend_restaurant_promo_data.dart';
+import '../features/PromoSection/recommend_promo_view.dart';
+import '../features/PromoSection/FreeShipmentDetail/free_shipment_detail_view.dart';
+
 import '../features/HistorySection/DoneHistory/done_history_list_view.dart';
 
-import '../features/ContactSection/ChatDetails/chat_details_view.dart';
 import '../features/ContactSection/ChatList/chat_list_view.dart';
+import '../features/ContactSection/ChatDetails/chat_details_view.dart';
 
 class Routes {
+  // Login Process
   static const String loginOptions = '/login';
   static const String phoneNumberLogin = '/login/phone';
   static const String otpVerification = '/login/phone/otp';
 
+  // Main Application to Order Section
   static const String homePage = '/homepage';
   static const String profile = '/profile';
+
+  // Promo Section
   static const String recommendRestaurantPromo = '/restaurantpromo';
   static const String recommendMarketPromo = '/marketpromo';
+  static const String restaurantPromoDiscountDetail = '/restaurantpromo/discount/detail';
+  static const String marketPromoDiscountDetail = '/marketpromo/discount/detail';
+  static const String restaurantPromoFreeShipmentDetail = '/restaurantpromo/free_shipment/detail';
+  static const String marketPromoFreeShipmentDetail = '/marketpromo/free_shipment/detail';
 
+  // Transaction History Section
   static const String doneHistory = '/donehistory';
 
-  // Chat Feature
+  // Chat Feature Section
   static const String chatList = '/chatlist';
   static const String chatDetail = '/chatlist/detail';
 
@@ -36,15 +48,52 @@ class Routes {
     phoneNumberLogin: (_) => const PhoneNumberLoginView(),
     otpVerification: (_) => const OTPVerificationView(),
 
-    // Main Application
+    // Main Application to Order Section
     homePage: (_) => HomePageView(),
     profile: (_) => const ProfileView(),
     
-    recommendRestaurantPromo: (_) => const RecommendRestaurantPromoView(),
-    recommendMarketPromo: (_) => const RecommendMarketPromoView(),
+    // Promo Section
+    // Restaurant and Market Promo Recommendation
+    recommendRestaurantPromo: (_) => const RecommendPromoView(
+      initialIndex: 0,
+      restoRoute: recommendRestaurantPromo,
+      marketRoute: recommendMarketPromo,
+      discountRouteDetail: restaurantPromoDiscountDetail,
+      freeShipmentRouteDetail: restaurantPromoFreeShipmentDetail,
+      discountBusinesses: discountRestaurant,
+      freeShipmentBusinesses: freeShipmentRestaurant,
+    ),
+    recommendMarketPromo: (_) => const RecommendPromoView(
+      initialIndex: 1,
+      restoRoute: recommendRestaurantPromo,
+      marketRoute: recommendMarketPromo,
+      discountRouteDetail: marketPromoDiscountDetail,
+      freeShipmentRouteDetail: marketPromoFreeShipmentDetail,
+      discountBusinesses: discountMarket,
+      freeShipmentBusinesses: freeShipmentMarket,
+    ),
+
+    // Discount Detail
+    // restaurantPromoDiscountDetail: (_) => const RecommendRestaurantPromoView(),
+
+    // Free Shipment Detail
+    restaurantPromoFreeShipmentDetail: (_) => const FreeShipmentDetailView(
+      initialIndex: 0,
+      restoRoute: restaurantPromoFreeShipmentDetail,
+      marketRoute: marketPromoFreeShipmentDetail,
+      freeShipmentBusinesses: freeShipmentRestaurant,
+    ),
+    marketPromoFreeShipmentDetail: (_) => const FreeShipmentDetailView(
+      initialIndex: 1,
+      restoRoute: restaurantPromoFreeShipmentDetail,
+      marketRoute: marketPromoFreeShipmentDetail,
+      freeShipmentBusinesses: freeShipmentMarket,
+    ),
+    
+    // Transaction History Section
     doneHistory: (_) => const DoneHistoryListView(),
 
-    // Chat Feature
+    // Chat Feature Section
     chatList: (_) => const ChatListView(),
     chatDetail: (_) => const ChatDetailView(),
   };

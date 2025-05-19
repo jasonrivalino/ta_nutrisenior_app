@@ -7,10 +7,26 @@ import '../../../shared/widgets/bottom_navbar.dart';
 
 // Assuming SelectionToggle is imported or defined somewhere:
 import '../../../shared/widgets/list_helper/resto_market_selector.dart';
-import 'recommend_market_promo_data.dart';
 
-class RecommendMarketPromoView extends StatelessWidget {
-  const RecommendMarketPromoView({super.key});
+class RecommendPromoView extends StatelessWidget {
+  final int initialIndex;
+  final String restoRoute;
+  final String marketRoute;
+  final String discountRouteDetail;
+  final String freeShipmentRouteDetail;
+  final List<Map<String, dynamic>> discountBusinesses;
+  final List<Map<String, dynamic>> freeShipmentBusinesses;
+
+  const RecommendPromoView({
+    super.key,
+    required this.initialIndex,
+    required this.restoRoute,
+    required this.marketRoute,
+    required this.discountRouteDetail,
+    required this.freeShipmentRouteDetail,
+    required this.discountBusinesses,
+    required this.freeShipmentBusinesses,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -18,11 +34,11 @@ class RecommendMarketPromoView extends StatelessWidget {
 
     // Constraint for responsive height
     final heightCard = (screenHeight * 0.235).clamp(200.0, double.infinity);
-    final gapHeight = (screenHeight * 0.03).clamp(0.0, screenHeight > 900 ? 30.0 : 17.5);
+    final gapHeight =
+        (screenHeight * 0.03).clamp(0.0, screenHeight > 900 ? 30.0 : 17.5);
 
-    // print('Gap Height: $gapHeight');
     print('Height Card: $heightCard');
-    
+
     return Scaffold(
       appBar: CustomAppBar(
         title: 'Promo Aplikasi',
@@ -33,24 +49,23 @@ class RecommendMarketPromoView extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Add the SelectionToggle at the top or wherever suitable
             RestoMarketSelectionToggle(
-              initialIndex: 1, // or 1 depending on the default selection
-              restoRoute: '/restaurantpromo',
-              marketRoute: '/marketpromo',
+              initialIndex: initialIndex,
+              restoRoute: restoRoute,
+              marketRoute: marketRoute,
             ),
             RecommendedPromoSection(
-                title: 'Promo Diskon',
-                routeDetail: '/marketpromo',
-                heightCard: heightCard,
-                restaurants: discountMarket
+              title: 'Promo Diskon',
+              routeDetail: discountRouteDetail,
+              heightCard: heightCard,
+              businesses: discountBusinesses,
             ),
             SizedBox(height: gapHeight),
             RecommendedPromoSection(
               title: 'Gratis Ongkir',
-              routeDetail: '/marketpromo', 
+              routeDetail: freeShipmentRouteDetail,
               heightCard: heightCard,
-              restaurants: freeShipmentMarket,
+              businesses: freeShipmentBusinesses,
             ),
           ],
         ),
