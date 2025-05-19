@@ -10,7 +10,7 @@ import '../features/OrderSection/Profile/profile_view.dart';
 import '../features/PromoSection/data/recommend_market_promo_data.dart';
 import '../features/PromoSection/data/recommend_restaurant_promo_data.dart';
 import '../features/PromoSection/recommend_promo_view.dart';
-import '../features/PromoSection/FreeShipmentDetail/free_shipment_detail_view.dart';
+import '../features/PromoSection/PromoDetail/promo_detail_view.dart';
 
 import '../features/HistorySection/DoneHistory/done_history_list_view.dart';
 
@@ -74,17 +74,32 @@ class Routes {
     ),
 
     // Discount Detail
-    // restaurantPromoDiscountDetail: (_) => const RecommendRestaurantPromoView(),
+    restaurantPromoDiscountDetail: (_) => const PromoDetailView(
+      initialIndex: 0,
+      promoTitle: 'Promo Diskon',
+      restoRoute: restaurantPromoDiscountDetail,
+      marketRoute: marketPromoDiscountDetail,
+      freeShipmentBusinesses: discountRestaurant,
+    ),
+    marketPromoDiscountDetail: (_) => const PromoDetailView(
+      initialIndex: 1,
+      promoTitle: 'Promo Diskon',
+      restoRoute: restaurantPromoDiscountDetail,
+      marketRoute: marketPromoDiscountDetail,
+      freeShipmentBusinesses: discountMarket,
+    ),
 
     // Free Shipment Detail
-    restaurantPromoFreeShipmentDetail: (_) => const FreeShipmentDetailView(
+    restaurantPromoFreeShipmentDetail: (_) => const PromoDetailView(
       initialIndex: 0,
+      promoTitle: 'Gratis Ongkir',
       restoRoute: restaurantPromoFreeShipmentDetail,
       marketRoute: marketPromoFreeShipmentDetail,
       freeShipmentBusinesses: freeShipmentRestaurant,
     ),
-    marketPromoFreeShipmentDetail: (_) => const FreeShipmentDetailView(
+    marketPromoFreeShipmentDetail: (_) => const PromoDetailView(
       initialIndex: 1,
+      promoTitle: 'Gratis Ongkir',
       restoRoute: restaurantPromoFreeShipmentDetail,
       marketRoute: marketPromoFreeShipmentDetail,
       freeShipmentBusinesses: freeShipmentMarket,

@@ -6,19 +6,21 @@ import '../../../shared/widgets/bottom_navbar.dart';
 
 // Assuming SelectionToggle is imported or defined somewhere:
 import '../../../shared/widgets/list_helper/resto_market_selector.dart';
-import 'free_shipment_promo_detail_widget.dart';
+import 'promo_detail_widget.dart';
 
-class FreeShipmentDetailView extends StatelessWidget {
+class PromoDetailView extends StatelessWidget {
   final int initialIndex;
   final String restoRoute;
   final String marketRoute;
+  final String promoTitle;
   final List<Map<String, dynamic>> freeShipmentBusinesses;
 
-  const FreeShipmentDetailView({
+  const PromoDetailView({
     super.key,
     required this.initialIndex,
     required this.restoRoute,
     required this.marketRoute,
+    required this.promoTitle,
     required this.freeShipmentBusinesses,
   });
 
@@ -39,8 +41,8 @@ class FreeShipmentDetailView extends StatelessWidget {
               restoRoute: restoRoute,
               marketRoute: marketRoute,
             ),
-            FreeShipmentPromoDetail(
-              title: 'Gratis Ongkir',
+            PromoDetailWidget(
+              title: promoTitle,
               businesses: freeShipmentBusinesses,
             ),
           ],

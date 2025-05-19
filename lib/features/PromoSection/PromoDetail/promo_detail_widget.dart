@@ -3,11 +3,11 @@ import 'package:ta_nutrisenior_app/shared/widgets/list_helper/list_title.dart';
 import '../../../shared/styles/colors.dart';
 import '../../../shared/widgets/product_card/card_list.dart';
 
-class FreeShipmentPromoDetail extends StatelessWidget {
+class PromoDetailWidget extends StatelessWidget {
   final String title;
   final List<Map<String, dynamic>> businesses;
 
-  const FreeShipmentPromoDetail({
+  const PromoDetailWidget({
     super.key,
     required this.title,
     required this.businesses,

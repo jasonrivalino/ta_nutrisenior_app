@@ -43,18 +43,59 @@ class CardList extends StatelessWidget {
           ),
           child: Row(
             children: [
-              // Image section
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: Image.asset(
-                  image,
-                  width: 85,
-                  height: 70,
-                  fit: BoxFit.cover,
-                ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start, // or center if you want it centered
+                children: [
+                  // Image with border
+                  Container(
+                    width: 85,
+                    height: 70,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: AppColors.darkGray,
+                        width: 1,
+                      ),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: Image.asset(
+                        image,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+
+                  // Spacing between image and badge (optional)
+                  if (percentage != null) const SizedBox(height: 0),
+
+                  // Discount badge
+                  if (percentage != null)
+                    Container(
+                      width: 85, // Static width
+                      padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
+                      decoration: BoxDecoration(
+                        color: AppColors.orangyYellow,
+                        border: Border.all(
+                          color: AppColors.darkGray,
+                          width: 1,
+                        ),
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      alignment: Alignment.center, // To center the text
+                      child: Text(
+                        "Diskon $percentage%",
+                        style: const TextStyle(
+                          color: AppColors.dark,
+                          fontSize: 13,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                ],
               ),
               const SizedBox(width: 15),
-
               // Info section
               Expanded(
                 child: Column(
@@ -88,24 +129,6 @@ class CardList extends StatelessWidget {
                   ],
                 ),
               ),
-
-              // Optional discount badge
-              if (percentage != null)
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
-                  decoration: BoxDecoration(
-                    color: Colors.redAccent,
-                    borderRadius: BorderRadius.circular(6),
-                  ),
-                  child: Text(
-                    "$percentage% OFF",
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
             ],
           ),
         ),
