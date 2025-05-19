@@ -38,10 +38,10 @@ class _CardBoxState extends State<CardBox> {
   Widget build(BuildContext context) {
     // Print
     final screenHeight = MediaQuery.of(context).size.height;
-    final imageHeight = (screenHeight * 0.10).clamp(95.0, 120.0);
+    final imageHeight = (screenHeight * 0.10).clamp(100.0, 120.0);
 
     // Print the height of the image
-    // print('Image Height: $imageHeight');
+    print('Image Height: $imageHeight');
 
     return GestureDetector(
       onTapDown: (_) => _setPressed(true),
@@ -128,10 +128,11 @@ class _CardBoxState extends State<CardBox> {
                     children: [
                       Text(
                         widget.name,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontFamily: AppFonts.fontBold,
                           fontSize: 17,
+                          height: screenHeight > 900 ? 1.35 : 1.2,
                         ),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
@@ -153,7 +154,7 @@ class _CardBoxState extends State<CardBox> {
                                 Text(
                                   '${widget.rate.toStringAsFixed(1)}/5',
                                   style: const TextStyle(
-                                    fontWeight: FontWeight.w400,
+                                    fontWeight: FontWeight.w500,
                                     fontFamily: AppFonts.fontMedium,
                                     fontSize: 14,
                                   ),
@@ -161,7 +162,7 @@ class _CardBoxState extends State<CardBox> {
                               ],
                             ),
                           ),
-                          const SizedBox(width: 6),
+                          const SizedBox(width: 8),
                           Container(
                             decoration: BoxDecoration(
                               color: AppColors.lightGray,
@@ -174,9 +175,9 @@ class _CardBoxState extends State<CardBox> {
                                 const Icon(Icons.location_on, size: 16, color: AppColors.dark),
                                 const SizedBox(width: 2),
                                 Text(
-                                  '${widget.location.toStringAsFixed(1)} km',
+                                  '${widget.location.toStringAsFixed(2)} km',
                                   style: const TextStyle(
-                                    fontWeight: FontWeight.w400,
+                                    fontWeight: FontWeight.w500,
                                     fontFamily: AppFonts.fontMedium,
                                     fontSize: 14,
                                   ),

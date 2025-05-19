@@ -105,6 +105,19 @@ flutter:
     - assets/images/dummy/restaurant/sehatku.png
     - assets/images/dummy/restaurant/umamihana.png
 
+    # Asset market images
+    - assets/images/dummy/market/famgro.png
+    - assets/images/dummy/market/fitmarket.png
+    - assets/images/dummy/market/harvestmart.png
+    - assets/images/dummy/market/healthycaremart.png
+    - assets/images/dummy/market/ladangsehat.png
+    - assets/images/dummy/market/pasarmurah.png
+    - assets/images/dummy/market/sehatmart.png
+    - assets/images/dummy/market/supermarketaja.png
+    - assets/images/dummy/market/supermarketajacabang.png
+    - assets/images/dummy/market/vitagro.png
+    - assets/images/dummy/market/zestmart.png
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
 

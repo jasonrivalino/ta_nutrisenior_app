@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:ta_nutrisenior_app/shared/widgets/list_helper/lihat_lengkap_button.dart';
 import 'package:ta_nutrisenior_app/shared/widgets/list_helper/list_title.dart';
 
-import '../../../shared/widgets/product_card/card_box.dart';
+import '../../shared/widgets/product_card/card_box.dart';
 
-class PromoRestoSection extends StatelessWidget {
+class RecommendedPromoSection extends StatelessWidget {
   final String title;
   final String routeDetail;
   final double heightCard;
   final List<Map<String, dynamic>> restaurants;
 
-  const PromoRestoSection({
+  const RecommendedPromoSection({
     super.key,
     required this.title,
     required this.routeDetail,
