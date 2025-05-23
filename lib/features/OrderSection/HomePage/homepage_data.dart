@@ -19,7 +19,7 @@ const List<Map<String, dynamic>> recommendedToday = [
   },
   {
     'image': 'assets/images/dummy/market/pasarmurah.png',
-    'name': 'Ristorante Cabangan',
+    'name': 'Pasar Murah',
     'rate': 4.7,
     'location': 2.38,
   },
@@ -85,7 +85,7 @@ const List<Map<String, dynamic>> recommendedMarket = [
   },
   {
     'image': 'assets/images/dummy/market/pasarmurah.png',
-    'name': 'Ristorante Cabangan',
+    'name': 'Pasar Murah',
     'rate': 4.7,
     'location': 2.38,
   },

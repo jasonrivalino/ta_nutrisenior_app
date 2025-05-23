@@ -17,7 +17,7 @@ const List<Map<String, dynamic>> discountMarket = [
   },
   {
     'image': 'assets/images/dummy/market/pasarmurah.png',
-    'name': 'Ristorante Cabangan',
+    'name': 'Pasar Murah',
     'type': 'discount',
     'rate': 4.7,
     'location': 2.38,
@@ -33,7 +33,7 @@ const List<Map<String, dynamic>> discountMarket = [
   },
   {
     'image': 'assets/images/dummy/market/healthycaremart.png',
-    'name': 'Lina Elit Healthy Resto',
+    'name': 'HealthyCareMart',
     'type': 'discount',
     'rate': 4.8,
     'location': 5.75,
