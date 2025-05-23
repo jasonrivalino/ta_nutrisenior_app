@@ -1,4 +1,6 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:ta_nutrisenior_app/shared/styles/colors.dart';
 import 'package:ta_nutrisenior_app/shared/styles/fonts.dart';
@@ -37,6 +39,16 @@ class ProfileView extends StatelessWidget {
                     confirmText: 'Logout',
                     cancelText: 'Batalkan',
                     onConfirm: () async {
+                      final connectivityResult = await Connectivity().checkConnectivity();
+                      if (connectivityResult.contains(ConnectivityResult.none)) {
+                        Fluttertoast.showToast(
+                          msg: 'Logout tidak berhasil. \nSilakan coba lagi.',
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.BOTTOM,
+                        );
+                        return;
+                      }
+
                       await GoogleAuthService.signOutGoogle();
                       Navigator.pushNamedAndRemoveUntil(
                         context,

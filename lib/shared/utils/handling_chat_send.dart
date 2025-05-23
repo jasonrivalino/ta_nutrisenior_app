@@ -1,4 +1,8 @@
+import 'dart:async';
+
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
@@ -40,7 +44,7 @@ void handleSendMessages({
 class MessageStatusIcon extends StatelessWidget {
   final String? status;
 
-  const MessageStatusIcon({Key? key, required this.status}) : super(key: key);
+  const MessageStatusIcon({super.key, required this.status});
 
   @override
   Widget build(BuildContext context) {
@@ -59,29 +63,62 @@ void updateMessageStatus({
   required List<Map<String, dynamic>> messages,
   required int newMessagesCount,
   required VoidCallback onUpdate,
-  required State state, required tickerProvider,
-}) {
-  for (int i = 0; i < newMessagesCount; i++) {
-    final index = i;
+  required State state,
+}) async {
+  // Function to handle the message status update flow
+  void proceedWithStatusUpdate() {
+    for (int i = 0; i < newMessagesCount; i++) {
+      final index = i;
 
-    // Set to 'sent' after 2 seconds
-    Future.delayed(const Duration(seconds: 2), () {
-      if (state.mounted &&
-          messages.length > index &&
-          messages[index]['status'] == 'sending') {
-        messages[index]['status'] = 'sent';
-        onUpdate();
+      Future.delayed(const Duration(seconds: 2), () {
+        if (state.mounted &&
+            messages.length > index &&
+            messages[index]['status'] == 'sending') {
+          messages[index]['status'] = 'sent';
+          onUpdate();
+        }
+      });
+
+      Future.delayed(const Duration(seconds: 7), () {
+        if (state.mounted &&
+            messages.length > index &&
+            messages[index]['status'] == 'sent') {
+          messages[index]['status'] = 'delivered';
+          onUpdate();
+        }
+      });
+    }
+  }
+
+  final initialConnectivity = await Connectivity().checkConnectivity();
+
+  if (initialConnectivity.contains(ConnectivityResult.none)) {
+    // Show error toast after a short delay
+    Future.delayed(const Duration(seconds: 4), () {
+      if (!state.mounted) return;
+
+      for (int i = 0; i < newMessagesCount; i++) {
+        if (messages.length > i && messages[i]['status'] == 'sending') {
+          Fluttertoast.showToast(
+            msg: "Gagal mengirim pesan. \nSilakan coba lagi.",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+          );
+        }
       }
     });
 
-    // Set to 'delivered' after 7 seconds
-    Future.delayed(const Duration(seconds: 7), () {
-      if (state.mounted &&
-          messages.length > index &&
-          messages[index]['status'] == 'sent') {
-        messages[index]['status'] = 'delivered';
-        onUpdate();
+    // Wait for connectivity restoration
+    StreamSubscription? subscription;
+    subscription = Connectivity().onConnectivityChanged.listen((result) {
+      if (!result.contains(ConnectivityResult.none)) {
+        // Once online, proceed and cancel listener
+        subscription?.cancel();
+        proceedWithStatusUpdate();
       }
     });
+  } else {
+    // Already online: proceed directly
+    proceedWithStatusUpdate();
   }
 }

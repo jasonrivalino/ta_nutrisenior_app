@@ -45,7 +45,7 @@ class _ChatDetailViewState extends State<ChatDetailView> {
       messages: _messages,
       newMessagesCount: newMessagesCount,
       onUpdate: () => setState(() {}),
-      tickerProvider: this, state: this,
+      state: this,
     );
   }
 

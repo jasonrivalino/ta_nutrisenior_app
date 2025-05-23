@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -58,12 +59,25 @@ class _LoginViewState extends State<LoginView> {
                       imagePath: 'assets/images/media/google.png',
                       text: "Login Akun Google",
                       onPressed: () async {
-                        final GoogleSignInAccount? googleUser = await GoogleAuthService.googleSignIn.signIn();
-                        if (googleUser == null) {
-                          // The user canceled the sign-in
-                          return;
+                        try {
+                          final GoogleSignInAccount? googleUser =
+                              await GoogleAuthService.googleSignIn.signIn();
+                          if (googleUser == null) {
+                            Fluttertoast.showToast(
+                              msg: "Login tidak berhasil. \nSilakan ulangi.",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.BOTTOM,
+                            );
+                            return;
+                          }
+                          Navigator.pushNamed(context, Routes.homePage);
+                        } catch (e) {
+                          Fluttertoast.showToast(
+                            msg: "Login tidak berhasil. \nSilahkan ulangi..",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.BOTTOM,
+                          );
                         }
-                        Navigator.pushNamed(context, Routes.homePage);
                       },
                     ),
                   ],

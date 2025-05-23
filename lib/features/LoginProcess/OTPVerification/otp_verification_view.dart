@@ -1,4 +1,6 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import "../../../shared/widgets/submit_button.dart";
 import '../../../config/routes.dart';
@@ -57,7 +59,19 @@ class _OTPVerificationViewState extends State<OTPVerificationView> {
                     OTPVerificationInput(key: _otpWidgetKey),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.175),
                     SubmitButton(
-                      onPressed: () {
+                      onPressed: () async {
+                        // Check internet connection
+                        final connectivityResult = await Connectivity().checkConnectivity();
+                        if (connectivityResult.contains(ConnectivityResult.none)) {
+                          Fluttertoast.showToast(
+                            msg: "Tidak ada koneksi internet. \nSilakan periksa koneksi Anda.",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.BOTTOM,
+                          );
+                          return;
+                        }
+
+                        // Proceed with OTP validation ONLY if internet is available
                         _otpWidgetKey.currentState?.validateAndSetState();
                         if (_otpWidgetKey.currentState?.errorText == null) {
                           Navigator.pushNamed(context, Routes.homePage);
@@ -67,6 +81,7 @@ class _OTPVerificationViewState extends State<OTPVerificationView> {
                         }
                       },
                     ),
+
                   ],
                 ),
               ),
