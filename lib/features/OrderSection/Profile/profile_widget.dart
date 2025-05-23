@@ -1,7 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:ta_nutrisenior_app/shared/styles/colors.dart';
+
+import '../../../shared/utils/handling_choose_image.dart';
 
 class ProfileCard extends StatefulWidget {
   const ProfileCard({super.key});
@@ -12,13 +13,6 @@ class ProfileCard extends StatefulWidget {
 
 class _ProfileCardState extends State<ProfileCard> {
   File? _image;
-
-  Future<void> _pickImage() async {
-    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      setState(() => _image = File(pickedFile.path));
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,14 +39,17 @@ class _ProfileCardState extends State<ProfileCard> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('John Doe', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                Text('johndoe@gmail.com'),
-                SizedBox(height: 8),
+                const Text('John Doe', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                const Text('johndoe@gmail.com'),
+                const SizedBox(height: 8),
                 GestureDetector(
-                  onTap: () {
-                    _pickImage();
+                  onTap: () async {
+                    final selectedImage = await profileImageChoose();
+                    if (selectedImage != null) {
+                      setState(() => _image = selectedImage);
+                    }
                   },
-                  child: Text(
+                  child: const Text(
                     'Edit Profil',
                     style: TextStyle(
                       color: Colors.blue,

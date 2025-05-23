@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:ta_nutrisenior_app/shared/styles/colors.dart'; // Customize this path as needed
-import 'package:ta_nutrisenior_app/shared/styles/fonts.dart';  // Customize this path as needed
+import 'package:ta_nutrisenior_app/shared/styles/colors.dart';
+import 'package:ta_nutrisenior_app/shared/styles/fonts.dart';
 
 class CardList extends StatelessWidget {
   final String image;
@@ -10,7 +10,7 @@ class CardList extends StatelessWidget {
   final double rate;
   final double location;
   final int? percentage;
-  final VoidCallback? onTap; // <- Add this for tap handling
+  final VoidCallback? onTap;
 
   const CardList({
     super.key,
@@ -115,14 +115,52 @@ class CardList extends StatelessWidget {
                     const SizedBox(height: 10),
                     Row(
                       children: [
-                        _infoBadge(
-                          icon: const FaIcon(FontAwesomeIcons.solidStar, size: 12, color: AppColors.dark),
-                          text: '${rate.toStringAsFixed(1)}/5',
+                        Container(
+                          decoration: BoxDecoration(
+                            color: AppColors.soapstone,
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(color: AppColors.dark, width: 0.5),
+                          ),
+                          padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              FaIcon(FontAwesomeIcons.solidStar, size: 12, color: AppColors.dark),
+                              const SizedBox(width: 3),
+                              Text(
+                                '${rate.toStringAsFixed(1)}/5',
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontFamily: AppFonts.fontMedium,
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                         const SizedBox(width: 8),
-                        _infoBadge(
-                          icon: const Icon(Icons.location_on, size: 16, color: AppColors.dark),
-                          text: '${location.toStringAsFixed(2)} km',
+                        Container(
+                          decoration: BoxDecoration(
+                            color: AppColors.soapstone,
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(color: AppColors.dark, width: 0.5),
+                          ),
+                          padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(Icons.location_on, size: 16, color: AppColors.dark),
+                              const SizedBox(width: 3),
+                              Text(
+                                '${location.toStringAsFixed(2)} km',
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontFamily: AppFonts.fontMedium,
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -132,32 +170,6 @@ class CardList extends StatelessWidget {
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _infoBadge({required Widget icon, required String text}) {
-    return Container(
-      decoration: BoxDecoration(
-        color: AppColors.soapstone,
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: AppColors.dark, width: 0.5),
-      ),
-      padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          icon,
-          const SizedBox(width: 3),
-          Text(
-            text,
-            style: const TextStyle(
-              fontWeight: FontWeight.w500,
-              fontFamily: AppFonts.fontMedium,
-              fontSize: 14,
-            ),
-          ),
-        ],
       ),
     );
   }
