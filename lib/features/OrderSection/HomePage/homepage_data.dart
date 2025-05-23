@@ -1,3 +1,30 @@
+const List<Map<String, dynamic>> recommendedToday = [
+  {
+    'image': 'assets/images/dummy/restaurant/ristorante.png',
+    'name': 'Ristorante',
+    'rate': 4.5,
+    'location': 3.98,
+  },
+  {
+    'image': 'assets/images/dummy/market/supermarketaja.png',
+    'name': 'Supermarket Aja',
+    'rate': 4.8,
+    'location': 1.43,
+  },
+  {
+    'image': 'assets/images/dummy/restaurant/umamihana.png',
+    'name': 'Umami Hana Restaurant',
+    'rate': 4.8,
+    'location': 4.11,
+  },
+  {
+    'image': 'assets/images/dummy/market/pasarmurah.png',
+    'name': 'Ristorante Cabangan',
+    'rate': 4.7,
+    'location': 2.38,
+  },
+];
+
 const List<Map<String, dynamic>> recommendedRestaurant = [
   {
     'image': 'assets/images/dummy/restaurant/ristorante.png',

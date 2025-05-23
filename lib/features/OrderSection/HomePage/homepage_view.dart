@@ -39,7 +39,7 @@ class HomePageView extends StatelessWidget {
                       category: 'RecommendedToday',
                       title: 'Rekomendasi Hari Ini',
                       heightCard: heightRecommendedToday,
-                      businesses: recommendedRestaurant,
+                      businesses: recommendedToday,
                     ),
                     SizedBox(height: gapHeight),
                     RecommendedHomeSection(
