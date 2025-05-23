@@ -58,7 +58,7 @@ const List<Map<String, dynamic>> freeShipmentMarket = [
   },
   {
     'image': 'assets/images/dummy/market/harvestmart.png',
-    'name': 'Harvest Mart',
+    'name': 'HarvestMart Supermarket',
     'rate': 4.8,
     'location': 3.28,
     'type': 'freeshipment',

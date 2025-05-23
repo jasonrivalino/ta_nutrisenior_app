@@ -6,7 +6,7 @@ import '../../styles/fonts.dart';
 class CardBox extends StatefulWidget {
   final String image;
   final String name;
-  final String type;
+  final String? type;
   final double rate;
   final double location;
   final int? percentage;
@@ -15,7 +15,7 @@ class CardBox extends StatefulWidget {
     super.key,
     required this.image,
     required this.name,
-    required this.type,
+    this.type,
     required this.rate,
     required this.location,
     this.percentage,
