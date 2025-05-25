@@ -50,6 +50,11 @@ class ProfileView extends StatelessWidget {
                       }
 
                       await GoogleAuthService.signOutGoogle();
+                      Fluttertoast.showToast(
+                        msg: 'Logout berhasil.',
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.BOTTOM,
+                      );
                       Navigator.pushNamedAndRemoveUntil(
                         context,
                         '/login',

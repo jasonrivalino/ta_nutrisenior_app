@@ -12,7 +12,7 @@ import '../features/PromoSection/data/recommend_restaurant_promo_data.dart';
 import '../features/PromoSection/recommend_promo_view.dart';
 import '../features/PromoSection/PromoDetail/promo_detail_view.dart';
 
-import '../features/HistorySection/DoneHistory/done_history_list_view.dart';
+import '../features/HistorySection/history_list_view.dart';
 
 import '../features/ContactSection/ChatList/chat_list_view.dart';
 import '../features/ContactSection/ChatDetails/chat_details_view.dart';
@@ -36,7 +36,7 @@ class Routes {
   static const String marketPromoFreeShipmentDetail = '/marketpromo/free_shipment/detail';
 
   // Transaction History Section
-  static const String doneHistory = '/donehistory';
+  static const String history = '/history';
 
   // Chat Feature Section
   static const String chatList = '/chatlist';
@@ -106,7 +106,7 @@ class Routes {
     ),
     
     // Transaction History Section
-    doneHistory: (_) => const DoneHistoryListView(),
+    history: (_) => const HistoryListView(),
 
     // Chat Feature Section
     chatList: (_) => const ChatListView(),

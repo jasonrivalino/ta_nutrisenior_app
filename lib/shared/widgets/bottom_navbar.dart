@@ -22,7 +22,7 @@ class BottomNavBar extends StatelessWidget {
         break;
       case 2:
         Navigator.pushNamedAndRemoveUntil(
-            context, Routes.doneHistory, (route) => false);
+            context, Routes.history, (route) => false);
         break;
       case 3:
         Navigator.pushNamedAndRemoveUntil(

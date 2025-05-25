@@ -1,0 +1,89 @@
+List<Map<String, dynamic>> doneHistoryList = [
+  {
+    'orderDate': DateTime(2025, 3, 27, 14, 50),
+    'image': 'assets/images/dummy/restaurant/sabordosol.png',
+    'businessName': 'Sabor do Sol',
+    'totalPrice': 135600,
+    'cardType': 'done',
+  },
+  {
+    'orderDate': DateTime(2025, 3, 26, 11, 24),
+    'image': 'assets/images/dummy/restaurant/ristorante.png',
+    'businessName': 'Ristorante',
+    'totalPrice': 56000,
+    'cardType': 'done',
+  },
+  {
+    'orderDate': DateTime(2025, 3, 25, 14, 51),
+    'image': 'assets/images/dummy/market/supermarketaja.png',
+    'businessName': 'Supermarket Aja',
+    'totalPrice': 36000,
+    'cardType': 'done',
+  },
+  {
+    'orderDate': DateTime(2025, 3, 24, 13, 39),
+    'image': 'assets/images/dummy/restaurant/umamihana.png',
+    'businessName': 'Umami Hana Restaurant',
+    'totalPrice': 87050,
+    'cardType': 'done',
+  },
+  {
+    'orderDate': DateTime(2025, 3, 23, 06, 49),
+    'image': 'assets/images/dummy/market/harvestmart.png',
+    'businessName': 'HarvestMart Supermarket',
+    'totalPrice': 63000,
+    'cardType': 'done',
+  },
+  {
+    'orderDate': DateTime(2025, 3, 20, 08, 12),
+    'image': 'assets/images/dummy/market/famgro.png',
+    'businessName': 'Pasar Famgro',
+    'totalPrice': 13700,
+    'cardType': 'done',
+  },
+];
+
+List<Map<String, dynamic>> ongoingHistoryList = [
+  {
+    'orderDate': DateTime(2025, 3, 27, 17, 00),
+    'image': 'assets/images/dummy/restaurant/ristorante.png',
+    'businessName': 'Ristorante',
+    'totalPrice': 68400,
+    'cardType': 'diproses',
+  },
+    {
+    'orderDate': DateTime(2025, 3, 27, 16, 55),
+    'image': 'assets/images/dummy/market/supermarketaja.png',
+    'businessName': 'Supermarket Aja',
+    'totalPrice': 40000,
+    'cardType': 'diproses',
+  },
+    {
+    'orderDate': DateTime(2025, 3, 27, 16, 50),
+    'image': 'assets/images/dummy/restaurant/ristorante.png',
+    'businessName': 'Ristorante',
+    'totalPrice': 122000,
+    'cardType': 'diproses',
+  },
+    {
+    'orderDate': DateTime(2025, 3, 27, 16, 40),
+    'image': 'assets/images/dummy/restaurant/ristorante.png',
+    'businessName': 'Ristorante',
+    'totalPrice': 20000,
+    'cardType': 'dikirim',
+  },
+  {
+    'orderDate': DateTime(2025, 3, 25, 16, 30),
+    'image': 'assets/images/dummy/market/supermarketaja.png',
+    'businessName': 'Supermarket Aja',
+    'totalPrice': 57500,
+    'cardType': 'diproses',
+  },
+  {
+    'orderDate': DateTime(2025, 3, 25, 16, 20),
+    'image': 'assets/images/dummy/market/supermarketaja.png',
+    'businessName': 'Supermarket Aja',
+    'totalPrice': 20000,
+    'cardType': 'dikirim',
+  },
+];
