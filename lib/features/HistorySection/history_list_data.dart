@@ -27,7 +27,7 @@ List<Map<String, dynamic>> doneHistoryList = [
     'id': 4,
     'orderDate': DateTime(2025, 3, 24, 13, 39),
     'image': 'assets/images/dummy/restaurant/umamihana.png',
-    'businessName': 'Umami Hana Restaurant',
+    'businessName': 'Umami Hana Restaurant Lorem Ipsum Dolor Sit Amet',
     'totalPrice': 87050,
     'cardType': 'done',
   },
