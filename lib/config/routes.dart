@@ -144,21 +144,16 @@ final GoRouter router = GoRouter(
       path: Routes.history,
       builder: (context, state) => const HistoryListView(),
     ),
-    // GoRoute(
-    //   path: '/history/done/details/:id',
-    //   builder: (context, state) {
-    //     final id = int.tryParse(state.pathParameters['id'] ?? '0') ?? 0;
-    //     final extra = state.extra as Map<String, dynamic>?;
+    GoRoute(
+      path: '/history/done/details/:id',
+      builder: (context, state) {
+        final id = state.extra != null && state.extra is Map<String, dynamic>
+            ? (state.extra as Map<String, dynamic>)['id'] as int?
+            : int.tryParse(state.pathParameters['id'] ?? '');
 
-    //     return DoneHistoryDetailsView(
-    //       id: id,
-    //       orderDate: extra?['orderDate'],
-    //       image: extra?['image'],
-    //       businessName: extra?['businessName'],
-    //       totalPrice: extra?['totalPrice'],
-    //     );
-    //   },
-    // ),
+        return DoneHistoryDetailsView(id: id ?? 0);
+      },
+    ),
 
     // Chat
     GoRoute(
