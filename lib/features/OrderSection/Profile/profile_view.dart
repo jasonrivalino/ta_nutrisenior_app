@@ -1,6 +1,7 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:ta_nutrisenior_app/shared/styles/colors.dart';
 import 'package:ta_nutrisenior_app/shared/styles/fonts.dart';
@@ -55,11 +56,7 @@ class ProfileView extends StatelessWidget {
                         toastLength: Toast.LENGTH_SHORT,
                         gravity: ToastGravity.BOTTOM,
                       );
-                      Navigator.pushNamedAndRemoveUntil(
-                        context,
-                        '/login',
-                        (route) => false,
-                      );
+                      context.push('/login'); // Navigate to login page after logout
                     },
                   );
                 },
@@ -93,8 +90,8 @@ class ProfileView extends StatelessWidget {
             child: Column(
               children: [
                 ProfileMenuList(title: 'Favorit', navigate: () {}),
-                ProfileMenuList(title: 'Promo', navigate: () => Navigator.pushNamed(context, '/restaurantpromo')),
-                ProfileMenuList(title: 'Histori Transaksi', navigate: () => Navigator.pushNamed(context, '/donehistory')),
+                ProfileMenuList(title: 'Promo', navigate: () => context.push('/restaurantpromo')),
+                ProfileMenuList(title: 'Histori Transaksi', navigate: () => context.push('/donehistory')),
               ],
             ),
           ),

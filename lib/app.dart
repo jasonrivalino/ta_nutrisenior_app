@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'features/LoginProcess/LoginOption/login_view.dart';
-import '../features/SplashScreen/splashscreen.dart';
 import '../config/routes.dart';
+import '../features/SplashScreen/splashscreen.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -25,10 +24,14 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: _showSplash ? const SplashScreen() : const LoginView(),
-      initialRoute: '/', // or '/login'
-      routes: Routes.appRoutes, // This must be present
+    if (_showSplash) {
+      return const MaterialApp(
+        home: SplashScreen(),
+      );
+    }
+
+    return MaterialApp.router(
+      routerConfig: router,
       theme: ThemeData(
         fontFamily: 'Roboto',
       ),

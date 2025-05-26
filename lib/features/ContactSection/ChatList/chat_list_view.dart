@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../shared/styles/colors.dart';
 import '../../../shared/widgets/appbar.dart';
@@ -31,7 +32,7 @@ class ChatListView extends StatelessWidget {
             numberMessageReceived: chat['numberMessageReceived'] as int?,
             onTap: index == 4
                 ? () {
-                    Navigator.pushNamed(context, '/chatlist/detail');
+                    context.push('/chatlist/detail');
                   }
                 : null,
           );

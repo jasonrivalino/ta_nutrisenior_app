@@ -1,5 +1,6 @@
 List<Map<String, dynamic>> doneHistoryList = [
   {
+    'id': 1,
     'orderDate': DateTime(2025, 3, 27, 14, 50),
     'image': 'assets/images/dummy/restaurant/sabordosol.png',
     'businessName': 'Sabor do Sol',
@@ -7,6 +8,7 @@ List<Map<String, dynamic>> doneHistoryList = [
     'cardType': 'done',
   },
   {
+    'id': 2,
     'orderDate': DateTime(2025, 3, 26, 11, 24),
     'image': 'assets/images/dummy/restaurant/ristorante.png',
     'businessName': 'Ristorante',
@@ -14,6 +16,7 @@ List<Map<String, dynamic>> doneHistoryList = [
     'cardType': 'done',
   },
   {
+    'id': 3,
     'orderDate': DateTime(2025, 3, 25, 14, 51),
     'image': 'assets/images/dummy/market/supermarketaja.png',
     'businessName': 'Supermarket Aja',
@@ -21,6 +24,7 @@ List<Map<String, dynamic>> doneHistoryList = [
     'cardType': 'done',
   },
   {
+    'id': 4,
     'orderDate': DateTime(2025, 3, 24, 13, 39),
     'image': 'assets/images/dummy/restaurant/umamihana.png',
     'businessName': 'Umami Hana Restaurant',
@@ -28,6 +32,7 @@ List<Map<String, dynamic>> doneHistoryList = [
     'cardType': 'done',
   },
   {
+    'id': 5,
     'orderDate': DateTime(2025, 3, 23, 06, 49),
     'image': 'assets/images/dummy/market/harvestmart.png',
     'businessName': 'HarvestMart Supermarket',
@@ -35,6 +40,7 @@ List<Map<String, dynamic>> doneHistoryList = [
     'cardType': 'done',
   },
   {
+    'id': 6,
     'orderDate': DateTime(2025, 3, 20, 08, 12),
     'image': 'assets/images/dummy/market/famgro.png',
     'businessName': 'Pasar Famgro',
@@ -45,27 +51,31 @@ List<Map<String, dynamic>> doneHistoryList = [
 
 List<Map<String, dynamic>> ongoingHistoryList = [
   {
+    'id': 1,
     'orderDate': DateTime(2025, 3, 27, 17, 00),
     'image': 'assets/images/dummy/restaurant/ristorante.png',
     'businessName': 'Ristorante',
     'totalPrice': 68400,
     'cardType': 'diproses',
   },
-    {
+  {
+    'id': 2,
     'orderDate': DateTime(2025, 3, 27, 16, 55),
     'image': 'assets/images/dummy/market/supermarketaja.png',
     'businessName': 'Supermarket Aja',
     'totalPrice': 40000,
     'cardType': 'diproses',
   },
-    {
+  {
+    'id': 3,
     'orderDate': DateTime(2025, 3, 27, 16, 50),
     'image': 'assets/images/dummy/restaurant/ristorante.png',
     'businessName': 'Ristorante',
     'totalPrice': 122000,
     'cardType': 'diproses',
   },
-    {
+  {
+    'id': 4,
     'orderDate': DateTime(2025, 3, 27, 16, 40),
     'image': 'assets/images/dummy/restaurant/ristorante.png',
     'businessName': 'Ristorante',
@@ -73,6 +83,7 @@ List<Map<String, dynamic>> ongoingHistoryList = [
     'cardType': 'dikirim',
   },
   {
+    'id': 5,
     'orderDate': DateTime(2025, 3, 25, 16, 30),
     'image': 'assets/images/dummy/market/supermarketaja.png',
     'businessName': 'Supermarket Aja',
@@ -80,6 +91,7 @@ List<Map<String, dynamic>> ongoingHistoryList = [
     'cardType': 'diproses',
   },
   {
+    'id': 6,
     'orderDate': DateTime(2025, 3, 25, 16, 20),
     'image': 'assets/images/dummy/market/supermarketaja.png',
     'businessName': 'Supermarket Aja',

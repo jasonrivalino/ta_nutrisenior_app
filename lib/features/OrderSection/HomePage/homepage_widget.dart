@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ta_nutrisenior_app/shared/widgets/list_helper/lihat_lengkap_button.dart';
 import 'package:ta_nutrisenior_app/shared/widgets/list_helper/list_title.dart';
 
@@ -45,7 +46,7 @@ class HomeTopBarSection extends StatelessWidget {
                     icon: const Icon(Icons.account_circle),
                     padding: EdgeInsets.zero,
                     onPressed: () {
-                      Navigator.pushNamed(context, '/profile');
+                      context.push('/profile');
                     },
                   ),
                 ],
@@ -59,7 +60,7 @@ class HomeTopBarSection extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: GestureDetector(
             onTap: () {
-              Navigator.pushNamed(context, '/search');
+              context.push('/search');
             },
             child: Container(
               width: double.infinity,

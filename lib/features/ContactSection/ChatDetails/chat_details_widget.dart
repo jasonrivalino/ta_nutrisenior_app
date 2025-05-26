@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../shared/styles/colors.dart';
@@ -24,7 +25,7 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
       elevation: 0,
       leading: IconButton(
         icon: const Icon(Icons.arrow_back, color: AppColors.dark),
-        onPressed: () => Navigator.of(context).pop(),
+        onPressed: () => context.pop(),
       ),
       title: Padding(
         padding: const EdgeInsets.symmetric(vertical: 0),

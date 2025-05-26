@@ -111,6 +111,7 @@ class _HistoryListViewState extends State<HistoryListView> {
                 itemBuilder: (context, index) {
                   final item = historyList[index];
                   return HistoryCardList(
+                    id: item['id'],
                     orderDate: item['orderDate'],
                     image: item['image'],
                     businessName: item['businessName'],

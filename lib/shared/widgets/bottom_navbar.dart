@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../shared/styles/colors.dart';
 
@@ -13,20 +14,16 @@ class BottomNavBar extends StatelessWidget {
   void _onItemTapped(BuildContext context, int index) {
     switch (index) {
       case 0:
-        Navigator.pushNamedAndRemoveUntil(
-            context, Routes.homePage, (route) => false);
+        context.push(Routes.homePage);
         break;
       case 1:
-        Navigator.pushNamedAndRemoveUntil(
-            context, Routes.recommendRestaurantPromo, (route) => false);
+        context.push(Routes.recommendRestaurantPromo);
         break;
       case 2:
-        Navigator.pushNamedAndRemoveUntil(
-            context, Routes.history, (route) => false);
+        context.push(Routes.history);
         break;
       case 3:
-        Navigator.pushNamedAndRemoveUntil(
-            context, Routes.chatList, (route) => false);
+        context.push(Routes.chatList);
         break;
     }
   }

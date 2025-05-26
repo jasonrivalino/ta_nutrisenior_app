@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../styles/colors.dart';
 
@@ -42,7 +43,7 @@ class ConfirmDialog extends StatelessWidget {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () async {
-                  Navigator.of(context).pop();
+                  context.pop();
                   await onConfirm(); // Await async action
                 },
                 style: ElevatedButton.styleFrom(
@@ -66,7 +67,7 @@ class ConfirmDialog extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () => Navigator.of(context).pop(),
+                onPressed: () => context.pop(),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.dark,
                   shape: RoundedRectangleBorder(

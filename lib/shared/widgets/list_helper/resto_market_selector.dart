@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ta_nutrisenior_app/shared/styles/colors.dart';
 
 class RestoMarketSelectionToggle extends StatefulWidget {
@@ -34,7 +35,7 @@ class _SelectionToggleState extends State<RestoMarketSelectionToggle> {
     final selectedRoute =
         index == 0 ? widget.restoRoute : widget.marketRoute;
 
-    Navigator.pushNamed(context, selectedRoute);
+    context.push(selectedRoute);
   }
 
   @override

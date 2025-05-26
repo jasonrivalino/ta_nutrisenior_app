@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../shared/utils/otp_notification.dart';
 import "phone_number_login_widget.dart";
@@ -77,7 +78,7 @@ class _PhoneNumberLoginViewState extends State<PhoneNumberLoginView> {
                             title: "OTP Verifikasi",
                             body: "Kode OTP untuk verifikasi nomor telepon Anda adalah 123456",
                           );
-                          Navigator.pushNamed(context, Routes.otpVerification);
+                          context.push(Routes.otpVerification);
                         } else {
                           print("Validation failed");
                         }

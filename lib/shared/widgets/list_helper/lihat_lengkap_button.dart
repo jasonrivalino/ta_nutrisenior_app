@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ta_nutrisenior_app/shared/styles/colors.dart';
 import 'package:ta_nutrisenior_app/shared/styles/fonts.dart';
 
@@ -11,7 +12,7 @@ class LihatLengkapButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        Navigator.pushNamed(context, routeName);
+        context.push(routeName);
       },
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColors.woodland,

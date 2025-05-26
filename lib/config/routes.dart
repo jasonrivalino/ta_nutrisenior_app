@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
+import '../features/HistorySection/DoneHistory/done_history_details_view.dart';
 import '../features/LoginProcess/LoginOption/login_view.dart';
 import '../features/LoginProcess/PhoneNumber/phone_number_login_view.dart';
 import '../features/LoginProcess/OTPVerification/otp_verification_view.dart';
@@ -37,79 +39,135 @@ class Routes {
 
   // Transaction History Section
   static const String history = '/history';
+  static const String doneHistoryDetails = '/history/done/details/:id';
 
   // Chat Feature Section
   static const String chatList = '/chatlist';
   static const String chatDetail = '/chatlist/detail';
-
-  static final Map<String, WidgetBuilder> appRoutes = {
-    // Login Process
-    loginOptions: (_) => const LoginView(),
-    phoneNumberLogin: (_) => const PhoneNumberLoginView(),
-    otpVerification: (_) => const OTPVerificationView(),
-
-    // Main Application to Order Section
-    homePage: (_) => HomePageView(),
-    profile: (_) => const ProfileView(),
-    
-    // Promo Section
-    // Restaurant and Market Promo Recommendation
-    recommendRestaurantPromo: (_) => const RecommendPromoView(
-      initialIndex: 0,
-      restoRoute: recommendRestaurantPromo,
-      marketRoute: recommendMarketPromo,
-      discountRouteDetail: restaurantPromoDiscountDetail,
-      freeShipmentRouteDetail: restaurantPromoFreeShipmentDetail,
-      discountBusinesses: discountRestaurant,
-      freeShipmentBusinesses: freeShipmentRestaurant,
-    ),
-    recommendMarketPromo: (_) => const RecommendPromoView(
-      initialIndex: 1,
-      restoRoute: recommendRestaurantPromo,
-      marketRoute: recommendMarketPromo,
-      discountRouteDetail: marketPromoDiscountDetail,
-      freeShipmentRouteDetail: marketPromoFreeShipmentDetail,
-      discountBusinesses: discountMarket,
-      freeShipmentBusinesses: freeShipmentMarket,
-    ),
-
-    // Discount Detail
-    restaurantPromoDiscountDetail: (_) => const PromoDetailView(
-      initialIndex: 0,
-      promoTitle: 'Promo Diskon',
-      restoRoute: restaurantPromoDiscountDetail,
-      marketRoute: marketPromoDiscountDetail,
-      freeShipmentBusinesses: discountRestaurant,
-    ),
-    marketPromoDiscountDetail: (_) => const PromoDetailView(
-      initialIndex: 1,
-      promoTitle: 'Promo Diskon',
-      restoRoute: restaurantPromoDiscountDetail,
-      marketRoute: marketPromoDiscountDetail,
-      freeShipmentBusinesses: discountMarket,
-    ),
-
-    // Free Shipment Detail
-    restaurantPromoFreeShipmentDetail: (_) => const PromoDetailView(
-      initialIndex: 0,
-      promoTitle: 'Gratis Ongkir',
-      restoRoute: restaurantPromoFreeShipmentDetail,
-      marketRoute: marketPromoFreeShipmentDetail,
-      freeShipmentBusinesses: freeShipmentRestaurant,
-    ),
-    marketPromoFreeShipmentDetail: (_) => const PromoDetailView(
-      initialIndex: 1,
-      promoTitle: 'Gratis Ongkir',
-      restoRoute: restaurantPromoFreeShipmentDetail,
-      marketRoute: marketPromoFreeShipmentDetail,
-      freeShipmentBusinesses: freeShipmentMarket,
-    ),
-    
-    // Transaction History Section
-    history: (_) => const HistoryListView(),
-
-    // Chat Feature Section
-    chatList: (_) => const ChatListView(),
-    chatDetail: (_) => const ChatDetailView(),
-  };
 }
+
+final GoRouter router = GoRouter(
+  initialLocation: Routes.loginOptions,
+  routes: [
+    // Login Process
+    GoRoute(
+      path: Routes.loginOptions,
+      builder: (context, state) => const LoginView(),
+    ),
+    GoRoute(
+      path: Routes.phoneNumberLogin,
+      builder: (context, state) => const PhoneNumberLoginView(),
+    ),
+    GoRoute(
+      path: Routes.otpVerification,
+      builder: (context, state) => const OTPVerificationView(),
+    ),
+
+    // Main Application
+    GoRoute(
+      path: Routes.homePage,
+      builder: (context, state) => HomePageView(),
+    ),
+    GoRoute(
+      path: Routes.profile,
+      builder: (context, state) => const ProfileView(),
+    ),
+
+    // Promo Section
+    GoRoute(
+      path: Routes.recommendRestaurantPromo,
+      builder: (context, state) => const RecommendPromoView(
+        initialIndex: 0,
+        restoRoute: Routes.recommendRestaurantPromo,
+        marketRoute: Routes.recommendMarketPromo,
+        discountRouteDetail: Routes.restaurantPromoDiscountDetail,
+        freeShipmentRouteDetail: Routes.restaurantPromoFreeShipmentDetail,
+        discountBusinesses: discountRestaurant,
+        freeShipmentBusinesses: freeShipmentRestaurant,
+      ),
+    ),
+    GoRoute(
+      path: Routes.recommendMarketPromo,
+      builder: (context, state) => const RecommendPromoView(
+        initialIndex: 1,
+        restoRoute: Routes.recommendRestaurantPromo,
+        marketRoute: Routes.recommendMarketPromo,
+        discountRouteDetail: Routes.marketPromoDiscountDetail,
+        freeShipmentRouteDetail: Routes.marketPromoFreeShipmentDetail,
+        discountBusinesses: discountMarket,
+        freeShipmentBusinesses: freeShipmentMarket,
+      ),
+    ),
+    GoRoute(
+      path: Routes.restaurantPromoDiscountDetail,
+      builder: (context, state) => const PromoDetailView(
+        initialIndex: 0,
+        promoTitle: 'Promo Diskon',
+        restoRoute: Routes.restaurantPromoDiscountDetail,
+        marketRoute: Routes.marketPromoDiscountDetail,
+        freeShipmentBusinesses: discountRestaurant,
+      ),
+    ),
+    GoRoute(
+      path: Routes.marketPromoDiscountDetail,
+      builder: (context, state) => const PromoDetailView(
+        initialIndex: 1,
+        promoTitle: 'Promo Diskon',
+        restoRoute: Routes.restaurantPromoDiscountDetail,
+        marketRoute: Routes.marketPromoDiscountDetail,
+        freeShipmentBusinesses: discountMarket,
+      ),
+    ),
+    GoRoute(
+      path: Routes.restaurantPromoFreeShipmentDetail,
+      builder: (context, state) => const PromoDetailView(
+        initialIndex: 0,
+        promoTitle: 'Gratis Ongkir',
+        restoRoute: Routes.restaurantPromoFreeShipmentDetail,
+        marketRoute: Routes.marketPromoFreeShipmentDetail,
+        freeShipmentBusinesses: freeShipmentRestaurant,
+      ),
+    ),
+    GoRoute(
+      path: Routes.marketPromoFreeShipmentDetail,
+      builder: (context, state) => const PromoDetailView(
+        initialIndex: 1,
+        promoTitle: 'Gratis Ongkir',
+        restoRoute: Routes.restaurantPromoFreeShipmentDetail,
+        marketRoute: Routes.marketPromoFreeShipmentDetail,
+        freeShipmentBusinesses: freeShipmentMarket,
+      ),
+    ),
+
+    // History
+    GoRoute(
+      path: Routes.history,
+      builder: (context, state) => const HistoryListView(),
+    ),
+    // GoRoute(
+    //   path: '/history/done/details/:id',
+    //   builder: (context, state) {
+    //     final id = int.tryParse(state.pathParameters['id'] ?? '0') ?? 0;
+    //     final extra = state.extra as Map<String, dynamic>?;
+
+    //     return DoneHistoryDetailsView(
+    //       id: id,
+    //       orderDate: extra?['orderDate'],
+    //       image: extra?['image'],
+    //       businessName: extra?['businessName'],
+    //       totalPrice: extra?['totalPrice'],
+    //     );
+    //   },
+    // ),
+
+    // Chat
+    GoRoute(
+      path: Routes.chatList,
+      builder: (context, state) => const ChatListView(),
+    ),
+    GoRoute(
+      path: Routes.chatDetail,
+      builder: (context, state) => const ChatDetailView(),
+    ),
+  ],
+);

@@ -1,6 +1,7 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:go_router/go_router.dart';
 
 import "../../../shared/widgets/submit_button.dart";
 import '../../../config/routes.dart';
@@ -26,7 +27,7 @@ class _OTPVerificationViewState extends State<OTPVerificationView> {
         child: Center(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.075),
-            child: SingleChildScrollView( // 🔁 Wrap in scroll view to avoid overflow
+            child: SingleChildScrollView(
               child: Form(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -74,7 +75,7 @@ class _OTPVerificationViewState extends State<OTPVerificationView> {
                         // Proceed with OTP validation ONLY if internet is available
                         _otpWidgetKey.currentState?.validateAndSetState();
                         if (_otpWidgetKey.currentState?.errorText == null) {
-                          Navigator.pushNamed(context, Routes.homePage);
+                          context.push(Routes.homePage);
                           print("OTP valid!");
                         } else {
                           print("OTP not valid!");
