@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:ta_nutrisenior_app/shared/styles/colors.dart';
 
 import '../../../shared/widgets/appbar.dart';
-import 'done_history_details_data.dart';
+import '../history_list_data.dart';
 import 'done_history_details_widget.dart';
 
 class DoneHistoryDetailsView extends StatelessWidget {
@@ -16,26 +16,10 @@ class DoneHistoryDetailsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final order = doneHistoryDetailsList.firstWhere(
+    final order = doneHistoryList.firstWhere(
       (item) => item['id'] == id,
       orElse: () => {},
     );
-
-    if (order.isEmpty) {
-      return Scaffold(
-        appBar: CustomAppBar(
-          title: 'Data Not Found',
-          showBackButton: true
-        ),
-        body: Center(
-          child: Text(
-            'Data tidak ditemukan, silakan kembali ke halaman sebelumnya, perbaiki data, atau hubungi dukungan.',
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-          ),
-        ),
-      );
-    }
 
     // Now safe to access order fields
     int totalOrderPrice = order['orderList']
@@ -81,6 +65,7 @@ class DoneHistoryDetailsView extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: GiveRatingBottomNavbar(
+        businessType: order['businessType'],
         onDriverPressed: () {},
         onRestaurantPressed: () {},
       ),

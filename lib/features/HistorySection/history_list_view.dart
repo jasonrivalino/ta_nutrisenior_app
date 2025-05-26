@@ -113,11 +113,11 @@ class _HistoryListViewState extends State<HistoryListView> {
                   return HistoryCardList(
                     id: item['id'],
                     orderDate: item['orderDate'],
-                    image: item['image'],
+                    image: item['businessImage'],
                     businessName: item['businessName'],
                     totalPrice: item['totalPrice'],
                     cardType: item['cardType'],
-                    status: showDone ? null : item['status'], // Only show status for ongoing
+                    status: showDone ? null : item['status'],
                   );
                 },
               ),
