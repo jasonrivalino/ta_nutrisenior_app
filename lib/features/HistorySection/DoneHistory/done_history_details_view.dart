@@ -23,14 +23,15 @@ class DoneHistoryDetailsView extends StatelessWidget {
 
     if (order.isEmpty) {
       return Scaffold(
-        appBar: AppBar(
-          title: const Text('Detail Pembelian'),
-          backgroundColor: const Color(0xFFDDE3C1),
+        appBar: CustomAppBar(
+          title: 'Data Not Found',
+          showBackButton: true
         ),
-        body: const Center(
+        body: Center(
           child: Text(
-            'Data tidak ditemukan',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            'Data tidak ditemukan, silakan kembali ke halaman sebelumnya, perbaiki data, atau hubungi dukungan.',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
           ),
         ),
       );

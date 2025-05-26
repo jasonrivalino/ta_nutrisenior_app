@@ -18,6 +18,7 @@ import '../features/HistorySection/history_list_view.dart';
 
 import '../features/ContactSection/ChatList/chat_list_view.dart';
 import '../features/ContactSection/ChatDetails/chat_details_view.dart';
+import '../shared/utils/page_not_found.dart';
 
 class Routes {
   // Login Process
@@ -44,6 +45,9 @@ class Routes {
   // Chat Feature Section
   static const String chatList = '/chatlist';
   static const String chatDetail = '/chatlist/detail';
+
+  // Handling
+  static const String notFound = '/page-not-found';
 }
 
 final GoRouter router = GoRouter(
@@ -164,5 +168,16 @@ final GoRouter router = GoRouter(
       path: Routes.chatDetail,
       builder: (context, state) => const ChatDetailView(),
     ),
-  ],
+
+    // other routes
+    // Not Found
+    GoRoute(
+      path: '/',
+      builder: (context, state) => const HomePageView(),
+    ),
+    GoRoute(
+      path: Routes.notFound,
+      builder: (context, state) => const PageNotFound(),
+    ),
+  ], errorBuilder: (context, state) => const PageNotFound(),
 );
