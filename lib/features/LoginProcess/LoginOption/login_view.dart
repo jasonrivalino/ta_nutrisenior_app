@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../shared/utils/google_auth_service.dart';
 import 'login_widget.dart';
@@ -51,7 +52,7 @@ class _LoginViewState extends State<LoginView> {
                       icon: FaIcon(FontAwesomeIcons.phone),
                       text: "Login Nomor Telepon",
                       onPressed: () {
-                        Navigator.pushNamed(context, Routes.phoneNumberLogin);
+                        context.push(Routes.phoneNumberLogin);
                       },
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.015),
@@ -70,7 +71,7 @@ class _LoginViewState extends State<LoginView> {
                             );
                             return;
                           }
-                          Navigator.pushNamed(context, Routes.homePage);
+                          context.push(Routes.homePage);
                         } catch (e) {
                           Fluttertoast.showToast(
                             msg: "Login tidak berhasil. \nSilahkan ulangi..",

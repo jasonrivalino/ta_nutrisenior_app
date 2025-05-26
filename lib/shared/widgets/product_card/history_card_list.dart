@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:ta_nutrisenior_app/shared/styles/fonts.dart';
 
 import '../../styles/colors.dart';
 
 class HistoryCardList extends StatelessWidget {
+  final int id;
   final DateTime orderDate;
   final String image;
   final String businessName;
@@ -14,6 +16,7 @@ class HistoryCardList extends StatelessWidget {
 
   const HistoryCardList({
     super.key,
+    required this.id,
     required this.orderDate,
     required this.image,
     required this.businessName,
@@ -154,6 +157,8 @@ class HistoryCardList extends StatelessWidget {
                       ),
                       onPressed: () {
                         // Detail action
+                        context.push('/history/done/details/$id', 
+                        extra: {'id': id,});
                       },
                       child: const Text("Detail"),
                     ),

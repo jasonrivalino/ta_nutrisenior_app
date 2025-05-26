@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -31,12 +32,12 @@ Future<XFile?> handleChooseImage({
           ListTile(
             leading: const Icon(Icons.camera_alt),
             title: const Text('Take a photo'),
-            onTap: () => Navigator.pop(context, ImageSource.camera),
+            onTap: () => context.pop(ImageSource.camera),
           ),
           ListTile(
             leading: const Icon(Icons.photo_library),
             title: const Text('Choose from gallery'),
-            onTap: () => Navigator.pop(context, ImageSource.gallery),
+            onTap: () => context.pop(ImageSource.gallery),
           ),
         ],
       ),
