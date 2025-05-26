@@ -365,11 +365,13 @@ class DoneOrderDetailsCard extends StatelessWidget {
 }
 
 class GiveRatingBottomNavbar extends StatelessWidget {
+  final String businessType;
   final VoidCallback onDriverPressed;
   final VoidCallback onRestaurantPressed;
 
   const GiveRatingBottomNavbar({
     super.key,
+    required this.businessType,
     required this.onDriverPressed,
     required this.onRestaurantPressed,
   });
@@ -431,7 +433,9 @@ class GiveRatingBottomNavbar extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.woodland,
                   foregroundColor: AppColors.soapstone,
-                  padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: businessType == 'Restaurant' ? 40.0 : 22.0,
+                  ),
                   minimumSize: const Size(0, 40),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
@@ -441,8 +445,9 @@ class GiveRatingBottomNavbar extends StatelessWidget {
                   tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 ),
                 onPressed: onRestaurantPressed,
-                child: const Text("Restoran",
-                  style: TextStyle(
+                child: Text(
+                  businessType == 'Restaurant' ? "Restoran" : "Pusat Belanja",
+                  style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                     fontFamily: AppFonts.fontBold,
