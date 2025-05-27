@@ -219,7 +219,9 @@ class DoneOrderDetailsCard extends StatelessWidget {
           
           ...orderList.map<Widget>((item) {
             return Padding(
-              padding: const EdgeInsets.only(bottom: 8.0),
+              padding: EdgeInsets.only(
+                bottom: item != orderList.last ? 8.0 : 0.0,
+              ),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [

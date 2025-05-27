@@ -10,7 +10,7 @@ class DoneHistoryDetailsView extends StatelessWidget {
   final int id;
 
   const DoneHistoryDetailsView({
-    super.key, 
+    super.key,
     required this.id
   });
 
@@ -66,8 +66,20 @@ class DoneHistoryDetailsView extends StatelessWidget {
       ),
       bottomNavigationBar: GiveRatingBottomNavbar(
         businessType: order['businessType'],
-        onDriverPressed: () {},
-        onRestaurantPressed: () {},
+        onDriverPressed: () {
+          context.push('/history/done/details/:id/rating', extra: {
+            'id': order['id'],
+            'driverName': order['driverName'],
+          });
+        },
+        onRestaurantPressed: () {
+          context.push('/history/done/details/:id/rating', extra: {
+            'id': order['id'],
+            'businessName': order['businessName'],
+            'businessType': order['businessType'],
+            'businessImage': order['businessImage'],
+          });
+        },
       ),
     );
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../features/HistorySection/DoneHistory/Rating/rating_view.dart';
 import '../features/HistorySection/DoneHistory/done_history_details_view.dart';
 import '../features/LoginProcess/LoginOption/login_view.dart';
 import '../features/LoginProcess/PhoneNumber/phone_number_login_view.dart';
@@ -41,6 +42,7 @@ class Routes {
   // Transaction History Section
   static const String history = '/history';
   static const String doneHistoryDetails = '/history/done/details/:id';
+  static const String doneHistoryRating = '/history/done/details/:id/rating';
 
   // Chat Feature Section
   static const String chatList = '/chatlist';
@@ -149,13 +151,33 @@ final GoRouter router = GoRouter(
       builder: (context, state) => const HistoryListView(),
     ),
     GoRoute(
-      path: '/history/done/details/:id',
+      path: Routes.doneHistoryDetails,
       builder: (context, state) {
         final id = state.extra != null && state.extra is Map<String, dynamic>
             ? (state.extra as Map<String, dynamic>)['id'] as int?
             : int.tryParse(state.pathParameters['id'] ?? '');
 
         return DoneHistoryDetailsView(id: id ?? 0);
+      },
+    ),
+    GoRoute(
+      path: Routes.doneHistoryRating,
+      builder: (context, state) {
+        final extra = state.extra as Map<String, dynamic>?;
+
+        final id = extra?['id'] ?? 0;
+        final driverName = extra?['driverName'];
+        final businessName = extra?['businessName'];
+        final businessType = extra?['businessType'];
+        final businessImage = extra?['businessImage'];
+
+        return RatingView(
+          id: id,
+          driverName: driverName,
+          businessName: businessName,
+          businessType: businessType,
+          businessImage: businessImage,
+        );
       },
     ),
 
