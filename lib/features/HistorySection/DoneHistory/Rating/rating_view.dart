@@ -185,7 +185,7 @@ class _RatingViewState extends State<RatingView> {
                   );
 
                   await Future.delayed(const Duration(seconds: 2));
-                  Navigator.of(context).pop();
+                  context.pop(); // Close the loading dialog
 
                   Fluttertoast.showToast(
                     msg: "Rating berhasil diberikan!",

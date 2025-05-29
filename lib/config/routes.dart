@@ -16,6 +16,7 @@ import '../features/HistorySection/history_list_view.dart';
 import '../features/HistorySection/DoneHistory/done_history_details_view.dart';
 import '../features/HistorySection/DoneHistory/Rating/rating_view.dart';
 import '../features/HistorySection/DoneHistory/Report/report_view.dart';
+import '../features/HistorySection/DoneHistory/Report/report_success_view.dart';
 
 import '../features/ContactSection/ChatList/chat_list_view.dart';
 import '../features/ContactSection/ChatDetails/chat_details_view.dart';
@@ -44,6 +45,7 @@ class Routes {
   static const String doneHistoryDetails = '/history/done/details/:id';
   static const String doneHistoryRating = '/history/done/details/:id/rating';
   static const String doneHistoryReport = '/history/done/details/:id/report';
+  static const String doneHistoryReportSuccess = '/history/done/details/:id/report/success';
 
   // Chat Feature Section
   static const String chatList = '/chatlist';
@@ -195,6 +197,16 @@ final GoRouter router = GoRouter(
           isDriver: isDriver,
           businessType: businessType,
         );
+      },
+    ),
+    GoRoute(
+      path: Routes.doneHistoryReportSuccess,
+        builder: (context, state) {
+        final id = state.extra != null && state.extra is Map<String, dynamic>
+            ? (state.extra as Map<String, dynamic>)['id'] as int?
+            : int.tryParse(state.pathParameters['id'] ?? '');
+
+        return ReportSuccess(id: id ?? 0);
       },
     ),
 

@@ -9,6 +9,7 @@ import 'package:ta_nutrisenior_app/shared/widgets/warning_button.dart';
 
 import '../../../../shared/utils/handling_choose_image.dart';
 import '../../../../shared/widgets/comment_input_card.dart';
+import '../../../../shared/widgets/confirm_dialog.dart';
 import 'report_data.dart';
 
 class ReportView extends StatefulWidget {
@@ -170,12 +171,10 @@ class _ReportViewState extends State<ReportView> {
                         WarningButton(
                           warningText: "Berikan Laporkan",
                           onPressed: () async {
-                            if (selectedReasonId == null || (selectedReasonId == 999 &&
-                                otherReasonText.trim().isEmpty)) {
+                            if (selectedReasonId == null || (selectedReasonId == 999 && otherReasonText.trim().isEmpty)) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
-                                  content:
-                                      Text("Pilih alasan pelaporan terlebih dahulu."),
+                                  content: Text("Pilih alasan pelaporan terlebih dahulu."),
                                   backgroundColor: AppColors.persianRed,
                                   behavior: SnackBarBehavior.floating,
                                 ),
@@ -186,7 +185,7 @@ class _ReportViewState extends State<ReportView> {
                             if (_commentController.text.trim().isEmpty) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
-                                  content: Text("Laporan tidak boleh kosong."),
+                                  content: Text("Penjelasan Laporan tidak boleh kosong."),
                                   backgroundColor: AppColors.persianRed,
                                   behavior: SnackBarBehavior.floating,
                                 ),
@@ -194,37 +193,47 @@ class _ReportViewState extends State<ReportView> {
                               return;
                             }
 
-                            final connectivityResult =
-                                await Connectivity().checkConnectivity();
-                            if (connectivityResult.contains(ConnectivityResult.none)) {
-                              Fluttertoast.showToast(
-                                msg: "Gagal mengirim laporan.\nSilahkan coba lagi.",
-                                toastLength: Toast.LENGTH_SHORT,
-                                gravity: ToastGravity.BOTTOM,
-                              );
-                              return;
-                            }
+                            // Capture a stable context before any dialogs
+                            final rootContext = context;
 
-                            // Show loading
                             showDialog(
-                              context: context,
-                              barrierDismissible: false,
-                              builder: (_) => const Center(
-                                child: CircularProgressIndicator(),
-                              ),
+                              context: rootContext,
+                              builder: (BuildContext dialogContext) {
+                                return ConfirmDialog(
+                                  titleText: 'Apakah laporan sudah yakin benar?',
+                                  confirmText: 'Ya, berikan laporan',
+                                  cancelText: 'Tidak, ubah dulu',
+                                  onConfirm: () async {
+                                    final connectivityResult = await Connectivity().checkConnectivity();
+                                    if (connectivityResult.contains(ConnectivityResult.none)) {
+                                      Fluttertoast.showToast(
+                                        msg: 'Laporan gagal dikirimkan.\nSilahkan coba lagi.',
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        gravity: ToastGravity.BOTTOM,
+                                      );
+                                      return;
+                                    }
+
+                                    // Show loading dialog using safe root context
+                                    showDialog(
+                                      context: rootContext,
+                                      barrierDismissible: false,
+                                      builder: (_) => const Center(
+                                        child: CircularProgressIndicator(),
+                                      ),
+                                    );
+
+                                    await Future.delayed(const Duration(seconds: 2));
+
+                                    if (!mounted) return;
+
+                                    rootContext.pop();
+
+                                    rootContext.push('/history/done/details/:id/report/success', extra: widget.id);
+                                  },
+                                );
+                              },
                             );
-
-                            await Future.delayed(const Duration(seconds: 2));
-
-                            Navigator.of(context).pop();
-
-                            Fluttertoast.showToast(
-                              msg: "Laporan berhasil dikirim!",
-                              toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.BOTTOM,
-                            );
-
-                            context.push('/history');
                           },
                         ),
                       ],
