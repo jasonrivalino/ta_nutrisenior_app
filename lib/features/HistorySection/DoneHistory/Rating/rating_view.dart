@@ -77,17 +77,18 @@ class _RatingViewState extends State<RatingView> {
         title: appBarTitle,
         showBackButton: true,
       ),
+      resizeToAvoidBottomInset: true, // This is important
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(32),
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 32),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              SizedBox(height: MediaQuery.of(context).size.height * 0.05),
               Text(
                 isDriver ? "Beri Rating Pengemudi" : "Beri Rating ${isRestaurant ? 'Restoran' : 'Pusat Belanja'}",
                 style: const TextStyle(
-                  fontSize: 24,
+                  fontSize: 22,
                   fontWeight: FontWeight.bold,
                   fontFamily: AppFonts.fontBold,
                   color: AppColors.dark,
@@ -98,7 +99,7 @@ class _RatingViewState extends State<RatingView> {
               RatingCard(
                 ratingTarget: ratingTarget,
                 businessImage: widget.businessImage,
-                selectedRating: selectedRating, 
+                selectedRating: selectedRating,
                 onRatingSelected: (rating) {
                   setState(() {
                     selectedRating = rating;
@@ -108,14 +109,20 @@ class _RatingViewState extends State<RatingView> {
               SizedBox(height: MediaQuery.of(context).size.height * 0.035),
               CommentInputCard(
                 controller: _commentController,
+                titleText: "Berikan Komentar",
+                placeholderText: "Masukkan komentar Anda...",
                 selectedImages: _selectedImages,
                 onChooseImage: _handleChooseImage,
                 onRemoveImage: _removeImage,
               ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+              SizedBox(height: 16),
               GestureDetector(
                 onTap: () {
-                  // TODO: Handle report action
+                  context.push('/history/done/details/:id/report', extra: {
+                    'id': widget.id,
+                    'isDriver': isDriver,
+                    'businessType': widget.businessType,
+                  });
                 },
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
@@ -125,20 +132,19 @@ class _RatingViewState extends State<RatingView> {
                     Text(
                       isDriver ? "Laporkan Pengemudi" : "Laporkan ${isRestaurant ? 'Restoran' : 'Pusat Belanja'}",
                       style: const TextStyle(
-                        color: AppColors.persianRed, 
-                        fontSize: 14, 
-                        fontFamily: AppFonts.fontMedium, 
-                        fontWeight: FontWeight.w500
+                        color: AppColors.persianRed,
+                        fontSize: 14,
+                        fontFamily: AppFonts.fontMedium,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                   ],
                 ),
               ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.025),
+              SizedBox(height: 24),
               SubmitButton(
                 onPressed: () async {
-                  // Validate rating and comment
-                  if (_commentController.text.trim().isEmpty ) {
+                  if (_commentController.text.trim().isEmpty) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                         content: Text("Komentar tidak boleh kosong."),
@@ -160,7 +166,6 @@ class _RatingViewState extends State<RatingView> {
                     return;
                   }
 
-                  // Handling no connection
                   final connectivityResult = await Connectivity().checkConnectivity();
                   if (connectivityResult.contains(ConnectivityResult.none)) {
                     Fluttertoast.showToast(
@@ -170,8 +175,7 @@ class _RatingViewState extends State<RatingView> {
                     );
                     return;
                   }
-                  
-                  // Show loading dialog
+
                   showDialog(
                     context: context,
                     barrierDismissible: false,
@@ -180,24 +184,19 @@ class _RatingViewState extends State<RatingView> {
                     ),
                   );
 
-                  // Wait for 2 seconds
                   await Future.delayed(const Duration(seconds: 2));
-
-                  // Dismiss loading
                   Navigator.of(context).pop();
 
-                  // Show success toast
                   Fluttertoast.showToast(
                     msg: "Rating berhasil diberikan!",
                     toastLength: Toast.LENGTH_SHORT,
                     gravity: ToastGravity.BOTTOM,
                   );
 
-                  // Navigate to history page
-                  context.go('/history'); // Adjust route if needed
+                  context.go('/history');
                 },
               ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+              SizedBox(height: 24),
             ],
           ),
         ),

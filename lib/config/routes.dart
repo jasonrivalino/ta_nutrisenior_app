@@ -1,8 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../features/HistorySection/DoneHistory/Rating/rating_view.dart';
-import '../features/HistorySection/DoneHistory/done_history_details_view.dart';
 import '../features/LoginProcess/LoginOption/login_view.dart';
 import '../features/LoginProcess/PhoneNumber/phone_number_login_view.dart';
 import '../features/LoginProcess/OTPVerification/otp_verification_view.dart';
@@ -16,6 +13,9 @@ import '../features/PromoSection/recommend_promo_view.dart';
 import '../features/PromoSection/PromoDetail/promo_detail_view.dart';
 
 import '../features/HistorySection/history_list_view.dart';
+import '../features/HistorySection/DoneHistory/done_history_details_view.dart';
+import '../features/HistorySection/DoneHistory/Rating/rating_view.dart';
+import '../features/HistorySection/DoneHistory/Report/report_view.dart';
 
 import '../features/ContactSection/ChatList/chat_list_view.dart';
 import '../features/ContactSection/ChatDetails/chat_details_view.dart';
@@ -43,6 +43,7 @@ class Routes {
   static const String history = '/history';
   static const String doneHistoryDetails = '/history/done/details/:id';
   static const String doneHistoryRating = '/history/done/details/:id/rating';
+  static const String doneHistoryReport = '/history/done/details/:id/report';
 
   // Chat Feature Section
   static const String chatList = '/chatlist';
@@ -177,6 +178,22 @@ final GoRouter router = GoRouter(
           businessName: businessName,
           businessType: businessType,
           businessImage: businessImage,
+        );
+      },
+    ),
+    GoRoute(
+      path: Routes.doneHistoryReport,
+      builder: (context, state) {
+        final extra = state.extra as Map<String, dynamic>?;
+
+        final id = extra?['id'] ?? 0;
+        final isDriver = extra?['isDriver'] ?? false;
+        final businessType = extra?['businessType'];
+
+        return ReportView(
+          id: id,
+          isDriver: isDriver,
+          businessType: businessType,
         );
       },
     ),

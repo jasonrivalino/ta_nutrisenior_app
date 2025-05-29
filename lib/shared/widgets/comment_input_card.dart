@@ -6,6 +6,8 @@ import '../styles/fonts.dart';
 
 class CommentInputCard extends StatelessWidget {
   final TextEditingController controller;
+  final String titleText;
+  final String placeholderText;
   final List<String> selectedImages;
   final VoidCallback onChooseImage;
   final Function(int) onRemoveImage;
@@ -13,6 +15,8 @@ class CommentInputCard extends StatelessWidget {
   const CommentInputCard({
     Key? key,
     required this.controller,
+    required this.titleText,
+    required this.placeholderText,
     required this.selectedImages,
     required this.onChooseImage,
     required this.onRemoveImage,
@@ -23,18 +27,15 @@ class CommentInputCard extends StatelessWidget {
     return Column(
       children: [
         // Comment Title
-        Align(
-          alignment: Alignment.centerLeft,
-          child: Text(
-            "Berikan Komentar",
+        Text(titleText,
             style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              fontFamily: AppFonts.fontBold,
-            ),
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            fontFamily: AppFonts.fontBold,
           ),
+          textAlign: TextAlign.left,
         ),
-        SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.015),
         // Comment input card
         Container(
           padding: const EdgeInsets.all(12),
@@ -47,10 +48,16 @@ class CommentInputCard extends StatelessWidget {
             border: Border.all(color: AppColors.dark, width: 1.5),
           ),
           child: TextField(
+            style: const TextStyle(
+              color: AppColors.dark,
+              fontSize: 14,
+              fontFamily: AppFonts.fontMedium,
+              fontWeight: FontWeight.w500,
+            ),
             controller: controller,
-            maxLines: 4,
-            decoration: const InputDecoration.collapsed(
-              hintText: "Tulis komentarmu...",
+            maxLines: 5,
+            decoration: InputDecoration.collapsed(
+              hintText: placeholderText,
             ),
           ),
         ),
@@ -75,7 +82,7 @@ class CommentInputCard extends StatelessWidget {
                 const Padding(
                   padding: EdgeInsets.only(right: 8),
                   child: Text(
-                    "Masukkan Gambar",
+                    "Masukkan Gambar Pendukung",
                     style: TextStyle(
                       color: AppColors.darkGray,
                       fontSize: 14,

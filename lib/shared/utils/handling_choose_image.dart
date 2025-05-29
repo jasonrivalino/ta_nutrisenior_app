@@ -31,12 +31,12 @@ Future<XFile?> handleChooseImage({
         children: [
           ListTile(
             leading: const Icon(Icons.camera_alt),
-            title: const Text('Take a photo'),
+            title: const Text('Ambil dari kamera'),
             onTap: () => context.pop(ImageSource.camera),
           ),
           ListTile(
             leading: const Icon(Icons.photo_library),
-            title: const Text('Choose from gallery'),
+            title: const Text('Pilih dari galeri'),
             onTap: () => context.pop(ImageSource.gallery),
           ),
         ],
