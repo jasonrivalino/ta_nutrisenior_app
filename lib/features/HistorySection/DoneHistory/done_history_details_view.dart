@@ -3,29 +3,58 @@ import 'package:go_router/go_router.dart';
 import 'package:ta_nutrisenior_app/shared/styles/colors.dart';
 
 import '../../../shared/widgets/appbar.dart';
-import '../history_list_data.dart';
 import 'done_history_details_widget.dart';
 
 class DoneHistoryDetailsView extends StatelessWidget {
   final int id;
+  final num totalPrice;
+  final DateTime orderDate;
+  final String driverName;
+  final String businessName;
+  final String addressReceiver;
+  final List<dynamic> orderList;
+  final int serviceFee;
+  final int deliveryFee;
+  final String paymentMethod;
+  final String businessImage;
+  final String businessType;
 
   const DoneHistoryDetailsView({
     super.key,
-    required this.id
+    required this.id,
+    required this.totalPrice,
+    required this.orderDate,
+    required this.driverName,
+    required this.businessName,
+    required this.addressReceiver,
+    required this.orderList,
+    required this.serviceFee,
+    required this.deliveryFee,
+    required this.paymentMethod,
+    required this.businessImage,
+    required this.businessType,
   });
+
+  static DoneHistoryDetailsView fromExtra(BuildContext context, GoRouterState state) {
+    final extra = state.extra! as Map<String, dynamic>;
+    return DoneHistoryDetailsView(
+      id: extra['id'],
+      totalPrice: extra['totalPrice'],
+      orderDate: extra['orderDate'],
+      driverName: extra['driverName'],
+      businessName: extra['businessName'],
+      addressReceiver: extra['addressReceiver'],
+      orderList: extra['orderList'],
+      serviceFee: extra['serviceFee'],
+      deliveryFee: extra['deliveryFee'],
+      paymentMethod: extra['paymentMethod'],
+      businessImage: extra['businessImage'],
+      businessType: extra['businessType'],
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    final order = doneHistoryList.firstWhere(
-      (item) => item['id'] == id,
-      orElse: () => {},
-    );
-
-    // Now safe to access order fields
-    int totalOrderPrice = order['orderList']
-        .fold(0, (sum, item) => sum + (item['price'] as int) * (item['quantity'] as int));
-    num totalPrice = totalOrderPrice + order['serviceFee'] + order['deliveryFee'];
-
     return Scaffold(
       backgroundColor: AppColors.soapstone,
       appBar: CustomAppBar(
@@ -37,47 +66,40 @@ class DoneHistoryDetailsView extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Waktu & Pengemudi
             DoneOrderTimeDriverCard(
-              orderDate: order['orderDate'],
-              driverName: order['driverName'],
+              orderDate: orderDate,
+              driverName: driverName,
             ),
-
             const SizedBox(height: 16),
-
-            // Nama Restoran & Alamat
             DoneOrderAddressCard(
-              businessName: order['businessName'],
-              addressReceiver: order['addressReceiver'],
+              businessName: businessName,
+              addressReceiver: addressReceiver,
             ),
-
             const SizedBox(height: 16),
-
-            // Detail Pesanan
             DoneOrderDetailsCard(
-              orderList: order['orderList'],
-              serviceFee: order['serviceFee'],
-              deliveryFee: order['deliveryFee'],
+              orderList: orderList,
+              serviceFee: serviceFee,
+              deliveryFee: deliveryFee,
               totalPrice: totalPrice.toInt(),
-              paymentMethod: order['paymentMethod'],
+              paymentMethod: paymentMethod,
             ),
           ],
         ),
       ),
       bottomNavigationBar: GiveRatingBottomNavbar(
-        businessType: order['businessType'],
+        businessType: businessType,
         onDriverPressed: () {
           context.push('/history/done/details/:id/rating', extra: {
-            'id': order['id'],
-            'driverName': order['driverName'],
+            'id': id,
+            'driverName': driverName,
           });
         },
         onRestaurantPressed: () {
           context.push('/history/done/details/:id/rating', extra: {
-            'id': order['id'],
-            'businessName': order['businessName'],
-            'businessType': order['businessType'],
-            'businessImage': order['businessImage'],
+            'id': id,
+            'businessName': businessName,
+            'businessType': businessType,
+            'businessImage': businessImage,
           });
         },
       ),

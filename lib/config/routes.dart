@@ -40,12 +40,17 @@ class Routes {
   static const String restaurantPromoFreeShipmentDetail = '/restaurantpromo/free_shipment/detail';
   static const String marketPromoFreeShipmentDetail = '/marketpromo/free_shipment/detail';
 
-  // Transaction History Section
+  // Transaction History Section - Done History
   static const String history = '/history';
   static const String doneHistoryDetails = '/history/done/details/:id';
   static const String doneHistoryRating = '/history/done/details/:id/rating';
   static const String doneHistoryReport = '/history/done/details/:id/report';
   static const String doneHistoryReportSuccess = '/history/done/details/:id/report/success';
+
+  // Transaction History Section - Processing History
+  static const String processingHistoryDetails = '/history/processing/:id';
+  static const String processingHistoryCancel = '/history/processing/:id/cancel';
+  static const String deliveringHistoryDetails = '/history/delivering/:id';
 
   // Chat Feature Section
   static const String chatList = '/chatlist';
@@ -156,47 +161,22 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: Routes.doneHistoryDetails,
       builder: (context, state) {
-        final id = state.extra != null && state.extra is Map<String, dynamic>
-            ? (state.extra as Map<String, dynamic>)['id'] as int?
-            : int.tryParse(state.pathParameters['id'] ?? '');
-
-        return DoneHistoryDetailsView(id: id ?? 0);
+        if (state.extra != null && state.extra is Map<String, dynamic>) {
+          return DoneHistoryDetailsView.fromExtra(context, state);
+        }
+        return const PageNotFound();
       },
     ),
     GoRoute(
       path: Routes.doneHistoryRating,
       builder: (context, state) {
-        final extra = state.extra as Map<String, dynamic>?;
-
-        final id = extra?['id'] ?? 0;
-        final driverName = extra?['driverName'];
-        final businessName = extra?['businessName'];
-        final businessType = extra?['businessType'];
-        final businessImage = extra?['businessImage'];
-
-        return RatingView(
-          id: id,
-          driverName: driverName,
-          businessName: businessName,
-          businessType: businessType,
-          businessImage: businessImage,
-        );
+        return RatingView.fromExtra(context, state);
       },
     ),
     GoRoute(
       path: Routes.doneHistoryReport,
       builder: (context, state) {
-        final extra = state.extra as Map<String, dynamic>?;
-
-        final id = extra?['id'] ?? 0;
-        final isDriver = extra?['isDriver'] ?? false;
-        final businessType = extra?['businessType'];
-
-        return ReportView(
-          id: id,
-          isDriver: isDriver,
-          businessType: businessType,
-        );
+        return ReportView.fromExtra(state);
       },
     ),
     GoRoute(
@@ -209,6 +189,38 @@ final GoRouter router = GoRouter(
         return ReportSuccess(id: id ?? 0);
       },
     ),
+
+    // Processing History
+    // GoRoute(
+    //   path: Routes.processingHistoryDetails,
+    //   builder: (context, state) {
+    //     final id = state.extra != null && state.extra is Map<String, dynamic>
+    //         ? (state.extra as Map<String, dynamic>)['id'] as int?
+    //         : int.tryParse(state.pathParameters['id'] ?? '');
+
+    //     return ProcessingHistoryDetailsView(id: id ?? 0);
+    //   },
+    // ),
+    // GoRoute(
+    //   path: Routes.processingHistoryCancel,
+    //   builder: (context, state) {
+    //     final id = state.extra != null && state.extra is Map<String, dynamic>
+    //         ? (state.extra as Map<String, dynamic>)['id'] as int?
+    //         : int.tryParse(state.pathParameters['id'] ?? '');
+
+    //     return ProcessingHistoryCancelView(id: id ?? 0);
+    //   },
+    // ),
+    // GoRoute(
+    //   path: Routes.deliveringHistoryDetails,
+    //   builder: (context, state) {
+    //     final id = state.extra != null && state.extra is Map<String, dynamic>
+    //         ? (state.extra as Map<String, dynamic>)['id'] as int?
+    //         : int.tryParse(state.pathParameters['id'] ?? '');
+
+    //     return DeliveringHistoryDetailsView(id: id ?? 0);
+    //   },
+    // ),
 
     // Chat
     GoRoute(

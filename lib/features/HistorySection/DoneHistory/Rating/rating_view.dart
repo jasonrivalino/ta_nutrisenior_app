@@ -28,6 +28,17 @@ class RatingView extends StatefulWidget {
     this.businessImage,
   });
 
+  static RatingView fromExtra(BuildContext context, GoRouterState state) {
+    final extra = state.extra! as Map<String, dynamic>;
+    return RatingView(
+      id: extra['id'],
+      driverName: extra['driverName'],
+      businessName: extra['businessName'],
+      businessImage: extra['businessImage'],
+      businessType: extra['businessType'],
+    );
+  }
+
   @override
   State<RatingView> createState() => _RatingViewState();
 }

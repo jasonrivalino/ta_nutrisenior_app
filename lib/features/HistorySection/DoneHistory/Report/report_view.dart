@@ -24,6 +24,16 @@ class ReportView extends StatefulWidget {
     this.businessType,
   });
 
+  factory ReportView.fromExtra(GoRouterState state) {
+    final extra = state.extra as Map<String, dynamic>? ?? {};
+
+    return ReportView(
+      id: extra['id'] ?? 0,
+      isDriver: extra['isDriver'] ?? false,
+      businessType: extra['businessType'],
+    );
+  }
+
   @override
   State<ReportView> createState() => _ReportViewState();
 }

@@ -6,27 +6,25 @@ import 'package:ta_nutrisenior_app/shared/styles/fonts.dart';
 import '../../styles/colors.dart';
 
 class HistoryCardList extends StatelessWidget {
-  final int id;
-  final DateTime orderDate;
-  final String image;
-  final String businessName;
-  final int totalPrice;
-  final String cardType;
-  final String? status;
+  final Map<String, dynamic> historyData;
 
   const HistoryCardList({
     super.key,
-    required this.id,
-    required this.orderDate,
-    required this.image,
-    required this.businessName,
-    required this.totalPrice,
-    required this.cardType,
-    this.status,
+    required this.historyData,
   });
 
   @override
   Widget build(BuildContext context) {
+    final int id = historyData['id'];
+    final DateTime orderDate = historyData['orderDate'];
+    final String image = historyData['businessImage'];
+    final String businessName = historyData['businessName'];
+    final String cardType = historyData['cardType'];
+
+    int totalOrderPrice = historyData['orderList']
+      .fold(0, (sum, item) => sum + (item['price'] as int) * (item['quantity'] as int));
+    num totalPrice = totalOrderPrice + historyData['serviceFee'] + historyData['deliveryFee'];
+
     final dateFormatted = DateFormat('d MMM yyyy, HH:mm').format(orderDate);
 
     return Container(
@@ -43,7 +41,6 @@ class HistoryCardList extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          // Left Expanded Section
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -102,7 +99,7 @@ class HistoryCardList extends StatelessWidget {
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
-                          SizedBox(height: 20),
+                          const SizedBox(height: 20),
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
@@ -111,7 +108,7 @@ class HistoryCardList extends StatelessWidget {
                                   locale: 'id_ID',
                                   symbol: 'Rp',
                                   decimalDigits: 0,
-                                ).format(totalPrice),
+                                ).format(totalPrice.toInt()),
                                 style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 14,
@@ -147,9 +144,23 @@ class HistoryCardList extends StatelessWidget {
                                             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                                           ),
                                           onPressed: () {
-                                            // Detail action
-                                            context.push('/history/done/details/$id', 
-                                            extra: {'id': id,});
+                                            context.push(
+                                              '/history/done/details/$id',
+                                              extra: {
+                                                'id': id,
+                                                'totalPrice': totalPrice,
+                                                'orderDate': orderDate,
+                                                'driverName': historyData['driverName'],
+                                                'businessName': historyData['businessName'],
+                                                'addressReceiver': historyData['addressReceiver'],
+                                                'orderList': historyData['orderList'],
+                                                'serviceFee': historyData['serviceFee'],
+                                                'deliveryFee': historyData['deliveryFee'],
+                                                'paymentMethod': historyData['paymentMethod'],
+                                                'businessImage': historyData['businessImage'],
+                                                'businessType': historyData['businessType'],
+                                              },
+                                            );
                                           },
                                           child: const Text("Detail"),
                                         ),
@@ -172,7 +183,7 @@ class HistoryCardList extends StatelessWidget {
                                             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                                           ),
                                           onPressed: () {
-                                            // Pesan Lagi action
+                                            // Implement re-order logic
                                           },
                                           child: const Text("Pesan Lagi"),
                                         ),
@@ -200,7 +211,7 @@ class HistoryCardList extends StatelessWidget {
                                           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                                         ),
                                         onPressed: () {
-                                          // Detail action
+                                          // Detail for non-done card
                                         },
                                         child: const Text("Detail"),
                                       ),
