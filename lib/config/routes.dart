@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 
+import '../features/HistorySection/OngoingHistory/ongoing_history_details_view.dart';
 import '../features/LoginProcess/LoginOption/login_view.dart';
 import '../features/LoginProcess/PhoneNumber/phone_number_login_view.dart';
 import '../features/LoginProcess/OTPVerification/otp_verification_view.dart';
@@ -191,16 +192,12 @@ final GoRouter router = GoRouter(
     ),
 
     // Processing History
-    // GoRoute(
-    //   path: Routes.processingHistoryDetails,
-    //   builder: (context, state) {
-    //     final id = state.extra != null && state.extra is Map<String, dynamic>
-    //         ? (state.extra as Map<String, dynamic>)['id'] as int?
-    //         : int.tryParse(state.pathParameters['id'] ?? '');
-
-    //     return ProcessingHistoryDetailsView(id: id ?? 0);
-    //   },
-    // ),
+    GoRoute(
+      path: Routes.processingHistoryDetails,
+      builder: (context, state) {
+        return OngoingHistoryDetailsView.fromExtra(context, state);
+      },
+    ),
     // GoRoute(
     //   path: Routes.processingHistoryCancel,
     //   builder: (context, state) {

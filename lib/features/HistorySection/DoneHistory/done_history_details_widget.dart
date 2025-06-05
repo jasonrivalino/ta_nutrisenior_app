@@ -3,6 +3,8 @@ import 'package:intl/intl.dart';
 import 'package:ta_nutrisenior_app/shared/styles/colors.dart';
 import 'package:ta_nutrisenior_app/shared/styles/fonts.dart';
 
+import '../../../shared/utils/format_currency.dart';
+
 // Class to display order time and driver name in a card format
 class DoneOrderTimeDriverCard extends StatelessWidget {
   final DateTime orderDate;
@@ -189,10 +191,6 @@ class DoneOrderDetailsCard extends StatelessWidget {
     required this.totalPrice,
     required this.paymentMethod,
   });
-
-  String formatCurrency(int value) {
-    return 'Rp${value.toString().replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (m) => '${m[1]}.')}';
-  }
 
   @override
   Widget build(BuildContext context) {

@@ -211,7 +211,35 @@ class HistoryCardList extends StatelessWidget {
                                           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                                         ),
                                         onPressed: () {
-                                          // Detail for non-done card
+                                          if (cardType == 'diproses') {
+                                            context.push(
+                                              '/history/processing/$id',
+                                              extra: {
+                                                'id': id,
+                                                'businessName': historyData['businessName'],
+                                                'businessType': historyData['businessType'],
+                                                'businessImage': historyData['businessImage'],
+                                                'orderList': historyData['orderList'],
+                                                'serviceFee': historyData['serviceFee'],
+                                                'deliveryFee': historyData['deliveryFee'],
+                                                'totalPrice': totalPrice,
+                                                'cardType': historyData['cardType'],
+                                              },
+                                            );
+                                          } else if (cardType == 'dikirim') {
+                                            context.push(
+                                              '/history/delivering/${historyData['id']}',
+                                              extra: {
+                                                'id': historyData['id'],
+                                                'businessName': historyData['businessName'],
+                                                'businessType': historyData['businessType'],
+                                                'businessImage': historyData['businessImage'],
+                                                'driverName': historyData['driverName'],
+                                                'addressReceiver': historyData['addressReceiver'],
+                                                'cardType': historyData['cardType'],
+                                              },
+                                            );
+                                          }
                                         },
                                         child: const Text("Detail"),
                                       ),
