@@ -15,7 +15,7 @@ class EstimatedTimeCard extends StatelessWidget {
     super.key,
     required this.businessName,
     required this.businessImage,
-    this.etaText = "Tiba dalam 30-40 min",
+    required this.etaText,
     required this.topPosition,
   });
 
@@ -60,7 +60,7 @@ class EstimatedTimeCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Text(
-                    etaText,
+                    "Tiba dalam $etaText",
                     style: const TextStyle(
                       color: AppColors.dark,
                       fontWeight: FontWeight.w500,
@@ -80,40 +80,59 @@ class EstimatedTimeCard extends StatelessWidget {
 
 // Class for order status details
 class OrderStatusDetails extends StatelessWidget {
-  const OrderStatusDetails({super.key});
+  final String businessType;
+
+  const OrderStatusDetails({
+    super.key,
+    required this.businessType,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Center(
-          child: Column(
-            children: [
-              Text(
-                "BELANJAAN SEDANG DIKEMAS",
-                style: TextStyle(
-                  color: AppColors.woodland,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                  fontFamily: AppFonts.fontBold,
+    String title = "";
+    String description = "";
+
+    if (businessType == 'Restaurant') {
+      title = "MAKANAN DALAM PROSES";
+      description = "Dapur restoran sedang menyiapkan hidangan spesial Anda...";
+    } else {
+      title = "BELANJAAN SEDANG DIKEMAS";
+      description = "Pengemudi sedang menyiapkan belanjaan Anda di supermarket...";
+    }
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Column(
+        children: [
+          Center(
+            child: Column(
+              children: [
+                Text(
+                  title,
+                  style: TextStyle(
+                    color: AppColors.woodland,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                    fontFamily: AppFonts.fontBold,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(height: 4),
-              Text(
-                "Pengemudi sedang menyiapkan belanjaan Anda di supermarket...",
-                style: TextStyle(
-                  color: AppColors.dark,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 14,
-                  fontFamily: AppFonts.fontMedium,
+                const SizedBox(height: 4),
+                Text(
+                  description,
+                  style: TextStyle(
+                    color: AppColors.dark,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 14,
+                    fontFamily: AppFonts.fontMedium,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
-                textAlign: TextAlign.center,
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
@@ -173,7 +192,11 @@ class OrderListDetails extends StatelessWidget {
                         contentPadding: EdgeInsets.zero,
                         title: Text(
                           item['name'] ?? '',
-                          style: const TextStyle(
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color: AppColors.dark,
+                            fontFamily: AppFonts.fontBold,
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
                           ),
@@ -181,9 +204,29 @@ class OrderListDetails extends StatelessWidget {
                         subtitle: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(formatCurrency(item['price'] ?? 0)),
-                            if ((item['notes'] as String?)?.isNotEmpty ?? false)
-                              Text("Catatan: ${item['notes']}"),
+                            Text(
+                              formatCurrency(item['price'] ?? 0),
+                              style: TextStyle(
+                                color: AppColors.dark,
+                                fontFamily: AppFonts.fontMedium,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 14,
+                              ),
+                            ),
+                            if ((item['notes'] as String?)?.isNotEmpty ?? false) ...[
+                              const SizedBox(height: 4), // <-- Gap added here
+                              Text(
+                                "Note: ${item['notes']}",
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  color: AppColors.dark,
+                                  fontFamily: AppFonts.fontMedium,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ],
                           ],
                         ),
                         trailing: Container(
@@ -193,7 +236,14 @@ class OrderListDetails extends StatelessWidget {
                             borderRadius: BorderRadius.circular(6),
                             border: Border.all(color: AppColors.dark),
                           ),
-                          child: Text("${item['quantity']} pcs"),
+                          child: Text("${item['quantity']} pcs",
+                              style: TextStyle(
+                                color: AppColors.dark,
+                                fontFamily: AppFonts.fontMedium,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 14,
+                              ),
+                          ),
                         ),
                       ),
                     ),
@@ -207,8 +257,55 @@ class OrderListDetails extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 2),
               child: Column(
                 children: [
-                  _priceRow("Harga pelayanan", formatCurrency(serviceFee!)),
-                  _priceRow("Harga ongkir", formatCurrency(deliveryFee!)),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 12),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Harga pelayanan",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                            fontFamily: AppFonts.fontBold,
+                            color: AppColors.dark,
+                          ),
+                        ),
+                        Text(formatCurrency(serviceFee!),
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                            fontFamily: AppFonts.fontBold,
+                            color: AppColors.dark,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 12),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Harga pengiriman",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                            fontFamily: AppFonts.fontBold,
+                            color: AppColors.dark,
+                          ),
+                        ),
+                        Text(
+                          (formatCurrency(deliveryFee!) == 'Rp0') ? 'Gratis' : formatCurrency(deliveryFee!),
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                            fontFamily: AppFonts.fontBold,
+                            color: AppColors.dark,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -217,7 +314,30 @@ class OrderListDetails extends StatelessWidget {
               padding: const EdgeInsets.only(top: 2, bottom: 10),
               child: Column(
                 children: [
-                  _priceRow("Total harga", formatCurrency(totalPrice!), freeIfZero: false),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 12),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                      Text("Total Harga",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                          fontFamily: AppFonts.fontBold,
+                          color: AppColors.dark,
+                        ),
+                      ),
+                      Text(formatCurrency(totalPrice!),
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                          fontFamily: AppFonts.fontBold,
+                          color: AppColors.dark,
+                        ),
+                      ), 
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -227,19 +347,4 @@ class OrderListDetails extends StatelessWidget {
     );
   }
 
-  Widget _priceRow(String label, String amount, {bool freeIfZero = true}) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 12),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(label),
-          Text(
-            (amount == 'Rp0' && freeIfZero) ? 'Gratis' : amount,
-            style: const TextStyle(fontWeight: FontWeight.w500),
-          ),
-        ],
-      ),
-    );
-  }
 }

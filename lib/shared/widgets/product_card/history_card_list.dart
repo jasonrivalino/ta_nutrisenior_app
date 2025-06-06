@@ -219,6 +219,7 @@ class HistoryCardList extends StatelessWidget {
                                                 'businessName': historyData['businessName'],
                                                 'businessType': historyData['businessType'],
                                                 'businessImage': historyData['businessImage'],
+                                                'estimatedArrival': historyData['estimatedArrival'],
                                                 'orderList': historyData['orderList'],
                                                 'serviceFee': historyData['serviceFee'],
                                                 'deliveryFee': historyData['deliveryFee'],

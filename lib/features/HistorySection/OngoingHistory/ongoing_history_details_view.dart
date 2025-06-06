@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ta_nutrisenior_app/features/HistorySection/OngoingHistory/ongoing_history_details_widget.dart';
-import 'package:ta_nutrisenior_app/shared/styles/fonts.dart';
 import 'package:ta_nutrisenior_app/shared/widgets/appbar.dart';
 import 'package:ta_nutrisenior_app/shared/widgets/warning_button.dart';
 
@@ -14,6 +13,7 @@ class OngoingHistoryDetailsView extends StatelessWidget {
   final String businessImage;
   final String? driverName;
   final String? addressReceiver;
+  final String estimatedArrival;
   final List<Map<String, dynamic>>? orderList;
   final int? serviceFee;
   final int? deliveryFee;
@@ -28,6 +28,7 @@ class OngoingHistoryDetailsView extends StatelessWidget {
     required this.businessImage,
     this.driverName,
     this.addressReceiver,
+    required this.estimatedArrival,
     this.orderList,
     this.serviceFee,
     this.deliveryFee,
@@ -45,6 +46,7 @@ class OngoingHistoryDetailsView extends StatelessWidget {
       businessImage: extra['businessImage'] ?? '',
       driverName: extra['driverName'] as String?,
       addressReceiver: extra['addressReceiver'] as String?,
+      estimatedArrival: extra['estimatedArrival'] ?? '',
       orderList: (extra['orderList'] is List)
         ? (extra['orderList'] as List)
             .whereType<Map<String, dynamic>>()
@@ -64,12 +66,14 @@ class OngoingHistoryDetailsView extends StatelessWidget {
     int orderCount = orderList?.length ?? 0;
     double topPosition;
 
+    final screenHeight = MediaQuery.of(context).size.height;
+
     if (orderCount == 1) {
-      topPosition = 325;
+      topPosition = screenHeight > 900 ? 300 : 230;
     } else if (orderCount == 2) {
-      topPosition = 240;
+      topPosition = screenHeight > 900 ? 220 : 160;
     } else {
-      topPosition = 150;
+      topPosition = screenHeight > 900 ? 140 : 100;
     }
 
     return Scaffold(
@@ -95,17 +99,17 @@ class OngoingHistoryDetailsView extends StatelessWidget {
                   ),
                   child: Column(
                     children: [
-                      const SafeArea(
+                      SafeArea(
                         bottom: false,
                         child: Padding(
-                          padding: EdgeInsets.only(top: 60),
-                          child: OrderStatusDetails(),
+                          padding: const EdgeInsets.only(top: 60),
+                          child: OrderStatusDetails(businessType: businessType),
                         ),
                       ),
                       const SizedBox(height: 16),
                       Expanded(
                         child: SingleChildScrollView(
-                          padding: const EdgeInsets.only(bottom: 200),
+                          padding: EdgeInsets.only(bottom: screenHeight > 900 ? 205 : 185),
                           child: OrderListDetails(
                             orderList: orderList,
                             serviceFee: serviceFee,
@@ -123,6 +127,7 @@ class OngoingHistoryDetailsView extends StatelessWidget {
               EstimatedTimeCard(
                 businessName: businessName,
                 businessImage: businessImage,
+                etaText: estimatedArrival,
                 topPosition: topPosition - 40,
               ),
             ],
@@ -130,8 +135,17 @@ class OngoingHistoryDetailsView extends StatelessWidget {
         },
       ),
       bottomNavigationBar: Container(
-        color: Colors.white,
-        padding: const EdgeInsets.fromLTRB(20, 15, 20, 25),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+        decoration: const BoxDecoration(
+          color: AppColors.soapstone,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black12,
+              blurRadius: 10,
+              offset: Offset(0, -2),
+            ),
+          ],
+        ),
         child: WarningButton(
           warningText: "Batalkan Pemesanan",
           onPressed: () {

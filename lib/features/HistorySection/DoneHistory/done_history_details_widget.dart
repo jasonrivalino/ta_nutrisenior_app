@@ -305,7 +305,10 @@ class DoneOrderDetailsCard extends StatelessWidget {
                   color: AppColors.dark,
                 ),
               ),
-              Text(formatCurrency(deliveryFee),
+              Text(
+                formatCurrency(deliveryFee) == 'Rp0'
+                    ? 'Gratis'
+                    : formatCurrency(deliveryFee),
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 16,

@@ -172,6 +172,7 @@ List<Map<String, dynamic>> ongoingHistoryList = [
     'businessImage': 'assets/images/dummy/restaurant/ristorante.png',
     'driverName': 'Driver #5',
     'addressReceiver': 'Jl. Sehat Bahagia 2 No. 10',
+    'estimatedArrival': '30-45 menit',
     'orderList': [
       {
         'name': 'Pizza Margherita',
@@ -191,10 +192,15 @@ List<Map<String, dynamic>> ongoingHistoryList = [
         'price': 15000,
         'notes': '',
       },
+      {
+        'name': 'Air Mineral 600ml',
+        'quantity': 2,
+        'price': 5000,
+        'notes': '',
+      },
     ],
     'serviceFee': 1000,
     'deliveryFee': 2000,
-    'paymentMethod': 'Tunai',
     'cardType': 'diproses',
   },
   {
@@ -205,6 +211,7 @@ List<Map<String, dynamic>> ongoingHistoryList = [
     'businessImage': 'assets/images/dummy/market/supermarketaja.png',
     'driverName': 'Driver #5',
     'addressReceiver': 'Jl. Sehat Bahagia 2 No. 10',
+    'estimatedArrival': '40-60 menit',
     'orderList': [
       {
         'name': 'Minyak Goreng 1L',
@@ -221,7 +228,6 @@ List<Map<String, dynamic>> ongoingHistoryList = [
     ],
     'serviceFee': 1000,
     'deliveryFee': 3000,
-    'paymentMethod': 'Tunai',
     'cardType': 'diproses',
   },
   {
@@ -232,6 +238,7 @@ List<Map<String, dynamic>> ongoingHistoryList = [
     'businessImage': 'assets/images/dummy/restaurant/ristorante.png',
     'driverName': 'Driver #5',
     'addressReceiver': 'Jl. Sehat Bahagia 2 No. 10',
+    'estimatedArrival': '25-30 menit',
     'orderList': [
       {
         'name': 'Lasagna',
@@ -242,7 +249,6 @@ List<Map<String, dynamic>> ongoingHistoryList = [
     ],
     'serviceFee': 1500,
     'deliveryFee': 2500,
-    'paymentMethod': 'OVO',
     'cardType': 'diproses',
   },
   {
@@ -253,6 +259,7 @@ List<Map<String, dynamic>> ongoingHistoryList = [
     'businessImage': 'assets/images/dummy/restaurant/ristorante.png',
     'driverName': 'Driver #5',
     'addressReceiver': 'Jl. Sehat Bahagia 2 No. 10',
+    'estimatedArrival': '5-10 menit',
     'orderList': [
       {
         'name': 'Pasta Carbonara',
@@ -263,7 +270,6 @@ List<Map<String, dynamic>> ongoingHistoryList = [
     ],
     'serviceFee': 1000,
     'deliveryFee': 2000,
-    'paymentMethod': 'QRIS',
     'cardType': 'dikirim',
   },
   {
@@ -274,6 +280,7 @@ List<Map<String, dynamic>> ongoingHistoryList = [
     'businessImage': 'assets/images/dummy/market/supermarketaja.png',
     'driverName': 'Driver #5',
     'addressReceiver': 'Jl. Sehat Bahagia 2 No. 10',
+    'estimatedArrival': '40-45 menit',
     'orderList': [
       {
         'name': 'Telur Ayam 1kg',
@@ -284,7 +291,6 @@ List<Map<String, dynamic>> ongoingHistoryList = [
     ],
     'serviceFee': 1000,
     'deliveryFee': 3000,
-    'paymentMethod': 'Tunai',
     'cardType': 'diproses',
   },
   {
@@ -295,6 +301,7 @@ List<Map<String, dynamic>> ongoingHistoryList = [
     'businessImage': 'assets/images/dummy/market/supermarketaja.png',
     'driverName': 'Driver #5',
     'addressReceiver': 'Jl. Sehat Bahagia 2 No. 10',
+    'estimatedArrival': '15-20 menit',
     'orderList': [
       {
         'name': 'Air Mineral 600ml',
@@ -305,7 +312,6 @@ List<Map<String, dynamic>> ongoingHistoryList = [
     ],
     'serviceFee': 500,
     'deliveryFee': 2500,
-    'paymentMethod': 'GoPay',
     'cardType': 'dikirim',
   },
 ];
