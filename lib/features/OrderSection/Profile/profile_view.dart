@@ -32,9 +32,12 @@ class ProfileView extends StatelessWidget {
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
             ),
             onPressed: () {
+              // Capture a stable context before any dialogs
+              final rootContext = context;
+
               showDialog(
-                context: context,
-                builder: (context) {
+                context: rootContext,
+                builder: (BuildContext dialogContext) {
                   return ConfirmDialog(
                     titleText: 'Apakah yakin ingin logout dari akun Anda?',
                     confirmText: 'Logout',
@@ -50,13 +53,25 @@ class ProfileView extends StatelessWidget {
                         return;
                       }
 
+                      // Show loading dialog using safe root context
+                      showDialog(
+                        context: rootContext,
+                        barrierDismissible: false,
+                        builder: (_) => const Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      );
                       await GoogleAuthService.signOutGoogle();
+                      await Future.delayed(const Duration(seconds: 2));
+
+                      rootContext.pop();
+                                    
                       Fluttertoast.showToast(
                         msg: 'Logout berhasil.',
                         toastLength: Toast.LENGTH_SHORT,
                         gravity: ToastGravity.BOTTOM,
                       );
-                      context.push('/login'); // Navigate to login page after logout
+                      rootContext.go('/login');
                     },
                   );
                 },

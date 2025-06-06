@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:ta_nutrisenior_app/features/HistorySection/OngoingHistory/CancelOrder/cancel_order_view.dart';
 
 import '../features/HistorySection/OngoingHistory/ongoing_history_details_view.dart';
 import '../features/LoginProcess/LoginOption/login_view.dart';
@@ -196,6 +197,16 @@ final GoRouter router = GoRouter(
       path: Routes.processingHistoryDetails,
       builder: (context, state) {
         return OngoingHistoryDetailsView.fromExtra(context, state);
+      },
+    ),
+    GoRoute(
+      path: Routes.processingHistoryCancel,
+      builder: (context, state) {
+        final id = state.extra != null && state.extra is Map<String, dynamic>
+            ? (state.extra as Map<String, dynamic>)['id'] as int?
+            : int.tryParse(state.pathParameters['id'] ?? '');
+
+        return CancelOrderView(id: id ?? 0);
       },
     ),
     GoRoute(

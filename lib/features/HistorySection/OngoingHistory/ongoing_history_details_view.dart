@@ -241,7 +241,12 @@ class _OngoingHistoryDetailsViewState extends State<OngoingHistoryDetailsView> {
               child: WarningButton(
                 warningText: "Batalkan Pemesanan",
                 onPressed: () {
-                  // Handle cancel order action
+                  context.push(
+                    '/history/processing/:id/cancel',
+                    extra: {
+                      'id': widget.id,
+                    },
+                  );
                 },
               ),
             )
