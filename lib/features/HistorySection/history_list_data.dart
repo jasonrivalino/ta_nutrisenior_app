@@ -185,6 +185,12 @@ List<Map<String, dynamic>> ongoingHistoryList = [
         'price': 23400,
         'notes': '',
       },
+      {
+        'name': 'Salad Caesar',
+        'quantity': 1,
+        'price': 15000,
+        'notes': '',
+      },
     ],
     'serviceFee': 1000,
     'deliveryFee': 2000,
