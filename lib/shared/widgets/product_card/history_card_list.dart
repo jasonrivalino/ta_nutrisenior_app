@@ -235,6 +235,7 @@ class HistoryCardList extends StatelessWidget {
                                                 'businessName': historyData['businessName'],
                                                 'businessType': historyData['businessType'],
                                                 'businessImage': historyData['businessImage'],
+                                                'estimatedArrival': historyData['estimatedArrival'],
                                                 'driverName': historyData['driverName'],
                                                 'addressReceiver': historyData['addressReceiver'],
                                                 'cardType': historyData['cardType'],

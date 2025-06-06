@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:ta_nutrisenior_app/shared/styles/colors.dart';
 import 'package:ta_nutrisenior_app/shared/styles/fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../shared/utils/format_currency.dart';
 
@@ -81,10 +85,12 @@ class EstimatedTimeCard extends StatelessWidget {
 // Class for order status details
 class OrderStatusDetails extends StatelessWidget {
   final String businessType;
+  final String cardType;
 
   const OrderStatusDetails({
     super.key,
     required this.businessType,
+    required this.cardType,
   });
 
   @override
@@ -92,12 +98,21 @@ class OrderStatusDetails extends StatelessWidget {
     String title = "";
     String description = "";
 
-    if (businessType == 'Restaurant') {
+    if (businessType == 'Restaurant' && cardType == 'diproses') {
       title = "MAKANAN DALAM PROSES";
       description = "Dapur restoran sedang menyiapkan hidangan spesial Anda...";
-    } else {
+    } else if (businessType == 'Market' && cardType == 'diproses') {
       title = "BELANJAAN SEDANG DIKEMAS";
       description = "Pengemudi sedang menyiapkan belanjaan Anda di supermarket...";
+    } else if (businessType == 'Restaurant' && cardType == 'dikirim') {
+      title = "MAKANAN DALAM PERJALANAN";
+      description = "Waktunya siap-siap makan! Makanan sedang dalam perjalanan...";
+    } else if (businessType == 'Market' && cardType == 'dikirim') {
+      title = "BELANJAAN DALAM PERJALANAN";
+      description = "Waktunya siap-siap! Belanjaan Anda sedang dalam perjalanan...";
+    } else {
+      title = "STATUS PESANAN";
+      description = "Mohon tunggu, kami sedang memproses pesanan Anda...";
     }
 
     return Padding(
@@ -237,12 +252,12 @@ class OrderListDetails extends StatelessWidget {
                             border: Border.all(color: AppColors.dark),
                           ),
                           child: Text("${item['quantity']} pcs",
-                              style: TextStyle(
-                                color: AppColors.dark,
-                                fontFamily: AppFonts.fontMedium,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 14,
-                              ),
+                            style: TextStyle(
+                              color: AppColors.dark,
+                              fontFamily: AppFonts.fontMedium,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14,
+                            ),
                           ),
                         ),
                       ),
@@ -347,4 +362,145 @@ class OrderListDetails extends StatelessWidget {
     );
   }
 
+}
+
+class DeliverDriverCard extends StatelessWidget {
+  final String? driverName;
+  final double driverRate;
+
+  const DeliverDriverCard({
+    super.key,
+    this.driverName,
+    required this.driverRate,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: AppColors.ecruWhite,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: AppColors.dark, width: 1),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(8),
+            child: Image.asset(
+              'assets/images/dummy/chat/driver.png', // Add your image to assets and update pubspec.yaml
+              width: 55,
+              height: 55,
+              fit: BoxFit.cover,
+            ),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  driverName!,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                    fontFamily: AppFonts.fontBold,
+                    color: AppColors.dark,
+                  ),
+                ),
+                const SizedBox(height: 6),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
+                  decoration: BoxDecoration(
+                    color: AppColors.soapstone,
+                    border: Border.all(color: AppColors.dark),
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const FaIcon(FontAwesomeIcons.solidStar, size: 12, color: AppColors.dark),
+                      const SizedBox(width: 4),
+                      Text(
+                        "$driverRate/5",
+                        style: TextStyle(
+                          color: AppColors.dark,
+                          fontFamily: AppFonts.fontMedium,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: 10),
+          Row(
+            children: [
+              Material(
+                color: AppColors.woodland,
+                borderRadius: BorderRadius.circular(8),
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(8),
+                  onTap: () {
+                   context.push('/chatlist/detail');
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(6),
+                    child: Icon(
+                      Icons.message,
+                      size: 20,
+                      color: AppColors.soapstone,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 8),
+              Material(
+                color: AppColors.woodland,
+                borderRadius: BorderRadius.circular(8),
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(8),
+                  onTap: () async {
+                    // Check permission
+                    PermissionStatus status = await Permission.phone.request();
+
+                    if (status.isGranted) {
+                      final Uri callUri = Uri(scheme: 'tel', path: '081234567890');
+                      if (await canLaunchUrl(callUri)) {
+                        await launchUrl(callUri, mode: LaunchMode.externalApplication); // Or LaunchMode.platformDefault
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Tidak dapat membuka aplikasi telepon')),
+                        );
+                      }
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Izin telepon ditolak')),
+                      );
+                    }
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(6),
+                    child: Icon(
+                      Icons.phone,
+                      size: 20,
+                      color: AppColors.soapstone,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
 }

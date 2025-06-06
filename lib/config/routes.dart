@@ -198,26 +198,12 @@ final GoRouter router = GoRouter(
         return OngoingHistoryDetailsView.fromExtra(context, state);
       },
     ),
-    // GoRoute(
-    //   path: Routes.processingHistoryCancel,
-    //   builder: (context, state) {
-    //     final id = state.extra != null && state.extra is Map<String, dynamic>
-    //         ? (state.extra as Map<String, dynamic>)['id'] as int?
-    //         : int.tryParse(state.pathParameters['id'] ?? '');
-
-    //     return ProcessingHistoryCancelView(id: id ?? 0);
-    //   },
-    // ),
-    // GoRoute(
-    //   path: Routes.deliveringHistoryDetails,
-    //   builder: (context, state) {
-    //     final id = state.extra != null && state.extra is Map<String, dynamic>
-    //         ? (state.extra as Map<String, dynamic>)['id'] as int?
-    //         : int.tryParse(state.pathParameters['id'] ?? '');
-
-    //     return DeliveringHistoryDetailsView(id: id ?? 0);
-    //   },
-    // ),
+    GoRoute(
+      path: Routes.deliveringHistoryDetails,
+      builder: (context, state) {
+        return OngoingHistoryDetailsView.fromExtra(context, state);
+      },
+    ),
 
     // Chat
     GoRoute(

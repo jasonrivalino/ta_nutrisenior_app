@@ -64,17 +64,19 @@ class OngoingHistoryDetailsView extends StatelessWidget {
   Widget build(BuildContext context) {
     // Determine top position based on orderList length
     int orderCount = orderList?.length ?? 0;
-    double topPosition;
+    double topPositionProcessing, topPositionDelivering;
 
     final screenHeight = MediaQuery.of(context).size.height;
 
     if (orderCount == 1) {
-      topPosition = screenHeight > 900 ? 300 : 230;
+      topPositionProcessing = screenHeight > 900 ? 300 : 190;
     } else if (orderCount == 2) {
-      topPosition = screenHeight > 900 ? 220 : 160;
+      topPositionProcessing = screenHeight > 900 ? 220 : 115;
     } else {
-      topPosition = screenHeight > 900 ? 140 : 100;
+      topPositionProcessing = screenHeight > 900 ? 140 : 80;
     }
+
+    topPositionDelivering = screenHeight > 900 ? 535 : 435;
 
     return Scaffold(
       backgroundColor: AppColors.woodland,
@@ -88,37 +90,51 @@ class OngoingHistoryDetailsView extends StatelessWidget {
             children: [
               // Fixed Status Section
               Positioned(
-                top: topPosition,
+                top: cardType == 'diproses' ? topPositionProcessing : topPositionDelivering,
                 left: 0,
                 right: 0,
-                height: MediaQuery.of(context).size.height - topPosition,
+                height: MediaQuery.of(context).size.height -
+                  (cardType == 'diproses' ? topPositionProcessing : topPositionDelivering),
                 child: Container(
                   decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
                   ),
                   child: Column(
-                    children: [
-                      SafeArea(
-                        bottom: false,
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 60),
-                          child: OrderStatusDetails(businessType: businessType),
-                        ),
-                      ),
-                      const SizedBox(height: 16),
-                      Expanded(
-                        child: SingleChildScrollView(
-                          padding: EdgeInsets.only(bottom: screenHeight > 900 ? 205 : 185),
-                          child: OrderListDetails(
-                            orderList: orderList,
-                            serviceFee: serviceFee,
-                            deliveryFee: deliveryFee,
-                            totalPrice: totalPrice,
+                    children: cardType == 'diproses'
+                      ? [
+                          SafeArea(
+                            bottom: false,
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 60),
+                              child: OrderStatusDetails(businessType: businessType, cardType: cardType),
+                            ),
                           ),
-                        ),
-                      ),
-                    ],
+                          const SizedBox(height: 16),
+                          Expanded(
+                            child: SingleChildScrollView(
+                              padding: EdgeInsets.only(bottom: screenHeight > 900 ? 205 : 185),
+                              child: OrderListDetails(
+                                orderList: orderList,
+                                serviceFee: serviceFee,
+                                deliveryFee: deliveryFee,
+                                totalPrice: totalPrice,
+                              ),
+                            ),
+                          ),
+                        ]
+                      : [
+                          Padding(
+                            padding: const EdgeInsets.only(top: 60),
+                            child: OrderStatusDetails(businessType: businessType, cardType: cardType),
+                          ),
+                          const SizedBox(height: 18),
+                          DeliverDriverCard(
+                            driverName: driverName,
+                            driverRate: 4.5,
+                          ),
+                          const SizedBox(height: 20),
+                        ],
                   ),
                 ),
               ),
@@ -128,31 +144,33 @@ class OngoingHistoryDetailsView extends StatelessWidget {
                 businessName: businessName,
                 businessImage: businessImage,
                 etaText: estimatedArrival,
-                topPosition: topPosition - 40,
+                topPosition: (cardType == 'diproses' ? topPositionProcessing : topPositionDelivering) - 40,
               ),
             ],
           );
         },
       ),
-      bottomNavigationBar: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-        decoration: const BoxDecoration(
-          color: AppColors.soapstone,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black12,
-              blurRadius: 10,
-              offset: Offset(0, -2),
+      bottomNavigationBar: cardType == 'diproses'
+        ? Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+            decoration: const BoxDecoration(
+              color: AppColors.soapstone,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black12,
+                  blurRadius: 10,
+                  offset: Offset(0, -2),
+                ),
+              ],
             ),
-          ],
-        ),
-        child: WarningButton(
-          warningText: "Batalkan Pemesanan",
-          onPressed: () {
-            // Handle cancel order action
-          },
-        ),
-      ),
+            child: WarningButton(
+              warningText: "Batalkan Pemesanan",
+              onPressed: () {
+                // Handle cancel order action
+              },
+            ),
+          )
+        : null,
     );
   }
 }
