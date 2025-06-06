@@ -117,7 +117,6 @@ class _HistoryListViewState extends State<HistoryListView> {
               ),
             ),
           ),
-          const SizedBox(height: 5),
         ],
       ),
       bottomNavigationBar: const BottomNavBar(currentIndex: 2),

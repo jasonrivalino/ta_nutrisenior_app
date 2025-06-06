@@ -37,6 +37,7 @@ dependencies:
   flutter_launcher_icons: ^0.14.3
   flutter_local_notifications: ^19.2.0
   font_awesome_flutter: ^10.8.0
+  google_maps_flutter: ^2.12.2
   google_sign_in: ^6.3.0
   go_router: ^15.1.2
   intl: ^0.20.2
@@ -94,6 +95,7 @@ flutter:
     - assets/images/transparentAppLogo.png
     - assets/images/media/google.png
     - assets/images/dummy/chat/driver.png
+    - assets/images/dummy/motorcycle_delivery.png
 
     # Asset restaurant images
     - assets/images/dummy/restaurant/glowkitchen.png

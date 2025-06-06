@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ta_nutrisenior_app/features/HistorySection/OngoingHistory/ongoing_history_details_widget.dart';
 import 'package:ta_nutrisenior_app/shared/widgets/appbar.dart';
 import 'package:ta_nutrisenior_app/shared/widgets/warning_button.dart';
 
 import '../../../shared/styles/colors.dart';
 
-class OngoingHistoryDetailsView extends StatelessWidget {
+class OngoingHistoryDetailsView extends StatefulWidget {
   final int id;
   final String businessName;
   final String businessType;
@@ -20,7 +21,7 @@ class OngoingHistoryDetailsView extends StatelessWidget {
   final int? totalPrice;
   final String cardType;
 
-  const OngoingHistoryDetailsView({
+    const OngoingHistoryDetailsView({
     super.key,
     required this.id,
     required this.businessName,
@@ -61,11 +62,32 @@ class OngoingHistoryDetailsView extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
-    // Determine top position based on orderList length
-    int orderCount = orderList?.length ?? 0;
-    double topPositionProcessing, topPositionDelivering;
+  State<OngoingHistoryDetailsView> createState() => _OngoingHistoryDetailsViewState();
+}
 
+class _OngoingHistoryDetailsViewState extends State<OngoingHistoryDetailsView> {
+  BitmapDescriptor? customStartMarker;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadCustomMarker();
+  }
+
+  Future<void> _loadCustomMarker() async {
+    final bitmap = await BitmapDescriptor.asset(
+      const ImageConfiguration(size: Size(40, 40)),
+      'assets/images/dummy/motorcycle_delivery.png',
+    );
+    setState(() {
+      customStartMarker = bitmap;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    int orderCount = widget.orderList?.length ?? 0;
+    double topPositionProcessing, topPositionDelivering;
     final screenHeight = MediaQuery.of(context).size.height;
 
     if (orderCount == 1) {
@@ -78,6 +100,13 @@ class OngoingHistoryDetailsView extends StatelessWidget {
 
     topPositionDelivering = screenHeight > 900 ? 535 : 435;
 
+    // Show loading while marker is being loaded
+    if (widget.cardType != 'diproses' && customStartMarker == null) {
+      return const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
+
     return Scaffold(
       backgroundColor: AppColors.woodland,
       appBar: CustomAppBar(
@@ -88,89 +117,135 @@ class OngoingHistoryDetailsView extends StatelessWidget {
         builder: (context, constraints) {
           return Stack(
             children: [
-              // Fixed Status Section
+              if (widget.cardType != 'diproses') ...[
+                Positioned.fill(
+                  child: GoogleMap(
+                    initialCameraPosition: const CameraPosition(
+                      target: LatLng(-6.208950, 106.816500),
+                      zoom: 14,
+                    ),
+                    markers: {
+                      Marker(
+                        markerId: const MarkerId('start'),
+                        position: const LatLng(-6.210000, 106.816000),
+                        infoWindow: const InfoWindow(title: 'Start Point'),
+                        icon: customStartMarker!,
+                      ),
+                      Marker(
+                        markerId: const MarkerId('arrive'),
+                        position: const LatLng(-6.190000, 106.820000),
+                        infoWindow: const InfoWindow(title: 'Arrival Point'),
+                        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
+                      ),
+                    },
+                    polylines: {
+                      const Polyline(
+                        polylineId: PolylineId('route'),
+                        color: Colors.blue,
+                        width: 5,
+                        points: [
+                          LatLng(-6.210000, 106.816000),
+                          LatLng(-6.190000, 106.820000),
+                        ],
+                      ),
+                    },
+                    myLocationEnabled: false,
+                    zoomControlsEnabled: false,
+                  ),
+                ),
+              ] else
+                Container(color: AppColors.woodland),
+
               Positioned(
-                top: cardType == 'diproses' ? topPositionProcessing : topPositionDelivering,
+                top: widget.cardType == 'diproses' ? topPositionProcessing : topPositionDelivering,
                 left: 0,
                 right: 0,
                 height: MediaQuery.of(context).size.height -
-                  (cardType == 'diproses' ? topPositionProcessing : topPositionDelivering),
+                    (widget.cardType == 'diproses' ? topPositionProcessing : topPositionDelivering),
                 child: Container(
                   decoration: const BoxDecoration(
-                    color: Colors.white,
+                    color: AppColors.soapstone,
                     borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+                    border: Border(
+                      top: BorderSide(color: AppColors.dark, width: 1),
+                    ),
                   ),
                   child: Column(
-                    children: cardType == 'diproses'
-                      ? [
-                          SafeArea(
-                            bottom: false,
-                            child: Padding(
-                              padding: const EdgeInsets.only(top: 60),
-                              child: OrderStatusDetails(businessType: businessType, cardType: cardType),
-                            ),
-                          ),
-                          const SizedBox(height: 16),
-                          Expanded(
-                            child: SingleChildScrollView(
-                              padding: EdgeInsets.only(bottom: screenHeight > 900 ? 205 : 185),
-                              child: OrderListDetails(
-                                orderList: orderList,
-                                serviceFee: serviceFee,
-                                deliveryFee: deliveryFee,
-                                totalPrice: totalPrice,
+                    children: widget.cardType == 'diproses'
+                        ? [
+                            SafeArea(
+                              bottom: false,
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 60),
+                                child: OrderStatusDetails(
+                                  businessType: widget.businessType,
+                                  cardType: widget.cardType,
+                                ),
                               ),
                             ),
-                          ),
-                        ]
-                      : [
-                          Padding(
-                            padding: const EdgeInsets.only(top: 60),
-                            child: OrderStatusDetails(businessType: businessType, cardType: cardType),
-                          ),
-                          const SizedBox(height: 18),
-                          DeliverDriverCard(
-                            driverName: driverName,
-                            driverRate: 4.5,
-                          ),
-                          const SizedBox(height: 20),
-                        ],
+                            const SizedBox(height: 16),
+                            Expanded(
+                              child: SingleChildScrollView(
+                                padding: EdgeInsets.only(bottom: screenHeight > 900 ? 205 : 185),
+                                child: OrderListDetails(
+                                  orderList: widget.orderList,
+                                  serviceFee: widget.serviceFee,
+                                  deliveryFee: widget.deliveryFee,
+                                  totalPrice: widget.totalPrice,
+                                ),
+                              ),
+                            ),
+                          ]
+                        : [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 60),
+                              child: OrderStatusDetails(
+                                businessType: widget.businessType,
+                                cardType: widget.cardType,
+                              ),
+                            ),
+                            const SizedBox(height: 18),
+                            DeliverDriverCard(
+                              driverName: widget.driverName,
+                              driverRate: 4.5,
+                            ),
+                            const SizedBox(height: 20),
+                          ],
                   ),
                 ),
               ),
 
-              // Floating EstimatedTimeCard
               EstimatedTimeCard(
-                businessName: businessName,
-                businessImage: businessImage,
-                etaText: estimatedArrival,
-                topPosition: (cardType == 'diproses' ? topPositionProcessing : topPositionDelivering) - 40,
+                businessName: widget.businessName,
+                businessImage: widget.businessImage,
+                etaText: widget.estimatedArrival,
+                topPosition: (widget.cardType == 'diproses' ? topPositionProcessing : topPositionDelivering) - 40,
               ),
             ],
           );
         },
       ),
-      bottomNavigationBar: cardType == 'diproses'
-        ? Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-            decoration: const BoxDecoration(
-              color: AppColors.soapstone,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black12,
-                  blurRadius: 10,
-                  offset: Offset(0, -2),
-                ),
-              ],
-            ),
-            child: WarningButton(
-              warningText: "Batalkan Pemesanan",
-              onPressed: () {
-                // Handle cancel order action
-              },
-            ),
-          )
-        : null,
+      bottomNavigationBar: widget.cardType == 'diproses'
+          ? Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+              decoration: const BoxDecoration(
+                color: AppColors.soapstone,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black12,
+                    blurRadius: 10,
+                    offset: Offset(0, -2),
+                  ),
+                ],
+              ),
+              child: WarningButton(
+                warningText: "Batalkan Pemesanan",
+                onPressed: () {
+                  // Handle cancel order action
+                },
+              ),
+            )
+          : null,
     );
   }
 }

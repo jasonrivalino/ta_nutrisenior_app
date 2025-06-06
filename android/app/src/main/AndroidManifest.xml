@@ -9,6 +9,9 @@
         android:label="NutriSenior"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
+
+        <meta-data android:name="com.google.android.geo.API_KEY"
+           android:value="AIzaSyBgkskLiPl8Ryn0T07DVz1x2FZVky0vm58"/>
         
         <activity
             android:name=".MainActivity"
