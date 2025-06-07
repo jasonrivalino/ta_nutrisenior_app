@@ -3,11 +3,11 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../shared/utils/google_auth_service.dart';
 import 'login_widget.dart';
 
-import '../../../config/routes.dart';
 import '../../../shared/styles/colors.dart';
 import '../../../shared/styles/fonts.dart';
 
@@ -52,7 +52,7 @@ class _LoginViewState extends State<LoginView> {
                       icon: FaIcon(FontAwesomeIcons.phone),
                       text: "Login Nomor Telepon",
                       onPressed: () {
-                        context.push(Routes.phoneNumberLogin);
+                        context.push('/login/phone');
                       },
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.015),
@@ -71,7 +71,18 @@ class _LoginViewState extends State<LoginView> {
                             );
                             return;
                           }
-                          context.push(Routes.homePage);
+
+                          // Retrieve user info
+                          final String? userName = googleUser.displayName;
+                          final String userEmail = googleUser.email;
+
+                          // Save to SharedPreferences
+                          final prefs = await SharedPreferences.getInstance();
+                          await prefs.setString('userName', userName ?? '');
+                          await prefs.setString('userEmail', userEmail);
+
+                          // Navigate to home
+                          context.go('/homepage');
                         } catch (e) {
                           Fluttertoast.showToast(
                             msg: "Login tidak berhasil. \nSilahkan ulangi..",

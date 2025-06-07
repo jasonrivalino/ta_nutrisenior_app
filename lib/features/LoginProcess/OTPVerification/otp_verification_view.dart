@@ -4,7 +4,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 
 import "../../../shared/widgets/submit_button.dart";
-import '../../../config/routes.dart';
 import '../../../shared/styles/colors.dart';
 import '../../../shared/styles/fonts.dart';
 import 'otp_verifivation_widget.dart';
@@ -75,7 +74,7 @@ class _OTPVerificationViewState extends State<OTPVerificationView> {
                         // Proceed with OTP validation ONLY if internet is available
                         _otpWidgetKey.currentState?.validateAndSetState();
                         if (_otpWidgetKey.currentState?.errorText == null) {
-                          context.push(Routes.homePage);
+                          context.go('/homepage');
                           print("OTP valid!");
                         } else {
                           print("OTP not valid!");

@@ -5,7 +5,6 @@ import '../../../shared/utils/otp_notification.dart';
 import "phone_number_login_widget.dart";
 import "../../../shared/widgets/submit_button.dart";
 
-import '../../../config/routes.dart';
 import '../../../shared/styles/colors.dart';
 import '../../../shared/styles/fonts.dart';
 
@@ -78,7 +77,7 @@ class _PhoneNumberLoginViewState extends State<PhoneNumberLoginView> {
                             title: "OTP Verifikasi",
                             body: "Kode OTP untuk verifikasi nomor telepon Anda adalah 123456",
                           );
-                          context.push(Routes.otpVerification);
+                          context.push('/login/phone/otp');
                         } else {
                           print("Validation failed");
                         }

@@ -2,6 +2,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:ta_nutrisenior_app/shared/styles/colors.dart';
 import 'package:ta_nutrisenior_app/shared/styles/fonts.dart';
@@ -61,7 +62,13 @@ class ProfileView extends StatelessWidget {
                           child: CircularProgressIndicator(),
                         ),
                       );
+                      // Sign out from Google
                       await GoogleAuthService.signOutGoogle();
+
+                      // Clear SharedPreferences
+                      final prefs = await SharedPreferences.getInstance();
+                      await prefs.clear();
+                      
                       await Future.delayed(const Duration(seconds: 2));
 
                       rootContext.pop();

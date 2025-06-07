@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ta_nutrisenior_app/shared/widgets/list_helper/lihat_lengkap_button.dart';
 import 'package:ta_nutrisenior_app/shared/widgets/list_helper/list_title.dart';
 
@@ -10,8 +11,28 @@ import 'package:ta_nutrisenior_app/shared/widgets/product_card/card_box.dart';
 import '../../../shared/utils/carousel_card.dart';
 
 // Class for the Home Page Top Bar Section
-class HomeTopBarSection extends StatelessWidget {
+class HomeTopBarSection extends StatefulWidget {
   const HomeTopBarSection({super.key});
+
+  @override
+  State<HomeTopBarSection> createState() => _HomeTopBarSectionState();
+}
+
+class _HomeTopBarSectionState extends State<HomeTopBarSection> {
+  String userName = 'Jane Doe';
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserName();
+  }
+
+  Future<void> _loadUserName() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      userName = prefs.getString('userName') ?? 'John Doe';
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +45,11 @@ class HomeTopBarSection extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
-                'Hello, Jane Doe',
-                style: TextStyle(
+              Text(
+                'Hello, $userName',
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
                 ),

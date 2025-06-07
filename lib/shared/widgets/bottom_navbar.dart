@@ -4,8 +4,6 @@ import 'package:go_router/go_router.dart';
 
 import '../../../shared/styles/colors.dart';
 
-import '../../../config/routes.dart';
-
 class BottomNavBar extends StatelessWidget {
   final int currentIndex;
 
@@ -14,16 +12,16 @@ class BottomNavBar extends StatelessWidget {
   void _onItemTapped(BuildContext context, int index) {
     switch (index) {
       case 0:
-        context.push(Routes.homePage);
+        context.push('/homepage');
         break;
       case 1:
-        context.push(Routes.recommendRestaurantPromo);
+        context.push('/restaurantpromo');
         break;
       case 2:
-        context.push(Routes.historyDone);
+        context.push('/historyDone');
         break;
       case 3:
-        context.push(Routes.chatList);
+        context.push('/chatlist');
         break;
     }
   }

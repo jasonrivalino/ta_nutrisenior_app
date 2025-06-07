@@ -1,5 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:ta_nutrisenior_app/shared/styles/colors.dart';
 
 import '../../shared/utils/handling_choose_image.dart';
@@ -13,6 +15,22 @@ class ProfileCard extends StatefulWidget {
 
 class _ProfileCardState extends State<ProfileCard> {
   File? _image;
+  String userName = 'John Doe';
+  String userEmail = 'johndoe@gmail.com';
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserProfile();
+  }
+
+  Future<void> _loadUserProfile() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      userName = prefs.getString('userName') ?? 'John Doe';
+      userEmail = prefs.getString('userEmail') ?? 'johndoe@gmail.com';
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,8 +57,8 @@ class _ProfileCardState extends State<ProfileCard> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('John Doe', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                const Text('johndoe@gmail.com'),
+                Text(userName, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                Text(userEmail),
                 const SizedBox(height: 8),
                 GestureDetector(
                   onTap: () async {
