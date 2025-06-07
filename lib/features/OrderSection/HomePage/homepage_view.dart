@@ -45,7 +45,7 @@ class HomePageView extends StatelessWidget {
                     RecommendedHomeSection(
                       category: 'RecommendedList',
                       title: 'Resto Pilihan',
-                      routeDetail: '/restaurantpromo/free_shipment/detail',
+                      routeDetail: '/recommend/restaurant/detail',
                       heightCard: heightCard,
                       businesses: recommendedRestaurant,
                     ),
@@ -53,7 +53,7 @@ class HomePageView extends StatelessWidget {
                     RecommendedHomeSection(
                       category: 'RecommendedList',
                       title: 'Pusat Belanja Pilihan',
-                      routeDetail: '/marketpromo/free_shipment/detail',
+                      routeDetail: '/recommend/market/detail',
                       heightCard: heightCard,
                       businesses: recommendedMarket,
                     ),

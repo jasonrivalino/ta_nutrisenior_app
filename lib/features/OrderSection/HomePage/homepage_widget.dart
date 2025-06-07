@@ -38,7 +38,7 @@ class HomeTopBarSection extends StatelessWidget {
                     icon: const Icon(Icons.favorite_border),
                     padding: EdgeInsets.zero,
                     onPressed: () {
-                      // Handle favorite tap
+                      context.push('/favorite/restaurant');
                     },
                   ),
                   IconButton(

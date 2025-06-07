@@ -1,24 +1,27 @@
 import 'package:go_router/go_router.dart';
-import 'package:ta_nutrisenior_app/features/HistorySection/OngoingHistory/CancelOrder/cancel_order_view.dart';
 
-import '../features/HistorySection/OngoingHistory/ongoing_history_details_view.dart';
 import '../features/LoginProcess/LoginOption/login_view.dart';
 import '../features/LoginProcess/PhoneNumber/phone_number_login_view.dart';
 import '../features/LoginProcess/OTPVerification/otp_verification_view.dart';
 
 import '../features/OrderSection/HomePage/homepage_view.dart';
+import '../features/OrderSection/HomePage/homepage_data.dart';
 import '../features/OrderSection/Profile/profile_view.dart';
+import '../features/OrderSection/FavoritesData/favorites_restaurant_data.dart';
+import '../features/OrderSection/FavoritesData/favorites_market_data.dart';
+import '../features/OrderSection/BusinessListPage/business_list_view.dart';
 
 import '../features/PromoSection/data/recommend_market_promo_data.dart';
 import '../features/PromoSection/data/recommend_restaurant_promo_data.dart';
 import '../features/PromoSection/recommend_promo_view.dart';
-import '../features/PromoSection/PromoDetail/promo_detail_view.dart';
 
 import '../features/HistorySection/history_list_view.dart';
 import '../features/HistorySection/DoneHistory/done_history_details_view.dart';
 import '../features/HistorySection/DoneHistory/Rating/rating_view.dart';
 import '../features/HistorySection/DoneHistory/Report/report_view.dart';
 import '../features/HistorySection/DoneHistory/Report/report_success_view.dart';
+import '../features/HistorySection/OngoingHistory/ongoing_history_details_view.dart';
+import '../features/HistorySection/OngoingHistory/CancelOrder/cancel_order_view.dart';
 
 import '../features/ContactSection/ChatList/chat_list_view.dart';
 import '../features/ContactSection/ChatDetails/chat_details_view.dart';
@@ -32,7 +35,11 @@ class Routes {
 
   // Main Application to Order Section
   static const String homePage = '/homepage';
+  static const String favoriteRestaurant = '/favorite/restaurant';
+  static const String favoriteMarket = '/favorite/market';
   static const String profile = '/profile';
+  static const String recommendRestaurantDetail = '/recommend/restaurant/detail';
+  static const String recommendMarketDetail = '/recommend/market/detail';
 
   // Promo Section
   static const String recommendRestaurantPromo = '/restaurantpromo';
@@ -80,13 +87,57 @@ final GoRouter router = GoRouter(
     ),
 
     // Main Application
+    // Homepage
     GoRoute(
       path: Routes.homePage,
       builder: (context, state) => HomePageView(),
     ),
+    // Favorite Page
+    GoRoute(
+      path: Routes.favoriteRestaurant,
+      builder: (context, state) => const BusinessListView(
+        initialIndex: 0,
+        appBarTitle: 'Restoran Favorit',
+        restoRoute: Routes.favoriteRestaurant,
+        marketRoute: Routes.favoriteMarket,
+        businessesData: favoritesRestaurant,
+      ),
+    ),
+    GoRoute(
+      path: Routes.favoriteMarket,
+      builder: (context, state) => const BusinessListView(
+        initialIndex: 1,
+        appBarTitle: 'Pusat Belanja Favorit',
+        restoRoute: Routes.favoriteRestaurant,
+        marketRoute: Routes.favoriteMarket,
+        businessesData: favoritesMarket,
+      ),
+    ),
+    // Profile Page
     GoRoute(
       path: Routes.profile,
       builder: (context, state) => const ProfileView(),
+    ),
+    // Recommend Page
+    GoRoute(
+      path: Routes.recommendRestaurantDetail,
+      builder: (context, state) => const BusinessListView(
+        initialIndex: 0,
+        appBarTitle: 'Restoran Pilihan',
+        restoRoute: Routes.recommendRestaurantDetail,
+        marketRoute: Routes.recommendMarketDetail,
+        businessesData: recommendedRestaurant,
+      ),
+    ),
+    GoRoute(
+      path: Routes.recommendMarketDetail,
+      builder: (context, state) => const BusinessListView(
+        initialIndex: 1,
+        appBarTitle: 'Pusat Belanja Pilihan',
+        restoRoute: Routes.recommendRestaurantDetail,
+        marketRoute: Routes.recommendMarketDetail,
+        businessesData: recommendedMarket,
+      ),
     ),
 
     // Promo Section
@@ -116,42 +167,42 @@ final GoRouter router = GoRouter(
     ),
     GoRoute(
       path: Routes.restaurantPromoDiscountDetail,
-      builder: (context, state) => const PromoDetailView(
+      builder: (context, state) => const BusinessListView(
         initialIndex: 0,
         promoTitle: 'Promo Diskon',
         restoRoute: Routes.restaurantPromoDiscountDetail,
         marketRoute: Routes.marketPromoDiscountDetail,
-        freeShipmentBusinesses: discountRestaurant,
+        businessesData: discountRestaurant,
       ),
     ),
     GoRoute(
       path: Routes.marketPromoDiscountDetail,
-      builder: (context, state) => const PromoDetailView(
+      builder: (context, state) => const BusinessListView(
         initialIndex: 1,
         promoTitle: 'Promo Diskon',
         restoRoute: Routes.restaurantPromoDiscountDetail,
         marketRoute: Routes.marketPromoDiscountDetail,
-        freeShipmentBusinesses: discountMarket,
+        businessesData: discountMarket,
       ),
     ),
     GoRoute(
       path: Routes.restaurantPromoFreeShipmentDetail,
-      builder: (context, state) => const PromoDetailView(
+      builder: (context, state) => const BusinessListView(
         initialIndex: 0,
         promoTitle: 'Gratis Ongkir',
         restoRoute: Routes.restaurantPromoFreeShipmentDetail,
         marketRoute: Routes.marketPromoFreeShipmentDetail,
-        freeShipmentBusinesses: freeShipmentRestaurant,
+        businessesData: freeShipmentRestaurant,
       ),
     ),
     GoRoute(
       path: Routes.marketPromoFreeShipmentDetail,
-      builder: (context, state) => const PromoDetailView(
+      builder: (context, state) => const BusinessListView(
         initialIndex: 1,
         promoTitle: 'Gratis Ongkir',
         restoRoute: Routes.restaurantPromoFreeShipmentDetail,
         marketRoute: Routes.marketPromoFreeShipmentDetail,
-        freeShipmentBusinesses: freeShipmentMarket,
+        businessesData: freeShipmentMarket,
       ),
     ),
 

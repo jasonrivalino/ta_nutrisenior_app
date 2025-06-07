@@ -6,7 +6,6 @@ import 'package:ta_nutrisenior_app/shared/styles/fonts.dart';
 class CardList extends StatelessWidget {
   final String image;
   final String name;
-  final String type;
   final double rate;
   final double location;
   final int? percentage;
@@ -16,7 +15,6 @@ class CardList extends StatelessWidget {
     super.key,
     required this.image,
     required this.name,
-    required this.type,
     required this.rate,
     required this.location,
     this.percentage,

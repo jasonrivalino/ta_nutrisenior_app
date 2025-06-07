@@ -3,11 +3,11 @@ import 'package:ta_nutrisenior_app/shared/widgets/list_helper/list_title.dart';
 import '../../../shared/styles/colors.dart';
 import '../../../shared/widgets/product_card/card_list.dart';
 
-class PromoDetailWidget extends StatelessWidget {
-  final String title;
+class BusinessListWidget extends StatelessWidget {
+  final String? title;
   final List<Map<String, dynamic>> businesses;
 
-  const PromoDetailWidget({
+  const BusinessListWidget({
     super.key,
     required this.title,
     required this.businesses,
@@ -18,8 +18,10 @@ class PromoDetailWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        ListTitle(title: title),
-        const SizedBox(height: 17.5),
+        if (title != null) ...[
+          ListTitle(title: title!),
+          const SizedBox(height: 17.5),
+        ],
         // Scrollable list only
         Expanded(
           child: Container(
@@ -38,7 +40,6 @@ class PromoDetailWidget extends StatelessWidget {
                 return CardList(
                   image: business['image'],
                   name: business['name'],
-                  type: business['type'],
                   rate: business['rate'],
                   location: business['location'],
                   percentage: business['percentage'],

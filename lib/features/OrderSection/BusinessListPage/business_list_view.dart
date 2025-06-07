@@ -6,29 +6,31 @@ import '../../../shared/widgets/bottom_navbar.dart';
 
 // Assuming SelectionToggle is imported or defined somewhere:
 import '../../../shared/widgets/list_helper/resto_market_selector.dart';
-import 'promo_detail_widget.dart';
+import 'business_list_widget.dart';
 
-class PromoDetailView extends StatelessWidget {
+class BusinessListView extends StatelessWidget {
   final int initialIndex;
   final String restoRoute;
   final String marketRoute;
-  final String promoTitle;
-  final List<Map<String, dynamic>> freeShipmentBusinesses;
+  final String? appBarTitle;
+  final String? promoTitle;
+  final List<Map<String, dynamic>> businessesData;
 
-  const PromoDetailView({
+  const BusinessListView({
     super.key,
     required this.initialIndex,
     required this.restoRoute,
     required this.marketRoute,
-    required this.promoTitle,
-    required this.freeShipmentBusinesses,
+    this.appBarTitle,
+    this.promoTitle,
+    required this.businessesData,
   });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: 'Promo Lengkap',
+        title: appBarTitle ?? 'Promo Lengkap',
         showBackButton: true,
       ),
       backgroundColor: AppColors.soapstone,
@@ -41,9 +43,9 @@ class PromoDetailView extends StatelessWidget {
             marketRoute: marketRoute,
           ),
           Expanded(
-            child: PromoDetailWidget(
+            child: BusinessListWidget(
               title: promoTitle,
-              businesses: freeShipmentBusinesses,
+              businesses: businessesData,
             ),
           ),
         ],
