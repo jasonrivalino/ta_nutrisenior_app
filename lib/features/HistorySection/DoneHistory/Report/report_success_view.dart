@@ -22,7 +22,7 @@ class _ReportSuccessState extends State<ReportSuccess> {
     super.initState();
     Future.delayed(const Duration(seconds: 3), () {
       if (mounted) {
-        context.go('/history');
+        context.go('/historyDone');
       }
     });
   }

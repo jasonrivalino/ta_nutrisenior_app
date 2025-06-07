@@ -20,7 +20,7 @@ class BottomNavBar extends StatelessWidget {
         context.push(Routes.recommendRestaurantPromo);
         break;
       case 2:
-        context.push(Routes.history);
+        context.push(Routes.historyDone);
         break;
       case 3:
         context.push(Routes.chatList);

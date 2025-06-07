@@ -14,6 +14,7 @@ class BusinessListView extends StatelessWidget {
   final String marketRoute;
   final String? appBarTitle;
   final String? promoTitle;
+  final int bottomNavIndex;
   final List<Map<String, dynamic>> businessesData;
 
   const BusinessListView({
@@ -23,6 +24,7 @@ class BusinessListView extends StatelessWidget {
     required this.marketRoute,
     this.appBarTitle,
     this.promoTitle,
+    required this.bottomNavIndex,
     required this.businessesData,
   });
 
@@ -50,7 +52,7 @@ class BusinessListView extends StatelessWidget {
           ),
         ],
       ),
-      bottomNavigationBar: const BottomNavBar(currentIndex: 1),
+      bottomNavigationBar: BottomNavBar(currentIndex: bottomNavIndex),
     );
   }
 }

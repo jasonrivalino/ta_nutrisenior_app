@@ -2,7 +2,6 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
-// import 'package:go_router/go_router.dart';
 import 'package:ta_nutrisenior_app/shared/styles/colors.dart';
 import 'package:ta_nutrisenior_app/shared/styles/fonts.dart';
 import 'package:ta_nutrisenior_app/shared/widgets/appbar.dart';
@@ -168,7 +167,12 @@ class _CancelOrderViewState extends State<CancelOrderView> {
                                       toastLength: Toast.LENGTH_SHORT,
                                       gravity: ToastGravity.BOTTOM,
                                     );
-                                    rootContext.go('/history');
+
+                                    print('Cancel Order ID: ${widget.id}');
+                                    
+                                    rootContext.go('/historyOngoing',
+                                      extra: {'id': widget.id},
+                                    );
                                   },
                                 );
                               },

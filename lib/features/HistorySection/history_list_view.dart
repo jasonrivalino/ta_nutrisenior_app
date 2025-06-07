@@ -4,18 +4,40 @@ import 'package:ta_nutrisenior_app/shared/styles/colors.dart';
 import '../../../shared/widgets/appbar.dart';
 import '../../../shared/widgets/bottom_navbar.dart';
 import '../../../shared/widgets/product_card/history_card_list.dart';
-
 import 'history_list_data.dart';
 
 class HistoryListView extends StatefulWidget {
-  const HistoryListView({super.key});
+  final int? id;
+  final int routeIndex; // 0 = Histori (done), 1 = Dalam Proses (ongoing)
+
+  const HistoryListView({
+    super.key,
+    this.id,
+    required this.routeIndex,
+  });
 
   @override
   State<HistoryListView> createState() => _HistoryListViewState();
 }
 
 class _HistoryListViewState extends State<HistoryListView> {
-  bool showDone = true;
+  late bool showDone;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Use routeIndex to determine initial tab
+    showDone = widget.routeIndex == 0;
+
+    print('widget id: ${widget.id}');
+    print('routeIndex: ${widget.routeIndex}');
+
+    // If widget.id is provided and routeIndex is for ongoing (1), remove matching item
+    if (widget.id != null && widget.routeIndex == 1) {
+      ongoingHistoryList.removeWhere((item) => item['id'] == widget.id);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

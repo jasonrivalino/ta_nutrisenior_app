@@ -50,7 +50,8 @@ class Routes {
   static const String marketPromoFreeShipmentDetail = '/marketpromo/free_shipment/detail';
 
   // Transaction History Section - Done History
-  static const String history = '/history';
+  static const String historyDone = '/historyDone';
+  static const String historyOngoing = '/historyOngoing';
   static const String doneHistoryDetails = '/history/done/details/:id';
   static const String doneHistoryRating = '/history/done/details/:id/rating';
   static const String doneHistoryReport = '/history/done/details/:id/report';
@@ -100,6 +101,7 @@ final GoRouter router = GoRouter(
         appBarTitle: 'Restoran Favorit',
         restoRoute: Routes.favoriteRestaurant,
         marketRoute: Routes.favoriteMarket,
+        bottomNavIndex: 0,
         businessesData: favoritesRestaurant,
       ),
     ),
@@ -110,6 +112,7 @@ final GoRouter router = GoRouter(
         appBarTitle: 'Pusat Belanja Favorit',
         restoRoute: Routes.favoriteRestaurant,
         marketRoute: Routes.favoriteMarket,
+        bottomNavIndex: 0,
         businessesData: favoritesMarket,
       ),
     ),
@@ -126,6 +129,7 @@ final GoRouter router = GoRouter(
         appBarTitle: 'Restoran Pilihan',
         restoRoute: Routes.recommendRestaurantDetail,
         marketRoute: Routes.recommendMarketDetail,
+        bottomNavIndex: 0,
         businessesData: recommendedRestaurant,
       ),
     ),
@@ -136,6 +140,7 @@ final GoRouter router = GoRouter(
         appBarTitle: 'Pusat Belanja Pilihan',
         restoRoute: Routes.recommendRestaurantDetail,
         marketRoute: Routes.recommendMarketDetail,
+        bottomNavIndex: 0,
         businessesData: recommendedMarket,
       ),
     ),
@@ -172,6 +177,7 @@ final GoRouter router = GoRouter(
         promoTitle: 'Promo Diskon',
         restoRoute: Routes.restaurantPromoDiscountDetail,
         marketRoute: Routes.marketPromoDiscountDetail,
+        bottomNavIndex: 1,
         businessesData: discountRestaurant,
       ),
     ),
@@ -182,6 +188,7 @@ final GoRouter router = GoRouter(
         promoTitle: 'Promo Diskon',
         restoRoute: Routes.restaurantPromoDiscountDetail,
         marketRoute: Routes.marketPromoDiscountDetail,
+        bottomNavIndex: 1,
         businessesData: discountMarket,
       ),
     ),
@@ -192,6 +199,7 @@ final GoRouter router = GoRouter(
         promoTitle: 'Gratis Ongkir',
         restoRoute: Routes.restaurantPromoFreeShipmentDetail,
         marketRoute: Routes.marketPromoFreeShipmentDetail,
+        bottomNavIndex: 1,
         businessesData: freeShipmentRestaurant,
       ),
     ),
@@ -202,14 +210,31 @@ final GoRouter router = GoRouter(
         promoTitle: 'Gratis Ongkir',
         restoRoute: Routes.restaurantPromoFreeShipmentDetail,
         marketRoute: Routes.marketPromoFreeShipmentDetail,
+        bottomNavIndex: 1,
         businessesData: freeShipmentMarket,
       ),
     ),
 
     // History
     GoRoute(
-      path: Routes.history,
-      builder: (context, state) => const HistoryListView(),
+      path: Routes.historyDone,
+      builder: (context, state) {
+        final id = state.extra != null && state.extra is Map<String, dynamic>
+            ? (state.extra as Map<String, dynamic>)['id'] as int?
+            : int.tryParse(state.pathParameters['id'] ?? '');
+
+        return HistoryListView(routeIndex: 0, id: id);
+      },
+    ),
+    GoRoute(
+      path: Routes.historyOngoing,
+      builder: (context, state) {
+        final id = state.extra != null && state.extra is Map<String, dynamic>
+            ? (state.extra as Map<String, dynamic>)['id'] as int?
+            : int.tryParse(state.pathParameters['id'] ?? '');
+
+        return HistoryListView(routeIndex: 1, id: id);
+      },
     ),
     GoRoute(
       path: Routes.doneHistoryDetails,

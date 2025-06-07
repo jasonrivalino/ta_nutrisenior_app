@@ -204,7 +204,7 @@ class _RatingViewState extends State<RatingView> {
                     gravity: ToastGravity.BOTTOM,
                   );
 
-                  context.go('/history');
+                  context.go('/historyDone');
                 },
               ),
               SizedBox(height: 24),
