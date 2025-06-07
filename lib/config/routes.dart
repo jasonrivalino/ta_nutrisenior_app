@@ -6,7 +6,7 @@ import '../features/LoginProcess/OTPVerification/otp_verification_view.dart';
 
 import '../features/OrderSection/HomePage/homepage_view.dart';
 import '../features/OrderSection/HomePage/homepage_data.dart';
-import '../features/OrderSection/Profile/profile_view.dart';
+import '../features/ProfileController/profile_view.dart';
 import '../features/OrderSection/FavoritesData/favorites_restaurant_data.dart';
 import '../features/OrderSection/FavoritesData/favorites_market_data.dart';
 import '../features/OrderSection/BusinessListPage/business_list_view.dart';

@@ -7,8 +7,8 @@ import 'package:ta_nutrisenior_app/shared/styles/colors.dart';
 import 'package:ta_nutrisenior_app/shared/styles/fonts.dart';
 import 'package:ta_nutrisenior_app/shared/widgets/appbar.dart';
 
-import '../../../shared/utils/google_auth_service.dart';
-import '../../../shared/widgets/confirm_dialog.dart';
+import '../../shared/utils/google_auth_service.dart';
+import '../../shared/widgets/confirm_dialog.dart';
 import 'profile_widget.dart';
 
 class ProfileView extends StatelessWidget {
@@ -104,9 +104,9 @@ class ProfileView extends StatelessWidget {
             ),
             child: Column(
               children: [
-                ProfileMenuList(title: 'Favorit', navigate: () {}),
+                ProfileMenuList(title: 'Favorit', navigate: () => context.push('/favorite/restaurant')),
                 ProfileMenuList(title: 'Promo', navigate: () => context.push('/restaurantpromo')),
-                ProfileMenuList(title: 'Histori Transaksi', navigate: () => context.push('/donehistory')),
+                ProfileMenuList(title: 'Histori Transaksi', navigate: () => context.push('/historyDone')),
               ],
             ),
           ),

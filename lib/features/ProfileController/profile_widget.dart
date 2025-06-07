@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:ta_nutrisenior_app/shared/styles/colors.dart';
 
-import '../../../shared/utils/handling_choose_image.dart';
+import '../../shared/utils/handling_choose_image.dart';
 
 class ProfileCard extends StatefulWidget {
   const ProfileCard({super.key});
@@ -78,31 +78,34 @@ class ProfileMenuList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        border: Border(
-          top: BorderSide(color: AppColors.dark, width: 0.6),
-          bottom: BorderSide(color: AppColors.dark, width: 0.6),
-        ),
-      ),
-      child: ElevatedButton(
-        onPressed: navigate,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.ecruWhite,
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.zero,
-          ),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              title,
-              style: const TextStyle(fontSize: 16, color: AppColors.dark),
+    return Material(
+      color: AppColors.ecruWhite,
+      child: InkWell(
+        onTap: navigate,
+        hoverColor: AppColors.soapstone.withValues(alpha: 0.3),
+        splashColor: AppColors.darkGray.withValues(alpha: 0.2),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          decoration: const BoxDecoration(
+            border: Border(
+              top: BorderSide(color: AppColors.dark, width: 0.6),
+              bottom: BorderSide(color: AppColors.dark, width: 0.6),
             ),
-            const Icon(Icons.arrow_forward_ios, size: 16, color: AppColors.dark),
-          ],
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 16,
+                  color: AppColors.dark,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              const Icon(Icons.arrow_forward_ios, size: 16, color: AppColors.dark),
+            ],
+          ),
         ),
       ),
     );
