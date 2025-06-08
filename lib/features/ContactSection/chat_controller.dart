@@ -54,7 +54,8 @@ class ChatListController {
           'driver_id': driverId,
           'driver_image': driver['driver_image'],
           'driver_name': driver['driver_name'],
-          'message_text': chat['message_text'],
+          'is_user': chat['is_user'],
+          'message_sent': chat['message_sent'],
           'message_time': formattedTime,
           'numberMessageReceived': match['numberMessageReceived'] ?? 0,
         };
@@ -71,8 +72,8 @@ class ChatListController {
       return driverChats.map((chat) {
         return {
           'is_user': chat['is_user'],
-          'message_text': chat['message_text'],
-          'message_time': DateFormat('HH:mm').format(chat['message_time'] as DateTime),
+          'message_sent': chat['message_sent'],
+          'message_time': chat['message_time'],
         };
       }).toList();
     }

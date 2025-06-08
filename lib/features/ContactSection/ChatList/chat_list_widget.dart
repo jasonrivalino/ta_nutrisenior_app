@@ -1,24 +1,51 @@
 import 'package:flutter/material.dart';
 
 import '../../../shared/styles/colors.dart';
+import '../../../shared/utils/image_sent_message_handling.dart';
 
-class ChatMessageTile extends StatelessWidget {
+class ChatMessageTile extends StatefulWidget {
   final String driverImage;
   final String driverName;
+  final bool isUser;
   final String messageText;
   final String messageTime;
   final int? numberMessageReceived;
-  final VoidCallback? onTap; // Optional onTap for routing
+  final VoidCallback? onTap;
 
   const ChatMessageTile({
     super.key,
     required this.driverImage,
     required this.driverName,
+    required this.isUser,
     required this.messageText,
     required this.messageTime,
     this.numberMessageReceived,
     this.onTap,
   });
+
+  @override
+  State<ChatMessageTile> createState() => _ChatMessageTileState();
+}
+
+class _ChatMessageTileState extends State<ChatMessageTile> {
+  String _displayMessage = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _loadDisplayMessage();
+  }
+
+  Future<void> _loadDisplayMessage() async {
+    final result = await imageSentMessageHandling(
+      messageText: widget.messageText,
+      isUser: widget.isUser,
+      driverName: widget.driverName,
+    );
+    setState(() {
+      _displayMessage = result;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,24 +54,21 @@ class ChatMessageTile extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          // Profile image
           CircleAvatar(
-            backgroundImage: AssetImage(driverImage),
+            backgroundImage: AssetImage(widget.driverImage),
             radius: 35,
           ),
           const SizedBox(width: 12),
-          // Name and message
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Name and time in a row
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Flexible(
                       child: Text(
-                        driverName,
+                        widget.driverName,
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
@@ -55,7 +79,7 @@ class ChatMessageTile extends StatelessWidget {
                     ),
                     const SizedBox(width: 10),
                     Text(
-                      messageTime,
+                      widget.messageTime,
                       style: const TextStyle(
                         fontSize: 14,
                         color: AppColors.dark,
@@ -64,12 +88,11 @@ class ChatMessageTile extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 3),
-                // Message text and unread count in a row
                 Row(
                   children: [
                     Expanded(
                       child: Text(
-                        messageText,
+                        _displayMessage,
                         style: const TextStyle(
                           fontSize: 14,
                           color: AppColors.dark,
@@ -79,8 +102,8 @@ class ChatMessageTile extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(width: 12),
-                    if (numberMessageReceived != null &&
-                        numberMessageReceived! > 0)
+                    if (widget.numberMessageReceived != null &&
+                        widget.numberMessageReceived! > 0)
                       Container(
                         margin: const EdgeInsets.only(left: 8),
                         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
@@ -89,7 +112,7 @@ class ChatMessageTile extends StatelessWidget {
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Text(
-                          numberMessageReceived.toString(),
+                          widget.numberMessageReceived.toString(),
                           style: const TextStyle(
                             color: AppColors.dark,
                             fontSize: 14,
@@ -105,11 +128,10 @@ class ChatMessageTile extends StatelessWidget {
       ),
     );
 
-    // If onTap is provided, make the tile clickable
-    return onTap != null
+    return widget.onTap != null
         ? InkWell(
-            onTap: onTap,
-            splashColor: Colors.grey.withValues(alpha: 0.2),
+            onTap: widget.onTap,
+            splashColor: Colors.grey.withAlpha(50),
             borderRadius: BorderRadius.circular(8),
             child: tileContent,
           )

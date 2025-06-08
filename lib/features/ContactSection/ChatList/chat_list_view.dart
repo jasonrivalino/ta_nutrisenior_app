@@ -30,7 +30,8 @@ class ChatListView extends StatelessWidget {
           return ChatMessageTile(
             driverImage: chat['driver_image'] as String,
             driverName: chat['driver_name'] as String,
-            messageText: chat['message_text'] as String,
+            isUser: chat['is_user'] as bool,
+            messageText: chat['message_sent'] as String,
             messageTime: chat['message_time'] as String,
             numberMessageReceived: chat['numberMessageReceived'] as int?,
             onTap: () {
