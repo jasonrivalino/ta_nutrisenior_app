@@ -10,6 +10,7 @@ class CardBox extends StatefulWidget {
   final double rate;
   final double location;
   final int? percentage;
+  final VoidCallback onTap; // <-- New callback parameter
 
   const CardBox({
     super.key,
@@ -19,6 +20,7 @@ class CardBox extends StatefulWidget {
     required this.rate,
     required this.location,
     this.percentage,
+    required this.onTap, // <-- Initialize in constructor
   });
 
   @override
@@ -36,16 +38,15 @@ class _CardBoxState extends State<CardBox> {
 
   @override
   Widget build(BuildContext context) {
-    // Print
     final screenHeight = MediaQuery.of(context).size.height;
     final imageHeight = (screenHeight * 0.10).clamp(100.0, 120.0);
 
-    // Print the height of the image
-    print('Image Height: $imageHeight');
-
     return GestureDetector(
       onTapDown: (_) => _setPressed(true),
-      onTapUp: (_) => _setPressed(false),
+      onTapUp: (_) {
+        _setPressed(false);
+        if (widget.onTap != null) widget.onTap!(); // <-- Trigger the onTap callback
+      },
       onTapCancel: () => _setPressed(false),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 100),
@@ -53,14 +54,14 @@ class _CardBoxState extends State<CardBox> {
         decoration: BoxDecoration(
           boxShadow: _isPressed
               ? [
-                  BoxShadow(
+                  const BoxShadow(
                     color: Colors.black26,
                     blurRadius: 12,
                     offset: Offset(0, 6),
                   )
                 ]
               : [
-                  BoxShadow(
+                  const BoxShadow(
                     color: Colors.black12,
                     blurRadius: 6,
                     offset: Offset(0, 3),

@@ -10,7 +10,7 @@ class CardList extends StatelessWidget {
   final double location;
   final int? percentage;
   final bool freeShipment;
-  final VoidCallback? onTap;
+  final VoidCallback onTap;
 
   const CardList({
     super.key,
@@ -20,7 +20,7 @@ class CardList extends StatelessWidget {
     required this.location,
     this.percentage,
     required this.freeShipment,
-    this.onTap,
+    required this.onTap,
   });
 
   @override

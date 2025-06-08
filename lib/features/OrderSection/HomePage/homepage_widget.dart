@@ -170,6 +170,24 @@ class RecommendedHomeSection extends StatelessWidget {
                         name: business['business_name'],
                         rate: business['business_rating'],
                         location: business['business_distance'],
+                        onTap: () {
+                          final type = business['business_type'];
+                          final route = type == 'restaurant'
+                              ? '/restaurant/detail/${business['business_id']}'
+                              : '/market/detail/${business['business_id']}';
+
+                          context.push(route, extra: {
+                            'id': business['business_id'],
+                            'image': business['business_image'],
+                            'name': business['business_name'],
+                            'rate': business['business_rating'],
+                            'location': business['business_distance'],
+                            'address': business['business_address'],
+                            'openHours': business['business_open_hours'],
+                            'percentage': business['discount_number'],
+                            'freeShipment': business['is_free_shipment'],
+                          });
+                        },
                       ),
                     );
                   },
@@ -262,6 +280,24 @@ class _RecommendedTodayCarouselState extends State<RecommendedTodayCarousel> wit
                 name: business['business_name'],
                 rate: business['business_rating'],
                 location: business['business_distance'],
+                onTap: () {
+                  final type = business['business_type'];
+                  final route = type == 'restaurant'
+                      ? '/restaurant/detail/${business['business_id']}'
+                      : '/market/detail/${business['business_id']}';
+
+                  context.push(route, extra: {
+                    'id': business['business_id'],
+                    'image': business['business_image'],
+                    'name': business['business_name'],
+                    'rate': business['business_rating'],
+                    'location': business['business_distance'],
+                    'address': business['business_address'],
+                    'openHours': business['business_open_hours'],
+                    'percentage': business['discount_number'],
+                    'freeShipment': business['is_free_shipment'],
+                  });
+                },
               ),
             );
           },

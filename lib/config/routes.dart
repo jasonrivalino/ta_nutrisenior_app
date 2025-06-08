@@ -10,6 +10,8 @@ import '../features/OrderSection/FavoritesData/favorites_controller.dart';
 import '../features/ProfileController/profile_view.dart';
 import '../features/OrderSection/BusinessListPage/business_list_view.dart';
 
+import '../features/OrderSection/OrderingMenu/business_ordering_menu_view.dart';
+
 import '../features/PromoSection/recommend_promo_controller.dart';
 import '../features/PromoSection/recommend_promo_view.dart';
 
@@ -33,13 +35,16 @@ class Routes {
   static const String phoneNumberLogin = '/login/phone';
   static const String otpVerification = '/login/phone/otp';
 
-  // Main Application to Order Section
+  // Main Application to Order Section - Choosing
   static const String homePage = '/homepage';
   static const String favoriteRestaurant = '/favorite/restaurant';
   static const String favoriteMarket = '/favorite/market';
   static const String profile = '/profile';
   static const String recommendRestaurantDetail = '/recommend/restaurant/detail';
   static const String recommendMarketDetail = '/recommend/market/detail';
+  // Main Application to Order Section - Ordering Process
+  static const String restaurantDetail = '/restaurant/detail/:id';
+  static const String marketDetail = '/market/detail/:id';
 
   // Promo Section
   static const String recommendRestaurantPromo = '/restaurantpromo';
@@ -87,7 +92,8 @@ final GoRouter router = GoRouter(
       builder: (context, state) => const OTPVerificationView(),
     ),
 
-    // Main Application
+    // Main Application - Order Section
+    // Order Section - Choosing
     // Homepage
     GoRoute(
       path: Routes.homePage,
@@ -144,6 +150,18 @@ final GoRouter router = GoRouter(
         businessesData: HomePageController.recommendedMarket,
       ),
     ),
+    // Order Section - Ordering Process
+    GoRoute(
+      path: '/restaurant/detail/:id',
+      builder: (context, state) => BusinessOrderingMenuView.fromExtra(context, state),
+    ),
+
+    GoRoute(
+      path: '/market/detail/:id',
+      builder: (context, state) => BusinessOrderingMenuView.fromExtra(context, state),
+    ),
+
+
 
     // Promo Section
     GoRoute(
@@ -215,7 +233,9 @@ final GoRouter router = GoRouter(
       ),
     ),
 
-    // History
+
+    // History Section
+    // Done History
     GoRoute(
       path: Routes.historyDone,
       builder: (context, state) {
@@ -268,7 +288,7 @@ final GoRouter router = GoRouter(
       },
     ),
 
-    // Processing History
+    // Ongoing History
     GoRoute(
       path: Routes.processingHistoryDetails,
       builder: (context, state) {
@@ -292,7 +312,7 @@ final GoRouter router = GoRouter(
       },
     ),
 
-    // Chat
+    // Chat Feature Section
     GoRoute(
       path: Routes.chatList,
       builder: (context, state) {
