@@ -6,9 +6,8 @@ import '../features/LoginProcess/OTPVerification/otp_verification_view.dart';
 
 import '../features/OrderSection/HomePage/homepage_view.dart';
 import '../features/OrderSection/HomePage/homepage_controller.dart';
+import '../features/OrderSection/FavoritesData/favorites_controller.dart';
 import '../features/ProfileController/profile_view.dart';
-import '../features/OrderSection/FavoritesData/favorites_restaurant_data.dart';
-import '../features/OrderSection/FavoritesData/favorites_market_data.dart';
 import '../features/OrderSection/BusinessListPage/business_list_view.dart';
 
 import '../features/PromoSection/data/recommend_market_promo_data.dart';
@@ -98,24 +97,24 @@ final GoRouter router = GoRouter(
     // Favorite Page
     GoRoute(
       path: Routes.favoriteRestaurant,
-      builder: (context, state) => const BusinessListView(
+      builder: (context, state) => BusinessListView(
         initialIndex: 0,
         appBarTitle: 'Restoran Favorit',
         restoRoute: Routes.favoriteRestaurant,
         marketRoute: Routes.favoriteMarket,
         bottomNavIndex: 0,
-        businessesData: favoritesRestaurant,
+        businessesData: FavoritesController.favoritesRestaurant,
       ),
     ),
     GoRoute(
       path: Routes.favoriteMarket,
-      builder: (context, state) => const BusinessListView(
+      builder: (context, state) => BusinessListView(
         initialIndex: 1,
         appBarTitle: 'Pusat Belanja Favorit',
         restoRoute: Routes.favoriteRestaurant,
         marketRoute: Routes.favoriteMarket,
         bottomNavIndex: 0,
-        businessesData: favoritesMarket,
+        businessesData: FavoritesController.favoritesMarket,
       ),
     ),
     // Profile Page
