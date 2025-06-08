@@ -4,22 +4,22 @@ import 'package:ta_nutrisenior_app/shared/styles/colors.dart';
 import 'package:ta_nutrisenior_app/shared/styles/fonts.dart';
 
 class CardList extends StatelessWidget {
-  final String image;
-  final String name;
-  final double rate;
-  final double location;
-  final int? percentage;
-  final bool freeShipment;
+  final String businessImage;
+  final String businessName;
+  final double businessRate;
+  final double businessLocation;
+  final int? discountNumber;
+  final bool isFreeShipment;
   final VoidCallback onTap;
 
   const CardList({
     super.key,
-    required this.image,
-    required this.name,
-    required this.rate,
-    required this.location,
-    this.percentage,
-    required this.freeShipment,
+    required this.businessImage,
+    required this.businessName,
+    required this.businessRate,
+    required this.businessLocation,
+    this.discountNumber,
+    required this.isFreeShipment,
     required this.onTap,
   });
 
@@ -58,12 +58,12 @@ class CardList extends StatelessWidget {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8),
                       child: Image.asset(
-                        image,
+                        businessImage,
                         fit: BoxFit.cover,
                       ),
                     ),
                   ),
-                  if (percentage != null || freeShipment)
+                  if (discountNumber != null || isFreeShipment)
                     Positioned(
                       bottom: 0,
                       child: Container(
@@ -78,9 +78,9 @@ class CardList extends StatelessWidget {
                           ),
                         ),
                         alignment: Alignment.center,
-                        child: percentage != null
+                        child: discountNumber != null
                             ? Text(
-                                'Diskon $percentage%',
+                                'Diskon $discountNumber%',
                                 style: const TextStyle(
                                   color: AppColors.dark,
                                   fontSize: 12,
@@ -114,7 +114,7 @@ class CardList extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      name,
+                      businessName,
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontFamily: AppFonts.fontBold,
@@ -140,7 +140,7 @@ class CardList extends StatelessWidget {
                               FaIcon(FontAwesomeIcons.solidStar, size: 12, color: AppColors.dark),
                               const SizedBox(width: 3),
                               Text(
-                                '${rate.toStringAsFixed(1)}/5',
+                                '${businessRate.toStringAsFixed(1)}/5',
                                 style: const TextStyle(
                                   fontWeight: FontWeight.w500,
                                   fontFamily: AppFonts.fontMedium,
@@ -164,7 +164,7 @@ class CardList extends StatelessWidget {
                               Icon(Icons.location_on, size: 16, color: AppColors.dark),
                               const SizedBox(width: 3),
                               Text(
-                                '${location.toStringAsFixed(2)} km',
+                                '${businessLocation.toStringAsFixed(2)} km',
                                 style: const TextStyle(
                                   fontWeight: FontWeight.w500,
                                   fontFamily: AppFonts.fontMedium,

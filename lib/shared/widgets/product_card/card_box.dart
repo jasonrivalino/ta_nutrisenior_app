@@ -4,22 +4,20 @@ import 'package:ta_nutrisenior_app/shared/styles/colors.dart';
 import '../../styles/fonts.dart';
 
 class CardBox extends StatefulWidget {
-  final String image;
-  final String name;
-  final String? type;
-  final double rate;
-  final double location;
-  final int? percentage;
-  final VoidCallback onTap; // <-- New callback parameter
+  final String businessImage;
+  final String businessName;
+  final double businessRate;
+  final double businessLocation;
+  final int? discountNumber;
+  final VoidCallback onTap;
 
   const CardBox({
     super.key,
-    required this.image,
-    required this.name,
-    this.type,
-    required this.rate,
-    required this.location,
-    this.percentage,
+    required this.businessImage,
+    required this.businessName,
+    required this.businessRate,
+    required this.businessLocation,
+    this.discountNumber,
     required this.onTap, // <-- Initialize in constructor
   });
 
@@ -45,7 +43,7 @@ class _CardBoxState extends State<CardBox> {
       onTapDown: (_) => _setPressed(true),
       onTapUp: (_) {
         _setPressed(false);
-        if (widget.onTap != null) widget.onTap!(); // <-- Trigger the onTap callback
+        widget.onTap();
       },
       onTapCancel: () => _setPressed(false),
       child: AnimatedContainer(
@@ -82,12 +80,12 @@ class _CardBoxState extends State<CardBox> {
                 child: Stack(
                   children: [
                     Image.asset(
-                      widget.image,
+                      widget.businessImage,
                       height: imageHeight,
                       width: double.infinity,
                       fit: BoxFit.cover,
                     ),
-                    if (widget.percentage != null)
+                    if (widget.discountNumber != null)
                       Positioned(
                         bottom: 4,
                         right: 4,
@@ -106,7 +104,7 @@ class _CardBoxState extends State<CardBox> {
                           child: Transform.rotate(
                             angle: -5 * (22/7) / 180,
                             child: Text(
-                              '${widget.percentage}%',
+                              '${widget.discountNumber}%',
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 12,
@@ -128,7 +126,7 @@ class _CardBoxState extends State<CardBox> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        widget.name,
+                        widget.businessName,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontFamily: AppFonts.fontBold,
@@ -153,7 +151,7 @@ class _CardBoxState extends State<CardBox> {
                                 const FaIcon(FontAwesomeIcons.solidStar, size: 12, color: AppColors.dark),
                                 const SizedBox(width: 3),
                                 Text(
-                                  '${widget.rate.toStringAsFixed(1)}/5',
+                                  '${widget.businessRate.toStringAsFixed(1)}/5',
                                   style: const TextStyle(
                                     fontWeight: FontWeight.w500,
                                     fontFamily: AppFonts.fontMedium,
@@ -176,7 +174,7 @@ class _CardBoxState extends State<CardBox> {
                                 const Icon(Icons.location_on, size: 16, color: AppColors.dark),
                                 const SizedBox(width: 2),
                                 Text(
-                                  '${widget.location.toStringAsFixed(2)} km',
+                                  '${widget.businessLocation.toStringAsFixed(2)} km',
                                   style: const TextStyle(
                                     fontWeight: FontWeight.w500,
                                     fontFamily: AppFonts.fontMedium,
