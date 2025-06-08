@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:ta_nutrisenior_app/features/ContactSection/ChatDetails/chat_details_data.dart';
 import 'package:ta_nutrisenior_app/features/ContactSection/ChatDetails/chat_details_widget.dart';
 import 'package:ta_nutrisenior_app/shared/styles/fonts.dart';
 
@@ -11,7 +10,18 @@ import '../../../shared/utils/handling_chat_send.dart';
 import '../../../shared/utils/handling_choose_image.dart';
 
 class ChatDetailView extends StatefulWidget {
-  const ChatDetailView({super.key});
+  final int driverId;
+  final String driverName;
+  final String driverImage;
+  final List<Map<String, dynamic>> chatDetailsData;
+
+  const ChatDetailView({
+    super.key,
+    required this.driverId,
+    required this.driverName,
+    required this.driverImage,
+    required this.chatDetailsData,
+  });
 
   @override
   State<ChatDetailView> createState() => _ChatDetailViewState();
@@ -21,9 +31,32 @@ class _ChatDetailViewState extends State<ChatDetailView> {
   final TextEditingController _messageController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
 
-  // Dummy data for chat messages
-  final List<Map<String, dynamic>> _messages = List.from(chatDetailsData.reversed);
   final List<XFile> _selectedImages = [];
+  late List<Map<String, dynamic>> _messages;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Convert widget.chatDetailsData to internal _messages format and reverse for latest at bottom
+    _messages = widget.chatDetailsData.map((chat) {
+      return {
+        'isMe': chat['is_user'] == true,
+        'text': chat['message_text'],
+        'time': chat['message_time'],
+      };
+    }).toList().reversed.toList();
+
+    _scrollToBottom();
+  }
+
+  void _scrollToBottom() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (_scrollController.hasClients) {
+        _scrollController.jumpTo(_scrollController.position.minScrollExtent);
+      }
+    });
+  }
 
   void _handleSendMessage() {
     final previousLength = _messages.length;
@@ -47,6 +80,8 @@ class _ChatDetailViewState extends State<ChatDetailView> {
       onUpdate: () => setState(() {}),
       state: this,
     );
+
+    _scrollToBottom();
   }
 
   void _handleChooseImage() async {
@@ -72,7 +107,7 @@ class _ChatDetailViewState extends State<ChatDetailView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.ecruWhite,
-      appBar: ChatAppBar(title: 'Driver #5'),
+      appBar: ChatAppBar(title: widget.driverName, image: widget.driverImage),
       body: Column(
         children: [
           Expanded(
@@ -106,7 +141,7 @@ class _ChatDetailViewState extends State<ChatDetailView> {
                       border: Border.all(color: AppColors.dark, width: 1.0),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withValues(alpha: 0.1),
+                          color: Colors.black.withAlpha(25),
                           offset: const Offset(1, -2),
                           blurRadius: 4,
                           spreadRadius: 1,

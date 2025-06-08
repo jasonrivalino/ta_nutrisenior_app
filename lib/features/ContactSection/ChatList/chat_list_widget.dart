@@ -3,19 +3,19 @@ import 'package:flutter/material.dart';
 import '../../../shared/styles/colors.dart';
 
 class ChatMessageTile extends StatelessWidget {
-  final String profileImage;
+  final String driverImage;
   final String driverName;
-  final String message;
-  final String datetime;
+  final String messageText;
+  final String messageTime;
   final int? numberMessageReceived;
   final VoidCallback? onTap; // Optional onTap for routing
 
   const ChatMessageTile({
     super.key,
-    required this.profileImage,
+    required this.driverImage,
     required this.driverName,
-    required this.message,
-    required this.datetime,
+    required this.messageText,
+    required this.messageTime,
     this.numberMessageReceived,
     this.onTap,
   });
@@ -29,7 +29,7 @@ class ChatMessageTile extends StatelessWidget {
         children: [
           // Profile image
           CircleAvatar(
-            backgroundImage: AssetImage(profileImage),
+            backgroundImage: AssetImage(driverImage),
             radius: 35,
           ),
           const SizedBox(width: 12),
@@ -55,7 +55,7 @@ class ChatMessageTile extends StatelessWidget {
                     ),
                     const SizedBox(width: 10),
                     Text(
-                      datetime,
+                      messageTime,
                       style: const TextStyle(
                         fontSize: 14,
                         color: AppColors.dark,
@@ -69,7 +69,7 @@ class ChatMessageTile extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        message,
+                        messageText,
                         style: const TextStyle(
                           fontSize: 14,
                           color: AppColors.dark,
@@ -79,7 +79,8 @@ class ChatMessageTile extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(width: 12),
-                    if (numberMessageReceived != null)
+                    if (numberMessageReceived != null &&
+                        numberMessageReceived! > 0)
                       Container(
                         margin: const EdgeInsets.only(left: 8),
                         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),

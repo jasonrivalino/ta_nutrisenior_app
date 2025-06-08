@@ -9,10 +9,12 @@ import '../../../shared/styles/fonts.dart';
 
 class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
+  final String image;
 
   const ChatAppBar({
     super.key,
     required this.title,
+    required this.image,
   });
 
   @override
@@ -31,9 +33,9 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
         padding: const EdgeInsets.symmetric(vertical: 0),
         child: Row(
           children: [
-            const CircleAvatar(
+            CircleAvatar(
               radius: 24,
-              backgroundImage: AssetImage('assets/images/dummy/chat/driver.png'),
+              backgroundImage: AssetImage(image),
             ),
             const SizedBox(width: 12),
             Expanded(

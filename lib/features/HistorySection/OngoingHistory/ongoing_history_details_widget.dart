@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:ta_nutrisenior_app/config/constants.dart';
 import 'package:ta_nutrisenior_app/shared/styles/colors.dart';
 import 'package:ta_nutrisenior_app/shared/styles/fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -473,7 +474,7 @@ class DeliverDriverCard extends StatelessWidget {
                     PermissionStatus status = await Permission.phone.request();
 
                     if (status.isGranted) {
-                      final Uri callUri = Uri(scheme: 'tel', path: '081234567890');
+                      final Uri callUri = Uri(scheme: 'tel', path: AppConstants.phoneNumber);
                       if (await canLaunchUrl(callUri)) {
                         await launchUrl(callUri, mode: LaunchMode.externalApplication); // Or LaunchMode.platformDefault
                       } else {

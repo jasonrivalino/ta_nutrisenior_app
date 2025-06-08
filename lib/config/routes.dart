@@ -27,6 +27,8 @@ import '../features/ContactSection/ChatList/chat_list_view.dart';
 import '../features/ContactSection/ChatDetails/chat_details_view.dart';
 import '../shared/utils/page_not_found.dart';
 
+import '../features/ContactSection/chat_controller.dart';
+
 class Routes {
   // Login Process
   static const String loginOptions = '/login';
@@ -64,7 +66,7 @@ class Routes {
 
   // Chat Feature Section
   static const String chatList = '/chatlist';
-  static const String chatDetail = '/chatlist/detail';
+  static const String chatDetail = '/chatlist/detail/:driverId';
 
   // Handling
   static const String notFound = '/page-not-found';
@@ -295,11 +297,31 @@ final GoRouter router = GoRouter(
     // Chat
     GoRoute(
       path: Routes.chatList,
-      builder: (context, state) => const ChatListView(),
+      builder: (context, state) {
+        final chatData = ChatListController.fetchChatListData(
+          route: '/chatlist',
+        );
+        return ChatListView(chatListData: chatData);
+      },
     ),
     GoRoute(
       path: Routes.chatDetail,
-      builder: (context, state) => const ChatDetailView(),
+      builder: (context, state) {
+        final data = state.extra != null && state.extra is Map<String, dynamic>
+            ? (state.extra as Map<String, dynamic>)
+            : null;
+        final chatData = ChatListController.fetchChatListData(
+          route: '/chatlist/detail/:driverId',
+          driverId: state.pathParameters['driverId'],
+        );
+
+        return ChatDetailView(
+          driverId: data?['driver_id'],
+          driverName: data?['driver_name'],
+          driverImage: data?['driver_image'],
+          chatDetailsData: chatData,
+        );
+      },
     ),
 
     // other routes
