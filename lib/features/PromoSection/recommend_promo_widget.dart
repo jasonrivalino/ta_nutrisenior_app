@@ -50,12 +50,12 @@ class RecommendedPromoSection extends StatelessWidget {
               return SizedBox(
                 width: MediaQuery.of(context).size.width * 0.425,
                 child: CardBox(
-                  image: business['image'],
-                  name: business['name'],
-                  type: business['type'],
-                  rate: business['rate'],
-                  location: business['location'],
-                  percentage: business['percentage'],
+                  image: business['business_image'],
+                  name: business['business_name'],
+                  type: business['business_type'],
+                  rate: business['business_rating'],
+                  location: business['business_distance'],
+                  percentage: business['discount_number'],
                 ),
               );
             },

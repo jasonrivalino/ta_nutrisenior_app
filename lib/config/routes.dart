@@ -10,8 +10,7 @@ import '../features/OrderSection/FavoritesData/favorites_controller.dart';
 import '../features/ProfileController/profile_view.dart';
 import '../features/OrderSection/BusinessListPage/business_list_view.dart';
 
-import '../features/PromoSection/data/recommend_market_promo_data.dart';
-import '../features/PromoSection/data/recommend_restaurant_promo_data.dart';
+import '../features/PromoSection/recommend_promo_controller.dart';
 import '../features/PromoSection/recommend_promo_view.dart';
 
 import '../features/HistorySection/history_list_view.dart';
@@ -149,70 +148,70 @@ final GoRouter router = GoRouter(
     // Promo Section
     GoRoute(
       path: Routes.recommendRestaurantPromo,
-      builder: (context, state) => const RecommendPromoView(
+      builder: (context, state) => RecommendPromoView(
         initialIndex: 0,
         restoRoute: Routes.recommendRestaurantPromo,
         marketRoute: Routes.recommendMarketPromo,
         discountRouteDetail: Routes.restaurantPromoDiscountDetail,
         freeShipmentRouteDetail: Routes.restaurantPromoFreeShipmentDetail,
-        discountBusinesses: discountRestaurant,
-        freeShipmentBusinesses: freeShipmentRestaurant,
+        discountBusinesses: PromoController.promoDiscountRestaurant,
+        freeShipmentBusinesses: PromoController.promoFreeShipmentRestaurant,
       ),
     ),
     GoRoute(
       path: Routes.recommendMarketPromo,
-      builder: (context, state) => const RecommendPromoView(
+      builder: (context, state) => RecommendPromoView(
         initialIndex: 1,
         restoRoute: Routes.recommendRestaurantPromo,
         marketRoute: Routes.recommendMarketPromo,
         discountRouteDetail: Routes.marketPromoDiscountDetail,
         freeShipmentRouteDetail: Routes.marketPromoFreeShipmentDetail,
-        discountBusinesses: discountMarket,
-        freeShipmentBusinesses: freeShipmentMarket,
+        discountBusinesses: PromoController.promoDiscountMarket,
+        freeShipmentBusinesses: PromoController.promoFreeShipmentMarket,
       ),
     ),
     GoRoute(
       path: Routes.restaurantPromoDiscountDetail,
-      builder: (context, state) => const BusinessListView(
+      builder: (context, state) => BusinessListView(
         initialIndex: 0,
         promoTitle: 'Promo Diskon',
         restoRoute: Routes.restaurantPromoDiscountDetail,
         marketRoute: Routes.marketPromoDiscountDetail,
         bottomNavIndex: 1,
-        businessesData: discountRestaurant,
+        businessesData: PromoController.promoDiscountRestaurant,
       ),
     ),
     GoRoute(
       path: Routes.marketPromoDiscountDetail,
-      builder: (context, state) => const BusinessListView(
+      builder: (context, state) => BusinessListView(
         initialIndex: 1,
         promoTitle: 'Promo Diskon',
         restoRoute: Routes.restaurantPromoDiscountDetail,
         marketRoute: Routes.marketPromoDiscountDetail,
         bottomNavIndex: 1,
-        businessesData: discountMarket,
+        businessesData: PromoController.promoDiscountMarket,
       ),
     ),
     GoRoute(
       path: Routes.restaurantPromoFreeShipmentDetail,
-      builder: (context, state) => const BusinessListView(
+      builder: (context, state) => BusinessListView(
         initialIndex: 0,
         promoTitle: 'Gratis Ongkir',
         restoRoute: Routes.restaurantPromoFreeShipmentDetail,
         marketRoute: Routes.marketPromoFreeShipmentDetail,
         bottomNavIndex: 1,
-        businessesData: freeShipmentRestaurant,
+        businessesData: PromoController.promoFreeShipmentRestaurant,
       ),
     ),
     GoRoute(
       path: Routes.marketPromoFreeShipmentDetail,
-      builder: (context, state) => const BusinessListView(
+      builder: (context, state) => BusinessListView(
         initialIndex: 1,
         promoTitle: 'Gratis Ongkir',
         restoRoute: Routes.restaurantPromoFreeShipmentDetail,
         marketRoute: Routes.marketPromoFreeShipmentDetail,
         bottomNavIndex: 1,
-        businessesData: freeShipmentMarket,
+        businessesData: PromoController.promoFreeShipmentMarket,
       ),
     ),
 
