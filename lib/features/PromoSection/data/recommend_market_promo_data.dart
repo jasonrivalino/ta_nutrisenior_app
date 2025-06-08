@@ -14,13 +14,6 @@ const List<Map<String, dynamic>> discountMarket = [
     'percentage': 25,
   },
   {
-    'image': 'assets/images/dummy/market/pasarmurah.png',
-    'name': 'Pasar Murah',
-    'rate': 4.7,
-    'location': 2.38,
-    'percentage': 30,
-  },
-  {
     'image': 'assets/images/dummy/market/sehatmart.png',
     'name': 'Sehat Mart',
     'rate': 4.9,
@@ -48,54 +41,5 @@ const List<Map<String, dynamic>> freeShipmentMarket = [
     'name': 'Supermarket Aja Cabang',
     'rate': 4.9,
     'location': 5.92,
-  },
-  {
-    'image': 'assets/images/dummy/market/harvestmart.png',
-    'name': 'HarvestMart Supermarket',
-    'rate': 4.8,
-    'location': 3.28,
-  },
-  {
-    'image': 'assets/images/dummy/market/fitmarket.png',
-    'name': 'Fit Market',
-    'rate': 4.5,
-    'location': 1.98,
-  },
-  {
-    'image': 'assets/images/dummy/market/zestmart.png',
-    'name': 'ZestMart',
-    'rate': 4.9,
-    'location': 4.00,
-    'type': 'freeshipment',
-  },
-    {
-    'image': 'assets/images/dummy/market/vitagro.png',
-    'name': 'Vitagro',
-    'rate': 4.9,
-    'location': 2.22,
-  },
-  {
-    'image': 'assets/images/dummy/market/supermarketajacabang.png',
-    'name': 'Supermarket Aja Cabang',
-    'rate': 4.9,
-    'location': 5.92,
-  },
-  {
-    'image': 'assets/images/dummy/market/harvestmart.png',
-    'name': 'Harvest Mart',
-    'rate': 4.8,
-    'location': 3.28,
-  },
-  {
-    'image': 'assets/images/dummy/market/fitmarket.png',
-    'name': 'Fit Market',
-    'rate': 4.5,
-    'location': 1.98,
-  },
-  {
-    'image': 'assets/images/dummy/market/zestmart.png',
-    'name': 'ZestMart',
-    'rate': 4.9,
-    'location': 4.00,
   },
 ];

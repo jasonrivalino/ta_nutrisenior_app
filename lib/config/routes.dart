@@ -5,7 +5,7 @@ import '../features/LoginProcess/PhoneNumber/phone_number_login_view.dart';
 import '../features/LoginProcess/OTPVerification/otp_verification_view.dart';
 
 import '../features/OrderSection/HomePage/homepage_view.dart';
-import '../features/OrderSection/HomePage/homepage_data.dart';
+import '../features/OrderSection/HomePage/homepage_controller.dart';
 import '../features/ProfileController/profile_view.dart';
 import '../features/OrderSection/FavoritesData/favorites_restaurant_data.dart';
 import '../features/OrderSection/FavoritesData/favorites_market_data.dart';
@@ -126,24 +126,24 @@ final GoRouter router = GoRouter(
     // Recommend Page
     GoRoute(
       path: Routes.recommendRestaurantDetail,
-      builder: (context, state) => const BusinessListView(
+      builder: (context, state) => BusinessListView(
         initialIndex: 0,
         appBarTitle: 'Restoran Pilihan',
         restoRoute: Routes.recommendRestaurantDetail,
         marketRoute: Routes.recommendMarketDetail,
         bottomNavIndex: 0,
-        businessesData: recommendedRestaurant,
+        businessesData: HomePageController.recommendedRestaurant,
       ),
     ),
     GoRoute(
       path: Routes.recommendMarketDetail,
-      builder: (context, state) => const BusinessListView(
+      builder: (context, state) => BusinessListView(
         initialIndex: 1,
         appBarTitle: 'Pusat Belanja Pilihan',
         restoRoute: Routes.recommendRestaurantDetail,
         marketRoute: Routes.recommendMarketDetail,
         bottomNavIndex: 0,
-        businessesData: recommendedMarket,
+        businessesData: HomePageController.recommendedMarket,
       ),
     ),
 

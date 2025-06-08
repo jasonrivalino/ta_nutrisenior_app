@@ -9,6 +9,7 @@ class CardList extends StatelessWidget {
   final double rate;
   final double location;
   final int? percentage;
+  final bool freeShipment;
   final VoidCallback? onTap;
 
   const CardList({
@@ -18,6 +19,7 @@ class CardList extends StatelessWidget {
     required this.rate,
     required this.location,
     this.percentage,
+    required this.freeShipment,
     this.onTap,
   });
 
@@ -41,13 +43,11 @@ class CardList extends StatelessWidget {
           ),
           child: Row(
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start, // or center if you want it centered
+              Stack(
                 children: [
-                  // Image with border
                   Container(
                     width: 85,
-                    height: 70,
+                    height: 85,
                     decoration: BoxDecoration(
                       border: Border.all(
                         color: AppColors.darkGray,
@@ -63,32 +63,46 @@ class CardList extends StatelessWidget {
                       ),
                     ),
                   ),
-
-                  // Spacing between image and badge (optional)
-                  if (percentage != null) const SizedBox(height: 0),
-
-                  // Discount badge
-                  if (percentage != null)
-                    Container(
-                      width: 85, // Static width
-                      padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
-                      decoration: BoxDecoration(
-                        color: AppColors.orangyYellow,
-                        border: Border.all(
-                          color: AppColors.darkGray,
-                          width: 1,
+                  if (percentage != null || freeShipment)
+                    Positioned(
+                      bottom: 0,
+                      child: Container(
+                        width: 85, // Match the image width
+                        padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                        decoration: BoxDecoration(
+                          color: AppColors.orangyYellow,
+                          border: Border.all(color: AppColors.darkGray, width: 1),
+                          borderRadius: const BorderRadius.only(
+                            bottomLeft: Radius.circular(8),
+                            bottomRight: Radius.circular(8),
+                          ),
                         ),
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      alignment: Alignment.center, // To center the text
-                      child: Text(
-                        "Diskon $percentage%",
-                        style: const TextStyle(
-                          color: AppColors.dark,
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        overflow: TextOverflow.ellipsis,
+                        alignment: Alignment.center,
+                        child: percentage != null
+                            ? Text(
+                                'Diskon $percentage%',
+                                style: const TextStyle(
+                                  color: AppColors.dark,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              )
+                            : Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                mainAxisSize: MainAxisSize.min,
+                                children: const [
+                                  FaIcon(FontAwesomeIcons.personBiking, size: 12, color: AppColors.dark),
+                                  SizedBox(width: 6),
+                                  Text(
+                                    'FREE',
+                                    style: TextStyle(
+                                      color: AppColors.dark,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
                       ),
                     ),
                 ],

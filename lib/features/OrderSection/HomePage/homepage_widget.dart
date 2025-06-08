@@ -166,10 +166,10 @@ class RecommendedHomeSection extends StatelessWidget {
                     return SizedBox(
                       width: MediaQuery.of(context).size.width * 0.425,
                       child: CardBox(
-                        image: business['image'],
-                        name: business['name'],
-                        rate: business['rate'],
-                        location: business['location'],
+                        image: business['business_image'],
+                        name: business['business_name'],
+                        rate: business['business_rating'],
+                        location: business['business_distance'],
                       ),
                     );
                   },
@@ -258,10 +258,10 @@ class _RecommendedTodayCarouselState extends State<RecommendedTodayCarousel> wit
             return Padding(
               padding: const EdgeInsets.all(6.0),
               child: CardBox(
-                image: business['image'],
-                name: business['name'],
-                rate: business['rate'],
-                location: business['location'],
+                image: business['business_image'],
+                name: business['business_name'],
+                rate: business['business_rating'],
+                location: business['business_distance'],
               ),
             );
           },

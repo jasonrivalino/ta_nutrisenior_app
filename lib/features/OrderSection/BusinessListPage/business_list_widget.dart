@@ -38,12 +38,17 @@ class BusinessListWidget extends StatelessWidget {
               itemBuilder: (context, index) {
                 final business = businesses[index];
                 return CardList(
-                  image: business['image'],
-                  name: business['name'],
-                  rate: business['rate'],
-                  location: business['location'],
-                  percentage: business['percentage'],
-                  onTap: () {},
+                  image: business['business_image'],
+                  name: business['business_name'],
+                  rate: business['business_rating'],
+                  location: business['business_distance'],
+                  percentage: business['discount_number'] != null
+                      ? business['discount_number'] as int?
+                      : null,
+                  freeShipment: business['is_free_shipment'] ?? false,
+                  onTap: () {
+                    // Navigate to the detail page based on the business type
+                  },
                 );
               },
             ),
