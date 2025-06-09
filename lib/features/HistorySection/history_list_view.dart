@@ -8,12 +8,12 @@ import '../../../shared/widgets/product_card/history_card_list.dart';
 import 'history_controller.dart';
 
 class HistoryListView extends StatefulWidget {
-  final int? id;
+  final int? historyId;
   final int routeIndex; // 0 = Histori (done), 1 = Dalam Proses (ongoing)
 
   const HistoryListView({
     super.key,
-    this.id,
+    this.historyId,
     required this.routeIndex,
   });
 
@@ -29,7 +29,15 @@ class _HistoryListViewState extends State<HistoryListView> {
   void initState() {
     super.initState();
     showDone = widget.routeIndex == 0;
+
+    print('History ID: ${widget.historyId}');
+
     allHistoryList = HistoryController.fetchHistoryList();
+
+    // Remove the canceled history if the ID is passed
+    if (widget.historyId != null) {
+      allHistoryList.removeWhere((item) => item['history_id'] == widget.historyId);
+    }
   }
 
   @override

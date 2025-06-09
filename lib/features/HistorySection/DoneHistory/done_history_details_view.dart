@@ -6,50 +6,50 @@ import '../../../shared/widgets/appbar.dart';
 import 'done_history_details_widget.dart';
 
 class DoneHistoryDetailsView extends StatelessWidget {
-  final int id;
-  final num totalPrice;
+  final int historyId;
   final DateTime orderDate;
   final String driverName;
   final String businessName;
-  final String addressReceiver;
-  final List<dynamic> orderList;
-  final int serviceFee;
-  final int deliveryFee;
-  final String paymentMethod;
   final String businessImage;
   final String businessType;
+  final String addressReceiver;
+  // final List<dynamic> orderList;
+  final int serviceFee;
+  final int deliveryFee;
+  final num totalPrice;
+  final String paymentMethod;
 
   const DoneHistoryDetailsView({
     super.key,
-    required this.id,
+    required this.historyId,
     required this.totalPrice,
     required this.orderDate,
     required this.driverName,
     required this.businessName,
+    required this.businessImage,
+    required this.businessType,
     required this.addressReceiver,
-    required this.orderList,
+    // required this.orderList,
     required this.serviceFee,
     required this.deliveryFee,
     required this.paymentMethod,
-    required this.businessImage,
-    required this.businessType,
   });
 
   static DoneHistoryDetailsView fromExtra(BuildContext context, GoRouterState state) {
     final extra = state.extra! as Map<String, dynamic>;
     return DoneHistoryDetailsView(
-      id: extra['id'],
-      totalPrice: extra['totalPrice'],
-      orderDate: extra['orderDate'],
-      driverName: extra['driverName'],
-      businessName: extra['businessName'],
-      addressReceiver: extra['addressReceiver'],
-      orderList: extra['orderList'],
-      serviceFee: extra['serviceFee'],
-      deliveryFee: extra['deliveryFee'],
-      paymentMethod: extra['paymentMethod'],
-      businessImage: extra['businessImage'],
-      businessType: extra['businessType'],
+      historyId: extra['history_id'],
+      orderDate: extra['order_date'],
+      businessName: extra['business_name'],
+      businessImage: extra['business_image'],
+      businessType: extra['business_type'],
+      driverName: extra['driver_name'],
+      addressReceiver: extra['address_receiver'],
+      // orderList: extra['orderList'],
+      serviceFee: extra['service_fee'],
+      deliveryFee: extra['delivery_fee'],
+      totalPrice: extra['total_price'],
+      paymentMethod: extra['payment_method'],
     );
   }
 
@@ -77,7 +77,7 @@ class DoneHistoryDetailsView extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             DoneOrderDetailsCard(
-              orderList: orderList,
+              // orderList: orderList,
               serviceFee: serviceFee,
               deliveryFee: deliveryFee,
               totalPrice: totalPrice.toInt(),
@@ -90,16 +90,16 @@ class DoneHistoryDetailsView extends StatelessWidget {
         businessType: businessType,
         onDriverPressed: () {
           context.push('/history/done/details/:id/rating', extra: {
-            'id': id,
-            'driverName': driverName,
+            'history_id': historyId,
+            'driver_name': driverName,
           });
         },
         onRestaurantPressed: () {
           context.push('/history/done/details/:id/rating', extra: {
-            'id': id,
-            'businessName': businessName,
-            'businessType': businessType,
-            'businessImage': businessImage,
+            'history_id': historyId,
+            'business_name': businessName,
+            'business_type': businessType,
+            'business_image': businessImage,
           });
         },
       ),

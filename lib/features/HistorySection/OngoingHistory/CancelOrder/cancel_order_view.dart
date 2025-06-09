@@ -9,11 +9,11 @@ import 'package:ta_nutrisenior_app/shared/widgets/confirm_dialog.dart';
 import 'package:ta_nutrisenior_app/shared/widgets/warning_button.dart';
 
 class CancelOrderView extends StatefulWidget {
-  final int id;
+  final int historyId;
 
   const CancelOrderView({
     super.key, 
-    required this.id
+    required this.historyId
   });
 
   @override
@@ -168,10 +168,10 @@ class _CancelOrderViewState extends State<CancelOrderView> {
                                       gravity: ToastGravity.BOTTOM,
                                     );
 
-                                    print('Cancel Order ID: ${widget.id}');
+                                    print('Cancel Order ID: ${widget.historyId}');
                                     
                                     rootContext.go('/historyOngoing',
-                                      extra: {'id': widget.id},
+                                      extra: {'history_id': widget.historyId},
                                     );
                                   },
                                 );

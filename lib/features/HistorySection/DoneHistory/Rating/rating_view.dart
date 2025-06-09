@@ -13,7 +13,7 @@ import '../../../../shared/widgets/comment_input_card.dart';
 import '../../../../shared/widgets/submit_button.dart';
 
 class RatingView extends StatefulWidget {
-  final int id;
+  final int historyId;
   final String? driverName;
   final String? businessName;
   final String? businessType;
@@ -21,7 +21,7 @@ class RatingView extends StatefulWidget {
 
   const RatingView({
     super.key,
-    required this.id,
+    required this.historyId,
     this.driverName,
     this.businessName,
     this.businessType,
@@ -31,11 +31,11 @@ class RatingView extends StatefulWidget {
   static RatingView fromExtra(BuildContext context, GoRouterState state) {
     final extra = state.extra! as Map<String, dynamic>;
     return RatingView(
-      id: extra['id'],
-      driverName: extra['driverName'],
-      businessName: extra['businessName'],
-      businessImage: extra['businessImage'],
-      businessType: extra['businessType'],
+      historyId: extra['history_id'],
+      driverName: extra['driver_name'],
+      businessName: extra['business_name'],
+      businessImage: extra['business_image'],
+      businessType: extra['business_type'],
     );
   }
 
@@ -70,7 +70,7 @@ class _RatingViewState extends State<RatingView> {
   @override
   Widget build(BuildContext context) {
     final isDriver = widget.driverName != null;
-    final isRestaurant = widget.businessType == "Restaurant";
+    final isRestaurant = widget.businessType == "restaurant";
 
     final String appBarTitle = isDriver
         ? "Rating Pengemudi"
@@ -130,7 +130,7 @@ class _RatingViewState extends State<RatingView> {
               GestureDetector(
                 onTap: () {
                   context.push('/history/done/details/:id/report', extra: {
-                    'id': widget.id,
+                    'id': widget.historyId,
                     'isDriver': isDriver,
                     'businessType': widget.businessType,
                   });

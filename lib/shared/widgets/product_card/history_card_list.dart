@@ -15,11 +15,11 @@ class HistoryCardList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final int id = historyData['history_id'];
+    final int historyId = historyData['history_id'];
     final DateTime orderDate = historyData['order_date'];
     final String businessName = historyData['business_name'];
-    final String image = historyData['business_image'];
-    final String cardType = historyData['status'];
+    final String businessImage = historyData['business_image'];
+    final String status = historyData['status'];
 
     // int totalOrderPrice = historyData['orderList']
     //   .fold(0, (sum, item) => sum + (item['price'] as int) * (item['quantity'] as int));
@@ -57,9 +57,9 @@ class HistoryCardList extends StatelessWidget {
                         color: AppColors.dark,
                       ),
                     ),
-                    if (cardType != 'selesai')
+                    if (status != 'selesai')
                       Text(
-                        cardType.toUpperCase(),
+                        status.toUpperCase(),
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           color: AppColors.dark,
@@ -76,7 +76,7 @@ class HistoryCardList extends StatelessWidget {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(6),
                       child: Image.asset(
-                        image,
+                        businessImage,
                         width: 70,
                         height: 70,
                         fit: BoxFit.cover,
@@ -123,7 +123,7 @@ class HistoryCardList extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  if (cardType == 'done')
+                                  if (status == 'selesai')
                                     Row(
                                       children: [
                                         ElevatedButton(
@@ -146,20 +146,20 @@ class HistoryCardList extends StatelessWidget {
                                           ),
                                           onPressed: () {
                                             context.push(
-                                              '/history/done/details/$id',
+                                              '/history/done/details/$historyId',
                                               extra: {
-                                                'id': id,
-                                                'totalPrice': 'Rp. 100.000',
-                                                'orderDate': orderDate,
-                                                'driverName': historyData['driverName'],
-                                                'businessName': historyData['businessName'],
-                                                'addressReceiver': historyData['addressReceiver'],
-                                                'orderList': historyData['orderList'],
-                                                'serviceFee': historyData['serviceFee'],
-                                                'deliveryFee': historyData['deliveryFee'],
-                                                'paymentMethod': historyData['paymentMethod'],
-                                                'businessImage': historyData['businessImage'],
-                                                'businessType': historyData['businessType'],
+                                                'history_id': historyId,
+                                                'order_date': orderDate,
+                                                'driver_name': historyData['driver_name'],
+                                                'business_name': historyData['business_name'],
+                                                'business_image': historyData['business_image'],
+                                                'business_type': historyData['business_type'],
+                                                'address_receiver': historyData['address_receiver'],
+                                                // 'orderList': historyData['orderList'],
+                                                'service_fee': historyData['service_fee'],
+                                                'delivery_fee': historyData['delivery_fee'],
+                                                'total_price': 100000, // Replace with totalPrice calculation
+                                                'payment_method': historyData['payment_method'],
                                               },
                                             );
                                           },
@@ -212,11 +212,11 @@ class HistoryCardList extends StatelessWidget {
                                           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                                         ),
                                         onPressed: () {
-                                          if (cardType == 'diproses') {
+                                          if (status == 'diproses') {
                                             context.push(
-                                              '/history/processing/$id',
+                                              '/history/processing/$historyId',
                                               extra: {
-                                                'business_id': id,
+                                                'history_id': historyId,
                                                 'business_name': historyData['business_name'],
                                                 'business_type': historyData['business_type'],
                                                 'business_image': historyData['business_image'],
@@ -224,15 +224,15 @@ class HistoryCardList extends StatelessWidget {
                                                 // 'orderList': historyData['orderList'],
                                                 'service_fee': historyData['service_fee'],
                                                 'delivery_fee': historyData['delivery_fee'],
-                                                'total_price': 'Rp. 100.000',
+                                                'total_price': 100000, // Replace with totalPrice calculation
                                                 'status': historyData['status'],
                                               },
                                             );
-                                          } else if (cardType == 'dikirim') {
+                                          } else if (status == 'dikirim') {
                                             context.push(
                                               '/history/delivering/${historyData['id']}',
                                               extra: {
-                                                'business_id': id,
+                                                'history_id': historyId,
                                                 'business_name': historyData['business_name'],
                                                 'business_type': historyData['business_type'],
                                                 'business_image': historyData['business_image'],

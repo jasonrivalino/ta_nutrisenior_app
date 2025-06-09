@@ -8,7 +8,7 @@ import 'package:ta_nutrisenior_app/shared/widgets/warning_button.dart';
 import '../../../shared/styles/colors.dart';
 
 class OngoingHistoryDetailsView extends StatefulWidget {
-  final int businessId;
+  final int historyId;
   final String businessName;
   final String businessType;
   final String businessImage;
@@ -27,7 +27,7 @@ class OngoingHistoryDetailsView extends StatefulWidget {
 
     const OngoingHistoryDetailsView({
     super.key,
-    required this.businessId,
+    required this.historyId,
     required this.businessName,
     required this.businessType,
     required this.businessImage,
@@ -49,7 +49,7 @@ class OngoingHistoryDetailsView extends StatefulWidget {
     final extra = state.extra as Map<String, dynamic>? ?? {};
 
     return OngoingHistoryDetailsView(
-      businessId: extra['business_id'] ?? 0,
+      historyId: extra['history_id'] ?? 0,
       businessName: extra['business_name'] ?? '',
       businessType: extra['business_type'] ?? '',
       businessImage: extra['business_image'] ?? '',
@@ -259,7 +259,7 @@ class _OngoingHistoryDetailsViewState extends State<OngoingHistoryDetailsView> {
                   context.push(
                     '/history/processing/:id/cancel',
                     extra: {
-                      'id': widget.businessId,
+                      'id': widget.historyId,
                     },
                   );
                 },
