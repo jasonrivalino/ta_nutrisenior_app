@@ -166,10 +166,28 @@ class RecommendedHomeSection extends StatelessWidget {
                     return SizedBox(
                       width: MediaQuery.of(context).size.width * 0.425,
                       child: CardBox(
-                        image: business['image'],
-                        name: business['name'],
-                        rate: business['rate'],
-                        location: business['location'],
+                        businessImage: business['business_image'],
+                        businessName: business['business_name'],
+                        businessRate: business['business_rating'],
+                        businessLocation: business['business_distance'],
+                        onTap: () {
+                          final type = business['business_type'];
+                          final route = type == 'restaurant'
+                              ? '/restaurant/detail/${business['business_id']}'
+                              : '/market/detail/${business['business_id']}';
+
+                          context.push(route, extra: {
+                            'business_id': business['business_id'],
+                            'business_name': business['business_name'],
+                            'business_image': business['business_image'],
+                            'business_rating': business['business_rating'],
+                            'business_distance': business['business_distance'],
+                            'business_address': business['business_address'],
+                            'business_open_hours': business['business_open_hours'],
+                            'discount_number': business['discount_number'],
+                            'is_free_shipment': business['is_free_shipment'],
+                          });
+                        },
                       ),
                     );
                   },
@@ -258,10 +276,28 @@ class _RecommendedTodayCarouselState extends State<RecommendedTodayCarousel> wit
             return Padding(
               padding: const EdgeInsets.all(6.0),
               child: CardBox(
-                image: business['image'],
-                name: business['name'],
-                rate: business['rate'],
-                location: business['location'],
+                businessImage: business['business_image'],
+                businessName: business['business_name'],
+                businessRate: business['business_rating'],
+                businessLocation: business['business_distance'],
+                onTap: () {
+                  final type = business['business_type'];
+                  final route = type == 'restaurant'
+                      ? '/restaurant/detail/${business['business_id']}'
+                      : '/market/detail/${business['business_id']}';
+
+                  context.push(route, extra: {
+                    'business_id': business['business_id'],
+                    'business_name': business['business_name'],
+                    'business_image': business['business_image'],
+                    'business_rating': business['business_rating'],
+                    'business_distance': business['business_distance'],
+                    'business_address': business['business_address'],
+                    'business_open_hours': business['business_open_hours'],
+                    'discount_number': business['discount_number'],
+                    'is_free_shipment': business['is_free_shipment'],
+                  });
+                },
               ),
             );
           },

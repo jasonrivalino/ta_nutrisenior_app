@@ -4,21 +4,23 @@ import 'package:ta_nutrisenior_app/shared/styles/colors.dart';
 import 'package:ta_nutrisenior_app/shared/styles/fonts.dart';
 
 class CardList extends StatelessWidget {
-  final String image;
-  final String name;
-  final double rate;
-  final double location;
-  final int? percentage;
-  final VoidCallback? onTap;
+  final String businessImage;
+  final String businessName;
+  final double businessRate;
+  final double businessLocation;
+  final int? discountNumber;
+  final bool isFreeShipment;
+  final VoidCallback onTap;
 
   const CardList({
     super.key,
-    required this.image,
-    required this.name,
-    required this.rate,
-    required this.location,
-    this.percentage,
-    this.onTap,
+    required this.businessImage,
+    required this.businessName,
+    required this.businessRate,
+    required this.businessLocation,
+    this.discountNumber,
+    required this.isFreeShipment,
+    required this.onTap,
   });
 
   @override
@@ -41,13 +43,11 @@ class CardList extends StatelessWidget {
           ),
           child: Row(
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start, // or center if you want it centered
+              Stack(
                 children: [
-                  // Image with border
                   Container(
                     width: 85,
-                    height: 70,
+                    height: 85,
                     decoration: BoxDecoration(
                       border: Border.all(
                         color: AppColors.darkGray,
@@ -58,37 +58,51 @@ class CardList extends StatelessWidget {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8),
                       child: Image.asset(
-                        image,
+                        businessImage,
                         fit: BoxFit.cover,
                       ),
                     ),
                   ),
-
-                  // Spacing between image and badge (optional)
-                  if (percentage != null) const SizedBox(height: 0),
-
-                  // Discount badge
-                  if (percentage != null)
-                    Container(
-                      width: 85, // Static width
-                      padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
-                      decoration: BoxDecoration(
-                        color: AppColors.orangyYellow,
-                        border: Border.all(
-                          color: AppColors.darkGray,
-                          width: 1,
+                  if (discountNumber != null || isFreeShipment)
+                    Positioned(
+                      bottom: 0,
+                      child: Container(
+                        width: 85, // Match the image width
+                        padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                        decoration: BoxDecoration(
+                          color: AppColors.orangyYellow,
+                          border: Border.all(color: AppColors.darkGray, width: 1),
+                          borderRadius: const BorderRadius.only(
+                            bottomLeft: Radius.circular(8),
+                            bottomRight: Radius.circular(8),
+                          ),
                         ),
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      alignment: Alignment.center, // To center the text
-                      child: Text(
-                        "Diskon $percentage%",
-                        style: const TextStyle(
-                          color: AppColors.dark,
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        overflow: TextOverflow.ellipsis,
+                        alignment: Alignment.center,
+                        child: discountNumber != null
+                            ? Text(
+                                'Diskon $discountNumber%',
+                                style: const TextStyle(
+                                  color: AppColors.dark,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              )
+                            : Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                mainAxisSize: MainAxisSize.min,
+                                children: const [
+                                  FaIcon(FontAwesomeIcons.personBiking, size: 12, color: AppColors.dark),
+                                  SizedBox(width: 6),
+                                  Text(
+                                    'FREE',
+                                    style: TextStyle(
+                                      color: AppColors.dark,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
                       ),
                     ),
                 ],
@@ -100,7 +114,7 @@ class CardList extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      name,
+                      businessName,
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontFamily: AppFonts.fontBold,
@@ -126,7 +140,7 @@ class CardList extends StatelessWidget {
                               FaIcon(FontAwesomeIcons.solidStar, size: 12, color: AppColors.dark),
                               const SizedBox(width: 3),
                               Text(
-                                '${rate.toStringAsFixed(1)}/5',
+                                '${businessRate.toStringAsFixed(1)}/5',
                                 style: const TextStyle(
                                   fontWeight: FontWeight.w500,
                                   fontFamily: AppFonts.fontMedium,
@@ -150,7 +164,7 @@ class CardList extends StatelessWidget {
                               Icon(Icons.location_on, size: 16, color: AppColors.dark),
                               const SizedBox(width: 3),
                               Text(
-                                '${location.toStringAsFixed(2)} km',
+                                '${businessLocation.toStringAsFixed(2)} km',
                                 style: const TextStyle(
                                   fontWeight: FontWeight.w500,
                                   fontFamily: AppFonts.fontMedium,

@@ -85,12 +85,12 @@ class EstimatedTimeCard extends StatelessWidget {
 // Class for order status details
 class OrderStatusDetails extends StatelessWidget {
   final String businessType;
-  final String cardType;
+  final String status;
 
   const OrderStatusDetails({
     super.key,
     required this.businessType,
-    required this.cardType,
+    required this.status,
   });
 
   @override
@@ -98,16 +98,16 @@ class OrderStatusDetails extends StatelessWidget {
     String title = "";
     String description = "";
 
-    if (businessType == 'Restaurant' && cardType == 'diproses') {
+    if (businessType == 'restaurant' && status == 'diproses') {
       title = "MAKANAN DALAM PROSES";
       description = "Dapur restoran sedang menyiapkan hidangan spesial Anda...";
-    } else if (businessType == 'Market' && cardType == 'diproses') {
+    } else if (businessType == 'market' && status == 'diproses') {
       title = "BELANJAAN SEDANG DIKEMAS";
       description = "Pengemudi sedang menyiapkan belanjaan Anda di supermarket...";
-    } else if (businessType == 'Restaurant' && cardType == 'dikirim') {
+    } else if (businessType == 'restaurant' && status == 'dikirim') {
       title = "MAKANAN DALAM PERJALANAN";
       description = "Waktunya siap-siap makan! Makanan sedang dalam perjalanan...";
-    } else if (businessType == 'Market' && cardType == 'dikirim') {
+    } else if (businessType == 'market' && status == 'dikirim') {
       title = "BELANJAAN DALAM PERJALANAN";
       description = "Waktunya siap-siap! Belanjaan Anda sedang dalam perjalanan...";
     } else {
@@ -206,7 +206,7 @@ class OrderListDetails extends StatelessWidget {
                       child: ListTile(
                         contentPadding: EdgeInsets.zero,
                         title: Text(
-                          item['name'] ?? '',
+                          item['product_name'] ?? '',
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
@@ -220,7 +220,7 @@ class OrderListDetails extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              formatCurrency(item['price'] ?? 0),
+                              formatCurrency(item['product_price'] ?? 0),
                               style: TextStyle(
                                 color: AppColors.dark,
                                 fontFamily: AppFonts.fontMedium,
@@ -251,7 +251,7 @@ class OrderListDetails extends StatelessWidget {
                             borderRadius: BorderRadius.circular(6),
                             border: Border.all(color: AppColors.dark),
                           ),
-                          child: Text("${item['quantity']} pcs",
+                          child: Text("${item['qty_product']} pcs",
                             style: TextStyle(
                               color: AppColors.dark,
                               fontFamily: AppFonts.fontMedium,
@@ -296,31 +296,33 @@ class OrderListDetails extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 12),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("Harga pengiriman",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                            fontFamily: AppFonts.fontBold,
-                            color: AppColors.dark,
+                  if (formatCurrency(deliveryFee!) != 'Rp0')
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 12),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Harga pengiriman",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
+                              fontFamily: AppFonts.fontBold,
+                              color: AppColors.dark,
+                            ),
                           ),
-                        ),
-                        Text(
-                          (formatCurrency(deliveryFee!) == 'Rp0') ? 'Gratis' : formatCurrency(deliveryFee!),
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                            fontFamily: AppFonts.fontBold,
-                            color: AppColors.dark,
+                          Text(
+                            formatCurrency(deliveryFee!),
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
+                              fontFamily: AppFonts.fontBold,
+                              color: AppColors.dark,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
                 ],
               ),
             ),
@@ -361,17 +363,22 @@ class OrderListDetails extends StatelessWidget {
       ),
     );
   }
-
 }
 
 class DeliverDriverCard extends StatelessWidget {
+  final int? driverId;
   final String? driverName;
-  final double driverRate;
+  final String? driverImage;
+  final double? driverRate;
+  final String? driverPhoneNumber;
 
   const DeliverDriverCard({
     super.key,
+    this.driverId,
     this.driverName,
-    required this.driverRate,
+    this.driverImage,
+    this.driverRate,
+    this.driverPhoneNumber,
   });
 
   @override
@@ -391,7 +398,7 @@ class DeliverDriverCard extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(8),
             child: Image.asset(
-              'assets/images/dummy/chat/driver.png', // Add your image to assets and update pubspec.yaml
+              driverImage ?? 'assets/images/dummy/chat/driver.png',
               width: 55,
               height: 55,
               fit: BoxFit.cover,
@@ -450,7 +457,12 @@ class DeliverDriverCard extends StatelessWidget {
                 child: InkWell(
                   borderRadius: BorderRadius.circular(8),
                   onTap: () {
-                   context.push('/chatlist/detail');
+                    context.push('/chatlist/detail/$driverId',
+                    extra: {
+                      'driver_id': driverId,
+                      'driver_name': driverName,
+                      'driver_image': driverImage,
+                    });
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(6),
@@ -473,7 +485,7 @@ class DeliverDriverCard extends StatelessWidget {
                     PermissionStatus status = await Permission.phone.request();
 
                     if (status.isGranted) {
-                      final Uri callUri = Uri(scheme: 'tel', path: '081234567890');
+                      final Uri callUri = Uri(scheme: 'tel', path: driverPhoneNumber);
                       if (await canLaunchUrl(callUri)) {
                         await launchUrl(callUri, mode: LaunchMode.externalApplication); // Or LaunchMode.platformDefault
                       } else {

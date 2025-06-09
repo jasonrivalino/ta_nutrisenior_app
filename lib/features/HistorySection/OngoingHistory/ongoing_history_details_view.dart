@@ -8,56 +8,68 @@ import 'package:ta_nutrisenior_app/shared/widgets/warning_button.dart';
 import '../../../shared/styles/colors.dart';
 
 class OngoingHistoryDetailsView extends StatefulWidget {
-  final int id;
+  final int historyId;
   final String businessName;
   final String businessType;
   final String businessImage;
+  final int? driverId;
   final String? driverName;
+  final String? driverImage;
+  final double? driverRating;
+  final String? driverPhoneNumber;
   final String? addressReceiver;
-  final String estimatedArrival;
+  final String estimatedArrivalTime;
   final List<Map<String, dynamic>>? orderList;
   final int? serviceFee;
   final int? deliveryFee;
   final int? totalPrice;
-  final String cardType;
+  final String status;
 
     const OngoingHistoryDetailsView({
     super.key,
-    required this.id,
+    required this.historyId,
     required this.businessName,
     required this.businessType,
     required this.businessImage,
+    this.driverId,
     this.driverName,
+    this.driverImage,
+    this.driverRating,
+    this.driverPhoneNumber,
     this.addressReceiver,
-    required this.estimatedArrival,
+    required this.estimatedArrivalTime,
     this.orderList,
     this.serviceFee,
     this.deliveryFee,
     this.totalPrice,
-    required this.cardType,
+    required this.status,
   });
 
   factory OngoingHistoryDetailsView.fromExtra(BuildContext context, GoRouterState state) {
     final extra = state.extra as Map<String, dynamic>? ?? {};
 
     return OngoingHistoryDetailsView(
-      id: extra['id'] ?? 0,
-      businessName: extra['businessName'] ?? '',
-      businessType: extra['businessType'] ?? '',
-      businessImage: extra['businessImage'] ?? '',
-      driverName: extra['driverName'] as String?,
-      addressReceiver: extra['addressReceiver'] as String?,
-      estimatedArrival: extra['estimatedArrival'] ?? '',
-      orderList: (extra['orderList'] is List)
-        ? (extra['orderList'] as List)
+      historyId: extra['history_id'] ?? 0,
+      businessName: extra['business_name'] ?? '',
+      businessType: extra['business_type'] ?? '',
+      businessImage: extra['business_image'] ?? '',
+      driverId: extra['driver_id'] as int?,
+      driverName: extra['driver_name'] as String?,
+      driverImage: extra['driver_image'] as String?,
+      driverRating: extra['driver_rating'] as double?,
+      driverPhoneNumber: extra['driver_phone_number'] as String?,
+      addressReceiver: extra['address_receiver'] as String?,
+      estimatedArrivalTime: extra['estimated_arrival_time'] ?? '',
+      orderList: (extra['order_list'] is List)
+        ? (extra['order_list'] as List)
             .whereType<Map<String, dynamic>>()
             .map((item) => item)
             .toList()
         : [],      
-      serviceFee: extra['serviceFee'] as int?,
-      deliveryFee: extra['deliveryFee'] as int?,
-      totalPrice: extra['totalPrice'] as int?,
-      cardType: extra['cardType'] ?? 'diproses',
+      serviceFee: extra['service_fee'] as int?,
+      deliveryFee: extra['delivery_fee'] as int?,
+      totalPrice: extra['total_price'] as int?,
+      status: extra['status'] ?? 'diproses',
     );
   }
 
@@ -101,7 +113,7 @@ class _OngoingHistoryDetailsViewState extends State<OngoingHistoryDetailsView> {
     topPositionDelivering = screenHeight > 900 ? 535 : 435;
 
     // Show loading while marker is being loaded
-    if (widget.cardType != 'diproses' && customStartMarker == null) {
+    if (widget.status != 'diproses' && customStartMarker == null) {
       return const Scaffold(
         body: Center(child: CircularProgressIndicator()),
       );
@@ -117,7 +129,7 @@ class _OngoingHistoryDetailsViewState extends State<OngoingHistoryDetailsView> {
         builder: (context, constraints) {
           return Stack(
             children: [
-              if (widget.cardType != 'diproses') ...[
+              if (widget.status != 'diproses') ...[
                 Positioned.fill(
                   child: GoogleMap(
                     initialCameraPosition: const CameraPosition(
@@ -157,11 +169,11 @@ class _OngoingHistoryDetailsViewState extends State<OngoingHistoryDetailsView> {
                 Container(color: AppColors.woodland),
 
               Positioned(
-                top: widget.cardType == 'diproses' ? topPositionProcessing : topPositionDelivering,
+                top: widget.status == 'diproses' ? topPositionProcessing : topPositionDelivering,
                 left: 0,
                 right: 0,
                 height: MediaQuery.of(context).size.height -
-                    (widget.cardType == 'diproses' ? topPositionProcessing : topPositionDelivering),
+                    (widget.status == 'diproses' ? topPositionProcessing : topPositionDelivering),
                 child: Container(
                   decoration: const BoxDecoration(
                     color: AppColors.soapstone,
@@ -171,7 +183,7 @@ class _OngoingHistoryDetailsViewState extends State<OngoingHistoryDetailsView> {
                     ),
                   ),
                   child: Column(
-                    children: widget.cardType == 'diproses'
+                    children: widget.status == 'diproses'
                         ? [
                             SafeArea(
                               bottom: false,
@@ -179,7 +191,7 @@ class _OngoingHistoryDetailsViewState extends State<OngoingHistoryDetailsView> {
                                 padding: const EdgeInsets.only(top: 60),
                                 child: OrderStatusDetails(
                                   businessType: widget.businessType,
-                                  cardType: widget.cardType,
+                                  status: widget.status,
                                 ),
                               ),
                             ),
@@ -201,13 +213,16 @@ class _OngoingHistoryDetailsViewState extends State<OngoingHistoryDetailsView> {
                               padding: const EdgeInsets.only(top: 60),
                               child: OrderStatusDetails(
                                 businessType: widget.businessType,
-                                cardType: widget.cardType,
+                                status: widget.status,
                               ),
                             ),
                             const SizedBox(height: 18),
                             DeliverDriverCard(
+                              driverId: widget.driverId,
                               driverName: widget.driverName,
-                              driverRate: 4.5,
+                              driverImage: widget.driverImage,
+                              driverRate: widget.driverRating,
+                              driverPhoneNumber: widget.driverPhoneNumber,
                             ),
                             const SizedBox(height: 20),
                           ],
@@ -218,14 +233,14 @@ class _OngoingHistoryDetailsViewState extends State<OngoingHistoryDetailsView> {
               EstimatedTimeCard(
                 businessName: widget.businessName,
                 businessImage: widget.businessImage,
-                etaText: widget.estimatedArrival,
-                topPosition: (widget.cardType == 'diproses' ? topPositionProcessing : topPositionDelivering) - 40,
+                etaText: widget.estimatedArrivalTime,
+                topPosition: (widget.status == 'diproses' ? topPositionProcessing : topPositionDelivering) - 40,
               ),
             ],
           );
         },
       ),
-      bottomNavigationBar: widget.cardType == 'diproses'
+      bottomNavigationBar: widget.status == 'diproses'
           ? Container(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
               decoration: const BoxDecoration(
@@ -244,7 +259,7 @@ class _OngoingHistoryDetailsViewState extends State<OngoingHistoryDetailsView> {
                   context.push(
                     '/history/processing/:id/cancel',
                     extra: {
-                      'id': widget.id,
+                      'id': widget.historyId,
                     },
                   );
                 },

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import '../../../shared/styles/colors.dart';
 import '../../../shared/widgets/bottom_navbar.dart';
-import 'homepage_data.dart';
+
 import 'homepage_widget.dart';
+
+import '../../../features/OrderSection/HomePage/homepage_controller.dart';
 
 class HomePageView extends StatelessWidget {
   const HomePageView({super.key});
@@ -16,7 +18,6 @@ class HomePageView extends StatelessWidget {
     final heightCard = (screenHeight * 0.235).clamp(200.0, double.infinity);
     final gapHeight =
         (screenHeight * 0.03).clamp(0.0, screenHeight > 900 ? 17.5 : 25.0);
-    print('Gap Height: $gapHeight');
 
     return Scaffold(
       backgroundColor: AppColors.soapstone,
@@ -24,11 +25,9 @@ class HomePageView extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Fixed Top Section
             const HomeTopBarSection(),
-            SizedBox(height: 32),
+            const SizedBox(height: 32),
 
-            // Scrollable content
             Expanded(
               child: SingleChildScrollView(
                 padding: const EdgeInsets.only(bottom: 18),
@@ -39,7 +38,7 @@ class HomePageView extends StatelessWidget {
                       category: 'RecommendedToday',
                       title: 'Rekomendasi Hari Ini',
                       heightCard: heightRecommendedToday,
-                      businesses: recommendedToday,
+                      businesses: HomePageController.recommendedToday,
                     ),
                     SizedBox(height: gapHeight),
                     RecommendedHomeSection(
@@ -47,7 +46,7 @@ class HomePageView extends StatelessWidget {
                       title: 'Resto Pilihan',
                       routeDetail: '/recommend/restaurant/detail',
                       heightCard: heightCard,
-                      businesses: recommendedRestaurant,
+                      businesses: HomePageController.recommendedRestaurant,
                     ),
                     SizedBox(height: gapHeight),
                     RecommendedHomeSection(
@@ -55,7 +54,7 @@ class HomePageView extends StatelessWidget {
                       title: 'Pusat Belanja Pilihan',
                       routeDetail: '/recommend/market/detail',
                       heightCard: heightCard,
-                      businesses: recommendedMarket,
+                      businesses: HomePageController.recommendedMarket,
                     ),
                   ],
                 ),

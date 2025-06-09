@@ -3,16 +3,20 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:photo_view/photo_view.dart';
 
 import '../../../shared/styles/colors.dart';
 import '../../../shared/styles/fonts.dart';
+import '../../../shared/utils/formatted_time.dart';
 
 class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
+  final String image;
 
   const ChatAppBar({
     super.key,
     required this.title,
+    required this.image,
   });
 
   @override
@@ -31,9 +35,9 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
         padding: const EdgeInsets.symmetric(vertical: 0),
         child: Row(
           children: [
-            const CircleAvatar(
+            CircleAvatar(
               radius: 24,
-              backgroundImage: AssetImage('assets/images/dummy/chat/driver.png'),
+              backgroundImage: AssetImage(image),
             ),
             const SizedBox(width: 12),
             Expanded(
@@ -168,6 +172,75 @@ class BottomChatWidget extends StatelessWidget {
               ],
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class FullScreenImageView extends StatelessWidget {
+  final String imagePath;
+  final String senderName;
+  final dynamic sendTime; // accept String or DateTime
+
+  const FullScreenImageView({
+    super.key,
+    required this.imagePath,
+    required this.senderName,
+    required this.sendTime,
+  });
+
+  bool _isAsset(String path) {
+    return !(path.startsWith('/') || path.startsWith('file:'));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final isAsset = _isAsset(imagePath);
+
+    return Scaffold(
+      backgroundColor: AppColors.dark,
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: AppColors.soapstone),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              senderName,
+              style: const TextStyle(
+                fontSize: 16,
+                color: AppColors.soapstone,
+                fontWeight: FontWeight.bold,
+                fontFamily: AppFonts.fontBold,
+              ),
+            ),
+            Text(
+              formatFullDateTime(sendTime),
+              style: const TextStyle(
+                fontSize: 12,
+                color: AppColors.soapstone,
+                fontWeight: FontWeight.w500,
+                fontFamily: AppFonts.fontMedium,
+              ),
+            ),
+          ],
+        ),
+      ),
+      body: Hero(
+        tag: imagePath,
+        child: PhotoView(
+          imageProvider: isAsset
+              ? AssetImage(imagePath)
+              : FileImage(File(imagePath)) as ImageProvider,
+          backgroundDecoration: const BoxDecoration(color: Colors.black),
+          minScale: PhotoViewComputedScale.contained,
+          maxScale: PhotoViewComputedScale.covered * 2.0,
         ),
       ),
     );

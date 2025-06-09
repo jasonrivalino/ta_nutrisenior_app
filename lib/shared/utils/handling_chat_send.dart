@@ -4,7 +4,6 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:intl/intl.dart';
 
 import '../styles/colors.dart';
 
@@ -16,13 +15,13 @@ void handleSendMessages({
   required VoidCallback onClearImages,
 }) {
   final text = controller.text.trim();
-  final String currentTime = DateFormat('HH:mm').format(DateTime.now());
+  final DateTime now = DateTime.now(); // simpan objek DateTime
 
   if (text.isNotEmpty) {
     messages.insert(0, {
       'text': text,
       'isMe': true,
-      'time': currentTime,
+      'time': now,
       'status': 'sending',
     });
   }
@@ -31,7 +30,7 @@ void handleSendMessages({
     messages.insert(0, {
       'image': image,
       'isMe': true,
-      'time': currentTime,
+      'time': now,
       'status': 'sending',
     });
   }

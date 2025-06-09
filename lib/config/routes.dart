@@ -5,14 +5,14 @@ import '../features/LoginProcess/PhoneNumber/phone_number_login_view.dart';
 import '../features/LoginProcess/OTPVerification/otp_verification_view.dart';
 
 import '../features/OrderSection/HomePage/homepage_view.dart';
-import '../features/OrderSection/HomePage/homepage_data.dart';
+import '../features/OrderSection/HomePage/homepage_controller.dart';
+import '../features/OrderSection/FavoritesData/favorites_controller.dart';
 import '../features/ProfileController/profile_view.dart';
-import '../features/OrderSection/FavoritesData/favorites_restaurant_data.dart';
-import '../features/OrderSection/FavoritesData/favorites_market_data.dart';
 import '../features/OrderSection/BusinessListPage/business_list_view.dart';
 
-import '../features/PromoSection/data/recommend_market_promo_data.dart';
-import '../features/PromoSection/data/recommend_restaurant_promo_data.dart';
+import '../features/OrderSection/OrderingMenu/business_ordering_menu_view.dart';
+
+import '../features/PromoSection/recommend_promo_controller.dart';
 import '../features/PromoSection/recommend_promo_view.dart';
 
 import '../features/HistorySection/history_list_view.dart';
@@ -27,19 +27,24 @@ import '../features/ContactSection/ChatList/chat_list_view.dart';
 import '../features/ContactSection/ChatDetails/chat_details_view.dart';
 import '../shared/utils/page_not_found.dart';
 
+import '../features/ContactSection/chat_controller.dart';
+
 class Routes {
   // Login Process
   static const String loginOptions = '/login';
   static const String phoneNumberLogin = '/login/phone';
   static const String otpVerification = '/login/phone/otp';
 
-  // Main Application to Order Section
+  // Main Application to Order Section - Choosing
   static const String homePage = '/homepage';
   static const String favoriteRestaurant = '/favorite/restaurant';
   static const String favoriteMarket = '/favorite/market';
   static const String profile = '/profile';
   static const String recommendRestaurantDetail = '/recommend/restaurant/detail';
   static const String recommendMarketDetail = '/recommend/market/detail';
+  // Main Application to Order Section - Ordering Process
+  static const String restaurantDetail = '/restaurant/detail/:id';
+  static const String marketDetail = '/market/detail/:id';
 
   // Promo Section
   static const String recommendRestaurantPromo = '/restaurantpromo';
@@ -64,7 +69,7 @@ class Routes {
 
   // Chat Feature Section
   static const String chatList = '/chatlist';
-  static const String chatDetail = '/chatlist/detail';
+  static const String chatDetail = '/chatlist/detail/:driverId';
 
   // Handling
   static const String notFound = '/page-not-found';
@@ -87,7 +92,8 @@ final GoRouter router = GoRouter(
       builder: (context, state) => const OTPVerificationView(),
     ),
 
-    // Main Application
+    // Main Application - Order Section
+    // Order Section - Choosing
     // Homepage
     GoRoute(
       path: Routes.homePage,
@@ -96,24 +102,24 @@ final GoRouter router = GoRouter(
     // Favorite Page
     GoRoute(
       path: Routes.favoriteRestaurant,
-      builder: (context, state) => const BusinessListView(
+      builder: (context, state) => BusinessListView(
         initialIndex: 0,
         appBarTitle: 'Restoran Favorit',
         restoRoute: Routes.favoriteRestaurant,
         marketRoute: Routes.favoriteMarket,
         bottomNavIndex: 0,
-        businessesData: favoritesRestaurant,
+        businessesData: FavoritesController.favoritesRestaurant,
       ),
     ),
     GoRoute(
       path: Routes.favoriteMarket,
-      builder: (context, state) => const BusinessListView(
+      builder: (context, state) => BusinessListView(
         initialIndex: 1,
         appBarTitle: 'Pusat Belanja Favorit',
         restoRoute: Routes.favoriteRestaurant,
         marketRoute: Routes.favoriteMarket,
         bottomNavIndex: 0,
-        businessesData: favoritesMarket,
+        businessesData: FavoritesController.favoritesMarket,
       ),
     ),
     // Profile Page
@@ -124,116 +130,131 @@ final GoRouter router = GoRouter(
     // Recommend Page
     GoRoute(
       path: Routes.recommendRestaurantDetail,
-      builder: (context, state) => const BusinessListView(
+      builder: (context, state) => BusinessListView(
         initialIndex: 0,
         appBarTitle: 'Restoran Pilihan',
         restoRoute: Routes.recommendRestaurantDetail,
         marketRoute: Routes.recommendMarketDetail,
         bottomNavIndex: 0,
-        businessesData: recommendedRestaurant,
+        businessesData: HomePageController.recommendedRestaurant,
       ),
     ),
     GoRoute(
       path: Routes.recommendMarketDetail,
-      builder: (context, state) => const BusinessListView(
+      builder: (context, state) => BusinessListView(
         initialIndex: 1,
         appBarTitle: 'Pusat Belanja Pilihan',
         restoRoute: Routes.recommendRestaurantDetail,
         marketRoute: Routes.recommendMarketDetail,
         bottomNavIndex: 0,
-        businessesData: recommendedMarket,
+        businessesData: HomePageController.recommendedMarket,
       ),
     ),
+    // Order Section - Ordering Process
+    GoRoute(
+      path: '/restaurant/detail/:id',
+      builder: (context, state) => BusinessOrderingMenuView.fromExtra(context, state),
+    ),
+
+    GoRoute(
+      path: '/market/detail/:id',
+      builder: (context, state) => BusinessOrderingMenuView.fromExtra(context, state),
+    ),
+
+
 
     // Promo Section
     GoRoute(
       path: Routes.recommendRestaurantPromo,
-      builder: (context, state) => const RecommendPromoView(
+      builder: (context, state) => RecommendPromoView(
         initialIndex: 0,
         restoRoute: Routes.recommendRestaurantPromo,
         marketRoute: Routes.recommendMarketPromo,
         discountRouteDetail: Routes.restaurantPromoDiscountDetail,
         freeShipmentRouteDetail: Routes.restaurantPromoFreeShipmentDetail,
-        discountBusinesses: discountRestaurant,
-        freeShipmentBusinesses: freeShipmentRestaurant,
+        discountBusinesses: PromoController.promoDiscountRestaurant,
+        freeShipmentBusinesses: PromoController.promoFreeShipmentRestaurant,
       ),
     ),
     GoRoute(
       path: Routes.recommendMarketPromo,
-      builder: (context, state) => const RecommendPromoView(
+      builder: (context, state) => RecommendPromoView(
         initialIndex: 1,
         restoRoute: Routes.recommendRestaurantPromo,
         marketRoute: Routes.recommendMarketPromo,
         discountRouteDetail: Routes.marketPromoDiscountDetail,
         freeShipmentRouteDetail: Routes.marketPromoFreeShipmentDetail,
-        discountBusinesses: discountMarket,
-        freeShipmentBusinesses: freeShipmentMarket,
+        discountBusinesses: PromoController.promoDiscountMarket,
+        freeShipmentBusinesses: PromoController.promoFreeShipmentMarket,
       ),
     ),
     GoRoute(
       path: Routes.restaurantPromoDiscountDetail,
-      builder: (context, state) => const BusinessListView(
+      builder: (context, state) => BusinessListView(
         initialIndex: 0,
         promoTitle: 'Promo Diskon',
         restoRoute: Routes.restaurantPromoDiscountDetail,
         marketRoute: Routes.marketPromoDiscountDetail,
         bottomNavIndex: 1,
-        businessesData: discountRestaurant,
+        businessesData: PromoController.promoDiscountRestaurant,
       ),
     ),
     GoRoute(
       path: Routes.marketPromoDiscountDetail,
-      builder: (context, state) => const BusinessListView(
+      builder: (context, state) => BusinessListView(
         initialIndex: 1,
         promoTitle: 'Promo Diskon',
         restoRoute: Routes.restaurantPromoDiscountDetail,
         marketRoute: Routes.marketPromoDiscountDetail,
         bottomNavIndex: 1,
-        businessesData: discountMarket,
+        businessesData: PromoController.promoDiscountMarket,
       ),
     ),
     GoRoute(
       path: Routes.restaurantPromoFreeShipmentDetail,
-      builder: (context, state) => const BusinessListView(
+      builder: (context, state) => BusinessListView(
         initialIndex: 0,
         promoTitle: 'Gratis Ongkir',
         restoRoute: Routes.restaurantPromoFreeShipmentDetail,
         marketRoute: Routes.marketPromoFreeShipmentDetail,
         bottomNavIndex: 1,
-        businessesData: freeShipmentRestaurant,
+        businessesData: PromoController.promoFreeShipmentRestaurant,
       ),
     ),
     GoRoute(
       path: Routes.marketPromoFreeShipmentDetail,
-      builder: (context, state) => const BusinessListView(
+      builder: (context, state) => BusinessListView(
         initialIndex: 1,
         promoTitle: 'Gratis Ongkir',
         restoRoute: Routes.restaurantPromoFreeShipmentDetail,
         marketRoute: Routes.marketPromoFreeShipmentDetail,
         bottomNavIndex: 1,
-        businessesData: freeShipmentMarket,
+        businessesData: PromoController.promoFreeShipmentMarket,
       ),
     ),
 
-    // History
+
+    // History Section
+    // Done History
     GoRoute(
       path: Routes.historyDone,
       builder: (context, state) {
         final id = state.extra != null && state.extra is Map<String, dynamic>
-            ? (state.extra as Map<String, dynamic>)['id'] as int?
-            : int.tryParse(state.pathParameters['id'] ?? '');
+            ? (state.extra as Map<String, dynamic>)['history_id'] as int?
+            : int.tryParse(state.pathParameters['history_id'] ?? '');
 
-        return HistoryListView(routeIndex: 0, id: id);
+        return HistoryListView(routeIndex: 0, historyId: id);
       },
     ),
+    // Ongoing History
     GoRoute(
       path: Routes.historyOngoing,
       builder: (context, state) {
         final id = state.extra != null && state.extra is Map<String, dynamic>
-            ? (state.extra as Map<String, dynamic>)['id'] as int?
-            : int.tryParse(state.pathParameters['id'] ?? '');
+            ? (state.extra as Map<String, dynamic>)['history_id'] as int?
+            : int.tryParse(state.pathParameters['history_id'] ?? '');
 
-        return HistoryListView(routeIndex: 1, id: id);
+        return HistoryListView(routeIndex: 1, historyId: id);
       },
     ),
     GoRoute(
@@ -268,7 +289,7 @@ final GoRouter router = GoRouter(
       },
     ),
 
-    // Processing History
+    // Ongoing History
     GoRoute(
       path: Routes.processingHistoryDetails,
       builder: (context, state) {
@@ -282,7 +303,7 @@ final GoRouter router = GoRouter(
             ? (state.extra as Map<String, dynamic>)['id'] as int?
             : int.tryParse(state.pathParameters['id'] ?? '');
 
-        return CancelOrderView(id: id ?? 0);
+        return CancelOrderView(historyId: id ?? 0);
       },
     ),
     GoRoute(
@@ -292,14 +313,34 @@ final GoRouter router = GoRouter(
       },
     ),
 
-    // Chat
+    // Chat Feature Section
     GoRoute(
       path: Routes.chatList,
-      builder: (context, state) => const ChatListView(),
+      builder: (context, state) {
+        final chatData = ChatListController.fetchChatListData(
+          route: '/chatlist',
+        );
+        return ChatListView(chatListData: chatData);
+      },
     ),
     GoRoute(
       path: Routes.chatDetail,
-      builder: (context, state) => const ChatDetailView(),
+      builder: (context, state) {
+        final data = state.extra != null && state.extra is Map<String, dynamic>
+            ? (state.extra as Map<String, dynamic>)
+            : null;
+        final chatData = ChatListController.fetchChatListData(
+          route: '/chatlist/detail/:driverId',
+          driverId: state.pathParameters['driverId'],
+        );
+
+        return ChatDetailView(
+          driverId: data?['driver_id'],
+          driverName: data?['driver_name'],
+          driverImage: data?['driver_image'],
+          chatDetailsData: chatData,
+        );
+      },
     ),
 
     // other routes
