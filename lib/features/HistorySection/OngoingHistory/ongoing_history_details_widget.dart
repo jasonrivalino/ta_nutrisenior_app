@@ -206,7 +206,7 @@ class OrderListDetails extends StatelessWidget {
                       child: ListTile(
                         contentPadding: EdgeInsets.zero,
                         title: Text(
-                          item['name'] ?? '',
+                          item['product_name'] ?? '',
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
@@ -220,7 +220,7 @@ class OrderListDetails extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              formatCurrency(item['price'] ?? 0),
+                              formatCurrency(item['product_price'] ?? 0),
                               style: TextStyle(
                                 color: AppColors.dark,
                                 fontFamily: AppFonts.fontMedium,
@@ -251,7 +251,7 @@ class OrderListDetails extends StatelessWidget {
                             borderRadius: BorderRadius.circular(6),
                             border: Border.all(color: AppColors.dark),
                           ),
-                          child: Text("${item['quantity']} pcs",
+                          child: Text("${item['qty_product']} pcs",
                             style: TextStyle(
                               color: AppColors.dark,
                               fontFamily: AppFonts.fontMedium,
@@ -296,31 +296,33 @@ class OrderListDetails extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 12),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("Harga pengiriman",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                            fontFamily: AppFonts.fontBold,
-                            color: AppColors.dark,
+                  if (formatCurrency(deliveryFee!) != 'Rp0')
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 12),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Harga pengiriman",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
+                              fontFamily: AppFonts.fontBold,
+                              color: AppColors.dark,
+                            ),
                           ),
-                        ),
-                        Text(
-                          (formatCurrency(deliveryFee!) == 'Rp0') ? 'Gratis' : formatCurrency(deliveryFee!),
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                            fontFamily: AppFonts.fontBold,
-                            color: AppColors.dark,
+                          Text(
+                            formatCurrency(deliveryFee!),
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
+                              fontFamily: AppFonts.fontBold,
+                              color: AppColors.dark,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
                 ],
               ),
             ),
@@ -361,7 +363,6 @@ class OrderListDetails extends StatelessWidget {
       ),
     );
   }
-
 }
 
 class DeliverDriverCard extends StatelessWidget {

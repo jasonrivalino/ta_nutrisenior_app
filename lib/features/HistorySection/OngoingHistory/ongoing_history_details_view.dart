@@ -60,8 +60,8 @@ class OngoingHistoryDetailsView extends StatefulWidget {
       driverPhoneNumber: extra['driver_phone_number'] as String?,
       addressReceiver: extra['address_receiver'] as String?,
       estimatedArrivalTime: extra['estimated_arrival_time'] ?? '',
-      orderList: (extra['orderList'] is List)
-        ? (extra['orderList'] as List)
+      orderList: (extra['order_list'] is List)
+        ? (extra['order_list'] as List)
             .whereType<Map<String, dynamic>>()
             .map((item) => item)
             .toList()

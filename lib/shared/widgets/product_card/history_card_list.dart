@@ -19,11 +19,8 @@ class HistoryCardList extends StatelessWidget {
     final DateTime orderDate = historyData['order_date'];
     final String businessName = historyData['business_name'];
     final String businessImage = historyData['business_image'];
+    final int totalPrice = historyData['total_price'];
     final String status = historyData['status'];
-
-    // int totalOrderPrice = historyData['orderList']
-    //   .fold(0, (sum, item) => sum + (item['price'] as int) * (item['quantity'] as int));
-    // num totalPrice = totalOrderPrice + historyData['serviceFee'] + historyData['deliveryFee'];
 
     final dateFormatted = DateFormat('d MMM yyyy, HH:mm').format(orderDate);
 
@@ -104,12 +101,11 @@ class HistoryCardList extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Text(
-                                'Rp. 100.000', // Replace with totalPrice calculation
-                                // NumberFormat.currency(
-                                //   locale: 'id_ID',
-                                //   symbol: 'Rp',
-                                //   decimalDigits: 0,
-                                // ).format(totalPrice.toInt()),
+                                NumberFormat.currency(
+                                  locale: 'id_ID',
+                                  symbol: 'Rp',
+                                  decimalDigits: 0,
+                                ).format(totalPrice.toInt()),
                                 style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 14,
@@ -155,10 +151,10 @@ class HistoryCardList extends StatelessWidget {
                                                 'business_image': historyData['business_image'],
                                                 'business_type': historyData['business_type'],
                                                 'address_receiver': historyData['address_receiver'],
-                                                // 'orderList': historyData['orderList'],
+                                                'order_list': historyData['order_list'],
                                                 'service_fee': historyData['service_fee'],
                                                 'delivery_fee': historyData['delivery_fee'],
-                                                'total_price': 100000, // Replace with totalPrice calculation
+                                                'total_price': totalPrice,
                                                 'payment_method': historyData['payment_method'],
                                               },
                                             );
@@ -221,10 +217,10 @@ class HistoryCardList extends StatelessWidget {
                                                 'business_type': historyData['business_type'],
                                                 'business_image': historyData['business_image'],
                                                 'estimated_arrival_time': historyData['estimated_arrival_time'],
-                                                // 'orderList': historyData['orderList'],
+                                                'order_list': historyData['order_list'],
                                                 'service_fee': historyData['service_fee'],
                                                 'delivery_fee': historyData['delivery_fee'],
-                                                'total_price': 100000, // Replace with totalPrice calculation
+                                                'total_price': totalPrice,
                                                 'status': historyData['status'],
                                               },
                                             );

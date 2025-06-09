@@ -177,7 +177,7 @@ class DoneOrderAddressCard extends StatelessWidget {
 
 // Class to display order details in a card format
 class DoneOrderDetailsCard extends StatelessWidget {
-  // final List<dynamic> orderList;
+  final List<dynamic> orderList;
   final int serviceFee;
   final int deliveryFee;
   final int totalPrice;
@@ -185,7 +185,7 @@ class DoneOrderDetailsCard extends StatelessWidget {
 
   const DoneOrderDetailsCard({
     super.key,
-    // required this.orderList,
+    required this.orderList,
     required this.serviceFee,
     required this.deliveryFee,
     required this.totalPrice,
@@ -215,89 +215,69 @@ class DoneOrderDetailsCard extends StatelessWidget {
 
           const Divider(),
           
-          // ...orderList.map<Widget>((item) {
-          //   return Padding(
-          //     padding: EdgeInsets.only(
-          //       bottom: item != orderList.last ? 8.0 : 0.0,
-          //     ),
-          //     child: Row(
-          //       crossAxisAlignment: CrossAxisAlignment.center,
-          //       children: [
-          //         Text('${item['quantity']}x ',
-          //           style: TextStyle(
-          //             fontWeight: FontWeight.bold,
-          //             fontSize: 16,
-          //             fontFamily: AppFonts.fontBold,
-          //             color: AppColors.dark,
-          //           ),
-          //         ),
-          //         SizedBox(width: 12),
-          //         Expanded(
-          //           child: Column(
-          //             crossAxisAlignment: CrossAxisAlignment.start,
-          //             children: [
-          //               Text(item['name'],
-          //                 maxLines: 1,
-          //                 overflow: TextOverflow.ellipsis,
-          //                 style: const TextStyle(
-          //                   fontWeight: FontWeight.bold,
-          //                   fontSize: 16,
-          //                   fontFamily: AppFonts.fontBold,
-          //                   color: AppColors.dark,
-          //                 ),
-          //               ),
-          //               if (item['notes'] != null && item['notes'].toString().isNotEmpty)
-          //                 Text('Note: ${item['notes']}',
-          //                   style: const TextStyle(
-          //                     fontWeight: FontWeight.w500,
-          //                     fontSize: 14,
-          //                     fontFamily: AppFonts.fontMedium,
-          //                     color: AppColors.dark,
-          //                   ),
-          //                 ),
-          //             ],
-          //           ),
-          //         ),
-          //         Text(formatCurrency(item['price'] * item['quantity']),
-          //           style: const TextStyle(
-          //             fontWeight: FontWeight.bold,
-          //             fontSize: 16,
-          //             fontFamily: AppFonts.fontBold,
-          //             color: AppColors.dark,
-          //           ),
-          //         ),
-          //       ],
-          //     ),
-          //   );
-          // }),
+          ...orderList.map<Widget>((item) {
+            return Padding(
+              padding: EdgeInsets.only(
+                bottom: item != orderList.last ? 8.0 : 0.0,
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text('${item['qty_product']}x ',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      fontFamily: AppFonts.fontBold,
+                      color: AppColors.dark,
+                    ),
+                  ),
+                  SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(item['product_name'],
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                            fontFamily: AppFonts.fontBold,
+                            color: AppColors.dark,
+                          ),
+                        ),
+                        if (item['notes'] != null && item['notes'].toString().isNotEmpty)
+                          Text('Note: ${item['notes']}',
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14,
+                              fontFamily: AppFonts.fontMedium,
+                              color: AppColors.dark,
+                            ),
+                          ),
+                      ],
+                    ),
+                  ),
+                  Text(formatCurrency(item['product_price'] * item['qty_product']),
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      fontFamily: AppFonts.fontBold,
+                      color: AppColors.dark,
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }),
 
           const Divider(),
           
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Harga pelayanan",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                  fontFamily: AppFonts.fontBold,
-                  color: AppColors.dark,
-                ),
-              ),
-              Text(formatCurrency(serviceFee),
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                  fontFamily: AppFonts.fontBold,
-                  color: AppColors.dark,
-                ),
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text("Harga pengiriman",
+              Text(
+                "Harga pelayanan",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
@@ -306,9 +286,7 @@ class DoneOrderDetailsCard extends StatelessWidget {
                 ),
               ),
               Text(
-                formatCurrency(deliveryFee) == 'Rp0'
-                    ? 'Gratis'
-                    : formatCurrency(deliveryFee),
+                formatCurrency(serviceFee),
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
@@ -318,6 +296,33 @@ class DoneOrderDetailsCard extends StatelessWidget {
               ),
             ],
           ),
+
+          // Only show this Row if deliveryFee is not zero
+          if (formatCurrency(deliveryFee) != 'Rp0')
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Harga pengiriman",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                    fontFamily: AppFonts.fontBold,
+                    color: AppColors.dark,
+                  ),
+                ),
+                Text(
+                  formatCurrency(deliveryFee),
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                    fontFamily: AppFonts.fontBold,
+                    color: AppColors.dark,
+                  ),
+                ),
+              ],
+            ),
+
           const Divider(),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
