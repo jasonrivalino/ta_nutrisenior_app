@@ -3,6 +3,7 @@ import '../../database/business_list_table.dart';
 import '../../database/driver_list_table.dart';
 import '../../database/history_list_table.dart';
 import '../../database/product_list_table.dart';
+import '../../database/business_promo_list_table.dart';
 
 class HistoryController {
   static List<Map<String, dynamic>> fetchHistoryList() {
@@ -14,6 +15,11 @@ class HistoryController {
 
       final matchedBusiness = businessListTable.firstWhere(
         (business) => business['business_id'] == historyItem['business_id'],
+        orElse: () => {},
+      );
+
+      final matchedPromo = businessPromoListTable.firstWhere(
+        (promo) => promo['business_id'] == historyItem['business_id'],
         orElse: () => {},
       );
 
@@ -42,18 +48,23 @@ class HistoryController {
       final int serviceFee = historyItem['service_fee'] ?? 0;
       final int deliveryFee = historyItem['delivery_fee'] ?? 0;
 
-      final int totalPrice = totalOrderPrice + serviceFee + deliveryFee;
+      // final int totalBeforeDiscount = totalOrderPrice + serviceFee + deliveryFee;
 
-      // Debug print
-      print("Order list for history_id ${historyItem['history_id']}: $matchedOrders");
-      print("Total price for history_id ${historyItem['history_id']}: $totalPrice");
+      // Apply discount if available
+      final int discountPercent = matchedPromo['discount_number'] ?? 0;
+      final bool isFreeShipment = matchedPromo['is_free_shipment'] ?? false;
+
+      final int discountAmount = (totalOrderPrice * discountPercent ~/ 100);
+      final int finalDeliveryFee = isFreeShipment ? 0 : deliveryFee;
+
+      final int totalPrice = totalOrderPrice - discountAmount + serviceFee + finalDeliveryFee;
 
       return {
         ...historyItem,
         ...matchedDriver,
-        'business_name': matchedBusiness['business_name'] ?? 'Unknown Business',
-        'business_type': matchedBusiness['business_type'] ?? 'Unknown Type',
-        'business_image': matchedBusiness['business_image'] ?? '',
+        ...matchedBusiness,
+        'promo_discount': discountPercent,
+        'is_free_shipment': isFreeShipment,
         'order_list': matchedOrders,
         'total_price': totalPrice,
       };
