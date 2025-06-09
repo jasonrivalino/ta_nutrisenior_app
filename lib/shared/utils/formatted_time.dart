@@ -29,3 +29,7 @@ String formatFullDateTime(dynamic time) {
     return '';
   }
 }
+
+String formatHours(DateTime time) {
+  return DateFormat("HH:mm").format(time);
+}

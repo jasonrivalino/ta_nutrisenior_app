@@ -179,11 +179,14 @@ class RecommendedHomeSection extends StatelessWidget {
                           context.push(route, extra: {
                             'business_id': business['business_id'],
                             'business_name': business['business_name'],
+                            'business_type': business['business_type'],
                             'business_image': business['business_image'],
                             'business_rating': business['business_rating'],
                             'business_distance': business['business_distance'],
                             'business_address': business['business_address'],
-                            'business_open_hours': business['business_open_hours'],
+                            'business_open_hour': business['business_open_hour'],
+                            'business_close_hour': business['business_close_hour'],
+                            'estimated_delivery': business['estimated_delivery'],
                             'discount_number': business['discount_number'],
                             'is_free_shipment': business['is_free_shipment'],
                           });
@@ -289,11 +292,14 @@ class _RecommendedTodayCarouselState extends State<RecommendedTodayCarousel> wit
                   context.push(route, extra: {
                     'business_id': business['business_id'],
                     'business_name': business['business_name'],
+                    'business_type': business['business_type'],
                     'business_image': business['business_image'],
                     'business_rating': business['business_rating'],
                     'business_distance': business['business_distance'],
                     'business_address': business['business_address'],
-                    'business_open_hours': business['business_open_hours'],
+                    'business_open_hour': business['business_open_hour'],
+                    'business_close_hour': business['business_close_hour'],
+                    'estimated_delivery': business['estimated_delivery'],
                     'discount_number': business['discount_number'],
                     'is_free_shipment': business['is_free_shipment'],
                   });
