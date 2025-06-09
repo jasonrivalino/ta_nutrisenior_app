@@ -15,15 +15,15 @@ class HistoryCardList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final int id = historyData['id'];
-    final DateTime orderDate = historyData['orderDate'];
-    final String image = historyData['businessImage'];
-    final String businessName = historyData['businessName'];
-    final String cardType = historyData['cardType'];
+    final int id = historyData['history_id'];
+    final DateTime orderDate = historyData['order_date'];
+    final String businessName = historyData['business_name'];
+    final String image = historyData['business_image'];
+    final String cardType = historyData['status'];
 
-    int totalOrderPrice = historyData['orderList']
-      .fold(0, (sum, item) => sum + (item['price'] as int) * (item['quantity'] as int));
-    num totalPrice = totalOrderPrice + historyData['serviceFee'] + historyData['deliveryFee'];
+    // int totalOrderPrice = historyData['orderList']
+    //   .fold(0, (sum, item) => sum + (item['price'] as int) * (item['quantity'] as int));
+    // num totalPrice = totalOrderPrice + historyData['serviceFee'] + historyData['deliveryFee'];
 
     final dateFormatted = DateFormat('d MMM yyyy, HH:mm').format(orderDate);
 
@@ -57,7 +57,7 @@ class HistoryCardList extends StatelessWidget {
                         color: AppColors.dark,
                       ),
                     ),
-                    if (cardType != 'done')
+                    if (cardType != 'selesai')
                       Text(
                         cardType.toUpperCase(),
                         style: const TextStyle(
@@ -104,11 +104,12 @@ class HistoryCardList extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Text(
-                                NumberFormat.currency(
-                                  locale: 'id_ID',
-                                  symbol: 'Rp',
-                                  decimalDigits: 0,
-                                ).format(totalPrice.toInt()),
+                                'Rp. 100.000', // Replace with totalPrice calculation
+                                // NumberFormat.currency(
+                                //   locale: 'id_ID',
+                                //   symbol: 'Rp',
+                                //   decimalDigits: 0,
+                                // ).format(totalPrice.toInt()),
                                 style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 14,
@@ -148,7 +149,7 @@ class HistoryCardList extends StatelessWidget {
                                               '/history/done/details/$id',
                                               extra: {
                                                 'id': id,
-                                                'totalPrice': totalPrice,
+                                                'totalPrice': 'Rp. 100.000',
                                                 'orderDate': orderDate,
                                                 'driverName': historyData['driverName'],
                                                 'businessName': historyData['businessName'],
@@ -215,30 +216,33 @@ class HistoryCardList extends StatelessWidget {
                                             context.push(
                                               '/history/processing/$id',
                                               extra: {
-                                                'id': id,
-                                                'businessName': historyData['businessName'],
-                                                'businessType': historyData['businessType'],
-                                                'businessImage': historyData['businessImage'],
-                                                'estimatedArrival': historyData['estimatedArrival'],
-                                                'orderList': historyData['orderList'],
-                                                'serviceFee': historyData['serviceFee'],
-                                                'deliveryFee': historyData['deliveryFee'],
-                                                'totalPrice': totalPrice,
-                                                'cardType': historyData['cardType'],
+                                                'business_id': id,
+                                                'business_name': historyData['business_name'],
+                                                'business_type': historyData['business_type'],
+                                                'business_image': historyData['business_image'],
+                                                'estimated_arrival_time': historyData['estimated_arrival_time'],
+                                                // 'orderList': historyData['orderList'],
+                                                'service_fee': historyData['service_fee'],
+                                                'delivery_fee': historyData['delivery_fee'],
+                                                'total_price': 'Rp. 100.000',
+                                                'status': historyData['status'],
                                               },
                                             );
                                           } else if (cardType == 'dikirim') {
                                             context.push(
                                               '/history/delivering/${historyData['id']}',
                                               extra: {
-                                                'id': historyData['id'],
-                                                'businessName': historyData['businessName'],
-                                                'businessType': historyData['businessType'],
-                                                'businessImage': historyData['businessImage'],
-                                                'estimatedArrival': historyData['estimatedArrival'],
-                                                'driverName': historyData['driverName'],
-                                                'addressReceiver': historyData['addressReceiver'],
-                                                'cardType': historyData['cardType'],
+                                                'business_id': id,
+                                                'business_name': historyData['business_name'],
+                                                'business_type': historyData['business_type'],
+                                                'business_image': historyData['business_image'],
+                                                'estimated_arrival_time': historyData['estimated_arrival_time'],
+                                                'driver_id': historyData['driver_id'],
+                                                'driver_name': historyData['driver_name'],
+                                                'driver_image': historyData['driver_image'],
+                                                'driver_rating': historyData['driver_rating'],
+                                                'driver_phone_number': historyData['driver_phone_number'],
+                                                'status': historyData['status'],
                                               },
                                             );
                                           }

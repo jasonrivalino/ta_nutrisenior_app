@@ -86,12 +86,12 @@ class EstimatedTimeCard extends StatelessWidget {
 // Class for order status details
 class OrderStatusDetails extends StatelessWidget {
   final String businessType;
-  final String cardType;
+  final String status;
 
   const OrderStatusDetails({
     super.key,
     required this.businessType,
-    required this.cardType,
+    required this.status,
   });
 
   @override
@@ -99,16 +99,16 @@ class OrderStatusDetails extends StatelessWidget {
     String title = "";
     String description = "";
 
-    if (businessType == 'Restaurant' && cardType == 'diproses') {
+    if (businessType == 'restaurant' && status == 'diproses') {
       title = "MAKANAN DALAM PROSES";
       description = "Dapur restoran sedang menyiapkan hidangan spesial Anda...";
-    } else if (businessType == 'Market' && cardType == 'diproses') {
+    } else if (businessType == 'market' && status == 'diproses') {
       title = "BELANJAAN SEDANG DIKEMAS";
       description = "Pengemudi sedang menyiapkan belanjaan Anda di supermarket...";
-    } else if (businessType == 'Restaurant' && cardType == 'dikirim') {
+    } else if (businessType == 'restaurant' && status == 'dikirim') {
       title = "MAKANAN DALAM PERJALANAN";
       description = "Waktunya siap-siap makan! Makanan sedang dalam perjalanan...";
-    } else if (businessType == 'Market' && cardType == 'dikirim') {
+    } else if (businessType == 'market' && status == 'dikirim') {
       title = "BELANJAAN DALAM PERJALANAN";
       description = "Waktunya siap-siap! Belanjaan Anda sedang dalam perjalanan...";
     } else {
@@ -366,13 +366,19 @@ class OrderListDetails extends StatelessWidget {
 }
 
 class DeliverDriverCard extends StatelessWidget {
+  final int? driverId;
   final String? driverName;
-  final double driverRate;
+  final String? driverImage;
+  final double? driverRate;
+  final String? driverPhoneNumber;
 
   const DeliverDriverCard({
     super.key,
+    this.driverId,
     this.driverName,
-    required this.driverRate,
+    this.driverImage,
+    this.driverRate,
+    this.driverPhoneNumber,
   });
 
   @override
@@ -392,7 +398,7 @@ class DeliverDriverCard extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(8),
             child: Image.asset(
-              'assets/images/dummy/chat/driver.png', // Add your image to assets and update pubspec.yaml
+              driverImage ?? 'assets/images/dummy/chat/driver.png',
               width: 55,
               height: 55,
               fit: BoxFit.cover,
@@ -451,7 +457,12 @@ class DeliverDriverCard extends StatelessWidget {
                 child: InkWell(
                   borderRadius: BorderRadius.circular(8),
                   onTap: () {
-                   context.push('/chatlist/detail');
+                    context.push('/chatlist/detail/$driverId',
+                    extra: {
+                      'driver_id': driverId,
+                      'driver_name': driverName,
+                      'driver_image': driverImage,
+                    });
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(6),
@@ -474,7 +485,7 @@ class DeliverDriverCard extends StatelessWidget {
                     PermissionStatus status = await Permission.phone.request();
 
                     if (status.isGranted) {
-                      final Uri callUri = Uri(scheme: 'tel', path: AppConstants.phoneNumber);
+                      final Uri callUri = Uri(scheme: 'tel', path: driverPhoneNumber);
                       if (await canLaunchUrl(callUri)) {
                         await launchUrl(callUri, mode: LaunchMode.externalApplication); // Or LaunchMode.platformDefault
                       } else {

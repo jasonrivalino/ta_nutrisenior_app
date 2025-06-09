@@ -4,7 +4,8 @@ import 'package:ta_nutrisenior_app/shared/styles/colors.dart';
 import '../../../shared/widgets/appbar.dart';
 import '../../../shared/widgets/bottom_navbar.dart';
 import '../../../shared/widgets/product_card/history_card_list.dart';
-import 'history_list_data.dart';
+
+import 'history_controller.dart';
 
 class HistoryListView extends StatefulWidget {
   final int? id;
@@ -22,29 +23,27 @@ class HistoryListView extends StatefulWidget {
 
 class _HistoryListViewState extends State<HistoryListView> {
   late bool showDone;
+  late List<Map<String, dynamic>> allHistoryList;
 
   @override
   void initState() {
     super.initState();
-
-    // Use routeIndex to determine initial tab
     showDone = widget.routeIndex == 0;
-
-    print('widget id: ${widget.id}');
-    print('routeIndex: ${widget.routeIndex}');
-
-    // If widget.id is provided and routeIndex is for ongoing (1), remove matching item
-    if (widget.id != null && widget.routeIndex == 1) {
-      ongoingHistoryList.removeWhere((item) => item['id'] == widget.id);
-    }
+    allHistoryList = HistoryController.fetchHistoryList();
   }
 
   @override
   Widget build(BuildContext context) {
-    final historyList = showDone ? doneHistoryList : ongoingHistoryList;
+    // Filter list based on status
+    final displayList = allHistoryList.where((item) {
+      final status = item['status'];
+      return showDone
+          ? status == 'selesai'
+          : status == 'diproses' || status == 'dikirim';
+    }).toList();
 
     return Scaffold(
-      appBar: CustomAppBar(
+      appBar: const CustomAppBar(
         title: 'Aktivitas Pembelian',
         showBackButton: false,
       ),
@@ -57,7 +56,6 @@ class _HistoryListViewState extends State<HistoryListView> {
             padding: const EdgeInsets.symmetric(horizontal: 12.0),
             child: Row(
               children: [
-                // Histori Tab
                 GestureDetector(
                   onTap: () {
                     setState(() {
@@ -86,7 +84,6 @@ class _HistoryListViewState extends State<HistoryListView> {
                   ),
                 ),
                 const SizedBox(width: 16),
-                // Dalam Proses Tab
                 GestureDetector(
                   onTap: () {
                     setState(() {
@@ -129,9 +126,9 @@ class _HistoryListViewState extends State<HistoryListView> {
                 ),
               ),
               child: ListView.builder(
-                itemCount: historyList.length,
+                itemCount: displayList.length,
                 itemBuilder: (context, index) {
-                  final item = historyList[index];
+                  final item = displayList[index];
                   return HistoryCardList(
                     historyData: item,
                   );
