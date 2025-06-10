@@ -8,6 +8,7 @@ import '../features/OrderSection/HomePage/homepage_view.dart';
 import '../features/OrderSection/HomePage/homepage_controller.dart';
 import '../features/OrderSection/FavoritesData/favorites_controller.dart';
 import '../features/ProfileController/profile_view.dart';
+import '../features/OrderSection/SearchingMenu/search_view.dart';
 import '../features/OrderSection/BusinessListPage/business_list_view.dart';
 
 import '../features/OrderSection/OrderingMenu/business_ordering_menu_view.dart';
@@ -40,6 +41,8 @@ class Routes {
   static const String favoriteRestaurant = '/favorite/restaurant';
   static const String favoriteMarket = '/favorite/market';
   static const String profile = '/profile';
+  static const String search = '/search';
+  // Recommend Section
   static const String recommendRestaurantDetail = '/recommend/restaurant/detail';
   static const String recommendMarketDetail = '/recommend/market/detail';
   // Main Application to Order Section - Ordering Process
@@ -127,6 +130,11 @@ final GoRouter router = GoRouter(
       path: Routes.profile,
       builder: (context, state) => const ProfileView(),
     ),
+    // Search Page
+    GoRoute(
+      path: Routes.search,
+      builder: (context, state) => const SearchView(),
+    ),
     // Recommend Page
     GoRoute(
       path: Routes.recommendRestaurantDetail,
@@ -155,7 +163,6 @@ final GoRouter router = GoRouter(
       path: '/restaurant/detail/:id',
       builder: (context, state) => BusinessOrderingMenuView.fromExtra(context, state),
     ),
-
     GoRoute(
       path: '/market/detail/:id',
       builder: (context, state) => BusinessOrderingMenuView.fromExtra(context, state),
