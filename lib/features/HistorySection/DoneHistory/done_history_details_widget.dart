@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:ta_nutrisenior_app/shared/styles/colors.dart';
 import 'package:ta_nutrisenior_app/shared/styles/fonts.dart';
@@ -374,18 +375,26 @@ class DoneOrderDetailsCard extends StatelessWidget {
 
 class GiveRatingBottomNavbar extends StatelessWidget {
   final String businessType;
+  final List<Map<String, dynamic>> ratings;
   final VoidCallback onDriverPressed;
   final VoidCallback onRestaurantPressed;
 
   const GiveRatingBottomNavbar({
     super.key,
     required this.businessType,
+    required this.ratings,
     required this.onDriverPressed,
     required this.onRestaurantPressed,
   });
 
   @override
   Widget build(BuildContext context) {
+    final hasDriverRating = ratings.any((r) => r['rating_type'] == 'driver');
+    final hasBusinessRating = ratings.any((r) => r['rating_type'] == businessType.toLowerCase());
+
+    // Don't show anything if both ratings exist
+    if (hasDriverRating && hasBusinessRating) return const SizedBox.shrink();
+
     return Container(
       padding: const EdgeInsets.fromLTRB(12, 16, 12, 24),
       decoration: BoxDecoration(
@@ -414,59 +423,151 @@ class GiveRatingBottomNavbar extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.woodland,
-                  foregroundColor: AppColors.soapstone,
-                  padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                  minimumSize: const Size(0, 40),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
+              if (!hasDriverRating)
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.woodland,
+                    foregroundColor: AppColors.soapstone,
+                    padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                    minimumSize: const Size(0, 40),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    elevation: 0,
+                    shadowColor: Colors.transparent,
+                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   ),
-                  elevation: 0,
-                  shadowColor: Colors.transparent,
-                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                ),
-                onPressed: onDriverPressed,
-                child: const Text("Pengemudi",
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: AppFonts.fontBold,
-                    color: AppColors.soapstone,
-                  ),
-                ),
-              ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.woodland,
-                  foregroundColor: AppColors.soapstone,
-                  padding: EdgeInsets.symmetric(
-                    horizontal: businessType == 'Restaurant' ? 40.0 : 22.0,
-                  ),
-                  minimumSize: const Size(0, 40),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  elevation: 0,
-                  shadowColor: Colors.transparent,
-                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                ),
-                onPressed: onRestaurantPressed,
-                child: Text(
-                  businessType == 'Restaurant' ? "Restoran" : "Pusat Belanja",
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: AppFonts.fontBold,
-                    color: AppColors.soapstone,
+                  onPressed: onDriverPressed,
+                  child: const Text(
+                    "Pengemudi",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: AppFonts.fontBold,
+                      color: AppColors.soapstone,
+                    ),
                   ),
                 ),
-              ),
+              if (!hasBusinessRating)
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.woodland,
+                    foregroundColor: AppColors.soapstone,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: businessType == 'Restaurant' ? 40.0 : 22.0,
+                    ),
+                    minimumSize: const Size(0, 40),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    elevation: 0,
+                    shadowColor: Colors.transparent,
+                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  ),
+                  onPressed: onRestaurantPressed,
+                  child: Text(
+                    businessType == 'Restaurant' ? "Restoran" : "Pusat Belanja",
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: AppFonts.fontBold,
+                      color: AppColors.soapstone,
+                    ),
+                  ),
+                ),
             ],
           ),
         ],
       ),
+    );
+  }
+}
+
+class RatingBox extends StatelessWidget {
+  final int historyId;
+  final List<Map<String, dynamic>> ratings;
+
+  const RatingBox({
+    super.key,
+    required this.historyId,
+    required this.ratings,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    if (ratings.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: ratings.map((rating) {
+        final type = rating['rating_type'];
+        final number = rating['rating_number'];
+        final comment = rating['rating_comment'];
+        final date = rating['rating_date'] as DateTime;
+
+        return Container(
+          margin: const EdgeInsets.only(bottom: 16),
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: AppColors.ecruWhite,
+            border: Border.all(color: AppColors.darkGray, width: 0.5),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                type == 'driver'
+                    ? 'Rating untuk Pengemudi'
+                    : 'Rating untuk ${type == 'restaurant' ? 'Restoran' : 'Pusat Belanja'}',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: AppFonts.fontBold,
+                  color: AppColors.dark,
+                ),
+              ),
+              SizedBox(height: 8),
+              Row(
+                children: List.generate(5, (index) {
+                  return Container(
+                    margin: const EdgeInsets.only(right: 4),
+                    child: FaIcon(
+                      index < number
+                          ? FontAwesomeIcons.solidStar
+                          : FontAwesomeIcons.star,
+                      color: AppColors.dark,
+                      size: 16,
+                    ),
+                  );
+                }),
+              ),
+              SizedBox(height: 6),
+              Text(
+                comment,
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: AppFonts.fontBold,
+                  color: AppColors.dark,
+                ),
+              ),
+              SizedBox(height: 4),
+              Text(
+                '${date.day}/${date.month}/${date.year} ${date.hour.toString().padLeft(2, '0')}:${date.minute.toString().padLeft(2, '0')}',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: AppFonts.fontBold,
+                  color: AppColors.dark,
+                ),
+              ),
+            ],
+          ),
+        );
+      }).toList(),
     );
   }
 }

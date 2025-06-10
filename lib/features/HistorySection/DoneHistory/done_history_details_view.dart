@@ -4,6 +4,7 @@ import 'package:ta_nutrisenior_app/shared/styles/colors.dart';
 
 import '../../../shared/widgets/appbar.dart';
 import 'done_history_details_widget.dart';
+import 'done_history_rating_controller.dart';
 
 class DoneHistoryDetailsView extends StatelessWidget {
   final int historyId;
@@ -55,6 +56,13 @@ class DoneHistoryDetailsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ratings = HistoryRatingController.fetchRatingsByHistoryId(historyId);
+
+    final hasDriverRating = ratings.any((r) => r['rating_type'] == 'driver');
+    final hasBusinessRating = ratings.any((r) => r['rating_type'] == businessType.toLowerCase());
+
+    final showBottomNavbar = !(hasDriverRating && hasBusinessRating);
+
     return Scaffold(
       backgroundColor: AppColors.soapstone,
       appBar: CustomAppBar(
@@ -83,26 +91,34 @@ class DoneHistoryDetailsView extends StatelessWidget {
               totalPrice: totalPrice.toInt(),
               paymentMethod: paymentMethod,
             ),
+            const SizedBox(height: 16),
+            RatingBox(
+              historyId: historyId,
+              ratings: ratings,
+            ),
           ],
         ),
       ),
-      bottomNavigationBar: GiveRatingBottomNavbar(
-        businessType: businessType,
-        onDriverPressed: () {
-          context.push('/history/done/details/:id/rating', extra: {
-            'history_id': historyId,
-            'driver_name': driverName,
-          });
-        },
-        onRestaurantPressed: () {
-          context.push('/history/done/details/:id/rating', extra: {
-            'history_id': historyId,
-            'business_name': businessName,
-            'business_type': businessType,
-            'business_image': businessImage,
-          });
-        },
-      ),
+      bottomNavigationBar: showBottomNavbar
+        ? GiveRatingBottomNavbar(
+            businessType: businessType,
+            ratings: ratings,
+            onDriverPressed: () {
+              context.push('/history/done/details/:id/rating', extra: {
+                'history_id': historyId,
+                'driver_name': driverName,
+              });
+            },
+            onRestaurantPressed: () {
+              context.push('/history/done/details/:id/rating', extra: {
+                'history_id': historyId,
+                'business_name': businessName,
+                'business_type': businessType,
+                'business_image': businessImage,
+              });
+            },
+          )
+        : null,
     );
   }
 }
