@@ -118,4 +118,9 @@ final List<Map<String, dynamic>> businessPromoListTable = [
     'discount_number': null,
     'is_free_shipment': false,
   },
+  {
+    'business_id': 23,
+    'discount_number': null,
+    'is_free_shipment': false,
+  },
 ];

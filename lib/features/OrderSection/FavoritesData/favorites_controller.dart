@@ -1,6 +1,6 @@
 import '../../../database/business_list_table.dart';
 import '../../../database/favorites_list_table.dart';
-import '../../../database/business_promo_list_table.dart'; // Make sure this is imported
+import '../../../database/business_promo_list_table.dart';
 
 class FavoritesController {
   static List<Map<String, dynamic>> get favoritesRestaurant {
@@ -27,7 +27,7 @@ class FavoritesController {
     };
 
     // Join data
-    return favoriteIdsInOrder
+    final joined = favoriteIdsInOrder
         .map((id) {
           final business = businessMap[id];
           if (business == null || business['business_type'] != type) return null;
@@ -42,5 +42,25 @@ class FavoritesController {
         .where((item) => item != null)
         .cast<Map<String, dynamic>>()
         .toList();
+
+    // Sort: open businesses first
+    joined.sort((a, b) {
+      final aOpen = isBusinessOpen(a['business_open_hour'], a['business_close_hour']);
+      final bOpen = isBusinessOpen(b['business_open_hour'], b['business_close_hour']);
+
+      if (aOpen && !bOpen) return -1;
+      if (!aOpen && bOpen) return 1;
+      return 0;
+    });
+
+    return joined;
+  }
+
+  static bool isBusinessOpen(DateTime? open, DateTime? close) {
+    if (open == null || close == null) return true;
+    final now = DateTime.now();
+    final openToday = DateTime(now.year, now.month, now.day, open.hour, open.minute);
+    final closeToday = DateTime(now.year, now.month, now.day, close.hour, close.minute);
+    return now.isAfter(openToday) && now.isBefore(closeToday);
   }
 }

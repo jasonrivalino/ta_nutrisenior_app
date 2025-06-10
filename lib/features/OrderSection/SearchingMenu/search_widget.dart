@@ -33,8 +33,8 @@ class CustomLocationAppBarTitle extends StatelessWidget {
               Text(
                 'Lokasi',
                 style: TextStyle(
-                  fontFamily: AppFonts.fontBold,
-                  fontWeight: FontWeight.bold,
+                  fontFamily: AppFonts.fontMedium,
+                  fontWeight: FontWeight.w500,
                   fontSize: 14,
                   color: Colors.black,
                 ),
@@ -43,7 +43,8 @@ class CustomLocationAppBarTitle extends StatelessWidget {
               Text(
                 'Rumah Wisma Teduh',
                 style: TextStyle(
-                  fontFamily: AppFonts.fontMedium,
+                  fontFamily: AppFonts.fontBold,
+                  fontWeight: FontWeight.bold,
                   fontSize: 16,
                   color: Colors.black,
                 ),
@@ -143,9 +144,10 @@ class BusinessSelectionSearch extends StatelessWidget {
   }
 }
 
+
 class RecentSearchList extends StatelessWidget {
   final List<Map<String, dynamic>> items;
-  final Function(String) onItemTapped;
+  final Function(Map<String, dynamic>) onItemTapped;
 
   const RecentSearchList({
     super.key,
@@ -155,6 +157,9 @@ class RecentSearchList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Limit items to max 5
+    final limitedItems = items.take(5).toList();
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -172,30 +177,32 @@ class RecentSearchList extends StatelessWidget {
         ),
         ListView.builder(
           shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-          itemCount: items.length,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: limitedItems.length,
           itemBuilder: (context, index) {
-            final item = items[index];
+            final item = limitedItems[index];
             return Padding(
               padding: const EdgeInsets.symmetric(vertical: 0),
               child: Material(
                 color: Colors.transparent,
                 child: InkWell(
-                  onTap: () => onItemTapped(item['name']),
+                  onTap: () => onItemTapped(item),
                   splashColor: AppColors.woodland.withAlpha(50),
                   highlightColor: AppColors.woodland.withAlpha(25),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     child: Row(
                       children: [
                         const CircleAvatar(
                           radius: 18,
                           backgroundColor: AppColors.woodland,
-                          child: Icon(Icons.restaurant, color: Colors.white, size: 18),
+                          child: Icon(Icons.restaurant,
+                              color: Colors.white, size: 18),
                         ),
                         const SizedBox(width: 12),
                         Text(
-                          item['name'],
+                          item['business_name'],
                           style: const TextStyle(
                             fontSize: 16,
                             fontFamily: AppFonts.fontMedium,

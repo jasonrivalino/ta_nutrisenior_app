@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ta_nutrisenior_app/shared/widgets/list_helper/list_title.dart';
 import '../../../shared/styles/colors.dart';
+import '../../../shared/utils/is_business_open.dart';
 import '../../../shared/widgets/product_card/card_list.dart';
 
 class BusinessListWidget extends StatelessWidget {
@@ -38,15 +39,18 @@ class BusinessListWidget extends StatelessWidget {
               itemCount: businesses.length,
               itemBuilder: (context, index) {
                 final business = businesses[index];
+                final isOpen = isBusinessOpen(
+                  business['business_open_hour'],
+                  business['business_close_hour'],
+                );
                 return CardList(
                   businessImage: business['business_image'],
                   businessName: business['business_name'],
                   businessRate: business['business_rating'],
                   businessLocation: business['business_distance'],
-                  discountNumber: business['discount_number'] != null
-                      ? business['discount_number'] as int?
-                      : null,
-                  isFreeShipment: business['is_free_shipment'] ?? false,
+                  discountNumber: business['discount_number'],
+                  isFreeShipment: business['is_free_shipment'],
+                  isOpen: isOpen,
                   onTap: () {
                     final type = business['business_type'];
                     final route = type == 'restaurant'

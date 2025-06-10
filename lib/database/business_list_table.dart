@@ -263,4 +263,16 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_close_hour': DateTime(2025, 1, 1, 22, 0),
     'estimated_delivery': '30-45 menit',
   },
+  {
+    'business_id': 23,
+    'business_name': 'Ristorante Cabang Kenanga',
+    'business_type': 'restaurant',
+    'business_image': 'assets/images/dummy/restaurant/ristorantecabang.png',
+    'business_rating': 4.3,
+    'business_distance': 6.58,
+    'business_address': '45 Kenanga St, Jakarta',
+    'business_open_hour': DateTime(2025, 1, 1, 7, 0),
+    'business_close_hour': DateTime(2025, 1, 1, 12, 0),
+    'estimated_delivery': '30-45 menit',
+  },
 ];

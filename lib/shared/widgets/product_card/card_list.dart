@@ -8,6 +8,7 @@ class CardList extends StatelessWidget {
   final String businessName;
   final double businessRate;
   final double businessLocation;
+  final bool? isOpen;
   final int? discountNumber;
   final bool isFreeShipment;
   final VoidCallback onTap;
@@ -18,6 +19,7 @@ class CardList extends StatelessWidget {
     required this.businessName,
     required this.businessRate,
     required this.businessLocation,
+    this.isOpen = true,
     this.discountNumber,
     required this.isFreeShipment,
     required this.onTap,
@@ -26,14 +28,15 @@ class CardList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: AppColors.ecruWhite,
+      color: Colors.transparent,
       child: InkWell(
-        onTap: onTap,
-        hoverColor: AppColors.soapstone.withValues(alpha: 0.3),
-        splashColor: AppColors.darkGray.withValues(alpha: 0.2),
+        onTap: isOpen! ? onTap : null,
+        hoverColor: AppColors.soapstone.withAlpha(80),
+        splashColor: AppColors.darkGray.withAlpha(50),
         child: Container(
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
+            color: isOpen! ? AppColors.ecruWhite : AppColors.lightGray,
             border: Border.symmetric(
               horizontal: BorderSide(
                 color: AppColors.darkGray,
@@ -57,17 +60,41 @@ class CardList extends StatelessWidget {
                     ),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8),
-                      child: Image.asset(
-                        businessImage,
-                        fit: BoxFit.cover,
+                      child: ColorFiltered(
+                        colorFilter: isOpen!
+                            ? const ColorFilter.mode(Colors.transparent, BlendMode.saturation)
+                            : const ColorFilter.mode(Colors.grey, BlendMode.saturation),
+                        child: Image.asset(
+                          businessImage,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                   ),
-                  if (discountNumber != null || isFreeShipment)
+                  if (!isOpen!)
+                    Positioned.fill(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.black.withAlpha(120),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        alignment: Alignment.center,
+                        child: const Text(
+                          'Tutup',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: AppFonts.fontBold,
+                          ),
+                        ),
+                      ),
+                    ),
+                  if ((discountNumber != null || isFreeShipment) && isOpen!)
                     Positioned(
                       bottom: 0,
                       child: Container(
-                        width: 85, // Match the image width
+                        width: 85,
                         padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
                         decoration: BoxDecoration(
                           color: AppColors.orangyYellow,
@@ -108,7 +135,6 @@ class CardList extends StatelessWidget {
                 ],
               ),
               const SizedBox(width: 15),
-              // Info section
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -137,7 +163,7 @@ class CardList extends StatelessWidget {
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              FaIcon(FontAwesomeIcons.solidStar, size: 12, color: AppColors.dark),
+                              const FaIcon(FontAwesomeIcons.solidStar, size: 12, color: AppColors.dark),
                               const SizedBox(width: 3),
                               Text(
                                 '${businessRate.toStringAsFixed(1)}/5',
@@ -161,7 +187,7 @@ class CardList extends StatelessWidget {
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Icon(Icons.location_on, size: 16, color: AppColors.dark),
+                              const Icon(Icons.location_on, size: 16, color: AppColors.dark),
                               const SizedBox(width: 3),
                               Text(
                                 '${businessLocation.toStringAsFixed(2)} km',
