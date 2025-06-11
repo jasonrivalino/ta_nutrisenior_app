@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
@@ -63,7 +64,18 @@ class BusinessOrderingMenuView extends StatefulWidget {
 class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
   bool isFavorite = false;
 
-  void _toggleFavorite() {
+  Future<void> _toggleFavorite() async {
+    final connectivityResult = await Connectivity().checkConnectivity();
+
+    if (connectivityResult.contains(ConnectivityResult.none)) {
+      Fluttertoast.showToast(
+        msg: "Gagal mengubah status favorit.\nSilahkan coba lagi.",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+      );
+      return;
+    }
+
     setState(() {
       isFavorite = !isFavorite;
     });

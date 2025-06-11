@@ -7,13 +7,15 @@ import '../styles/fonts.dart';
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final bool showBackButton;
-  final List<Widget>? actions;
+  final int? initialIndex;
+  final int? selectedIndex;
 
   const CustomAppBar({
     super.key,
     required this.title,
     this.showBackButton = true,
-    this.actions,
+    this.initialIndex,
+    this.selectedIndex,
   });
 
   @override
@@ -36,11 +38,20 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       leading: showBackButton
           ? IconButton(
               icon: const Icon(Icons.arrow_back),
-              onPressed: () => context.pop(),
+              onPressed: () {
+                if (selectedIndex == 0) {
+                  context.go('/homepage');
+                } else if (initialIndex == 0 && selectedIndex == 1) {
+                  context.go('/restaurantpromo');
+                } else if (initialIndex == 1 && selectedIndex == 1) {
+                  context.go('/marketpromo');
+                } else {
+                  context.pop(); // fallback to default back
+                }
+              },
             )
           : null,
       automaticallyImplyLeading: showBackButton,
-      actions: actions,
     );
   }
 }

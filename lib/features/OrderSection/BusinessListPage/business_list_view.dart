@@ -34,6 +34,8 @@ class BusinessListView extends StatelessWidget {
       appBar: CustomAppBar(
         title: appBarTitle ?? 'Promo Lengkap',
         showBackButton: true,
+        initialIndex: initialIndex,
+        selectedIndex: bottomNavIndex,
       ),
       backgroundColor: AppColors.soapstone,
       body: Column(
