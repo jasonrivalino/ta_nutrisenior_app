@@ -6,9 +6,9 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_image': 'assets/images/dummy/restaurant/ristorante.png',
     'business_rating': 4.5,
     'business_distance': 3.98,
-    'business_address': '123 Main St, Jakarta',
-    'business_open_hour': DateTime(2025, 1, 1, 10, 0), // 10:00
-    'business_close_hour': DateTime(2025, 1, 1, 22, 0), // 22:00
+    'business_address': 'Jl. Raya Mekarsari No. 128, RT 05 RW 09, Kelurahan Sukamaju, Bekasi, Jawa Barat 17113',
+    'business_open_hour': DateTime(2025, 1, 1, 10, 0),
+    'business_close_hour': DateTime(2025, 1, 1, 22, 0),
     'estimated_delivery': '30-45 menit',
   },
   {

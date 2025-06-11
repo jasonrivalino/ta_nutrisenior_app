@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ta_nutrisenior_app/shared/utils/formatted_time.dart';
 
-class BusinessOrderingMenuView extends StatelessWidget {
+import 'business_ordering_menu_widget.dart';
+
+class BusinessOrderingMenuView extends StatefulWidget {
   final int id;
   final String businessName;
   final String businessType;
@@ -53,36 +55,71 @@ class BusinessOrderingMenuView extends StatelessWidget {
     );
   }
 
+  @override
+  State<BusinessOrderingMenuView> createState() => _BusinessOrderingMenuViewState();
+}
+
+class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
+  bool isFavorite = false;
+
+  void _toggleFavorite() {
+    setState(() {
+      isFavorite = !isFavorite;
+    });
+
+    Fluttertoast.showToast(
+      msg: isFavorite
+          ? "Restoran berhasil ditambahkan ke favorit!"
+          : "Restoran dihapus dari daftar favorit!",
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+    );
+  }
+
+  void _handleRatingClick() {
+    // Your rating logic here
+  }
 
   @override
   Widget build(BuildContext context) {
-    final formattedOpen = formatHours(businessOpenHour);
-    final formattedClose = formatHours(businessCloseHour);
-
     return Scaffold(
-      appBar: AppBar(title: Text(businessName)),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Image.asset(
-              businessImage,
-              height: 100,
-              width: double.infinity,
-              fit: BoxFit.cover,
-            ),
-            const SizedBox(height: 12),
-            Text('Type: $businessType'),
-            Text('Rating: $businessRating'),
-            Text('Distance: ${businessDistance.toStringAsFixed(2)} km'),
-            Text('Address: $businessAddress'),
-            Text('Open: $formattedOpen - $formattedClose'),
-            Text('Est. Delivery: $businessEstimatedDelivery'),
-            if (discountNumber != null) Text('Discount: $discountNumber%'),
-            Text(isFreeShipment ? 'Free Shipment Available' : 'No Free Shipment'),
-          ],
-        ),
+      body: Stack(
+        children: [
+          // Background image
+          Column(
+            children: [
+              SizedBox(
+                height: 150,
+                width: double.infinity,
+                child: Image.asset(
+                  widget.businessImage,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              const SizedBox(height: 105),
+            ],
+          ),
+          // Header Bar
+          BusinessHeaderBar(
+            isFavorite: isFavorite,
+            onFavoritesClick: _toggleFavorite,
+            onRatingClick: _handleRatingClick,
+          ),
+          // Business Info Card
+          BusinessInfoCard(
+            businessImage: widget.businessImage,
+            businessName: widget.businessName,
+            businessAddress: widget.businessAddress,
+            businessEstimatedDelivery: widget.businessEstimatedDelivery,
+            businessRating: widget.businessRating,
+            businessDistance: widget.businessDistance,
+            businessOpenHour: widget.businessOpenHour,
+            businessCloseHour: widget.businessCloseHour,
+            discountNumber: widget.discountNumber,
+            isFreeShipment: widget.isFreeShipment,
+          ),
+          // TODO: Add the menu items list here
+        ],
       ),
     );
   }
