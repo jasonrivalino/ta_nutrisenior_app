@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:ta_nutrisenior_app/shared/styles/colors.dart';
 import 'package:ta_nutrisenior_app/shared/styles/fonts.dart';
 
@@ -9,21 +8,17 @@ class CustomLocationAppBarTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Row(
         children: [
-          IconButton(
-            icon: const Icon(Icons.arrow_back, color: Colors.black),
-            onPressed: () => context.pop(),
-          ),
           const SizedBox(width: 4),
           CircleAvatar(
             radius: 20, // Slightly larger
             backgroundColor: AppColors.woodland,
             child: const Icon(
               Icons.location_on,
-              size: 24, // Match nicely with CircleAvatar
-              color: Colors.white,
+              size: 22, // Match nicely with CircleAvatar
+              color: AppColors.soapstone,
             ),
           ),
           const SizedBox(width: 10),
@@ -39,7 +34,7 @@ class CustomLocationAppBarTitle extends StatelessWidget {
                   color: Colors.black,
                 ),
               ),
-              SizedBox(height: 2),
+              SizedBox(height: 1),
               Text(
                 'Rumah Wisma Teduh',
                 style: TextStyle(

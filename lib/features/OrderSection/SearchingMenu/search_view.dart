@@ -1,6 +1,9 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ta_nutrisenior_app/shared/styles/colors.dart';
+import 'package:ta_nutrisenior_app/shared/widgets/appbar.dart';
 
 import '../../../shared/utils/is_business_open.dart';
 import '../../../shared/widgets/product_card/card_list.dart';
@@ -64,23 +67,28 @@ class _SearchViewState extends State<SearchView> {
 
     return Scaffold(
       backgroundColor: AppColors.soapstone,
-      appBar: AppBar(
-        surfaceTintColor: Colors.transparent,
-        elevation: 0,
-        backgroundColor: AppColors.soapstone,
-        automaticallyImplyLeading: false,
-        titleSpacing: 0,
-        title: const CustomLocationAppBarTitle(),
-      ),
+      appBar: CustomAppBar(title: 'Menu Pencarian', showBackButton: true),
       body: Stack(
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 12),
+              CustomLocationAppBarTitle(),
+              const SizedBox(height: 16),
               SearchBarWithFilter(
                 controller: _searchController,
-                onChanged: (value) {
+                onChanged: (value) async {
+                  final connectivityResult = await Connectivity().checkConnectivity();
+                  if (connectivityResult.contains(ConnectivityResult.none)) {
+                    Fluttertoast.showToast(
+                      msg: 'Pencarian gagal dilakukan.\nSilahkan coba lagi.',
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.BOTTOM,
+                    );
+                    return;
+                  }
+
                   setState(() => _searchQuery = value);
                 },
                 onFilterPressed: () {
@@ -104,7 +112,17 @@ class _SearchViewState extends State<SearchView> {
               _searchQuery.isEmpty
                   ? RecentSearchList(
                       items: recentSearchData,
-                      onItemTapped: (business) {
+                      onItemTapped: (business) async {
+                        final connectivityResult = await Connectivity().checkConnectivity();
+                        if (connectivityResult.contains(ConnectivityResult.none)) {
+                          Fluttertoast.showToast(
+                            msg: 'Pencarian gagal dilakukan.\nSilahkan coba lagi.',
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.BOTTOM,
+                          );
+                          return;
+                        }
+
                         setState(() {
                           _searchQuery = business['business_name'];
                           _searchController.text = business['business_name'];
@@ -162,7 +180,17 @@ class _SearchViewState extends State<SearchView> {
               onOptionSelected: (val) {
                 setState(() => _tempSelectedSortOption = val);
               },
-              onApply: () {
+              onApply: () async {
+                final connectivityResult = await Connectivity().checkConnectivity();
+                if (connectivityResult.contains(ConnectivityResult.none)) {
+                  Fluttertoast.showToast(
+                    msg: 'Pengurutan gagal dilakukan.\nSilahkan coba lagi.',
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.BOTTOM,
+                  );
+                  return;
+                }
+
                 setState(() {
                   _selectedSortOption = _tempSelectedSortOption;
                   _showSortOverlay = false;

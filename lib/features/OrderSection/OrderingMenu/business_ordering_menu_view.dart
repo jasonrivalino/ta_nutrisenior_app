@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../shared/styles/colors.dart';
 import 'business_ordering_menu_widget.dart';
 
 class BusinessOrderingMenuView extends StatefulWidget {
@@ -83,6 +84,7 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.soapstone,
       body: Stack(
         children: [
           // Background image
