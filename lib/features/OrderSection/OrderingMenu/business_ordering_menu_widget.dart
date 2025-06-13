@@ -5,6 +5,9 @@ import 'package:go_router/go_router.dart';
 import '../../../shared/styles/colors.dart';
 import '../../../shared/styles/fonts.dart';
 import '../../../shared/utils/formatted_time.dart';
+import '../../../shared/widgets/list_helper/list_title.dart';
+import '../../../shared/widgets/product_card/card_box.dart';
+import '../../../shared/widgets/product_card/card_list.dart';
 
 class BusinessHeaderBar extends StatelessWidget {
   final VoidCallback onFavoritesClick;
@@ -20,10 +23,8 @@ class BusinessHeaderBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      top: 50,
-      left: 16,
-      right: 16,
+    return Padding(
+      padding: const EdgeInsets.only(left: 16, right: 16),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -93,10 +94,10 @@ class BusinessInfoCard extends StatelessWidget {
     final formattedOpen = formatHours(businessOpenHour);
     final formattedClose = formatHours(businessCloseHour);
 
-    return Positioned(
-      top: 105,
-      left: 16,
-      right: 16,
+    final screenHeight = MediaQuery.of(context).size.height;
+
+    return Padding(
+      padding: const EdgeInsets.only(left: 16, right: 16),
       child: Container(
         decoration: BoxDecoration(
           color: AppColors.ecruWhite,
@@ -115,20 +116,77 @@ class BusinessInfoCard extends StatelessWidget {
           children: [
             // Section 1: Image + name + info row
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+              padding: EdgeInsets.symmetric(horizontal: screenHeight > 900 ? 12 : 11, vertical: screenHeight > 900 ? 12 : 10),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
-                    child: Image.asset(
-                      businessImage,
-                      height: 70,
-                      width: 70,
-                      fit: BoxFit.cover,
+                  SizedBox(
+                    height: screenHeight > 900 ? 70 : 65,
+                    width: screenHeight > 900 ? 70 : 65,
+                    child: Stack(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(color: AppColors.darkGray, width: 1),
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
+                            child: Image.asset(
+                              businessImage,
+                              height: screenHeight > 900 ? 70 : 65,
+                              width: screenHeight > 900 ? 70 : 65,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                        if (discountNumber != null || isFreeShipment)
+                          Positioned(
+                            bottom: 0,
+                            left: 0,
+                            right: 0,
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 1),
+                              decoration: BoxDecoration(
+                                color: AppColors.orangyYellow,
+                                border: Border.all(color: AppColors.darkGray, width: 1),
+                                borderRadius: const BorderRadius.only(
+                                  bottomLeft: Radius.circular(8),
+                                  bottomRight: Radius.circular(8),
+                                ),
+                              ),
+                              alignment: Alignment.center,
+                              child: discountNumber != null
+                                  ? Text(
+                                      'Disc $discountNumber%',
+                                      style: const TextStyle(
+                                        color: AppColors.dark,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    )
+                                  : Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: const [
+                                        FaIcon(FontAwesomeIcons.personBiking, size: 12, color: AppColors.dark),
+                                        SizedBox(width: 6),
+                                        Text(
+                                          'FREE',
+                                          style: TextStyle(
+                                            color: AppColors.dark,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                            ),
+                          ),
+                      ],
                     ),
                   ),
-                  const SizedBox(width: 12),
+                  SizedBox(width: screenHeight > 900 ? 12 : 11),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -138,7 +196,7 @@ class BusinessInfoCard extends StatelessWidget {
                             Expanded(
                               child: Text(
                                 businessName,
-                                maxLines: 2,
+                                maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: const TextStyle(
                                   fontSize: 16,
@@ -146,46 +204,9 @@ class BusinessInfoCard extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            if ((discountNumber != null || isFreeShipment))
-                              Container(
-                                padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
-                                decoration: BoxDecoration(
-                                  color: AppColors.orangyYellow,
-                                  border: Border.all(color: AppColors.darkGray, width: 1),
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    if (discountNumber != null)
-                                      Text(
-                                        'Diskon $discountNumber%',
-                                        style: const TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold,
-                                          color: AppColors.dark,
-                                          fontFamily: AppFonts.fontBold,
-                                        ),
-                                      )
-                                    else ...[
-                                      const FaIcon(FontAwesomeIcons.personBiking, size: 12, color: AppColors.dark),
-                                      const SizedBox(width: 6),
-                                      const Text(
-                                        'FREE',
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold,
-                                          color: AppColors.dark,
-                                          fontFamily: AppFonts.fontBold,
-                                        ),
-                                      ),
-                                    ],
-                                  ],
-                                ),
-                              ),
                           ],
                         ),
-                        const SizedBox(height: 20),
+                        SizedBox(height: screenHeight > 900 ? 21 : 18),
                         Row(
                           children: [
                             _infoBadge(
@@ -269,6 +290,130 @@ class BusinessInfoCard extends StatelessWidget {
           Text(label, style: const TextStyle(color: AppColors.dark)),
         ],
       ),
+    );
+  }
+}
+
+class RecommendedProductSection extends StatelessWidget {
+  final String title;
+  final double heightCard;
+  final List<Map<String, dynamic>> products;
+
+  const RecommendedProductSection({
+    super.key,
+    required this.title,
+    required this.heightCard,
+    required this.products,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(right: 16.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              ListTitle(title: title),
+            ],
+          ),
+        ),
+        const SizedBox(height: 12),
+        if (products.isEmpty)
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            child: Text(
+              "Rekomendasi produk saat ini belum tersedia",
+              style: TextStyle(fontSize: 14, color: AppColors.dark),
+            ),
+          )
+        else
+          SizedBox(
+            height: heightCard,
+            child: ListView.separated(
+              scrollDirection: Axis.horizontal,
+              padding: const EdgeInsets.only(left: 16, right: 16, bottom: 12),
+              itemCount: products.take(5).length,
+              separatorBuilder: (_, __) => const SizedBox(width: 16),
+              itemBuilder: (context, index) {
+                final product = products[index];
+                return SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.425,
+                  child: CardBox(
+                    productImage: product['product_image'],
+                    productName: product['product_name'],
+                    productPrice: product['product_price'],
+                    onTap: () {
+                      print("Tapped product: ${product['product_name']}");
+                    },
+                  ),
+                );
+              },
+            ),
+          ),
+      ],
+    );
+  }
+}
+
+class ProductListWidget extends StatelessWidget {
+  final String? title;
+  final List<Map<String, dynamic>> products;
+
+  const ProductListWidget({
+    super.key,
+    required this.title,
+    required this.products,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (title != null) ...[
+          ListTitle(title: title!),
+          const SizedBox(height: 17.5),
+        ],
+        if (products.isEmpty)
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            child: Text(
+              "Daftar produk saat ini belum tersedia",
+              style: TextStyle(fontSize: 14, color: AppColors.dark),
+            ),
+          )
+        else
+          Container(
+            decoration: BoxDecoration(
+              border: Border.symmetric(
+                horizontal: BorderSide(
+                  color: AppColors.darkGray,
+                  width: 0.5,
+                ),
+              ),
+            ),
+            child: ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(), // disable nested scroll
+              itemCount: products.length,
+              itemBuilder: (context, index) {
+                final product = products[index];
+                return CardList(
+                  productImage: product['product_image'],
+                  productName: product['product_name'],
+                  productPrice: product['product_price'],
+                  onTap: () {
+                    print("Tapped product: ${product['product_name']}");
+                  },
+                );
+              },
+            ),
+          ),
+        const SizedBox(height: 5),
+      ],
     );
   }
 }

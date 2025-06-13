@@ -126,6 +126,31 @@ flutter:
     - assets/images/dummy/market/vitagro.png
     - assets/images/dummy/market/zestmart.png
 
+    # Asset product images
+    # Ristorante products
+    - assets/images/dummy/food/insalatacaprese.png
+    - assets/images/dummy/food/zuppadiverdure.png
+    - assets/images/dummy/food/bruschettaintegrale.png
+    - assets/images/dummy/food/pastaintegralealpesto.png
+    - assets/images/dummy/food/grilledsalmonconlimone.png
+    - assets/images/dummy/food/risottoaifunghi.png
+    - assets/images/dummy/food/aquafrizzanteconlimone.png
+    - assets/images/dummy/food/smoothiefruttirossi.png
+    - assets/images/dummy/food/succodiaranciafresca.png
+    - assets/images/dummy/food/tehhijaudinginalaitalia.png
+
+    # Supermarket Aja products
+    - assets/images/dummy/ingredients/paketsayuranbuah.png
+    - assets/images/dummy/ingredients/garamdanmadu.png
+    - assets/images/dummy/ingredients/telurayamkampunglusinan.png
+    - assets/images/dummy/ingredients/beraspremium.png
+    - assets/images/dummy/ingredients/dagingsalmon.png
+    - assets/images/dummy/ingredients/bawangmerahkiloan.png
+    - assets/images/dummy/ingredients/manggaharummaniskiloan.png
+    - assets/images/dummy/ingredients/pisangambonsisir.png
+    - assets/images/dummy/ingredients/jeruksunkistkiloan.png
+    - assets/images/dummy/ingredients/wortelkiloan.png
+
     # Asset message images
     - assets/images/dummy/chat/delivery_arrived.png
     - assets/images/dummy/chat/thankful_emoji.png

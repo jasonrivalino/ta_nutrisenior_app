@@ -20,7 +20,7 @@ class PhoneNumberInput extends StatelessWidget {
       ),
       decoration: InputDecoration(
         filled: true,
-        fillColor: Colors.white, // Background color
+        fillColor: AppColors.soapstone, // Background color
         contentPadding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 20.0), // Padding
         hintText: hintText,
         hintStyle: const TextStyle(color: AppColors.darkGray), // Placeholder color

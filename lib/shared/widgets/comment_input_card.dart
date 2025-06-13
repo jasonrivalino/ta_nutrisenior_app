@@ -117,7 +117,7 @@ class CommentInputCard extends StatelessWidget {
                           child: const CircleAvatar(
                             radius: 10,
                             backgroundColor: AppColors.persianRed,
-                            child: Icon(Icons.close, size: 14, color: Colors.white),
+                            child: Icon(Icons.close, size: 14, color: AppColors.soapstone),
                           ),
                         ),
                       ),

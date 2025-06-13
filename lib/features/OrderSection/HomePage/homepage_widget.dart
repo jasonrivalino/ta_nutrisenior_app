@@ -8,6 +8,7 @@ import 'package:ta_nutrisenior_app/shared/widgets/list_helper/list_title.dart';
 
 import 'package:ta_nutrisenior_app/shared/widgets/product_card/card_box.dart';
 
+import '../../../shared/styles/colors.dart';
 import '../../../shared/utils/carousel_card.dart';
 
 // Class for the Home Page Top Bar Section
@@ -89,7 +90,7 @@ class _HomeTopBarSectionState extends State<HomeTopBarSection> {
               width: double.infinity,
               padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: AppColors.soapstone,
                 border: Border.all(color: Colors.black),
                 borderRadius: BorderRadius.circular(16.0),
               ),

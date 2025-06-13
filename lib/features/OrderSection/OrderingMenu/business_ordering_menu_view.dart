@@ -4,6 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../shared/styles/colors.dart';
+import 'business_ordering_menu_controller.dart';
 import 'business_ordering_menu_widget.dart';
 
 class BusinessOrderingMenuView extends StatefulWidget {
@@ -63,77 +64,120 @@ class BusinessOrderingMenuView extends StatefulWidget {
 
 class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
   bool isFavorite = false;
+  List<Map<String, dynamic>> recommendedProducts = [];
+  List<Map<String, dynamic>> allProducts = [];
+  bool isLoading = true;
 
-  Future<void> _toggleFavorite() async {
-    final connectivityResult = await Connectivity().checkConnectivity();
-
-    if (connectivityResult.contains(ConnectivityResult.none)) {
-      Fluttertoast.showToast(
-        msg: "Gagal mengubah status favorit.\nSilahkan coba lagi.",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-      );
-      return;
-    }
-
+  Future<void> _loadRecommendedProducts() async {
+    final productMap = await BusinessOrderingMenuController.fetchProducts(widget.id);
     setState(() {
-      isFavorite = !isFavorite;
+      recommendedProducts = productMap['recommendedProducts'] ?? [];
+      allProducts = productMap['allProducts'] ?? [];
+      isLoading = false;
     });
-
-    Fluttertoast.showToast(
-      msg: isFavorite
-          ? "Restoran berhasil ditambahkan ke favorit!"
-          : "Restoran dihapus dari daftar favorit!",
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
-    );
   }
 
-  void _handleRatingClick() {
-    // Your rating logic here
+  @override
+  void initState() {
+    super.initState();
+    _loadRecommendedProducts();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.soapstone,
-      body: Stack(
-        children: [
-          // Background image
-          Column(
-            children: [
-              SizedBox(
-                height: 150,
-                width: double.infinity,
-                child: Image.asset(
-                  widget.businessImage,
-                  fit: BoxFit.cover,
+      body: SafeArea(
+        child: Stack(
+          clipBehavior: Clip.none,
+          children: [
+            // Background with DecoratedBox (limited height)
+            SizedBox(
+              height: 150,
+              width: double.infinity,
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(widget.businessImage),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
-              const SizedBox(height: 105),
-            ],
-          ),
-          // Header Bar
-          BusinessHeaderBar(
-            isFavorite: isFavorite,
-            onFavoritesClick: _toggleFavorite,
-            onRatingClick: _handleRatingClick,
-          ),
-          // Business Info Card
-          BusinessInfoCard(
-            businessImage: widget.businessImage,
-            businessName: widget.businessName,
-            businessAddress: widget.businessAddress,
-            businessEstimatedDelivery: widget.businessEstimatedDelivery,
-            businessRating: widget.businessRating,
-            businessDistance: widget.businessDistance,
-            businessOpenHour: widget.businessOpenHour,
-            businessCloseHour: widget.businessCloseHour,
-            discountNumber: widget.discountNumber,
-            isFreeShipment: widget.isFreeShipment,
-          ),
-          // TODO: Add the menu items list here
-        ],
+            ),
+
+            // Foreground content
+            Column(
+              children: [
+                const SizedBox(height: 20), // Push content below the image
+
+                BusinessHeaderBar(
+                  isFavorite: isFavorite,
+                  onFavoritesClick: () async {
+                    final connectivityResult = await Connectivity().checkConnectivity();
+                    if (connectivityResult.contains(ConnectivityResult.none)) {
+                      Fluttertoast.showToast(
+                        msg: "Gagal mengubah status favorit.\nSilahkan coba lagi.",
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.BOTTOM,
+                      );
+                      return;
+                    }
+                    setState(() {
+                      isFavorite = !isFavorite;
+                    });
+                    Fluttertoast.showToast(
+                      msg: isFavorite
+                          ? "Restoran berhasil ditambahkan ke favorit!"
+                          : "Restoran dihapus dari daftar favorit!",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.BOTTOM,
+                    );
+                  },
+                  onRatingClick: () {},
+                ),
+                const SizedBox(height: 12),
+
+                BusinessInfoCard(
+                  businessImage: widget.businessImage,
+                  businessName: widget.businessName,
+                  businessAddress: widget.businessAddress,
+                  businessEstimatedDelivery: widget.businessEstimatedDelivery,
+                  businessRating: widget.businessRating,
+                  businessDistance: widget.businessDistance,
+                  businessOpenHour: widget.businessOpenHour,
+                  businessCloseHour: widget.businessCloseHour,
+                  discountNumber: widget.discountNumber,
+                  isFreeShipment: widget.isFreeShipment,
+                ),
+                const SizedBox(height: 16),
+
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: isLoading
+                        ? const Center(child: CircularProgressIndicator())
+                        : Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const SizedBox(height: 8),
+                              RecommendedProductSection(
+                                title: 'Rekomendasi Produk',
+                                heightCard: 200,
+                                products: recommendedProducts,
+                              ),
+                              const SizedBox(height: 14),
+                              ProductListWidget(
+                                title: 'Semua Produk',
+                                products: allProducts,
+                              ),
+                              const SizedBox(height: 12),
+                            ],
+                          ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

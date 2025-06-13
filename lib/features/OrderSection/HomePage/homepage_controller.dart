@@ -1,8 +1,8 @@
 import '../../../database/business_list_table.dart';
 import '../../../database/business_promo_list_table.dart';
-import '../../../database/recommended_list_table.dart';
+import '../../../database/recommended_business_list_table.dart';
 
-final List<Map<String, dynamic>> _recommendedListTable = recommendedListTable;
+final List<Map<String, dynamic>> _recommendedListTable = recommendedBusinessListTable;
 final List<Map<String, dynamic>> _promoListTable = businessPromoListTable;
 
 class HomePageController {

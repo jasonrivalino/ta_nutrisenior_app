@@ -1,22 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ta_nutrisenior_app/shared/styles/colors.dart';
+import 'package:ta_nutrisenior_app/shared/utils/format_currency.dart';
 import '../../styles/fonts.dart';
 
 class CardBox extends StatefulWidget {
-  final String businessImage;
-  final String businessName;
-  final double businessRate;
-  final double businessLocation;
+  final String? businessImage;
+  final String? businessName;
+  final double? businessRate;
+  final double? businessLocation;
+  final String? productImage;
+  final String? productName;
+  final int? productPrice;
   final int? discountNumber;
   final VoidCallback onTap;
 
   const CardBox({
     super.key,
-    required this.businessImage,
-    required this.businessName,
-    required this.businessRate,
-    required this.businessLocation,
+    this.businessImage,
+    this.businessName,
+    this.businessRate,
+    this.businessLocation,
+    this.productImage,
+    this.productName,
+    this.productPrice,
     this.discountNumber,
     required this.onTap, // <-- Initialize in constructor
   });
@@ -27,10 +34,26 @@ class CardBox extends StatefulWidget {
 
 class _CardBoxState extends State<CardBox> {
   bool _isPressed = false;
+  int _count = 0; // Step 1: start from 0
 
   void _setPressed(bool value) {
     setState(() {
       _isPressed = value;
+    });
+  }
+
+  // Step 2: Add these methods inside the class
+  void _incrementCount() {
+    setState(() {
+      _count++;
+    });
+  }
+
+  void _decrementCount() {
+    setState(() {
+      if (_count > 0) {
+        _count--;
+      }
     });
   }
 
@@ -69,7 +92,7 @@ class _CardBoxState extends State<CardBox> {
         ),
         child: Card(
           color: AppColors.soapstone,
-          elevation: 0, // Use shadow from AnimatedContainer instead
+          elevation: 0,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           margin: EdgeInsets.zero,
           child: Column(
@@ -80,7 +103,7 @@ class _CardBoxState extends State<CardBox> {
                 child: Stack(
                   children: [
                     Image.asset(
-                      widget.businessImage,
+                      widget.businessImage ?? widget.productImage ?? 'assets/images/dummy/restaurant/umamihana.png',
                       height: imageHeight,
                       width: double.infinity,
                       fit: BoxFit.cover,
@@ -90,32 +113,94 @@ class _CardBoxState extends State<CardBox> {
                         bottom: 4,
                         right: 4,
                         child: Transform.translate(
-                          offset: const Offset(0, -2), // Offset upwards by 2 pixels
-                        child: Container(
-                          padding: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                            color: AppColors.orangyYellow,
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              color: AppColors.dark,
-                              width: 1,
+                          offset: const Offset(0, -2),
+                          child: Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              color: AppColors.orangyYellow,
+                              shape: BoxShape.circle,
+                              border: Border.all(color: AppColors.dark, width: 1),
                             ),
-                          ),
-                          child: Transform.rotate(
-                            angle: -5 * (22/7) / 180,
-                            child: Text(
-                              '${widget.discountNumber}%',
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12,
-                                color: Colors.black,
-                                fontFamily: AppFonts.fontBold,
+                            child: Transform.rotate(
+                              angle: -5 * (22 / 7) / 180,
+                              child: Text(
+                                '${widget.discountNumber}%',
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12,
+                                  color: Colors.black,
+                                  fontFamily: AppFonts.fontBold,
+                                ),
                               ),
                             ),
                           ),
                         ),
                       ),
-                    ),
+
+                    // Updated: Counter display and buttons
+                    if (widget.productImage != null)
+                      Positioned(
+                        bottom: 6,
+                        right: 6,
+                        child: _count == 0
+                            ? Container(
+                                width: 28,
+                                height: 28,
+                                decoration: BoxDecoration(
+                                  color: AppColors.soapstone,
+                                  borderRadius: BorderRadius.circular(14),
+                                  boxShadow: const [
+                                    BoxShadow(
+                                      color: Colors.black12,
+                                      blurRadius: 4,
+                                      offset: Offset(0, 2),
+                                    ),
+                                  ],
+                                ),
+                                child: InkWell(
+                                  onTap: _incrementCount,
+                                  borderRadius: BorderRadius.circular(14),
+                                  child: const Icon(Icons.add, size: 16, color: AppColors.dark),
+                                ),
+                              )
+                            : Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+                                decoration: BoxDecoration(
+                                  color: AppColors.soapstone,
+                                  borderRadius: BorderRadius.circular(20),
+                                  boxShadow: const [
+                                    BoxShadow(
+                                      color: Colors.black12,
+                                      blurRadius: 4,
+                                      offset: Offset(0, 2),
+                                    ),
+                                  ],
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    GestureDetector(
+                                      onTap: _decrementCount,
+                                      child: const Icon(Icons.remove, size: 16, color: AppColors.dark),
+                                    ),
+                                    const SizedBox(width: 10),
+                                    Text(
+                                      '$_count',
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 14,
+                                        fontFamily: AppFonts.fontBold,
+                                      ),
+                                    ),
+                                    const SizedBox(width: 10),
+                                    GestureDetector(
+                                      onTap: _incrementCount,
+                                      child: const Icon(Icons.add, size: 16, color: AppColors.dark),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                      ),
                   ],
                 ),
               ),
@@ -125,67 +210,100 @@ class _CardBoxState extends State<CardBox> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        widget.businessName,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontFamily: AppFonts.fontBold,
-                          fontSize: 17,
-                          height: screenHeight > 900 ? 1.35 : 1.2,
+                      // If it's a business (with name), show business layout
+                      if (widget.businessName != null) ...[
+                        Text(
+                          widget.businessName!,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontFamily: AppFonts.fontBold,
+                            fontSize: 17,
+                            height: screenHeight > 900 ? 1.35 : 1.2,
+                          ),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
                         ),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      const Spacer(),
-                      Row(
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              color: AppColors.lightGray,
-                              borderRadius: BorderRadius.circular(8), // Rounded corners
-                            ),
-                            padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                const FaIcon(FontAwesomeIcons.solidStar, size: 12, color: AppColors.dark),
-                                const SizedBox(width: 3),
-                                Text(
-                                  '${widget.businessRate.toStringAsFixed(1)}/5',
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    fontFamily: AppFonts.fontMedium,
-                                    fontSize: 14,
-                                  ),
+                        const Spacer(),
+                        Row(
+                          children: [
+                            if (widget.businessRate != null)
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: AppColors.lightGray,
+                                  borderRadius: BorderRadius.circular(8),
                                 ),
-                              ],
+                                padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    const FaIcon(FontAwesomeIcons.solidStar, size: 12, color: AppColors.dark),
+                                    const SizedBox(width: 3),
+                                    Text(
+                                      '${widget.businessRate!.toStringAsFixed(1)}/5',
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontFamily: AppFonts.fontMedium,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            const SizedBox(width: 8),
+                            if (widget.businessLocation != null)
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: AppColors.lightGray,
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    const Icon(Icons.location_on, size: 16, color: AppColors.dark),
+                                    const SizedBox(width: 2),
+                                    Text(
+                                      '${widget.businessLocation!.toStringAsFixed(2)} km',
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontFamily: AppFonts.fontMedium,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                          ],
+                        ),
+                      ]
+                      // Otherwise, if it's a product (no businessName, but has productName), show product layout
+                      else if (widget.productName != null) ...[
+                        Text(
+                          widget.productName!,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontFamily: AppFonts.fontBold,
+                            fontSize: 17,
+                            height: screenHeight > 900 ? 1.35 : 1.2,
+                          ),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        const Spacer(),
+                        if (widget.productPrice != null)
+                          Padding(
+                            padding: const EdgeInsets.only(top: 4),
+                            child: Text(
+                              formatCurrency(widget.productPrice!),
+                              style: const TextStyle(
+                                color: AppColors.dark,
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: AppFonts.fontBold,
+                              ),
                             ),
                           ),
-                          const SizedBox(width: 8),
-                          Container(
-                            decoration: BoxDecoration(
-                              color: AppColors.lightGray,
-                              borderRadius: BorderRadius.circular(8), // Rounded corners
-                            ),
-                            padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                const Icon(Icons.location_on, size: 16, color: AppColors.dark),
-                                const SizedBox(width: 2),
-                                Text(
-                                  '${widget.businessLocation.toStringAsFixed(2)} km',
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    fontFamily: AppFonts.fontMedium,
-                                    fontSize: 14,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
+                      ],
                     ],
                   ),
                 ),

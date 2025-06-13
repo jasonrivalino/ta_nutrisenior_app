@@ -88,7 +88,7 @@ class SearchBarWithFilter extends StatelessWidget {
             onTap: onFilterPressed,
             child: const CircleAvatar(
               backgroundColor: AppColors.woodland,
-              child: Icon(Icons.tune, color: Colors.white),
+              child: Icon(Icons.tune, color: AppColors.soapstone),
             ),
           ),
         ],
@@ -193,7 +193,7 @@ class RecentSearchList extends StatelessWidget {
                           radius: 18,
                           backgroundColor: AppColors.woodland,
                           child: Icon(Icons.restaurant,
-                              color: Colors.white, size: 18),
+                              color: AppColors.soapstone, size: 18),
                         ),
                         const SizedBox(width: 12),
                         Text(
@@ -276,7 +276,7 @@ class SortFilterOverlay extends StatelessWidget {
                     fontSize: 16,
                     fontFamily: AppFonts.fontBold,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                    color: AppColors.soapstone,
                   ),
                 ),
               ),

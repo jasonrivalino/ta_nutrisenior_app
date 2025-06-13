@@ -1,4 +1,4 @@
-final List<Map<String, dynamic>> recommendedListTable = [
+final List<Map<String, dynamic>> recommendedBusinessListTable = [
   // Recommended Today List
   {
     'business_id': '1',

@@ -122,7 +122,7 @@ class BottomChatWidget extends StatelessWidget {
                             child: const CircleAvatar(
                               radius: 10,
                               backgroundColor: Colors.black54,
-                              child: Icon(Icons.close, size: 14, color: Colors.white),
+                              child: Icon(Icons.close, size: 14, color: AppColors.soapstone),
                             ),
                           ),
                         ),
@@ -166,7 +166,7 @@ class BottomChatWidget extends StatelessWidget {
                       color: AppColors.woodland,
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    child: const Icon(Icons.send, color: Colors.white, size: 20),
+                    child: const Icon(Icons.send, color: AppColors.soapstone, size: 20),
                   ),
                 ),
               ],
