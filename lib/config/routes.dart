@@ -12,6 +12,7 @@ import '../features/OrderSection/SearchingMenu/search_view.dart';
 import '../features/OrderSection/BusinessListPage/business_list_view.dart';
 
 import '../features/OrderSection/OrderingMenu/business_ordering_menu_view.dart';
+import '../features/OrderSection/BusinessReviewMenu/review_business_view.dart';
 
 import '../features/PromoSection/recommend_promo_controller.dart';
 import '../features/PromoSection/recommend_promo_view.dart';
@@ -46,8 +47,9 @@ class Routes {
   static const String recommendRestaurantDetail = '/recommend/restaurant/detail';
   static const String recommendMarketDetail = '/recommend/market/detail';
   // Main Application to Order Section - Ordering Process
-  static const String restaurantDetail = '/restaurant/detail/:id';
-  static const String marketDetail = '/market/detail/:id';
+  static const String businessDetail = '/business/detail/:id';
+  // Rating and Review
+  static const String businessReview = '/business/detail/:id/review';
 
   // Promo Section
   static const String recommendRestaurantPromo = '/restaurantpromo';
@@ -160,15 +162,14 @@ final GoRouter router = GoRouter(
     ),
     // Order Section - Ordering Process
     GoRoute(
-      path: '/restaurant/detail/:id',
+      path: Routes.businessDetail,
       builder: (context, state) => BusinessOrderingMenuView.fromExtra(context, state),
     ),
+    // Rating and Review
     GoRoute(
-      path: '/market/detail/:id',
-      builder: (context, state) => BusinessOrderingMenuView.fromExtra(context, state),
+      path: Routes.businessReview,
+      builder: (context, state) => ReviewBusinessView.fromExtra(context, state),
     ),
-
-
 
     // Promo Section
     GoRoute(

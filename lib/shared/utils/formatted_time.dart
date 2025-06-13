@@ -33,3 +33,7 @@ String formatFullDateTime(dynamic time) {
 String formatHours(DateTime time) {
   return DateFormat("HH:mm").format(time);
 }
+
+String formatDate(DateTime date) {
+  return '${date.day.toString().padLeft(2, '0')}/${date.month.toString().padLeft(2, '0')}/${date.year}';
+}

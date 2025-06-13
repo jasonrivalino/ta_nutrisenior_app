@@ -157,10 +157,7 @@ class _SearchViewState extends State<SearchView> {
                               isFreeShipment: business['is_free_shipment'],
                               isOpen: isOpen,
                               onTap: () {
-                                final type = business['business_type'];
-                                final route = type == 'restaurant'
-                                    ? '/restaurant/detail/${business['business_id']}'
-                                    : '/market/detail/${business['business_id']}';
+                                final route = '/business/detail/${business['business_id']}';
                                 context.push(route, extra: business);
                               },
                             );

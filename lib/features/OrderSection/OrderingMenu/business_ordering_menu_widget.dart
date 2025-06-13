@@ -67,32 +67,32 @@ class BusinessInfoCard extends StatelessWidget {
   final String businessImage;
   final String businessName;
   final String businessAddress;
-  final String businessEstimatedDelivery;
+  final String? businessEstimatedDelivery;
   final double businessRating;
-  final double businessDistance;
-  final DateTime businessOpenHour;
-  final DateTime businessCloseHour;
+  final double? businessDistance;
+  final DateTime? businessOpenHour;
+  final DateTime? businessCloseHour;
   final int? discountNumber;
-  final bool isFreeShipment;
+  final bool? isFreeShipment;
 
   const BusinessInfoCard({
     super.key,
     required this.businessImage,
     required this.businessName,
     required this.businessAddress,
-    required this.businessEstimatedDelivery,
+    this.businessEstimatedDelivery,
     required this.businessRating,
-    required this.businessDistance,
-    required this.businessOpenHour,
-    required this.businessCloseHour,
+    this.businessDistance,
+    this.businessOpenHour,
+    this.businessCloseHour,
     this.discountNumber,
-    required this.isFreeShipment,
+    this.isFreeShipment,
   });
 
   @override
   Widget build(BuildContext context) {
-    final formattedOpen = formatHours(businessOpenHour);
-    final formattedClose = formatHours(businessCloseHour);
+    final formattedOpen = businessOpenHour != null ? formatHours(businessOpenHour!) : null;
+    final formattedClose = businessCloseHour != null ? formatHours(businessCloseHour!) : null;
 
     final screenHeight = MediaQuery.of(context).size.height;
 
@@ -140,7 +140,7 @@ class BusinessInfoCard extends StatelessWidget {
                             ),
                           ),
                         ),
-                        if (discountNumber != null || isFreeShipment)
+                        if (discountNumber != null || (isFreeShipment != null && isFreeShipment!))
                           Positioned(
                             bottom: 0,
                             left: 0,
@@ -213,16 +213,20 @@ class BusinessInfoCard extends StatelessWidget {
                               icon: FaIcon(FontAwesomeIcons.solidStar, size: 12, color: AppColors.dark),
                               label: '${businessRating.toStringAsFixed(1)}/5',
                             ),
-                            const SizedBox(width: 4),
-                            _infoBadge(
-                              icon: const Icon(Icons.location_on, size: 12, color: AppColors.dark),
-                              label: '${businessDistance.toStringAsFixed(2)} km',
-                            ),
-                            const SizedBox(width: 4),
-                            _infoBadge(
-                              icon: const Icon(Icons.timer, size: 12, color: AppColors.dark),
-                              label: businessEstimatedDelivery,
-                            ),
+                            if (businessDistance != null) ...[
+                              const SizedBox(width: 4),
+                              _infoBadge(
+                                icon: const Icon(Icons.location_on, size: 12, color: AppColors.dark),
+                                label: '${businessDistance!.toStringAsFixed(2)} km',
+                              ),
+                            ],
+                            if (businessEstimatedDelivery != null) ...[
+                              const SizedBox(width: 4),
+                              _infoBadge(
+                                icon: const Icon(Icons.timer, size: 12, color: AppColors.dark),
+                                label: businessEstimatedDelivery!,
+                              ),
+                            ],
                           ],
                         ),
                       ],
@@ -251,24 +255,28 @@ class BusinessInfoCard extends StatelessWidget {
                 ),
               ),
             ),
-            const Divider(height: 1, thickness: 1, color: AppColors.dark),
+            
+            // Make divider appear only if formattedOpen and formattedClose are not null
+            if (formattedOpen != null && formattedClose != null)
+              const Divider(height: 1, thickness: 1, color: AppColors.dark),
 
             // Section 3: Open-Close Hours
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-              child: Center(
-                child: Text(
-                  '$formattedOpen - $formattedClose',
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    color: AppColors.dark,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    fontFamily: AppFonts.fontMedium,
+            if (formattedOpen != null && formattedClose != null)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                child: Center(
+                  child: Text(
+                    '$formattedOpen - $formattedClose',
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      color: AppColors.dark,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      fontFamily: AppFonts.fontMedium,
+                    ),
                   ),
                 ),
               ),
-            ),
           ],
         ),
       ),

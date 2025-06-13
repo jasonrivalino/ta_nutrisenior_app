@@ -180,25 +180,8 @@ class HistoryCardList extends StatelessWidget {
                                             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                                           ),
                                           onPressed: () {
-                                            final type = historyData['business_type'];
-                                            final route = type == 'restaurant'
-                                                ? '/restaurant/detail/${historyData['business_id']}'
-                                                : '/market/detail/${historyData['business_id']}';
-
-                                            context.push(route, extra: {
-                                              'business_id': historyData['business_id'],
-                                              'business_name': historyData['business_name'],
-                                              'business_type': historyData['business_type'],
-                                              'business_image': historyData['business_image'],
-                                              'business_rating': historyData['business_rating'],
-                                              'business_distance': historyData['business_distance'],
-                                              'business_address': historyData['business_address'],
-                                              'business_open_hour': historyData['business_open_hour'],
-                                              'business_close_hour': historyData['business_close_hour'],
-                                              'estimated_delivery': historyData['estimated_delivery'],
-                                              'discount_number': historyData['discount_number'],
-                                              'is_free_shipment': historyData['is_free_shipment'],
-                                            });
+                                            final route = '/business/detail/${historyData['business_id']}';
+                                            context.push(route, extra: historyData);
                                           },
                                           child: const Text("Pesan Lagi"),
                                         ),

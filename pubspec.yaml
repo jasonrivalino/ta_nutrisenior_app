@@ -96,6 +96,7 @@ flutter:
     - assets/images/splashscreen/splashscreen.png
     - assets/images/transparentAppLogo.png
     - assets/images/media/google.png
+    - assets/images/dummy/userreview/johndoe.png
     - assets/images/dummy/chat/driver.png
     - assets/images/dummy/motorcycle_delivery.png
 
@@ -150,6 +151,10 @@ flutter:
     - assets/images/dummy/ingredients/pisangambonsisir.png
     - assets/images/dummy/ingredients/jeruksunkistkiloan.png
     - assets/images/dummy/ingredients/wortelkiloan.png
+
+    # Asset comment images
+    - assets/images/dummy/comment/comment1.png
+    - assets/images/dummy/comment/comment2.png
 
     # Asset message images
     - assets/images/dummy/chat/delivery_arrived.png

@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../shared/styles/colors.dart';
 import '../../../shared/utils/formatted_time.dart';
+import '../../../shared/utils/fullscreen_image_view.dart';
 import '../../../shared/utils/handling_chat_send.dart';
 import '../../../shared/utils/handling_choose_image.dart';
 

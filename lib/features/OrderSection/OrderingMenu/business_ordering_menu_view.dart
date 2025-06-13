@@ -8,7 +8,7 @@ import 'business_ordering_menu_controller.dart';
 import 'business_ordering_menu_widget.dart';
 
 class BusinessOrderingMenuView extends StatefulWidget {
-  final int id;
+  final int businessId;
   final String businessName;
   final String businessType;
   final String businessImage;
@@ -23,7 +23,7 @@ class BusinessOrderingMenuView extends StatefulWidget {
 
   const BusinessOrderingMenuView({
     super.key,
-    required this.id,
+    required this.businessId,
     required this.businessName,
     required this.businessType,
     required this.businessImage,
@@ -43,7 +43,7 @@ class BusinessOrderingMenuView extends StatefulWidget {
     print('BusinessOrderingMenuView.fromExtra: $extra');
 
     return BusinessOrderingMenuView(
-      id: extra['business_id'],
+      businessId: extra['business_id'],
       businessName: extra['business_name'],
       businessType: extra['business_type'],
       businessImage: extra['business_image'],
@@ -69,7 +69,7 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
   bool isLoading = true;
 
   Future<void> _loadRecommendedProducts() async {
-    final productMap = await BusinessOrderingMenuController.fetchProducts(widget.id);
+    final productMap = await BusinessOrderingMenuController.fetchProducts(widget.businessId);
     setState(() {
       recommendedProducts = productMap['recommendedProducts'] ?? [];
       allProducts = productMap['allProducts'] ?? [];
@@ -133,7 +133,16 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
                       gravity: ToastGravity.BOTTOM,
                     );
                   },
-                  onRatingClick: () {},
+                  onRatingClick: () {
+                    final route = '/business/detail/${widget.businessId}/review';
+                    context.push(route, extra: {
+                      'business_id': widget.businessId,
+                      'business_name': widget.businessName,
+                      'business_image': widget.businessImage,
+                      'business_rating': widget.businessRating,
+                      'business_address': widget.businessAddress,
+                    });
+                  },
                 ),
                 const SizedBox(height: 12),
 
