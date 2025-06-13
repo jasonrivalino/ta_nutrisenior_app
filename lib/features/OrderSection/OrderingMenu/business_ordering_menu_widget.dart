@@ -66,6 +66,7 @@ class BusinessHeaderBar extends StatelessWidget {
 class BusinessInfoCard extends StatelessWidget {
   final String businessImage;
   final String businessName;
+  final String businessType;
   final String businessAddress;
   final String? businessEstimatedDelivery;
   final double businessRating;
@@ -79,6 +80,7 @@ class BusinessInfoCard extends StatelessWidget {
     super.key,
     required this.businessImage,
     required this.businessName,
+    required this.businessType,
     required this.businessAddress,
     this.businessEstimatedDelivery,
     required this.businessRating,
@@ -137,6 +139,18 @@ class BusinessInfoCard extends StatelessWidget {
                               height: screenHeight > 900 ? 70 : 65,
                               width: screenHeight > 900 ? 70 : 65,
                               fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) {
+                                String fallbackImage = 'assets/images/dummy/errorhandling/dummyrestaurant.png';
+                                if (businessType == 'market') {
+                                  fallbackImage = 'assets/images/dummy/errorhandling/dummymarket.png';
+                                }
+                                return Image.asset(
+                                  fallbackImage,
+                                  height: screenHeight > 900 ? 70 : 65,
+                                  width: screenHeight > 900 ? 70 : 65,
+                                  fit: BoxFit.cover,
+                                );
+                              },
                             ),
                           ),
                         ),
@@ -305,17 +319,20 @@ class BusinessInfoCard extends StatelessWidget {
 class RecommendedProductSection extends StatelessWidget {
   final String title;
   final double heightCard;
+  final String businessType;
   final List<Map<String, dynamic>> products;
 
   const RecommendedProductSection({
     super.key,
     required this.title,
     required this.heightCard,
+    required this.businessType,
     required this.products,
   });
 
   @override
   Widget build(BuildContext context) {
+    print("RecommendedProductSection: $title, businessType: $businessType, products: ${products.length}");
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -350,6 +367,7 @@ class RecommendedProductSection extends StatelessWidget {
                 return SizedBox(
                   width: MediaQuery.of(context).size.width * 0.425,
                   child: CardBox(
+                    businessType: businessType,
                     productImage: product['product_image'],
                     productName: product['product_name'],
                     productPrice: product['product_price'],
@@ -368,11 +386,13 @@ class RecommendedProductSection extends StatelessWidget {
 
 class ProductListWidget extends StatelessWidget {
   final String? title;
+  final String businessType;
   final List<Map<String, dynamic>> products;
 
   const ProductListWidget({
     super.key,
     required this.title,
+    required this.businessType,
     required this.products,
   });
 
@@ -410,6 +430,7 @@ class ProductListWidget extends StatelessWidget {
               itemBuilder: (context, index) {
                 final product = products[index];
                 return CardList(
+                  businessType: businessType,
                   productImage: product['product_image'],
                   productName: product['product_name'],
                   productPrice: product['product_price'],

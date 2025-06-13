@@ -95,12 +95,23 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
             SizedBox(
               height: 150,
               width: double.infinity,
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage(widget.businessImage),
-                    fit: BoxFit.cover,
-                  ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(0),
+                child: Image.asset(
+                  widget.businessImage,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    String fallbackImage = 'assets/images/dummy/errorhandling/dummyrestaurant.png';
+
+                    if (widget.businessType == 'market') {
+                      fallbackImage = 'assets/images/dummy/errorhandling/dummymarket.png';
+                    }
+
+                    return Image.asset(
+                      fallbackImage,
+                      fit: BoxFit.cover,
+                    );
+                  },
                 ),
               ),
             ),
@@ -138,6 +149,7 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
                     context.push(route, extra: {
                       'business_id': widget.businessId,
                       'business_name': widget.businessName,
+                      'business_type': widget.businessType,
                       'business_image': widget.businessImage,
                       'business_rating': widget.businessRating,
                       'business_address': widget.businessAddress,
@@ -149,6 +161,7 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
                 BusinessInfoCard(
                   businessImage: widget.businessImage,
                   businessName: widget.businessName,
+                  businessType: widget.businessType,
                   businessAddress: widget.businessAddress,
                   businessEstimatedDelivery: widget.businessEstimatedDelivery,
                   businessRating: widget.businessRating,
@@ -169,13 +182,19 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
                             children: [
                               const SizedBox(height: 8),
                               RecommendedProductSection(
-                                title: 'Rekomendasi Produk',
+                                title: widget.businessType == 'restaurant'
+                                    ? 'Rekomendasi Menu'
+                                    : 'Rekomendasi Belanjaan',
                                 heightCard: 200,
+                                businessType: widget.businessType,
                                 products: recommendedProducts,
                               ),
                               const SizedBox(height: 14),
                               ProductListWidget(
-                                title: 'Semua Produk',
+                                title: widget.businessType == 'restaurant'
+                                    ? 'Daftar Menu'
+                                    : 'Daftar Belanjaan',
+                                businessType: widget.businessType,
                                 products: allProducts,
                               ),
                               const SizedBox(height: 12),

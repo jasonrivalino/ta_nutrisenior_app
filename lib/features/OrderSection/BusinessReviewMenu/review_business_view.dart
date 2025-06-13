@@ -8,6 +8,7 @@ import 'review_business_widget.dart';
 class ReviewBusinessView extends StatefulWidget {
   final int businessId;
   final String businessName;
+  final String businessType;
   final String businessImage;
   final double businessRating;
   final String businessAddress;
@@ -16,6 +17,7 @@ class ReviewBusinessView extends StatefulWidget {
     super.key,
     required this.businessId,
     required this.businessName,
+    required this.businessType,
     required this.businessImage,
     required this.businessRating,
     required this.businessAddress,
@@ -28,6 +30,7 @@ class ReviewBusinessView extends StatefulWidget {
     return ReviewBusinessView(
       businessId: extra['business_id'] as int,
       businessName: extra['business_name'] as String,
+      businessType: extra['business_type'] as String,
       businessImage: extra['business_image'] as String,
       businessRating: extra['business_rating'] as double,
       businessAddress: extra['business_address'] as String,
@@ -65,6 +68,7 @@ class _ReviewBusinessViewState extends State<ReviewBusinessView> {
             const SizedBox(height: 16),
             BusinessInfoCard(
               businessImage: widget.businessImage,
+              businessType: widget.businessType,
               businessName: widget.businessName,
               businessAddress: widget.businessAddress,
               businessRating: widget.businessRating,

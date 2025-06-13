@@ -160,6 +160,12 @@ flutter:
     - assets/images/dummy/chat/delivery_arrived.png
     - assets/images/dummy/chat/thankful_emoji.png
 
+    # Asset error images handling
+    - assets/images/dummy/errorhandling/dummyrestaurant.png
+    - assets/images/dummy/errorhandling/dummymarket.png
+    - assets/images/dummy/errorhandling/dummyfood.png
+    - assets/images/dummy/errorhandling/dummyingredient.png
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
 

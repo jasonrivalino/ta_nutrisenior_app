@@ -77,6 +77,18 @@ class HistoryCardList extends StatelessWidget {
                         width: 70,
                         height: 70,
                         fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          String fallbackImage = 'assets/images/dummy/errorhandling/dummyrestaurant.png';
+                          if (historyData['business_type'] == 'market' && businessImage.isNotEmpty) {
+                            fallbackImage = 'assets/images/dummy/errorhandling/dummymarket.png';
+                          }
+                          return Image.asset(
+                            fallbackImage,
+                            width: 70,
+                            height: 70,
+                            fit: BoxFit.cover,
+                          );
+                        },
                       ),
                     ),
                     const SizedBox(width: 12),

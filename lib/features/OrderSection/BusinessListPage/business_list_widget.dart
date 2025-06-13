@@ -46,6 +46,7 @@ class BusinessListWidget extends StatelessWidget {
                 return CardList(
                   businessImage: business['business_image'],
                   businessName: business['business_name'],
+                  businessType: business['business_type'],
                   businessRate: business['business_rating'],
                   businessLocation: business['business_distance'],
                   discountNumber: business['discount_number'],

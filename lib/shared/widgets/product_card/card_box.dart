@@ -7,6 +7,7 @@ import '../../styles/fonts.dart';
 class CardBox extends StatefulWidget {
   final String? businessImage;
   final String? businessName;
+  final String businessType;
   final double? businessRate;
   final double? businessLocation;
   final String? productImage;
@@ -19,6 +20,7 @@ class CardBox extends StatefulWidget {
     super.key,
     this.businessImage,
     this.businessName,
+    required this.businessType,
     this.businessRate,
     this.businessLocation,
     this.productImage,
@@ -103,10 +105,30 @@ class _CardBoxState extends State<CardBox> {
                 child: Stack(
                   children: [
                     Image.asset(
-                      widget.businessImage ?? widget.productImage ?? 'assets/images/dummy/restaurant/umamihana.png',
+                      widget.businessImage ?? widget.productImage!,
                       height: imageHeight,
                       width: double.infinity,
                       fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        String fallbackImage = 'assets/images/dummy/errorhandling/dummyrestaurant.png';
+
+                        if (widget.businessType == 'restaurant' && widget.businessImage != null) {
+                          fallbackImage = 'assets/images/dummy/errorhandling/dummyrestaurant.png';
+                        } else if (widget.businessType == 'market' && widget.businessImage != null) {
+                          fallbackImage = 'assets/images/dummy/errorhandling/dummymarket.png';
+                        } else if (widget.businessType == 'restaurant' && widget.productImage != null) {
+                          fallbackImage = 'assets/images/dummy/errorhandling/dummyfood.png';
+                        } else if (widget.businessType == 'market' && widget.productImage != null) {
+                          fallbackImage = 'assets/images/dummy/errorhandling/dummyingredient.png';
+                        }
+
+                        return Image.asset(
+                          fallbackImage,
+                          height: imageHeight,
+                          width: double.infinity,
+                          fit: BoxFit.cover,
+                        );
+                      },
                     ),
                     if (widget.discountNumber != null)
                       Positioned(

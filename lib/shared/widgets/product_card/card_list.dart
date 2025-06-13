@@ -8,6 +8,7 @@ import '../../utils/format_currency.dart';
 class CardList extends StatefulWidget {
   final String? businessImage;
   final String? businessName;
+  final String businessType;
   final double? businessRate;
   final double? businessLocation;
   final bool? isOpen;
@@ -22,6 +23,7 @@ class CardList extends StatefulWidget {
     super.key,
     this.businessImage,
     this.businessName,
+    required this.businessType,
     this.businessRate,
     this.businessLocation,
     this.isOpen = true,
@@ -98,8 +100,26 @@ class _CardListState extends State<CardList> {
                             ? const ColorFilter.mode(Colors.transparent, BlendMode.saturation)
                             : const ColorFilter.mode(Colors.grey, BlendMode.saturation),
                         child: Image.asset(
-                          widget.businessImage ?? widget.productImage ?? 'assets/images/dummy/restaurant/umamihana.png',
+                          widget.businessImage ?? widget.productImage!,
                           fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) {
+                            String fallbackImage = 'assets/images/dummy/restaurant/umamihana.png';
+
+                            if (widget.businessType == 'restaurant' && widget.businessImage != null) {
+                              fallbackImage = 'assets/images/dummy/errorhandling/dummyrestaurant.png';
+                            } else if (widget.businessType == 'market' && widget.businessImage != null) {
+                              fallbackImage = 'assets/images/dummy/errorhandling/dummymarket.png';
+                            } else if (widget.businessType == 'restaurant' && widget.productImage != null) {
+                              fallbackImage = 'assets/images/dummy/errorhandling/dummyfood.png';
+                            } else if (widget.businessType == 'market' && widget.productImage != null) {
+                              fallbackImage = 'assets/images/dummy/errorhandling/dummyingredient.png';
+                            }
+
+                            return Image.asset(
+                              fallbackImage,
+                              fit: BoxFit.cover,
+                            );
+                          },
                         ),
                       ),
                     ),

@@ -169,6 +169,7 @@ class RecommendedHomeSection extends StatelessWidget {
                       child: CardBox(
                         businessImage: business['business_image'],
                         businessName: business['business_name'],
+                        businessType: business['business_type'],
                         businessRate: business['business_rating'],
                         businessLocation: business['business_distance'],
                         onTap: () {
@@ -265,6 +266,7 @@ class _RecommendedTodayCarouselState extends State<RecommendedTodayCarousel> wit
               child: CardBox(
                 businessImage: business['business_image'],
                 businessName: business['business_name'],
+                businessType: business['business_type'],
                 businessRate: business['business_rating'],
                 businessLocation: business['business_distance'],
                 onTap: () {
