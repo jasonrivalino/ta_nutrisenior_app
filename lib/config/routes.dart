@@ -247,22 +247,14 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: Routes.historyDone,
       builder: (context, state) {
-        final id = state.extra != null && state.extra is Map<String, dynamic>
-            ? (state.extra as Map<String, dynamic>)['history_id'] as int?
-            : int.tryParse(state.pathParameters['history_id'] ?? '');
-
-        return HistoryListView(routeIndex: 0, historyId: id);
+        return HistoryListView(routeIndex: 0);
       },
     ),
     // Ongoing History
     GoRoute(
       path: Routes.historyOngoing,
       builder: (context, state) {
-        final id = state.extra != null && state.extra is Map<String, dynamic>
-            ? (state.extra as Map<String, dynamic>)['history_id'] as int?
-            : int.tryParse(state.pathParameters['history_id'] ?? '');
-
-        return HistoryListView(routeIndex: 1, historyId: id);
+        return HistoryListView(routeIndex: 1);
       },
     ),
     GoRoute(

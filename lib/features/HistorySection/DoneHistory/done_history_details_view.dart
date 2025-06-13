@@ -8,6 +8,7 @@ import 'done_history_rating_controller.dart';
 
 class DoneHistoryDetailsView extends StatelessWidget {
   final int historyId;
+  final int businessId;
   final DateTime orderDate;
   final String driverName;
   final String businessName;
@@ -23,6 +24,7 @@ class DoneHistoryDetailsView extends StatelessWidget {
   const DoneHistoryDetailsView({
     super.key,
     required this.historyId,
+    required this.businessId,
     required this.totalPrice,
     required this.orderDate,
     required this.driverName,
@@ -40,6 +42,7 @@ class DoneHistoryDetailsView extends StatelessWidget {
     final extra = state.extra! as Map<String, dynamic>;
     return DoneHistoryDetailsView(
       historyId: extra['history_id'],
+      businessId: extra['business_id'],
       orderDate: extra['order_date'],
       businessName: extra['business_name'],
       businessImage: extra['business_image'],
@@ -106,12 +109,14 @@ class DoneHistoryDetailsView extends StatelessWidget {
             onDriverPressed: () {
               context.push('/history/done/details/:id/rating', extra: {
                 'history_id': historyId,
+                'business_id': businessId,
                 'driver_name': driverName,
               });
             },
-            onRestaurantPressed: () {
+            onBusinessPressed: () {
               context.push('/history/done/details/:id/rating', extra: {
                 'history_id': historyId,
+                'business_id': businessId,
                 'business_name': businessName,
                 'business_type': businessType,
                 'business_image': businessImage,

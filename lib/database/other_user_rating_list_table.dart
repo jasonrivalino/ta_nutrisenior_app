@@ -1,4 +1,4 @@
-final List<Map<String, dynamic>> otherUserRatingList = [
+final List<Map<String, dynamic>> otherUserRatingListTable = [
   {
     'rating_id': 1,
     'business_id': 1,

@@ -5,6 +5,7 @@ import 'package:ta_nutrisenior_app/shared/styles/colors.dart';
 import 'package:ta_nutrisenior_app/shared/styles/fonts.dart';
 
 import '../../../shared/utils/format_currency.dart';
+import '../../../shared/utils/formatted_time.dart';
 
 // Class to display order time and driver name in a card format
 class DoneOrderTimeDriverCard extends StatelessWidget {
@@ -377,14 +378,14 @@ class GiveRatingBottomNavbar extends StatelessWidget {
   final String businessType;
   final List<Map<String, dynamic>> ratings;
   final VoidCallback onDriverPressed;
-  final VoidCallback onRestaurantPressed;
+  final VoidCallback onBusinessPressed;
 
   const GiveRatingBottomNavbar({
     super.key,
     required this.businessType,
     required this.ratings,
     required this.onDriverPressed,
-    required this.onRestaurantPressed,
+    required this.onBusinessPressed,
   });
 
   @override
@@ -454,7 +455,7 @@ class GiveRatingBottomNavbar extends StatelessWidget {
                     backgroundColor: AppColors.woodland,
                     foregroundColor: AppColors.soapstone,
                     padding: EdgeInsets.symmetric(
-                      horizontal: businessType == 'Restaurant' ? 40.0 : 22.0,
+                      horizontal: businessType == 'restaurant' ? 40.0 : 22.0,
                     ),
                     minimumSize: const Size(0, 40),
                     shape: RoundedRectangleBorder(
@@ -464,9 +465,9 @@ class GiveRatingBottomNavbar extends StatelessWidget {
                     shadowColor: Colors.transparent,
                     tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   ),
-                  onPressed: onRestaurantPressed,
+                  onPressed: onBusinessPressed,
                   child: Text(
-                    businessType == 'Restaurant' ? "Restoran" : "Pusat Belanja",
+                    businessType == 'restaurant' ? "Restoran" : "Pusat Belanja",
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -556,7 +557,7 @@ class RatingBox extends StatelessWidget {
               ),
               SizedBox(height: 4),
               Text(
-                '${date.day}/${date.month}/${date.year} ${date.hour.toString().padLeft(2, '0')}:${date.minute.toString().padLeft(2, '0')}',
+                '${formatDate(date)} ${date.hour.toString().padLeft(2, '0')}:${date.minute.toString().padLeft(2, '0')}',
                 style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.bold,

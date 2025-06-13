@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -144,19 +146,51 @@ class BusinessRatingItem extends StatelessWidget {
                     spacing: 8,
                     runSpacing: 8,
                     children: (rating['rating_images'] as List<String>).map((imagePath) {
+                      final isLocalFile = imagePath.startsWith('/data/');
+
+                      final imageWidget = isLocalFile
+                          ? Image.file(
+                              File(imagePath),
+                              width: 50,
+                              height: 50,
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) {
+                                return Container(
+                                  color: AppColors.lightGray,
+                                  child: const Icon(Icons.broken_image),
+                                );
+                              },
+                            )
+                          : Image.asset(
+                              imagePath,
+                              width: 50,
+                              height: 50,
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) {
+                                return Container(
+                                  color: AppColors.lightGray,
+                                  child: const Icon(Icons.broken_image),
+                                );
+                              },
+                            );
+
+                      final canTap = !(isLocalFile && !File(imagePath).existsSync());
+
                       return GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => FullScreenImageView(
-                                imagePath: imagePath,
-                                senderName: rating['username'],
-                                sendTime: formatDate(rating['rating_date']),
-                              ),
-                            ),
-                          );
-                        },
+                        onTap: canTap
+                            ? () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) => FullScreenImageView(
+                                      imagePath: imagePath,
+                                      senderName: rating['username'],
+                                      sendTime: formatDate(rating['rating_date']),
+                                    ),
+                                  ),
+                                );
+                              }
+                            : null,
                         child: Container(
                           width: 50,
                           height: 50,
@@ -171,18 +205,7 @@ class BusinessRatingItem extends StatelessWidget {
                             borderRadius: BorderRadius.circular(8),
                             child: Hero(
                               tag: imagePath,
-                              child: Image.asset(
-                                imagePath,
-                                width: 50,
-                                height: 50,
-                                fit: BoxFit.cover,
-                                errorBuilder: (context, error, stackTrace) {
-                                  return Container(
-                                    color: AppColors.lightGray,
-                                    child: const Icon(Icons.broken_image),
-                                  );
-                                },
-                              ),
+                              child: imageWidget,
                             ),
                           ),
                         ),

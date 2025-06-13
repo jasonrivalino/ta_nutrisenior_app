@@ -8,6 +8,8 @@ import 'package:ta_nutrisenior_app/shared/widgets/appbar.dart';
 import 'package:ta_nutrisenior_app/shared/widgets/confirm_dialog.dart';
 import 'package:ta_nutrisenior_app/shared/widgets/warning_button.dart';
 
+import '../../history_controller.dart';
+
 class CancelOrderView extends StatefulWidget {
   final int historyId;
 
@@ -147,32 +149,28 @@ class _CancelOrderViewState extends State<CancelOrderView> {
                                       return;
                                     }
 
-                                    // Show loading dialog using safe root context
+                                    // Show loading
                                     showDialog(
                                       context: rootContext,
                                       barrierDismissible: false,
-                                      builder: (_) => const Center(
-                                        child: CircularProgressIndicator(),
-                                      ),
+                                      builder: (_) => const Center(child: CircularProgressIndicator()),
                                     );
 
                                     await Future.delayed(const Duration(seconds: 2));
 
                                     if (!mounted) return;
 
-                                    rootContext.pop();
-                                    
+                                    // Cancel logic using controller
+                                    CancelledOrderController(historyId: widget.historyId).cancelOrder();
+
+                                    rootContext.pop(); // Close loading
                                     Fluttertoast.showToast(
                                       msg: 'Pesanan berhasil dibatalkan.',
                                       toastLength: Toast.LENGTH_SHORT,
                                       gravity: ToastGravity.BOTTOM,
                                     );
 
-                                    print('Cancel Order ID: ${widget.historyId}');
-                                    
-                                    rootContext.go('/historyOngoing',
-                                      extra: {'history_id': widget.historyId},
-                                    );
+                                    rootContext.go('/historyOngoing');
                                   },
                                 );
                               },

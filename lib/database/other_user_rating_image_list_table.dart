@@ -1,4 +1,4 @@
-final List<Map<String, dynamic>> otherUserRatingImageList = [
+final List<Map<String, dynamic>> otherUserRatingImageListTable = [
   {
     'rating_id': 17,
     'rating_image': 'assets/images/dummy/comment/comment1.png',

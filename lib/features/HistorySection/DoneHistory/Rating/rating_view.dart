@@ -10,9 +10,11 @@ import 'package:ta_nutrisenior_app/shared/widgets/appbar.dart';
 import '../../../../shared/utils/handling_choose_image.dart';
 import '../../../../shared/widgets/comment_input_card.dart';
 import '../../../../shared/widgets/submit_button.dart';
+import 'rating_controller.dart';
 
 class RatingView extends StatefulWidget {
   final int historyId;
+  final int businessId;
   final String? driverName;
   final String? businessName;
   final String? businessType;
@@ -21,6 +23,7 @@ class RatingView extends StatefulWidget {
   const RatingView({
     super.key,
     required this.historyId,
+    required this.businessId,
     this.driverName,
     this.businessName,
     this.businessType,
@@ -31,6 +34,7 @@ class RatingView extends StatefulWidget {
     final extra = state.extra! as Map<String, dynamic>;
     return RatingView(
       historyId: extra['history_id'],
+      businessId: extra['business_id'],
       driverName: extra['driver_name'],
       businessName: extra['business_name'],
       businessImage: extra['business_image'],
@@ -189,13 +193,31 @@ class _RatingViewState extends State<RatingView> {
                   showDialog(
                     context: context,
                     barrierDismissible: false,
-                    builder: (_) => const Center(
-                      child: CircularProgressIndicator(),
-                    ),
+                    builder: (_) => const Center(child: CircularProgressIndicator()),
                   );
 
                   await Future.delayed(const Duration(seconds: 2));
-                  context.pop(); // Close the loading dialog
+
+                  if (isDriver) {
+                    final driverController = DriverRatingController();
+                    driverController.addDriverRating(
+                      historyId: widget.historyId,
+                      ratingNumber: selectedRating,
+                      ratingComment: _commentController.text.trim(),
+                    );
+                  } else {
+                    final businessController = BusinessRatingController();
+                    businessController.addBusinessRating(
+                      historyId: widget.historyId,
+                      businessId: widget.businessId,
+                      businessType: widget.businessType ?? 'restaurant',
+                      ratingNumber: selectedRating,
+                      ratingComment: _commentController.text.trim(),
+                      ratingImages: _selectedImages,
+                    );
+                  }
+
+                  Navigator.of(context).pop(); // Close loading dialog
 
                   Fluttertoast.showToast(
                     msg: "Rating berhasil diberikan!",

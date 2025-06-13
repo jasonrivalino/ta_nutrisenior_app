@@ -7,11 +7,11 @@ class ReviewBusinessController {
   ReviewBusinessController({required this.businessId});
 
   List<Map<String, dynamic>> fetchAllRatings() {
-    final result = otherUserRatingList
+    final result = otherUserRatingListTable
         .where((rating) => rating['business_id'] == businessId)
         .map((rating) {
           final ratingId = rating['rating_id'];
-          final images = otherUserRatingImageList
+          final images = otherUserRatingImageListTable
               .where((img) => img['rating_id'] == ratingId)
               .map((img) => img['rating_image'] as String)
               .toList();
