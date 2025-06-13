@@ -4,14 +4,16 @@ import 'package:go_router/go_router.dart';
 import '../../../shared/styles/colors.dart';
 import '../../../shared/widgets/appbar.dart';
 import '../../../shared/widgets/bottom_navbar.dart';
+import '../chat_controller.dart';
 import 'chat_list_widget.dart';
 
 class ChatListView extends StatelessWidget {
   final List<Map<String, dynamic>> chatListData;
+  final NumberMessageReceivedController controller = NumberMessageReceivedController();
 
-  const ChatListView({
-    super.key, 
-    required this.chatListData
+  ChatListView({
+    super.key,
+    required this.chatListData,
   });
 
   @override
@@ -35,13 +37,14 @@ class ChatListView extends StatelessWidget {
             messageTime: chat['message_time'] as String,
             numberMessageReceived: chat['numberMessageReceived'] as int?,
             onTap: () {
-              context.push('/chatlist/detail/${chat['driver_id']}', 
-              extra: {
-                'driver_id': chat['driver_id'],
-                'driver_name': chat['driver_name'],
-                'driver_image': chat['driver_image'],
-              });
-            }
+              controller.clearNumberMessageReceived(driverId: chat['driver_id']);
+              context.push('/chatlist/detail/${chat['driver_id']}',
+                  extra: {
+                    'driver_id': chat['driver_id'],
+                    'driver_name': chat['driver_name'],
+                    'driver_image': chat['driver_image'],
+                  });
+            },
           );
         }).toList(),
       ),

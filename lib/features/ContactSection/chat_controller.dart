@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
 // Import database tables
@@ -80,5 +82,69 @@ class ChatListController {
 
     // Fallback to empty list
     return [];
+  }
+}
+
+class NumberMessageReceivedController {
+  void clearNumberMessageReceived({required int driverId}) {
+    numberMessageReceivedListTable.removeWhere(
+      (entry) => entry['driver_id'] == driverId,
+    );
+  }
+}
+
+class SendMessageController {
+  final int driverId;
+
+  SendMessageController({required this.driverId});
+
+  void sendMessage({
+    required TextEditingController controller,
+    required List<Map<String, dynamic>> messages,
+    required List<XFile> selectedImages,
+    required VoidCallback onClearImages,
+  }) {
+    final text = controller.text.trim();
+    final now = DateTime.now();
+    int latestId = chatListTable.isNotEmpty
+        ? chatListTable.map((e) => e['chat_id'] as int).reduce((a, b) => a > b ? a : b)
+        : 0;
+
+    if (text.isNotEmpty) {
+      final chatEntry = {
+        'chat_id': ++latestId,
+        'driver_id': driverId,
+        'is_user': true,
+        'message_sent': text,
+        'message_time': now,
+      };
+      chatListTable.add(chatEntry);
+      messages.insert(0, {
+        'text': text,
+        'isMe': true,
+        'time': now,
+        'status': 'sending',
+      });
+    }
+
+    for (var image in selectedImages) {
+      final chatEntry = {
+        'chat_id': ++latestId,
+        'driver_id': driverId,
+        'is_user': true,
+        'message_sent': image.path, // saving image path as message
+        'message_time': now,
+      };
+      chatListTable.add(chatEntry);
+      messages.insert(0, {
+        'image': image,
+        'isMe': true,
+        'time': now,
+        'status': 'sending',
+      });
+    }
+
+    controller.clear();
+    onClearImages();
   }
 }

@@ -11,6 +11,7 @@ import '../../../shared/utils/formatted_time.dart';
 import '../../../shared/utils/fullscreen_image_view.dart';
 import '../../../shared/utils/handling_chat_send.dart';
 import '../../../shared/utils/handling_choose_image.dart';
+import '../chat_controller.dart';
 
 class ChatDetailView extends StatefulWidget {
   final int driverId;
@@ -35,21 +36,27 @@ class _ChatDetailViewState extends State<ChatDetailView> {
   final ScrollController _scrollController = ScrollController();
   final List<XFile> _selectedImages = [];
   late List<Map<String, dynamic>> _messages;
+  late final SendMessageController _sendMessageController;
 
   @override
   void initState() {
     super.initState();
 
+    _sendMessageController = SendMessageController(driverId: widget.driverId);
+
     _messages = widget.chatDetailsData.map((chat) {
-      final text = chat['message_sent'];
-      final isImagePath = text is String &&
-          (text.endsWith('.png') || text.endsWith('.jpg') || text.endsWith('.jpeg'));
+      final dynamic messageContent = chat['message_sent'];
+      final bool isImage = messageContent is String &&
+          (messageContent.endsWith('.png') ||
+          messageContent.endsWith('.jpg') ||
+          messageContent.endsWith('.jpeg'));
 
       return {
         'isMe': chat['is_user'] == true,
-        'text': isImagePath ? null : text,
-        'imagePath': isImagePath ? text : null,
+        'text': isImage ? null : messageContent,
+        'imagePath': isImage ? messageContent : null,
         'time': chat['message_time'],
+        'status': 'seen',
       };
     }).toList().reversed.toList();
 
@@ -67,7 +74,7 @@ class _ChatDetailViewState extends State<ChatDetailView> {
   void _handleSendMessage() {
     final previousLength = _messages.length;
 
-    handleSendMessages(
+    _sendMessageController.sendMessage(
       controller: _messageController,
       messages: _messages,
       selectedImages: _selectedImages,
@@ -190,11 +197,17 @@ class _ChatDetailViewState extends State<ChatDetailView> {
                                         width: 180,
                                         fit: BoxFit.cover,
                                       )
-                                    : Image.asset(
-                                        imagePath!,
-                                        width: 180,
-                                        fit: BoxFit.cover,
-                                      ),
+                                    : imagePath!.startsWith('/data/')
+                                      ? Image.file(
+                                          File(imagePath),
+                                          width: 180,
+                                          fit: BoxFit.cover,
+                                        )
+                                      : Image.asset(
+                                          imagePath,
+                                          width: 180,
+                                          fit: BoxFit.cover,
+                                        ),
                               ),
                             ),
                           ),
