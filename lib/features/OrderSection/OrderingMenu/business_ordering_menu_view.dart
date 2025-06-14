@@ -82,6 +82,7 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
   @override
   void initState() {
     super.initState();
+    isFavorite = FavoritesBusinessController.isBusinessFavorited(widget.businessId);
     _loadRecommendedProducts();
   }
 
@@ -165,9 +166,12 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
                       );
                       return;
                     }
+
                     setState(() {
-                      isFavorite = !isFavorite;
+                      FavoritesBusinessController.toggleFavorite(widget.businessId);
+                      isFavorite = FavoritesBusinessController.isBusinessFavorited(widget.businessId);
                     });
+
                     Fluttertoast.showToast(
                       msg: isFavorite
                           ? "Restoran berhasil ditambahkan ke favorit!"

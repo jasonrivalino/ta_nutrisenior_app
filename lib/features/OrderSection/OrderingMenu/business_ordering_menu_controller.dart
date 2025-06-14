@@ -1,4 +1,5 @@
 import '../../../database/business_product_list_table.dart';
+import '../../../database/favorites_list_table.dart';
 import '../../../database/product_list_table.dart';
 import '../../../database/recommended_product_list_table.dart';
 
@@ -32,5 +33,21 @@ class BusinessOrderingMenuController {
       'allProducts': allProducts,
       'recommendedProducts': recommendedProducts,
     };
+  }
+}
+
+// Fetch for favorite businesses
+class FavoritesBusinessController {
+  static bool isBusinessFavorited(int businessId) {
+    return favoritesListTable.any((item) => item['business_id'] == businessId);
+  }
+
+  static void toggleFavorite(int businessId) {
+    final isFavorited = isBusinessFavorited(businessId);
+    if (isFavorited) {
+      favoritesListTable.removeWhere((item) => item['business_id'] == businessId);
+    } else {
+      favoritesListTable.add({'business_id': businessId});
+    }
   }
 }

@@ -81,6 +81,22 @@ class _DetailOrderingViewState extends State<DetailOrderingView> {
             height: 200,
             width: double.infinity,
             fit: BoxFit.cover,
+            errorBuilder: (context, error, stackTrace) {
+              String fallbackImage = 'assets/images/dummy/errorhandling/dummyfood.png';
+
+              if (widget.businessType == 'restaurant') {
+                fallbackImage = 'assets/images/dummy/errorhandling/dummyfood.png';
+              } else if (widget.businessType == 'market') {
+                fallbackImage = 'assets/images/dummy/errorhandling/dummyingredient.png';
+              }
+
+              return Image.asset(
+                fallbackImage,
+                height: 200,
+                width: double.infinity,
+                fit: BoxFit.cover,
+              );
+            },
           ),
           Expanded(
             child: SingleChildScrollView(
