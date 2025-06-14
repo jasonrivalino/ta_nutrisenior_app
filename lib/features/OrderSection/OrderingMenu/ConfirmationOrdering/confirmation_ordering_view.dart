@@ -74,76 +74,55 @@ class _OrderConfirmationViewState extends State<OrderConfirmationView> {
         showBackButton: true,
         customParam: _selectedProducts,
       ),
-      body: ListView(
-        children: [
-          RecipientLocationBox(
-            onAddressClick: () {},
-            onNotesClick: () {},
-          ),
-          const SizedBox(height: 8),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.only(bottom: 16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            RecipientLocationBox(
+              onAddressClick: () {},
+              onNotesClick: () {},
+            ),
+            const SizedBox(height: 8),
 
-          OrderDetailListBox(
-            selectedProducts: _selectedProducts,
-            serviceFee: widget.serviceFee,
-            deliveryFee: deliveryFee,
-            businessId: widget.businessId,
-            businessType: widget.businessType,
-            onCountChanged: (productId, newQty) {
-              setState(() {
-                _selectedProducts.removeWhere((p) {
-                  final matches = p['product_id'].toString() == productId;
-                  if (matches && newQty == 0) return true;
-                  if (matches) p['qty_product'] = newQty;
-                  return false;
+            OrderDetailListBox(
+              selectedProducts: _selectedProducts,
+              serviceFee: widget.serviceFee,
+              deliveryFee: deliveryFee,
+              businessId: widget.businessId,
+              businessType: widget.businessType,
+              onCountChanged: (productId, newQty) {
+                setState(() {
+                  _selectedProducts.removeWhere((p) {
+                    final matches = p['product_id'].toString() == productId;
+                    if (matches && newQty == 0) return true;
+                    if (matches) p['qty_product'] = newQty;
+                    return false;
+                  });
                 });
-              });
-            },
-            onNotesChanged: (productId, notes) {
-              setState(() {
-                final index = _selectedProducts.indexWhere((p) => p['product_id'].toString() == productId);
-                if (index != -1) {
-                  _selectedProducts[index]['notes'] = notes;
-                }
-              });
-            },
-          ),
-          const SizedBox(height: 8),
-
-          AddMoreOrderButtonBox(
-            onAddMorePressed: () {
-              context.pop(_selectedProducts);
-            },
-          ),
-          const SizedBox(height: 8),
-
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(4),
+              },
+              onNotesChanged: (productId, notes) {
+                setState(() {
+                  final index = _selectedProducts.indexWhere((p) => p['product_id'].toString() == productId);
+                  if (index != -1) {
+                    _selectedProducts[index]['notes'] = notes;
+                  }
+                });
+              },
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("Metode Pembayaran", style: TextStyle(fontWeight: FontWeight.bold)),
-                    Text("Lihat Semua", style: TextStyle(color: AppColors.berylGreen)),
-                  ],
-                ),
-                const SizedBox(height: 12),
-                const Row(
-                  children: [
-                    Icon(Icons.payments_outlined),
-                    SizedBox(width: 8),
-                    Text("Pembayaran Tunai"),
-                  ],
-                ),
-              ],
+            const SizedBox(height: 8),
+
+            AddMoreOrderButtonBox(
+              onAddMorePressed: () {
+                context.pop(_selectedProducts);
+              },
             ),
-          ),
-        ],
+            const SizedBox(height: 8),
+
+            const PaymentMethodBox(),
+            const SizedBox(height: 8),
+          ],
+        ),
       ),
       bottomNavigationBar: OrderBottomNavbar(
         totalPrice: _calculateUpdatedTotalPrice(),

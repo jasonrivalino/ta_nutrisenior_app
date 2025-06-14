@@ -353,6 +353,13 @@ class AddMoreOrderButtonBox extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: const BoxDecoration(
         color: AppColors.ecruWhite,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black12,
+            blurRadius: 6,
+            offset: Offset(0, 2),
+          ),
+        ],
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -381,6 +388,54 @@ class AddMoreOrderButtonBox extends StatelessWidget {
               shadowColor: Colors.transparent,
               tapTargetSize: MaterialTapTargetSize.shrinkWrap,
             ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class PaymentMethodBox extends StatelessWidget {
+  const PaymentMethodBox({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: AppColors.ecruWhite,
+        boxShadow: const [
+          BoxShadow(
+            color: Colors.black12,
+            blurRadius: 6,
+            offset: Offset(0, 2),
+          ),
+        ],
+        borderRadius: BorderRadius.circular(4),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: const [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Metode Pembayaran",
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              Text(
+                "Lihat Semua",
+                style: TextStyle(color: AppColors.dark, fontWeight: FontWeight.bold, fontFamily: AppFonts.fontBold),
+              ),
+            ],
+          ),
+          SizedBox(height: 12),
+          Row(
+            children: [
+              Icon(Icons.payments_outlined),
+              SizedBox(width: 8),
+              Text("Pembayaran Tunai"),
+            ],
           ),
         ],
       ),
