@@ -18,6 +18,8 @@ class CardList extends StatefulWidget {
   final int? discountNumber;
   final bool? isFreeShipment;
   final VoidCallback onTap;
+  final int? count;
+  final ValueChanged<int>? onCountChanged;
 
   const CardList({
     super.key,
@@ -33,6 +35,8 @@ class CardList extends StatefulWidget {
     this.discountNumber,
     this.isFreeShipment,
     required this.onTap,
+    this.count = 0,
+    this.onCountChanged,
   });
 
   @override
@@ -40,20 +44,14 @@ class CardList extends StatefulWidget {
 }
 
 class _CardListState extends State<CardList> {
-  int _count = 0;
-
   void _incrementCount() {
-    setState(() {
-      _count++;
-    });
+    widget.onCountChanged!(widget.count! + 1);
   }
 
   void _decrementCount() {
-    setState(() {
-      if (_count > 0) {
-        _count--;
-      }
-    });
+    if (widget.count! > 0) {
+      widget.onCountChanged!(widget.count! - 1);
+    }
   }
 
   @override
@@ -292,7 +290,7 @@ class _CardListState extends State<CardList> {
                             ),
                           ),
                           const SizedBox(width: 12),
-                          _count == 0
+                          widget.count == 0
                             ? Padding(
                                 padding: const EdgeInsets.only(right: 10), // adjust gap size as needed
                                 child: Container(
@@ -336,7 +334,7 @@ class _CardListState extends State<CardList> {
                                   ),
                                   const SizedBox(width: 8),
                                   Text(
-                                    '$_count',
+                                    '${widget.count}',
                                     style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 14,

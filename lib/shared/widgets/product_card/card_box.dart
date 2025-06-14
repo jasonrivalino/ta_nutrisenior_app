@@ -15,6 +15,8 @@ class CardBox extends StatefulWidget {
   final int? productPrice;
   final int? discountNumber;
   final VoidCallback onTap;
+  final int? count;
+  final ValueChanged<int>? onCountChanged;
 
   const CardBox({
     super.key,
@@ -27,7 +29,9 @@ class CardBox extends StatefulWidget {
     this.productName,
     this.productPrice,
     this.discountNumber,
-    required this.onTap, // <-- Initialize in constructor
+    required this.onTap,
+    this.count = 0,
+    this.onCountChanged,
   });
 
   @override
@@ -36,7 +40,6 @@ class CardBox extends StatefulWidget {
 
 class _CardBoxState extends State<CardBox> {
   bool _isPressed = false;
-  int _count = 0; // Step 1: start from 0
 
   void _setPressed(bool value) {
     setState(() {
@@ -46,17 +49,13 @@ class _CardBoxState extends State<CardBox> {
 
   // Step 2: Add these methods inside the class
   void _incrementCount() {
-    setState(() {
-      _count++;
-    });
+    widget.onCountChanged!(widget.count! + 1);
   }
 
   void _decrementCount() {
-    setState(() {
-      if (_count > 0) {
-        _count--;
-      }
-    });
+    if (widget.count! > 0) {
+      widget.onCountChanged!(widget.count! - 1);
+    }
   }
 
   @override
@@ -164,7 +163,7 @@ class _CardBoxState extends State<CardBox> {
                       Positioned(
                         bottom: 6,
                         right: 6,
-                        child: _count == 0
+                        child: widget.count == 0
                             ? Container(
                                 width: 28,
                                 height: 28,
@@ -207,7 +206,7 @@ class _CardBoxState extends State<CardBox> {
                                     ),
                                     const SizedBox(width: 10),
                                     Text(
-                                      '$_count',
+                                      '${widget.count}',
                                       style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 14,

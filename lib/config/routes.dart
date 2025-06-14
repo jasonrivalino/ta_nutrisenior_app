@@ -13,6 +13,7 @@ import '../features/OrderSection/BusinessListPage/business_list_view.dart';
 
 import '../features/OrderSection/OrderingMenu/business_ordering_menu_view.dart';
 import '../features/OrderSection/BusinessReviewMenu/review_business_view.dart';
+import '../features/OrderSection/OrderingMenu/DetailOrdering/detail_ordering_view.dart';
 
 import '../features/PromoSection/recommend_promo_controller.dart';
 import '../features/PromoSection/recommend_promo_view.dart';
@@ -50,6 +51,8 @@ class Routes {
   static const String businessDetail = '/business/detail/:id';
   // Rating and Review
   static const String businessReview = '/business/detail/:id/review';
+  // Detail Ordering
+  static const String detailOrdering = '/business/detail/:id/ordering/:productId';
 
   // Promo Section
   static const String recommendRestaurantPromo = '/restaurantpromo';
@@ -169,6 +172,11 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: Routes.businessReview,
       builder: (context, state) => ReviewBusinessView.fromExtra(context, state),
+    ),
+    // Detail Ordering
+    GoRoute(
+      path: Routes.detailOrdering,
+      builder: (context, state) => DetailOrderingView.fromExtra(context, state),
     ),
 
     // Promo Section

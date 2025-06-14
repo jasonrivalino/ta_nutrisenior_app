@@ -4,6 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../shared/styles/colors.dart';
+import '../../../shared/utils/format_currency.dart';
 import 'business_ordering_menu_controller.dart';
 import 'business_ordering_menu_widget.dart';
 
@@ -20,6 +21,9 @@ class BusinessOrderingMenuView extends StatefulWidget {
   final String businessEstimatedDelivery;
   final int? discountNumber;
   final bool isFreeShipment;
+  final int? productId;
+  final int? qtyProduct;
+  final String? notes;
 
   const BusinessOrderingMenuView({
     super.key,
@@ -35,12 +39,13 @@ class BusinessOrderingMenuView extends StatefulWidget {
     required this.businessEstimatedDelivery,
     this.discountNumber,
     required this.isFreeShipment,
+    this.productId,
+    this.qtyProduct,
+    this.notes,
   });
 
   static BusinessOrderingMenuView fromExtra(BuildContext context, GoRouterState state) {
     final extra = state.extra as Map<String, dynamic>;
-
-    print('BusinessOrderingMenuView.fromExtra: $extra');
 
     return BusinessOrderingMenuView(
       businessId: extra['business_id'],
@@ -55,6 +60,9 @@ class BusinessOrderingMenuView extends StatefulWidget {
       businessEstimatedDelivery: extra['estimated_delivery'],
       discountNumber: extra['discount_number'],
       isFreeShipment: extra['is_free_shipment'],
+      productId: extra['product_id'],
+      qtyProduct: extra['qty_product'],
+      notes: extra['notes'],
     );
   }
 
@@ -64,9 +72,18 @@ class BusinessOrderingMenuView extends StatefulWidget {
 
 class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
   bool isFavorite = false;
+  bool isLoading = true;
   List<Map<String, dynamic>> recommendedProducts = [];
   List<Map<String, dynamic>> allProducts = [];
-  bool isLoading = true;
+
+  Map<String, int> selectedProductCounts = {};
+  Map<String, String> selectedProductNotes = {};
+
+  @override
+  void initState() {
+    super.initState();
+    _loadRecommendedProducts();
+  }
 
   Future<void> _loadRecommendedProducts() async {
     final productMap = await BusinessOrderingMenuController.fetchProducts(widget.businessId);
@@ -77,11 +94,29 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
     });
   }
 
-  @override
-  void initState() {
-    super.initState();
-    _loadRecommendedProducts();
+  int get totalSelectedPrice {
+    final uniqueProducts = <String, Map<String, dynamic>>{};
+
+    // Merge both product lists, using product_id as the key to avoid duplicates
+    for (final product in recommendedProducts + allProducts) {
+      final id = product['product_id'].toString();
+      uniqueProducts[id] = product; // overwrites duplicates, which is fine
+    }
+
+    num total = 0;
+    for (final entry in uniqueProducts.entries) {
+      final id = entry.key;
+      final product = entry.value;
+      final count = selectedProductCounts[id] ?? 0;
+      final price = product['product_price'] ?? 0;
+      total += count * price;
+    }
+
+    return total.toInt(); // final cast
   }
+
+  bool get hasSelectedProducts =>
+      selectedProductCounts.values.any((count) => count > 0);
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +126,7 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
         child: Stack(
           clipBehavior: Clip.none,
           children: [
-            // Background with DecoratedBox (limited height)
+            // Background image
             SizedBox(
               height: 150,
               width: double.infinity,
@@ -101,11 +136,9 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
                   widget.businessImage,
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) {
-                    String fallbackImage = 'assets/images/dummy/errorhandling/dummyrestaurant.png';
-
-                    if (widget.businessType == 'market') {
-                      fallbackImage = 'assets/images/dummy/errorhandling/dummymarket.png';
-                    }
+                    final fallbackImage = widget.businessType == 'market'
+                        ? 'assets/images/dummy/errorhandling/dummymarket.png'
+                        : 'assets/images/dummy/errorhandling/dummyrestaurant.png';
 
                     return Image.asset(
                       fallbackImage,
@@ -119,8 +152,7 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
             // Foreground content
             Column(
               children: [
-                const SizedBox(height: 20), // Push content below the image
-
+                const SizedBox(height: 20),
                 BusinessHeaderBar(
                   isFavorite: isFavorite,
                   onFavoritesClick: () async {
@@ -145,8 +177,7 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
                     );
                   },
                   onRatingClick: () {
-                    final route = '/business/detail/${widget.businessId}/review';
-                    context.push(route, extra: {
+                    context.push('/business/detail/${widget.businessId}/review', extra: {
                       'business_id': widget.businessId,
                       'business_name': widget.businessName,
                       'business_type': widget.businessType,
@@ -157,7 +188,6 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
                   },
                 ),
                 const SizedBox(height: 12),
-
                 BusinessInfoCard(
                   businessImage: widget.businessImage,
                   businessName: widget.businessName,
@@ -186,16 +216,42 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
                                     ? 'Rekomendasi Menu'
                                     : 'Rekomendasi Belanjaan',
                                 heightCard: 200,
+                                businessId: widget.businessId,
                                 businessType: widget.businessType,
                                 products: recommendedProducts,
+                                selectedCounts: selectedProductCounts,
+                                selectedNotes: selectedProductNotes,
+                                onCountChanged: (productId, newCount) {
+                                  setState(() {
+                                    selectedProductCounts[productId] = newCount;
+                                  });
+                                },
+                                onNotesChanged: (productId, notes) {
+                                  setState(() {
+                                    selectedProductNotes[productId] = notes;
+                                  });
+                                },
                               ),
                               const SizedBox(height: 14),
                               ProductListWidget(
                                 title: widget.businessType == 'restaurant'
                                     ? 'Daftar Menu'
                                     : 'Daftar Belanjaan',
+                                businessId: widget.businessId,
                                 businessType: widget.businessType,
                                 products: allProducts,
+                                selectedCounts: selectedProductCounts,
+                                selectedNotes: selectedProductNotes,
+                                onCountChanged: (productId, newCount) {
+                                  setState(() {
+                                    selectedProductCounts[productId] = newCount;
+                                  });
+                                },
+                                onNotesChanged: (productId, notes) {
+                                  setState(() {
+                                    selectedProductNotes[productId] = notes;
+                                  });
+                                },
                               ),
                               const SizedBox(height: 12),
                             ],
@@ -207,6 +263,75 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
           ],
         ),
       ),
+      bottomNavigationBar: hasSelectedProducts
+          ? Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              color: AppColors.dark,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Total: ${formatCurrency(totalSelectedPrice)}',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      final selectedEntries = selectedProductCounts.entries
+                          .where((entry) => entry.value > 0)
+                          .toList();
+
+                      if (selectedEntries.isEmpty) {
+                        Fluttertoast.showToast(
+                          msg: "Tidak ada produk yang dipilih.",
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.BOTTOM,
+                        );
+                        return;
+                      }
+
+                      final uniqueProducts = {
+                        for (final product in recommendedProducts + allProducts)
+                          product['product_id'].toString(): product,
+                      };
+
+                      for (final entry in selectedEntries) {
+                        final productId = entry.key;
+                        final qty = entry.value;
+                        final notes = selectedProductNotes[productId] ?? '';
+                        final product = uniqueProducts[productId];
+
+                        if (product != null) {
+                          final name = product['product_name'];
+                          final price = product['product_price'];
+                          debugPrint('Produk: $name');
+                          debugPrint('Jumlah: $qty');
+                          debugPrint('Catatan: ${notes.isEmpty ? '-' : notes}');
+                          debugPrint('Harga per item: ${formatCurrency(price)}');
+                          debugPrint('Subtotal: ${formatCurrency(price * qty)}');
+                          debugPrint('----------------------');
+                        }
+                      }
+                      debugPrint('Total Harga: ${formatCurrency(totalSelectedPrice)}');
+                    },
+
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.orangyYellow,
+                      padding:
+                          const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    ),
+                    child: const Text(
+                      'Pesan Sekarang',
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  ),
+                ],
+              ),
+            )
+          : null,
     );
   }
 }

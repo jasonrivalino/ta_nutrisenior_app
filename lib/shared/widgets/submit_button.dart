@@ -27,7 +27,7 @@ class SubmitButton extends StatelessWidget {
         'Submit',
         style: TextStyle(
           fontFamily: AppFonts.fontBold,
-          fontWeight: FontWeight.w700,
+          fontWeight: FontWeight.bold,
           fontSize: 18,
         ),
       ),

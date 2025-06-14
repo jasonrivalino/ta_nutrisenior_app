@@ -319,15 +319,25 @@ class BusinessInfoCard extends StatelessWidget {
 class RecommendedProductSection extends StatelessWidget {
   final String title;
   final double heightCard;
+  final int businessId;
   final String businessType;
   final List<Map<String, dynamic>> products;
+  final Map<String, int> selectedCounts;
+  final Map<String, String> selectedNotes;
+  final Function(String productId, int newCount) onCountChanged;
+  final Function(String productId, String notes)? onNotesChanged;
 
   const RecommendedProductSection({
     super.key,
     required this.title,
     required this.heightCard,
+    required this.businessId,
     required this.businessType,
     required this.products,
+    required this.selectedCounts,
+    required this.selectedNotes,
+    required this.onCountChanged,
+    this.onNotesChanged,
   });
 
   @override
@@ -364,6 +374,10 @@ class RecommendedProductSection extends StatelessWidget {
               separatorBuilder: (_, __) => const SizedBox(width: 16),
               itemBuilder: (context, index) {
                 final product = products[index];
+                final productId = product['product_id'].toString();
+                final currentCount = selectedCounts[productId] ?? 0;
+                final currentNotes = selectedNotes[productId] ?? '';
+
                 return SizedBox(
                   width: MediaQuery.of(context).size.width * 0.425,
                   child: CardBox(
@@ -371,9 +385,38 @@ class RecommendedProductSection extends StatelessWidget {
                     productImage: product['product_image'],
                     productName: product['product_name'],
                     productPrice: product['product_price'],
-                    onTap: () {
-                      print("Tapped product: ${product['product_name']}");
+                    count: currentCount,
+                    onTap: () async {
+                      final route = '/business/detail/$businessId/ordering/$productId';
+
+                      print('Navigating to: $route');
+
+                      final result = await context.push<Map<String, dynamic>>(route, extra: {
+                        'business_id': businessId,
+                        'business_type': businessType,
+                        'product_id': product['product_id'],
+                        'product_image': product['product_image'],
+                        'product_name': product['product_name'],
+                        'product_price': product['product_price'],
+                        'product_description': product['product_description'],
+                        'qty_product': currentCount,
+                        'notes': currentNotes,
+                      });
+
+                      if (result != null) {
+                        final returnedProductId = result['product_id'].toString();
+                        final newQty = result['qty_product'] ?? 0;
+                        final notes = result['notes'] ?? '';
+
+                        print('Returned from detail: productId: $returnedProductId, qty: $newQty, notes: $notes');
+
+                        onCountChanged(returnedProductId, newQty);
+                        if (onNotesChanged != null) {
+                          onNotesChanged!(returnedProductId, notes);
+                        }
+                      }
                     },
+                    onCountChanged: (newCount) => onCountChanged(productId, newCount),
                   ),
                 );
               },
@@ -386,14 +429,24 @@ class RecommendedProductSection extends StatelessWidget {
 
 class ProductListWidget extends StatelessWidget {
   final String? title;
+  final int businessId;
   final String businessType;
   final List<Map<String, dynamic>> products;
+  final Map<String, int> selectedCounts;
+  final Map<String, String> selectedNotes;
+  final Function(String productId, int newCount) onCountChanged;
+  final Function(String productId, String notes)? onNotesChanged;
 
   const ProductListWidget({
     super.key,
     required this.title,
+    required this.businessId,
     required this.businessType,
     required this.products,
+    required this.selectedCounts,
+    required this.selectedNotes,
+    required this.onCountChanged,
+    this.onNotesChanged,
   });
 
   @override
@@ -429,14 +482,47 @@ class ProductListWidget extends StatelessWidget {
               itemCount: products.length,
               itemBuilder: (context, index) {
                 final product = products[index];
+                final productId = product['product_id'].toString();
+                final currentCount = selectedCounts[productId] ?? 0;
+                final currentNotes = selectedNotes[productId] ?? '';
+
                 return CardList(
                   businessType: businessType,
                   productImage: product['product_image'],
                   productName: product['product_name'],
                   productPrice: product['product_price'],
-                  onTap: () {
-                    print("Tapped product: ${product['product_name']}");
+                  count: currentCount,
+                  onTap: () async {
+                    final route = '/business/detail/$businessId/ordering/$productId';
+
+                    print('Navigating to: $route');
+
+                    final result = await context.push<Map<String, dynamic>>(route, extra: {
+                      'business_id': businessId,
+                      'business_type': businessType,
+                      'product_id': product['product_id'],
+                      'product_image': product['product_image'],
+                      'product_name': product['product_name'],
+                      'product_price': product['product_price'],
+                      'product_description': product['product_description'],
+                      'qty_product': currentCount,
+                      'notes': currentNotes,
+                    });
+
+                    if (result != null) {
+                      final returnedProductId = result['product_id'].toString();
+                      final newQty = result['qty_product'] ?? 0;
+                      final notes = result['notes'] ?? '';
+
+                      print('Returned from detail: productId: $returnedProductId, qty: $newQty, notes: $notes');
+
+                      onCountChanged(returnedProductId, newQty);
+                      if (onNotesChanged != null) {
+                        onNotesChanged!(returnedProductId, notes);
+                      }
+                    }
                   },
+                  onCountChanged: (newCount) => onCountChanged(productId, newCount),
                 );
               },
             ),
