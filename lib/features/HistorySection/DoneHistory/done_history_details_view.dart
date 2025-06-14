@@ -59,7 +59,8 @@ class DoneHistoryDetailsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ratings = HistoryRatingController.fetchRatingsByHistoryId(historyId);
+    // Gunakan yang sudah terurut dari controller
+    final ratings = HistoryRatingController.fetchOrderedRatings(historyId);
 
     final hasDriverRating = ratings.any((r) => r['rating_type'] == 'driver');
     final hasBusinessRating = ratings.any((r) => r['rating_type'] == businessType.toLowerCase());
@@ -97,6 +98,7 @@ class DoneHistoryDetailsView extends StatelessWidget {
             const SizedBox(height: 16),
             RatingBox(
               historyId: historyId,
+              businessName: businessName,
               ratings: ratings,
             ),
           ],

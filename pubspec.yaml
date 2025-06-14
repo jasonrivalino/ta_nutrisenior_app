@@ -155,6 +155,9 @@ flutter:
     # Asset comment images
     - assets/images/dummy/comment/comment1.png
     - assets/images/dummy/comment/comment2.png
+    - assets/images/dummy/comment/comment3.png
+    - assets/images/dummy/comment/comment4.png
+    - assets/images/dummy/comment/comment5.png
 
     # Asset message images
     - assets/images/dummy/chat/delivery_arrived.png

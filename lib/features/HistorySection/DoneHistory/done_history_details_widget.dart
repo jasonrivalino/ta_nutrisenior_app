@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
@@ -6,6 +8,7 @@ import 'package:ta_nutrisenior_app/shared/styles/fonts.dart';
 
 import '../../../shared/utils/format_currency.dart';
 import '../../../shared/utils/formatted_time.dart';
+import '../../../shared/utils/fullscreen_image_view.dart';
 
 // Class to display order time and driver name in a card format
 class DoneOrderTimeDriverCard extends StatelessWidget {
@@ -486,27 +489,35 @@ class GiveRatingBottomNavbar extends StatelessWidget {
 
 class RatingBox extends StatelessWidget {
   final int historyId;
+  final String businessName;
   final List<Map<String, dynamic>> ratings;
 
   const RatingBox({
     super.key,
     required this.historyId,
+    required this.businessName,
     required this.ratings,
   });
 
   @override
   Widget build(BuildContext context) {
-    if (ratings.isEmpty) {
-      return const SizedBox.shrink();
-    }
+    if (ratings.isEmpty) return const SizedBox.shrink();
+
+    print("ratings: $ratings");
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: ratings.map((rating) {
-        final type = rating['rating_type'];
-        final number = rating['rating_number'];
-        final comment = rating['rating_comment'];
-        final date = rating['rating_date'] as DateTime;
+        final ratingType = rating['rating_type'];
+        final ratingNumber = rating['rating_number'];
+        final ratingComment = rating['rating_comment'];
+        final ratingDate = rating['rating_date'] as DateTime;
+        final imagePaths = rating['rating_images'] as List<String>?;
+        print("imagePaths: $imagePaths");
+
+        final ratingTitle = ratingType == 'driver'
+            ? 'Rating untuk Pengemudi'
+            : 'Rating untuk ${ratingType == 'restaurant' ? 'Restoran' : 'Pusat Belanja'}';
 
         return Container(
           margin: const EdgeInsets.only(bottom: 16),
@@ -520,9 +531,7 @@ class RatingBox extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                type == 'driver'
-                    ? 'Rating untuk Pengemudi'
-                    : 'Rating untuk ${type == 'restaurant' ? 'Restoran' : 'Pusat Belanja'}',
+                ratingTitle,
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
@@ -530,13 +539,13 @@ class RatingBox extends StatelessWidget {
                   color: AppColors.dark,
                 ),
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               Row(
                 children: List.generate(5, (index) {
                   return Container(
                     margin: const EdgeInsets.only(right: 4),
                     child: FaIcon(
-                      index < number
+                      index < ratingNumber
                           ? FontAwesomeIcons.solidStar
                           : FontAwesomeIcons.star,
                       color: AppColors.dark,
@@ -545,9 +554,9 @@ class RatingBox extends StatelessWidget {
                   );
                 }),
               ),
-              SizedBox(height: 6),
+              const SizedBox(height: 6),
               Text(
-                comment,
+                ratingComment,
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
@@ -555,9 +564,71 @@ class RatingBox extends StatelessWidget {
                   color: AppColors.dark,
                 ),
               ),
-              SizedBox(height: 4),
+              if (imagePaths != null && imagePaths.isNotEmpty) ...[
+                const SizedBox(height: 6),
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: imagePaths.map((path) {
+                    final isFileImage = !path.startsWith('assets/');
+                    return GestureDetector(
+                      onTap: () {
+                        String senderLabel;
+                        if (ratingType == 'driver') {
+                          senderLabel = 'Pengemudi';
+                        } else if (ratingType == 'restaurant') {
+                          senderLabel = 'Restoran';
+                        } else {
+                          senderLabel = 'Pusat Belanja';
+                        }
+
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => FullScreenImageView(
+                              imagePath: path,
+                              senderName: 'Rating $senderLabel - $businessName',
+                              sendTime:
+                                  '${formatDate(ratingDate)} ${ratingDate.hour.toString().padLeft(2, '0')}:${ratingDate.minute.toString().padLeft(2, '0')}',
+                            ),
+                          ),
+                        );
+                      },
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: isFileImage
+                            ? Image.file(
+                                File(path),
+                                width: 60,
+                                height: 60,
+                                fit: BoxFit.cover,
+                                errorBuilder: (_, __, ___) => Container(
+                                  width: 60,
+                                  height: 60,
+                                  color: AppColors.lightGray,
+                                  child: const Icon(Icons.broken_image),
+                                ),
+                              )
+                            : Image.asset(
+                                path,
+                                width: 60,
+                                height: 60,
+                                fit: BoxFit.cover,
+                                errorBuilder: (_, __, ___) => Container(
+                                  width: 60,
+                                  height: 60,
+                                  color: AppColors.lightGray,
+                                  child: const Icon(Icons.broken_image),
+                                ),
+                              ),
+                      ),
+                    );
+                  }).toList(),
+                ),
+              ],
+              const SizedBox(height: 10),
               Text(
-                '${formatDate(date)} ${date.hour.toString().padLeft(2, '0')}:${date.minute.toString().padLeft(2, '0')}',
+                '${formatDate(ratingDate)} ${ratingDate.hour.toString().padLeft(2, '0')}:${ratingDate.minute.toString().padLeft(2, '0')}',
                 style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.bold,

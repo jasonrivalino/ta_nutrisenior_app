@@ -204,6 +204,7 @@ class _RatingViewState extends State<RatingView> {
                       historyId: widget.historyId,
                       ratingNumber: selectedRating,
                       ratingComment: _commentController.text.trim(),
+                      ratingImages: _selectedImages,
                     );
                   } else {
                     final businessController = BusinessRatingController();

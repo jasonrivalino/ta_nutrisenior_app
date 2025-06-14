@@ -1,4 +1,4 @@
-final List<Map<String, dynamic>> historyRatingList = [
+final List<Map<String, dynamic>> historyRatingListTable = [
   // history_id: 2 — driver
   {
     'history_id': 2,
@@ -6,15 +6,6 @@ final List<Map<String, dynamic>> historyRatingList = [
     'rating_date': DateTime(2025, 3, 23, 6, 59),
     'rating_number': 4,
     'rating_comment': 'Cepat sampai dan ramah.'
-  },
-
-  // history_id: 4 — market
-  {
-    'history_id': 4,
-    'rating_type': 'market',
-    'rating_date': DateTime(2025, 3, 25, 15, 1),
-    'rating_number': 4,
-    'rating_comment': 'Produk segar dan sesuai pesanan.'
   },
 
   // history_id: 5 — driver and restaurant
@@ -40,5 +31,14 @@ final List<Map<String, dynamic>> historyRatingList = [
     'rating_date': DateTime(2025, 3, 27, 15, 0),
     'rating_number': 4,
     'rating_comment': 'Makanannya enak dan penyajiannya cepat.'
+  },
+
+  // history_id: 4 — market
+  {
+    'history_id': 4,
+    'rating_type': 'market',
+    'rating_date': DateTime(2025, 6, 11, 10, 30),
+    'rating_number': 4,
+    'rating_comment': 'Produk segar dan sesuai pesanan.'
   },
 ];

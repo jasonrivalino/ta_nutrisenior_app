@@ -103,7 +103,7 @@ class _CardListState extends State<CardList> {
                           widget.businessImage ?? widget.productImage!,
                           fit: BoxFit.cover,
                           errorBuilder: (context, error, stackTrace) {
-                            String fallbackImage = 'assets/images/dummy/restaurant/umamihana.png';
+                            String fallbackImage = 'assets/images/dummy/errorhandling/dummyrestaurant.png';
 
                             if (widget.businessType == 'restaurant' && widget.businessImage != null) {
                               fallbackImage = 'assets/images/dummy/errorhandling/dummyrestaurant.png';

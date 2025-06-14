@@ -179,4 +179,22 @@ final List<Map<String, dynamic>> otherUserRatingListTable = [
     'rating_number': 5,
     'rating_comment': 'Buah-buahan organik di sini segar semua dan harganya terjangkau!'
   },
+  {
+    'rating_id': 21,
+    'business_id': 8,
+    'username': 'susanlee',
+    'userimage': 'assets/images/dummy/userreview/susanlee.png',
+    'rating_date': DateTime(2025, 6, 11, 13, 20),
+    'rating_number': 5,
+    'rating_comment': 'Belanja di sini selalu menyenangkan, pilihan sayur organiknya lengkap!'
+  },
+  {
+    'rating_id': 22,
+    'business_id': 2,
+    'username': 'Embul Bing',
+    'userimage': 'assets/images/dummy/chat/driver.png',
+    'rating_date': DateTime(2025, 6, 11, 10, 30),
+    'rating_number': 5,
+    'rating_comment': 'Produk segar dan sesuai pesanan.'
+  }
 ];

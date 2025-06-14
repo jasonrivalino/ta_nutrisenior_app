@@ -93,7 +93,7 @@ class CancelledOrderController {
     historyListTable.removeWhere((item) => item['history_id'] == historyId);
 
     // Remove from historyRatingList
-    historyRatingList.removeWhere((rating) => rating['history_id'] == historyId);
+    historyRatingListTable.removeWhere((rating) => rating['history_id'] == historyId);
 
     debugPrint('[DEBUG] Order with history_id=$historyId cancelled and removed from all related tables.');
   }
