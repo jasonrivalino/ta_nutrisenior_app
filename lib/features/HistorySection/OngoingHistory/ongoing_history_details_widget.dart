@@ -296,33 +296,32 @@ class OrderListDetails extends StatelessWidget {
                       ],
                     ),
                   ),
-                  if (formatCurrency(deliveryFee!) != 'Rp0')
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 12),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Harga pengiriman",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                              fontFamily: AppFonts.fontBold,
-                              color: AppColors.dark,
-                            ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 12),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Harga pengiriman",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                            fontFamily: AppFonts.fontBold,
+                            color: AppColors.dark,
                           ),
-                          Text(
-                            formatCurrency(deliveryFee!),
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                              fontFamily: AppFonts.fontBold,
-                              color: AppColors.dark,
-                            ),
+                        ),
+                        Text(
+                          deliveryFee == 0 ? 'Gratis' : formatCurrency(deliveryFee!),
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                            fontFamily: AppFonts.fontBold,
+                            color: AppColors.dark,
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
+                  ),
                 ],
               ),
             ),

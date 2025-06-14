@@ -302,31 +302,30 @@ class DoneOrderDetailsCard extends StatelessWidget {
             ],
           ),
 
-          // Only show this Row if deliveryFee is not zero
-          if (formatCurrency(deliveryFee) != 'Rp0')
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Harga pengiriman",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                    fontFamily: AppFonts.fontBold,
-                    color: AppColors.dark,
-                  ),
+          // Delivery Fee
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Harga pengiriman",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                  fontFamily: AppFonts.fontBold,
+                  color: AppColors.dark,
                 ),
-                Text(
-                  formatCurrency(deliveryFee),
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                    fontFamily: AppFonts.fontBold,
-                    color: AppColors.dark,
-                  ),
+              ),
+              Text(
+                deliveryFee == 0 ? "Gratis" : formatCurrency(deliveryFee),
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                  fontFamily: AppFonts.fontBold,
+                  color: AppColors.dark,
                 ),
-              ],
-            ),
+              ),
+            ],
+          ),
 
           const Divider(),
           Row(

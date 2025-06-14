@@ -9,6 +9,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool showBackButton;
   final int? initialIndex;
   final int? selectedIndex;
+  final List<Map<String, dynamic>>? customParam;
 
   const CustomAppBar({
     super.key,
@@ -16,6 +17,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.showBackButton = true,
     this.initialIndex,
     this.selectedIndex,
+    this.customParam,
   });
 
   @override
@@ -45,8 +47,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   context.go('/restaurantpromo');
                 } else if (initialIndex == 1 && selectedIndex == 1) {
                   context.go('/marketpromo');
+                } else if (customParam != null && customParam!.isNotEmpty) {
+                  context.pop(customParam);
                 } else {
-                  context.pop(); // fallback to default back
+                  context.pop();
                 }
               },
             )

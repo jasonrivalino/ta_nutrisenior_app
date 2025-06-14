@@ -274,7 +274,7 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
         ? OrderBottomNavbar(
             totalPrice: totalSelectedPrice,
             buttonText: 'Konfirmasi Pesanan',
-            onOrderPressed: () {
+            onOrderPressed: () async {
               final selectedEntries = selectedProductCounts.entries
                   .where((entry) => entry.value > 0)
                   .toList();
@@ -302,27 +302,43 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
                 final product = uniqueProducts[productId];
 
                 if (product != null) {
-                  final name = product['product_name'];
-                  final price = product['product_price'];
-
                   selectedProducts.add({
                     'product_id': productId,
-                    'product_name': name,
-                    'product_price': price,
+                    'product_name': product['product_name'],
+                    'product_image': product['product_image'],
+                    'product_description': product['product_description'],
+                    'product_price': product['product_price'],
                     'qty_product': qty,
                     'notes': notes,
                   });
                 }
               }
 
-              context.push(
+              final updatedSelectedProducts = await context.push<List<Map<String, dynamic>>>(
                 '/business/detail/${widget.businessId}/confirm',
                 extra: {
                   'selected_products': selectedProducts,
                   'service_fee': widget.serviceFee,
+                  'business_id': widget.businessId,
+                  'business_type': widget.businessType,
+                  'business_distance': widget.businessDistance,
+                  'is_free_shipment': widget.isFreeShipment,
                   'total_price': totalSelectedPrice,
                 },
               );
+
+              if (updatedSelectedProducts != null) {
+                setState(() {
+                  selectedProductCounts.clear();
+                  selectedProductNotes.clear();
+
+                  for (final product in updatedSelectedProducts) {
+                    final id = product['product_id'].toString();
+                    selectedProductCounts[id] = product['qty_product'] ?? 0;
+                    selectedProductNotes[id] = product['notes'] ?? '';
+                  }
+                });
+              }
             },
           )
         : null,
