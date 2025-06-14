@@ -55,7 +55,8 @@ class _DetailOrderingViewState extends State<DetailOrderingView> {
   @override
   void initState() {
     super.initState();
-    quantity = widget.qtyProduct;
+    // If the qtyProduct is 0, start from 1
+    quantity = widget.qtyProduct == 0 ? 1 : widget.qtyProduct;
     _noteController = TextEditingController(text: widget.notes ?? '');
   }
 

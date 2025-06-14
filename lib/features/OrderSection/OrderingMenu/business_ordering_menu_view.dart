@@ -264,74 +264,49 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
         ),
       ),
       bottomNavigationBar: hasSelectedProducts
-          ? Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              color: AppColors.dark,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Total: ${formatCurrency(totalSelectedPrice)}',
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      final selectedEntries = selectedProductCounts.entries
-                          .where((entry) => entry.value > 0)
-                          .toList();
+        ? OrderBottomNavbar(
+            totalPrice: totalSelectedPrice,
+            onOrderPressed: () {
+              final selectedEntries = selectedProductCounts.entries
+                  .where((entry) => entry.value > 0)
+                  .toList();
 
-                      if (selectedEntries.isEmpty) {
-                        Fluttertoast.showToast(
-                          msg: "Tidak ada produk yang dipilih.",
-                          toastLength: Toast.LENGTH_SHORT,
-                          gravity: ToastGravity.BOTTOM,
-                        );
-                        return;
-                      }
+              if (selectedEntries.isEmpty) {
+                Fluttertoast.showToast(
+                  msg: "Tidak ada produk yang dipilih.",
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.BOTTOM,
+                );
+                return;
+              }
 
-                      final uniqueProducts = {
-                        for (final product in recommendedProducts + allProducts)
-                          product['product_id'].toString(): product,
-                      };
+              final uniqueProducts = {
+                for (final product in recommendedProducts + allProducts)
+                  product['product_id'].toString(): product,
+              };
 
-                      for (final entry in selectedEntries) {
-                        final productId = entry.key;
-                        final qty = entry.value;
-                        final notes = selectedProductNotes[productId] ?? '';
-                        final product = uniqueProducts[productId];
+              for (final entry in selectedEntries) {
+                final productId = entry.key;
+                final qty = entry.value;
+                final notes = selectedProductNotes[productId] ?? '';
+                final product = uniqueProducts[productId];
 
-                        if (product != null) {
-                          final name = product['product_name'];
-                          final price = product['product_price'];
-                          debugPrint('Produk: $name');
-                          debugPrint('Jumlah: $qty');
-                          debugPrint('Catatan: ${notes.isEmpty ? '-' : notes}');
-                          debugPrint('Harga per item: ${formatCurrency(price)}');
-                          debugPrint('Subtotal: ${formatCurrency(price * qty)}');
-                          debugPrint('----------------------');
-                        }
-                      }
-                      debugPrint('Total Harga: ${formatCurrency(totalSelectedPrice)}');
-                    },
+                if (product != null) {
+                  final name = product['product_name'];
+                  final price = product['product_price'];
+                  debugPrint('Produk: $name');
+                  debugPrint('Jumlah: $qty');
+                  debugPrint('Catatan: ${notes.isEmpty ? '-' : notes}');
+                  debugPrint('Harga per item: ${formatCurrency(price)}');
+                  debugPrint('Subtotal: ${formatCurrency(price * qty)}');
+                  debugPrint('----------------------');
+                }
+              }
 
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.orangyYellow,
-                      padding:
-                          const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                    ),
-                    child: const Text(
-                      'Pesan Sekarang',
-                      style: TextStyle(color: Colors.black),
-                    ),
-                  ),
-                ],
-              ),
-            )
-          : null,
+              debugPrint('Total Harga: ${formatCurrency(totalSelectedPrice)}');
+            },
+          )
+        : null,
     );
   }
 }
