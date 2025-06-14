@@ -1,42 +1,53 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ta_nutrisenior_app/shared/styles/colors.dart';
 import 'package:ta_nutrisenior_app/shared/styles/fonts.dart';
 
 import '../../utils/format_currency.dart';
 
 class CardList extends StatefulWidget {
+  final int? businessId;
   final String? businessImage;
   final String? businessName;
   final String businessType;
   final double? businessRate;
   final double? businessLocation;
+  final int? productId;
   final bool? isOpen;
   final String? productImage;
   final String? productName;
   final int? productPrice;
+  final String? productDescription;
   final int? discountNumber;
   final bool? isFreeShipment;
-  final VoidCallback onTap;
   final int? count;
+  final String? notes;
   final ValueChanged<int>? onCountChanged;
+  final ValueChanged<String>? onNotesChanged;
+  final VoidCallback onTap;
 
   const CardList({
     super.key,
+    this.businessId,
     this.businessImage,
     this.businessName,
     required this.businessType,
     this.businessRate,
     this.businessLocation,
+    this.productId,
     this.isOpen = true,
     this.productImage,
     this.productName,
     this.productPrice,
+    this.productDescription,
     this.discountNumber,
     this.isFreeShipment,
     required this.onTap,
     this.count = 0,
+    this.notes = '',
     this.onCountChanged,
+    this.onNotesChanged,
   });
 
   @override
@@ -44,8 +55,41 @@ class CardList extends StatefulWidget {
 }
 
 class _CardListState extends State<CardList> {
-  void _incrementCount() {
-    widget.onCountChanged!(widget.count! + 1);
+  // Step 2: Add these methods inside the class
+  void _incrementCount() async {
+    // If count is 0, open detail page instead
+    if (widget.count == 0) {
+      final result = await context.push<Map<String, dynamic>>(
+        '/business/detail/${widget.businessId}/ordering/${widget.productId}',
+        extra: {
+          'business_id': widget.businessId,
+          'business_type': widget.businessType,
+          'product_id': widget.productId,
+          'product_image': widget.productImage,
+          'product_name': widget.productName,
+          'product_price': widget.productPrice,
+          'product_description': widget.productDescription,
+          'qty_product': widget.count,
+          'notes': widget.notes,
+        },
+      );
+
+      if (result != null) {
+        final newQty = result['qty_product'] ?? 0;
+        final notes = result['notes'] ?? '';
+        if (widget.onCountChanged != null) {
+          widget.onCountChanged!(newQty);
+        }
+        if (widget.onNotesChanged != null) {
+          widget.onNotesChanged!(notes);
+        }
+      }
+    } else {
+      // If count is already > 0, just increment
+      if (widget.onCountChanged != null) {
+        widget.onCountChanged!(widget.count! + 1);
+      }
+    }
   }
 
   void _decrementCount() {

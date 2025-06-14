@@ -381,11 +381,21 @@ class RecommendedProductSection extends StatelessWidget {
                 return SizedBox(
                   width: MediaQuery.of(context).size.width * 0.425,
                   child: CardBox(
+                    businessId: businessId,
                     businessType: businessType,
+                    productId: product['product_id'],
                     productImage: product['product_image'],
                     productName: product['product_name'],
                     productPrice: product['product_price'],
+                    productDescription: product['product_description'],
                     count: currentCount,
+                    notes: currentNotes,
+                    onCountChanged: (newCount) => onCountChanged(productId, newCount),
+                    onNotesChanged: (notes) {
+                      if (onNotesChanged != null) {
+                        onNotesChanged!(productId, notes);
+                      }
+                    },
                     onTap: () async {
                       final route = '/business/detail/$businessId/ordering/$productId';
 
@@ -416,7 +426,6 @@ class RecommendedProductSection extends StatelessWidget {
                         }
                       }
                     },
-                    onCountChanged: (newCount) => onCountChanged(productId, newCount),
                   ),
                 );
               },
@@ -487,11 +496,21 @@ class ProductListWidget extends StatelessWidget {
                 final currentNotes = selectedNotes[productId] ?? '';
 
                 return CardList(
+                  businessId: businessId,
                   businessType: businessType,
+                  productId: product['product_id'],
                   productImage: product['product_image'],
                   productName: product['product_name'],
                   productPrice: product['product_price'],
+                  productDescription: product['product_description'],
                   count: currentCount,
+                  notes: currentNotes,
+                  onCountChanged: (newCount) => onCountChanged(productId, newCount),
+                  onNotesChanged: (notes) {
+                    if (onNotesChanged != null) {
+                      onNotesChanged!(productId, notes);
+                    }
+                  },
                   onTap: () async {
                     final route = '/business/detail/$businessId/ordering/$productId';
 
@@ -522,7 +541,6 @@ class ProductListWidget extends StatelessWidget {
                       }
                     }
                   },
-                  onCountChanged: (newCount) => onCountChanged(productId, newCount),
                 );
               },
             ),
