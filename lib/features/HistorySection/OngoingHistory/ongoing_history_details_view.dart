@@ -49,10 +49,10 @@ class OngoingHistoryDetailsView extends StatefulWidget {
     final extra = state.extra as Map<String, dynamic>? ?? {};
 
     return OngoingHistoryDetailsView(
-      historyId: extra['history_id'] ?? 0,
-      businessName: extra['business_name'] ?? '',
-      businessType: extra['business_type'] ?? '',
-      businessImage: extra['business_image'] ?? '',
+      historyId: extra['history_id'] as int,
+      businessName: extra['business_name'] as String,
+      businessType: extra['business_type'] as String,
+      businessImage: extra['business_image'] as String,
       driverId: extra['driver_id'] as int?,
       driverName: extra['driver_name'] as String?,
       driverImage: extra['driver_image'] as String?,

@@ -152,7 +152,16 @@ class SetQuantityBottomNavbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppColors.berylGreen,
+      decoration: BoxDecoration(
+        color: AppColors.berylGreen,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black12,
+            blurRadius: 10,
+            offset: Offset(0, -2),
+          ),
+        ],
+      ),
       padding: const EdgeInsets.fromLTRB(16, 15, 16, 25),
       child: Column(
         mainAxisSize: MainAxisSize.min,

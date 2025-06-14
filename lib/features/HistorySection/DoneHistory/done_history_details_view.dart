@@ -41,19 +41,19 @@ class DoneHistoryDetailsView extends StatelessWidget {
   static DoneHistoryDetailsView fromExtra(BuildContext context, GoRouterState state) {
     final extra = state.extra! as Map<String, dynamic>;
     return DoneHistoryDetailsView(
-      historyId: extra['history_id'],
-      businessId: extra['business_id'],
-      orderDate: extra['order_date'],
-      businessName: extra['business_name'],
-      businessImage: extra['business_image'],
-      businessType: extra['business_type'],
-      driverName: extra['driver_name'],
-      addressReceiver: extra['address_receiver'],
-      orderList: extra['order_list'],
-      serviceFee: extra['service_fee'],
-      deliveryFee: extra['delivery_fee'],
-      totalPrice: extra['total_price'],
-      paymentMethod: extra['payment_method'],
+      historyId: extra['history_id'] as int,
+      businessId: extra['business_id'] as int,
+      orderDate: extra['order_date'] as DateTime,
+      businessName: extra['business_name'] as String,
+      businessImage: extra['business_image'] as String,
+      businessType: extra['business_type'] as String,
+      driverName: extra['driver_name'] as String,
+      addressReceiver: extra['address_receiver'] as String,
+      orderList: extra['order_list'] as List<dynamic>,
+      serviceFee: extra['service_fee'] as int,
+      deliveryFee: extra['delivery_fee'] as int,
+      totalPrice: extra['total_price'] as num,
+      paymentMethod: extra['payment_method'] as String,
     );
   }
 

@@ -7,9 +7,10 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_rating': 4.5,
     'business_distance': 3.98,
     'business_address': 'Jl. Raya Mekarsari No. 128, RT 05 RW 09, Kelurahan Sukamaju, Bekasi, Jawa Barat 17113',
-    'business_open_hour': DateTime(2025, 1, 1, 10, 0),
-    'business_close_hour': DateTime(2025, 1, 1, 22, 0),
+    'business_open_hour': DateTime(2025, 1, 1, 0, 0),
+    'business_close_hour': DateTime(2025, 1, 1, 23, 59),
     'estimated_delivery': '30-45 menit',
+    'service_fee': 8000,
   },
   {
     'business_id': 2,
@@ -22,6 +23,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_open_hour': DateTime(2025, 1, 1, 8, 0),
     'business_close_hour': DateTime(2025, 1, 1, 21, 0),
     'estimated_delivery': '20-30 menit',
+    'service_fee': 5000,
   },
   {
     'business_id': 3,
@@ -34,6 +36,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_open_hour': DateTime(2025, 1, 1, 11, 0),
     'business_close_hour': DateTime(2025, 1, 1, 23, 0),
     'estimated_delivery': '25-35 menit',
+    'service_fee': 6000,
   },
   {
     'business_id': 4,
@@ -46,6 +49,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_open_hour': DateTime(2025, 1, 1, 7, 0),
     'business_close_hour': DateTime(2025, 1, 1, 18, 0),
     'estimated_delivery': '30-45 menit',
+    'service_fee': 4000,
   },
   {
     'business_id': 5,
@@ -58,6 +62,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_open_hour': DateTime(2025, 1, 1, 12, 0),
     'business_close_hour': DateTime(2025, 1, 1, 23, 0),
     'estimated_delivery': '40-60 menit',
+    'service_fee': 7000,
   },
   {
     'business_id': 6,
@@ -70,6 +75,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_open_hour': DateTime(2025, 1, 1, 9, 0),
     'business_close_hour': DateTime(2025, 1, 1, 21, 0),
     'estimated_delivery': '25-35 menit',
+    'service_fee': 5000,
   },
   {
     'business_id': 7,
@@ -82,6 +88,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_open_hour': DateTime(2025, 1, 1, 10, 0),
     'business_close_hour': DateTime(2025, 1, 1, 20, 0),
     'estimated_delivery': '30-45 menit',
+    'service_fee': 6000,
   },
   {
     'business_id': 8,
@@ -94,6 +101,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_open_hour': DateTime(2025, 1, 1, 7, 0),
     'business_close_hour': DateTime(2025, 1, 1, 22, 0),
     'estimated_delivery': '20-30 menit',
+    'service_fee': 4500,
   },
   {
     'business_id': 9,
@@ -106,6 +114,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_open_hour': DateTime(2025, 1, 1, 8, 0),
     'business_close_hour': DateTime(2025, 1, 1, 20, 0),
     'estimated_delivery': '25-35 menit',
+    'service_fee': 5500,
   },
   {
     'business_id': 10,
@@ -118,6 +127,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_open_hour': DateTime(2025, 1, 1, 7, 0),
     'business_close_hour': DateTime(2025, 1, 1, 21, 0),
     'estimated_delivery': '30-45 menit',
+    'service_fee': 6000,
   },
   {
     'business_id': 11,
@@ -130,6 +140,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_open_hour': DateTime(2025, 1, 1, 10, 0),
     'business_close_hour': DateTime(2025, 1, 1, 22, 0),
     'estimated_delivery': '25-35 menit',
+    'service_fee': 5000,
   },
   {
     'business_id': 12,
@@ -142,6 +153,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_open_hour': DateTime(2025, 1, 1, 11, 0),
     'business_close_hour': DateTime(2025, 1, 1, 23, 0),
     'estimated_delivery': '40-60 menit',
+    'service_fee': 7000,
   },
   {
     'business_id': 13,
@@ -154,6 +166,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_open_hour': DateTime(2025, 1, 1, 9, 0),
     'business_close_hour': DateTime(2025, 1, 1, 21, 0),
     'estimated_delivery': '25-35 menit',
+    'service_fee': 6000,
   },
   {
     'business_id': 14,
@@ -166,6 +179,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_open_hour': DateTime(2025, 1, 1, 8, 0),
     'business_close_hour': DateTime(2025, 1, 1, 20, 0),
     'estimated_delivery': '20-30 menit',
+    'service_fee': 5000,
   },
   {
     'business_id': 15,
@@ -178,6 +192,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_open_hour': DateTime(2025, 1, 1, 10, 0),
     'business_close_hour': DateTime(2025, 1, 1, 22, 0),
     'estimated_delivery': '25-35 menit',
+    'service_fee': 5500,
   },
   {
     'business_id': 16,
@@ -190,6 +205,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_open_hour': DateTime(2025, 1, 1, 7, 0),
     'business_close_hour': DateTime(2025, 1, 1, 21, 0),
     'estimated_delivery': '30-45 menit',
+    'service_fee': 6000,
   },
   {
     'business_id': 17,
@@ -202,6 +218,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_open_hour': DateTime(2025, 1, 1, 6, 0),
     'business_close_hour': DateTime(2025, 1, 1, 20, 0),
     'estimated_delivery': '30-45 menit',
+    'service_fee': 5000,
   },
   {
     'business_id': 18,
@@ -214,6 +231,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_open_hour': DateTime(2025, 1, 1, 7, 0),
     'business_close_hour': DateTime(2025, 1, 1, 21, 0),
     'estimated_delivery': '25-35 menit',
+    'service_fee': 6000,
   },
   {
     'business_id': 19,
@@ -226,6 +244,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_open_hour': DateTime(2025, 1, 1, 8, 0),
     'business_close_hour': DateTime(2025, 1, 1, 20, 0),
     'estimated_delivery': '20-30 menit',
+    'service_fee': 5000,
   },
   {
     'business_id': 20,
@@ -238,6 +257,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_open_hour': DateTime(2025, 1, 1, 9, 0),
     'business_close_hour': DateTime(2025, 1, 1, 22, 0),
     'estimated_delivery': '40-60 menit',
+    'service_fee': 7000,
   },
   {
     'business_id': 21,
@@ -250,6 +270,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_open_hour': DateTime(2025, 1, 1, 8, 0),
     'business_close_hour': DateTime(2025, 1, 1, 20, 0),
     'estimated_delivery': '25-35 menit',
+    'service_fee': 6000,
   },
   {
     'business_id': 22,
@@ -262,6 +283,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_open_hour': DateTime(2025, 1, 1, 7, 0),
     'business_close_hour': DateTime(2025, 1, 1, 22, 0),
     'estimated_delivery': '30-45 menit',
+    'service_fee': 5000,
   },
   {
     'business_id': 23,
@@ -274,5 +296,6 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_open_hour': DateTime(2025, 1, 1, 7, 0),
     'business_close_hour': DateTime(2025, 1, 1, 12, 0),
     'estimated_delivery': '30-45 menit',
+    'service_fee': 6000,
   },
 ];

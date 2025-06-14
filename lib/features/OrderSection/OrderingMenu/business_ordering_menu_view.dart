@@ -4,7 +4,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../shared/styles/colors.dart';
-import '../../../shared/utils/format_currency.dart';
 import 'business_ordering_menu_controller.dart';
 import 'business_ordering_menu_widget.dart';
 
@@ -21,6 +20,7 @@ class BusinessOrderingMenuView extends StatefulWidget {
   final String businessEstimatedDelivery;
   final int? discountNumber;
   final bool isFreeShipment;
+  final int serviceFee;
   final int? productId;
   final int? qtyProduct;
   final String? notes;
@@ -39,6 +39,7 @@ class BusinessOrderingMenuView extends StatefulWidget {
     required this.businessEstimatedDelivery,
     this.discountNumber,
     required this.isFreeShipment,
+    required this.serviceFee,
     this.productId,
     this.qtyProduct,
     this.notes,
@@ -46,23 +47,25 @@ class BusinessOrderingMenuView extends StatefulWidget {
 
   static BusinessOrderingMenuView fromExtra(BuildContext context, GoRouterState state) {
     final extra = state.extra as Map<String, dynamic>;
+    print('BusinessOrderingMenuView.fromExtra: $extra');
 
     return BusinessOrderingMenuView(
-      businessId: extra['business_id'],
-      businessName: extra['business_name'],
-      businessType: extra['business_type'],
-      businessImage: extra['business_image'],
-      businessRating: extra['business_rating'],
-      businessDistance: extra['business_distance'],
-      businessAddress: extra['business_address'],
+      businessId: extra['business_id'] as int,
+      businessName: extra['business_name'] as String,
+      businessType: extra['business_type'] as String,
+      businessImage: extra['business_image'] as String,
+      businessRating: extra['business_rating'] as double,
+      businessDistance: extra['business_distance'] as double,
+      businessAddress: extra['business_address'] as String,
       businessOpenHour: extra['business_open_hour'] as DateTime,
       businessCloseHour: extra['business_close_hour'] as DateTime,
-      businessEstimatedDelivery: extra['estimated_delivery'],
-      discountNumber: extra['discount_number'],
-      isFreeShipment: extra['is_free_shipment'],
-      productId: extra['product_id'],
-      qtyProduct: extra['qty_product'],
-      notes: extra['notes'],
+      businessEstimatedDelivery: extra['estimated_delivery'] as String,
+      discountNumber: extra['discount_number'] as int?,
+      isFreeShipment: extra['is_free_shipment'] as bool,
+      serviceFee: extra['service_fee'] as int,
+      productId: extra['product_id'] as int?,
+      qtyProduct: extra['qty_product'] as int?,
+      notes: extra['notes'] as String?,
     );
   }
 
@@ -270,6 +273,7 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
       bottomNavigationBar: hasSelectedProducts
         ? OrderBottomNavbar(
             totalPrice: totalSelectedPrice,
+            buttonText: 'Konfirmasi Pesanan',
             onOrderPressed: () {
               final selectedEntries = selectedProductCounts.entries
                   .where((entry) => entry.value > 0)
@@ -289,6 +293,8 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
                   product['product_id'].toString(): product,
               };
 
+              final selectedProducts = <Map<String, dynamic>>[];
+
               for (final entry in selectedEntries) {
                 final productId = entry.key;
                 final qty = entry.value;
@@ -298,16 +304,25 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
                 if (product != null) {
                   final name = product['product_name'];
                   final price = product['product_price'];
-                  debugPrint('Produk: $name');
-                  debugPrint('Jumlah: $qty');
-                  debugPrint('Catatan: ${notes.isEmpty ? '-' : notes}');
-                  debugPrint('Harga per item: ${formatCurrency(price)}');
-                  debugPrint('Subtotal: ${formatCurrency(price * qty)}');
-                  debugPrint('----------------------');
+
+                  selectedProducts.add({
+                    'product_id': productId,
+                    'product_name': name,
+                    'product_price': price,
+                    'qty_product': qty,
+                    'notes': notes,
+                  });
                 }
               }
 
-              debugPrint('Total Harga: ${formatCurrency(totalSelectedPrice)}');
+              context.push(
+                '/business/detail/${widget.businessId}/confirm',
+                extra: {
+                  'selected_products': selectedProducts,
+                  'service_fee': widget.serviceFee,
+                  'total_price': totalSelectedPrice,
+                },
+              );
             },
           )
         : null,

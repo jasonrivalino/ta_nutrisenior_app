@@ -28,9 +28,9 @@ class ReportView extends StatefulWidget {
     final extra = state.extra as Map<String, dynamic>? ?? {};
 
     return ReportView(
-      id: extra['id'] ?? 0,
-      isDriver: extra['isDriver'] ?? false,
-      businessType: extra['businessType'],
+      id: extra['id'] as int,
+      isDriver: extra['isDriver'] as bool,
+      businessType: extra['businessType'] as String?,
     );
   }
 

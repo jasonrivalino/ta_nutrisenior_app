@@ -343,7 +343,6 @@ class RecommendedProductSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("RecommendedProductSection: $title, businessType: $businessType, products: ${products.length}");
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -554,18 +553,29 @@ class ProductListWidget extends StatelessWidget {
 
 class OrderBottomNavbar extends StatelessWidget {
   final int totalPrice;
+  final String buttonText;
   final VoidCallback onOrderPressed;
 
   const OrderBottomNavbar({
     super.key,
     required this.totalPrice,
+    required this.buttonText,
     required this.onOrderPressed,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppColors.berylGreen,
+      decoration: BoxDecoration(
+        color: AppColors.berylGreen,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black12,
+            blurRadius: 10,
+            offset: Offset(0, -2),
+          ),
+        ],
+      ),
       padding: const EdgeInsets.fromLTRB(16, 15, 16, 25),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -615,8 +625,8 @@ class OrderBottomNavbar extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                 ),
               ),
-              child: const Text(
-                'Konfirmasi Pesanan',
+              child: Text(
+                buttonText,
                 style: TextStyle(
                   fontFamily: AppFonts.fontBold,
                   fontWeight: FontWeight.bold,

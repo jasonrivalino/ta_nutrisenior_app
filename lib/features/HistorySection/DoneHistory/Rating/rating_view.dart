@@ -33,12 +33,12 @@ class RatingView extends StatefulWidget {
   static RatingView fromExtra(BuildContext context, GoRouterState state) {
     final extra = state.extra! as Map<String, dynamic>;
     return RatingView(
-      historyId: extra['history_id'],
-      businessId: extra['business_id'],
-      driverName: extra['driver_name'],
-      businessName: extra['business_name'],
-      businessImage: extra['business_image'],
-      businessType: extra['business_type'],
+      historyId: extra['history_id'] as int,
+      businessId: extra['business_id'] as int,
+      driverName: extra['driver_name'] as String?,
+      businessName: extra['business_name'] as String?,
+      businessImage: extra['business_image'] as String?,
+      businessType: extra['business_type'] as String?,
     );
   }
 
