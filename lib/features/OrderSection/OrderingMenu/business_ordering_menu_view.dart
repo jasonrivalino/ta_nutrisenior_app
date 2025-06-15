@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../database/business_promo_list_table.dart';
 import '../../../shared/styles/colors.dart';
 import 'business_ordering_menu_controller.dart';
 import 'business_ordering_menu_widget.dart';
@@ -47,8 +48,6 @@ class BusinessOrderingMenuView extends StatefulWidget {
 
   static BusinessOrderingMenuView fromExtra(BuildContext context, GoRouterState state) {
     final extra = state.extra as Map<String, dynamic>;
-    print('BusinessOrderingMenuView.fromExtra: $extra');
-
     return BusinessOrderingMenuView(
       businessId: extra['business_id'] as int,
       businessName: extra['business_name'] as String,
@@ -82,18 +81,34 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
   Map<String, int> selectedProductCounts = {};
   Map<String, String> selectedProductNotes = {};
 
+  int? discountNumber;
+  bool isFreeShipment = false;
+
   @override
   void initState() {
     super.initState();
     isFavorite = FavoritesBusinessController.isBusinessFavorited(widget.businessId);
-    _loadRecommendedProducts();
+    _loadProducts();
   }
 
-  Future<void> _loadRecommendedProducts() async {
+  Future<void> _loadProducts() async {
     final productMap = await BusinessOrderingMenuController.fetchProducts(widget.businessId);
+
     setState(() {
-      recommendedProducts = productMap['recommendedProducts'] ?? [];
       allProducts = productMap['allProducts'] ?? [];
+      recommendedProducts = productMap['recommendedProducts'] ?? [];
+
+      // Since discount info and free shipment flag are already in the product data, grab it from any product (if exists)
+      if (allProducts.isNotEmpty) {
+        discountNumber = allProducts.first['discount_number'] as int?;
+      }
+
+      final promo = businessPromoListTable.firstWhere(
+        (entry) => entry['business_id'] == widget.businessId,
+        orElse: () => {},
+      );
+      isFreeShipment = promo['is_free_shipment'] as bool? ?? false;
+
       isLoading = false;
     });
   }
@@ -101,10 +116,9 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
   int get totalSelectedPrice {
     final uniqueProducts = <String, Map<String, dynamic>>{};
 
-    // Merge both product lists, using product_id as the key to avoid duplicates
     for (final product in recommendedProducts + allProducts) {
       final id = product['product_id'].toString();
-      uniqueProducts[id] = product; // overwrites duplicates, which is fine
+      uniqueProducts[id] = product;
     }
 
     num total = 0;
@@ -112,11 +126,11 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
       final id = entry.key;
       final product = entry.value;
       final count = selectedProductCounts[id] ?? 0;
-      final price = product['product_price'] ?? 0;
+      final price = product['discounted_price'] ?? product['product_price'] ?? 0;
       total += count * price;
     }
 
-    return total.toInt(); // final cast
+    return total.toInt();
   }
 
   bool get hasSelectedProducts =>
@@ -130,12 +144,10 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
         child: Stack(
           clipBehavior: Clip.none,
           children: [
-            // Background image
             SizedBox(
               height: 150,
               width: double.infinity,
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(0),
                 child: Image.asset(
                   widget.businessImage,
                   fit: BoxFit.cover,
@@ -143,17 +155,11 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
                     final fallbackImage = widget.businessType == 'market'
                         ? 'assets/images/dummy/errorhandling/dummymarket.png'
                         : 'assets/images/dummy/errorhandling/dummyrestaurant.png';
-
-                    return Image.asset(
-                      fallbackImage,
-                      fit: BoxFit.cover,
-                    );
+                    return Image.asset(fallbackImage, fit: BoxFit.cover);
                   },
                 ),
               ),
             ),
-
-            // Foreground content
             Column(
               children: [
                 const SizedBox(height: 20),
@@ -205,11 +211,10 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
                   businessDistance: widget.businessDistance,
                   businessOpenHour: widget.businessOpenHour,
                   businessCloseHour: widget.businessCloseHour,
-                  discountNumber: widget.discountNumber,
-                  isFreeShipment: widget.isFreeShipment,
+                  discountNumber: discountNumber,
+                  isFreeShipment: isFreeShipment,
                 ),
                 const SizedBox(height: 16),
-
                 Expanded(
                   child: SingleChildScrollView(
                     child: isLoading
@@ -222,9 +227,10 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
                                 title: widget.businessType == 'restaurant'
                                     ? 'Rekomendasi Menu'
                                     : 'Rekomendasi Belanjaan',
-                                heightCard: 200,
+                                heightCard: (discountNumber != null) ? 220 : 200,
                                 businessId: widget.businessId,
                                 businessType: widget.businessType,
+                                discountNumber: discountNumber,
                                 products: recommendedProducts,
                                 selectedCounts: selectedProductCounts,
                                 selectedNotes: selectedProductNotes,
@@ -246,6 +252,7 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
                                     : 'Daftar Belanjaan',
                                 businessId: widget.businessId,
                                 businessType: widget.businessType,
+                                discountNumber: discountNumber,
                                 products: allProducts,
                                 selectedCounts: selectedProductCounts,
                                 selectedNotes: selectedProductNotes,
@@ -271,80 +278,74 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
         ),
       ),
       bottomNavigationBar: hasSelectedProducts
-        ? OrderBottomNavbar(
-            totalPrice: totalSelectedPrice,
-            buttonText: 'Konfirmasi Pesanan',
-            onOrderPressed: () async {
-              final selectedEntries = selectedProductCounts.entries
-                  .where((entry) => entry.value > 0)
-                  .toList();
+          ? OrderBottomNavbar(
+              totalPrice: totalSelectedPrice,
+              buttonText: 'Konfirmasi Pesanan',
+              onOrderPressed: () async {
+                final selectedEntries = selectedProductCounts.entries.where((e) => e.value > 0).toList();
+                if (selectedEntries.isEmpty) {
+                  Fluttertoast.showToast(
+                    msg: "Tidak ada produk yang dipilih.",
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.BOTTOM,
+                  );
+                  return;
+                }
 
-              if (selectedEntries.isEmpty) {
-                Fluttertoast.showToast(
-                  msg: "Tidak ada produk yang dipilih.",
-                  toastLength: Toast.LENGTH_SHORT,
-                  gravity: ToastGravity.BOTTOM,
+                final uniqueProducts = {
+                  for (final product in recommendedProducts + allProducts)
+                    product['product_id'].toString(): product,
+                };
+
+                final selectedProducts = <Map<String, dynamic>>[];
+                for (final entry in selectedEntries) {
+                  final productId = entry.key;
+                  final qty = entry.value;
+                  final notes = selectedProductNotes[productId] ?? '';
+                  final product = uniqueProducts[productId];
+                  if (product != null) {
+                    selectedProducts.add({
+                      'product_id': productId,
+                      'product_name': product['product_name'],
+                      'product_image': product['product_image'],
+                      'product_description': product['product_description'],
+                      'product_price': product['discounted_price'] ?? product['product_price'],
+                      'qty_product': qty,
+                      'notes': notes,
+                    });
+                  }
+                }
+
+                final updated = await context.push<List<Map<String, dynamic>>>(
+                  '/business/detail/${widget.businessId}/confirm',
+                  extra: {
+                    'selected_products': selectedProducts,
+                    'service_fee': widget.serviceFee,
+                    'business_id': widget.businessId,
+                    'business_name': widget.businessName,
+                    'business_type': widget.businessType,
+                    'business_image': widget.businessImage,
+                    'business_distance': widget.businessDistance,
+                    'business_estimated_delivery': widget.businessEstimatedDelivery,
+                    'is_free_shipment': isFreeShipment,
+                    'total_price': totalSelectedPrice,
+                  },
                 );
-                return;
-              }
 
-              final uniqueProducts = {
-                for (final product in recommendedProducts + allProducts)
-                  product['product_id'].toString(): product,
-              };
-
-              final selectedProducts = <Map<String, dynamic>>[];
-
-              for (final entry in selectedEntries) {
-                final productId = entry.key;
-                final qty = entry.value;
-                final notes = selectedProductNotes[productId] ?? '';
-                final product = uniqueProducts[productId];
-
-                if (product != null) {
-                  selectedProducts.add({
-                    'product_id': productId,
-                    'product_name': product['product_name'],
-                    'product_image': product['product_image'],
-                    'product_description': product['product_description'],
-                    'product_price': product['product_price'],
-                    'qty_product': qty,
-                    'notes': notes,
+                if (updated != null) {
+                  setState(() {
+                    selectedProductCounts.clear();
+                    selectedProductNotes.clear();
+                    for (final product in updated) {
+                      final id = product['product_id'].toString();
+                      selectedProductCounts[id] = product['qty_product'] ?? 0;
+                      selectedProductNotes[id] = product['notes'] ?? '';
+                    }
                   });
                 }
-              }
-
-              final updatedSelectedProducts = await context.push<List<Map<String, dynamic>>>(
-                '/business/detail/${widget.businessId}/confirm',
-                extra: {
-                  'selected_products': selectedProducts,
-                  'service_fee': widget.serviceFee,
-                  'business_id': widget.businessId,
-                  'business_name': widget.businessName,
-                  'business_type': widget.businessType,
-                  'business_image': widget.businessImage,
-                  'business_distance': widget.businessDistance,
-                  'business_estimated_delivery': widget.businessEstimatedDelivery,
-                  'is_free_shipment': widget.isFreeShipment,
-                  'total_price': totalSelectedPrice,
-                },
-              );
-
-              if (updatedSelectedProducts != null) {
-                setState(() {
-                  selectedProductCounts.clear();
-                  selectedProductNotes.clear();
-
-                  for (final product in updatedSelectedProducts) {
-                    final id = product['product_id'].toString();
-                    selectedProductCounts[id] = product['qty_product'] ?? 0;
-                    selectedProductNotes[id] = product['notes'] ?? '';
-                  }
-                });
-              }
-            },
-          )
-        : null,
+              },
+            )
+          : null,
     );
   }
 }

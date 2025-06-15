@@ -325,6 +325,7 @@ class RecommendedProductSection extends StatelessWidget {
   final double heightCard;
   final int businessId;
   final String businessType;
+  final int? discountNumber;
   final List<Map<String, dynamic>> products;
   final Map<String, int> selectedCounts;
   final Map<String, String> selectedNotes;
@@ -337,6 +338,7 @@ class RecommendedProductSection extends StatelessWidget {
     required this.heightCard,
     required this.businessId,
     required this.businessType,
+    this.discountNumber,
     required this.products,
     required this.selectedCounts,
     required this.selectedNotes,
@@ -386,6 +388,7 @@ class RecommendedProductSection extends StatelessWidget {
                   child: CardBox(
                     businessId: businessId,
                     businessType: businessType,
+                    discountNumber: discountNumber,
                     productId: product['product_id'],
                     productImage: product['product_image'],
                     productName: product['product_name'],
@@ -407,6 +410,7 @@ class RecommendedProductSection extends StatelessWidget {
                       final result = await context.push<Map<String, dynamic>>(route, extra: {
                         'business_id': businessId,
                         'business_type': businessType,
+                        'discount_number': discountNumber,
                         'product_id': product['product_id'],
                         'product_image': product['product_image'],
                         'product_name': product['product_name'],
@@ -443,6 +447,7 @@ class ProductListWidget extends StatelessWidget {
   final String? title;
   final int businessId;
   final String businessType;
+  final int? discountNumber;
   final List<Map<String, dynamic>> products;
   final Map<String, int> selectedCounts;
   final Map<String, String> selectedNotes;
@@ -454,6 +459,7 @@ class ProductListWidget extends StatelessWidget {
     required this.title,
     required this.businessId,
     required this.businessType,
+    this.discountNumber,
     required this.products,
     required this.selectedCounts,
     required this.selectedNotes,
@@ -501,6 +507,7 @@ class ProductListWidget extends StatelessWidget {
                 return CardList(
                   businessId: businessId,
                   businessType: businessType,
+                  discountNumber: discountNumber,
                   productId: product['product_id'],
                   productImage: product['product_image'],
                   productName: product['product_name'],
@@ -522,6 +529,7 @@ class ProductListWidget extends StatelessWidget {
                     final result = await context.push<Map<String, dynamic>>(route, extra: {
                       'business_id': businessId,
                       'business_type': businessType,
+                      'discount_number': discountNumber,
                       'product_id': product['product_id'],
                       'product_image': product['product_image'],
                       'product_name': product['product_name'],

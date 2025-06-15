@@ -21,18 +21,28 @@ class HistoryListView extends StatefulWidget {
 
 class _HistoryListViewState extends State<HistoryListView> {
   late bool showDone;
-  late List<Map<String, dynamic>> allHistoryList;
+  List<Map<String, dynamic>> allHistoryList = [];
+  bool _isFetched = false;
 
   @override
-  void initState() {
-    super.initState();
-    showDone = widget.routeIndex == 0;
-    allHistoryList = HistoryController.fetchHistoryList();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Only refetch when coming to this route again
+    if (!_isFetched) {
+      _fetchHistoryData();
+      _isFetched = true;
+    }
+  }
+
+  void _fetchHistoryData() {
+    setState(() {
+      showDone = widget.routeIndex == 0;
+      allHistoryList = HistoryController.fetchHistoryList();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    // Filter list based on status
     final displayList = allHistoryList.where((item) {
       final status = item['status'];
       return showDone

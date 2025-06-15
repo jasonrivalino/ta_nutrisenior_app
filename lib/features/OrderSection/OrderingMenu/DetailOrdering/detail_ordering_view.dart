@@ -8,6 +8,7 @@ import 'detail_ordering_widget.dart';
 class DetailOrderingView extends StatefulWidget {
   final int businessId;
   final String businessType;
+  final int? discountNumber;
   final int productId;
   final String productImage;
   final String productName;
@@ -20,6 +21,7 @@ class DetailOrderingView extends StatefulWidget {
     super.key,
     required this.businessId,
     required this.businessType,
+    this.discountNumber,
     required this.productId,
     required this.productImage,
     required this.productName,
@@ -34,6 +36,7 @@ class DetailOrderingView extends StatefulWidget {
     return DetailOrderingView(
       businessId: extra['business_id'] as int,
       businessType: extra['business_type'] as String,
+      discountNumber: extra['discount_number'] as int?,
       productId: extra['product_id'] as int,
       productImage: extra['product_image'] as String,
       productName: extra['product_name'] as String,
@@ -106,6 +109,7 @@ class _DetailOrderingViewState extends State<DetailOrderingView> {
                     productName: widget.productName,
                     productPrice: widget.productPrice,
                     productDescription: widget.productDescription,
+                    discountNumber: widget.discountNumber,
                   ),
                   ProductNoteInputBox(
                     businessType: widget.businessType,

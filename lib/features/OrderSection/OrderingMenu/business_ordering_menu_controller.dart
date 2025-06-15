@@ -1,4 +1,5 @@
 import '../../../database/business_product_list_table.dart';
+import '../../../database/business_promo_list_table.dart';
 import '../../../database/favorites_list_table.dart';
 import '../../../database/product_list_table.dart';
 import '../../../database/recommended_product_list_table.dart';
@@ -10,8 +11,25 @@ class BusinessOrderingMenuController {
         .map((entry) => entry['product_id'])
         .toSet();
 
+    // Get discount info if available
+    final promo = businessPromoListTable.firstWhere(
+      (promo) => promo['business_id'] == businessId,
+      orElse: () => {},
+    );
+
+    final int? discountNumber = promo['discount_number'] as int?;
+
     final allProducts = productListTable
         .where((product) => matchedProductIds.contains(product['product_id']))
+        .map((product) {
+          final productCopy = Map<String, dynamic>.from(product);
+          if (discountNumber != null) {
+            productCopy['discount_number'] = discountNumber;
+            productCopy['discounted_price'] =
+                (product['product_price'] * (100 - discountNumber) ~/ 100);
+          }
+          return productCopy;
+        })
         .toList();
 
     final recommendedOrder = recommendedProductListTable
@@ -24,9 +42,9 @@ class BusinessOrderingMenuController {
         .where((product) => recommendedProductIds.contains(product['product_id']))
         .toList();
 
-    // Sort based on the order in recommendedProductListTable
     recommendedProducts.sort((a, b) {
-      return recommendedOrder.indexOf(a['product_id']) - recommendedOrder.indexOf(b['product_id']);
+      return recommendedOrder.indexOf(a['product_id']) -
+          recommendedOrder.indexOf(b['product_id']);
     });
 
     return {

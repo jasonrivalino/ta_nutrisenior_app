@@ -67,6 +67,7 @@ class _CardBoxState extends State<CardBox> {
         extra: {
           'business_id': widget.businessId,
           'business_type': widget.businessType,
+          'discount_number': widget.discountNumber,
           'product_id': widget.productId,
           'product_image': widget.productImage,
           'product_name': widget.productName,
@@ -172,7 +173,7 @@ class _CardBoxState extends State<CardBox> {
                         );
                       },
                     ),
-                    if (widget.discountNumber != null)
+                    if (widget.discountNumber != null && widget.businessImage != null)
                       Positioned(
                         bottom: 4,
                         right: 4,
@@ -357,15 +358,42 @@ class _CardBoxState extends State<CardBox> {
                         if (widget.productPrice != null)
                           Padding(
                             padding: const EdgeInsets.only(top: 4),
-                            child: Text(
-                              formatCurrency(widget.productPrice!),
-                              style: const TextStyle(
-                                color: AppColors.dark,
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                                fontFamily: AppFonts.fontBold,
-                              ),
-                            ),
+                            child: widget.discountNumber != null
+                                ? Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        formatCurrency(
+                                          (widget.productPrice! * (100 - widget.discountNumber!) ~/ 100),
+                                        ),
+                                        style: const TextStyle(
+                                          color: AppColors.dark,
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: AppFonts.fontBold,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 2),
+                                      Text(
+                                        formatCurrency(widget.productPrice!),
+                                        style: const TextStyle(
+                                          color: AppColors.darkGray,
+                                          fontSize: 13,
+                                          decoration: TextDecoration.lineThrough,
+                                          fontFamily: AppFonts.fontMedium,
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                : Text(
+                                    formatCurrency(widget.productPrice!),
+                                    style: const TextStyle(
+                                      color: AppColors.dark,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: AppFonts.fontBold,
+                                    ),
+                                  ),
                           ),
                       ],
                     ],

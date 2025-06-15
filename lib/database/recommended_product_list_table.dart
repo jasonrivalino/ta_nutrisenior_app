@@ -32,4 +32,8 @@ final List<Map<String, dynamic>> recommendedProductListTable = [
   {
     'product_id': 17,
   },
+
+  {
+    'product_id': 22,
+  },
 ];

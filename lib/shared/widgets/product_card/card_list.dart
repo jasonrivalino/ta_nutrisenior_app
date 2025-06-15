@@ -64,6 +64,7 @@ class _CardListState extends State<CardList> {
         extra: {
           'business_id': widget.businessId,
           'business_type': widget.businessType,
+          'discount_number': widget.discountNumber,
           'product_id': widget.productId,
           'product_image': widget.productImage,
           'product_name': widget.productName,
@@ -185,7 +186,7 @@ class _CardListState extends State<CardList> {
                         ),
                       ),
                     ),
-                  if ((widget.discountNumber != null || (widget.isFreeShipment ?? false)) && isOpen)
+                  if ((widget.discountNumber != null || (widget.isFreeShipment ?? false)) && isOpen && widget.businessImage != null)
                     Positioned(
                       bottom: 0,
                       child: Container(
@@ -321,15 +322,44 @@ class _CardListState extends State<CardList> {
                                 ),
                                 const SizedBox(height: 10),
                                 if (widget.productPrice != null)
-                                  Text(
-                                    formatCurrency(widget.productPrice!),
-                                    style: const TextStyle(
-                                      color: AppColors.dark,
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: AppFonts.fontBold,
-                                    ),
-                                  ),
+                                  widget.discountNumber != null
+                                      ? Row(
+                                          children: [
+                                            Text(
+                                              // Harga setelah diskon
+                                              formatCurrency(
+                                                (widget.productPrice! * (100 - widget.discountNumber!) ~/ 100),
+                                              ),
+                                              style: const TextStyle(
+                                                color: AppColors.dark,
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.bold,
+                                                fontFamily: AppFonts.fontBold,
+                                              ),
+                                            ),
+                                            const SizedBox(width: 6),
+                                            Text(
+                                              // Harga asli dicoret
+                                              formatCurrency(widget.productPrice!),
+                                              style: const TextStyle(
+                                                color: AppColors.darkGray,
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.normal,
+                                                decoration: TextDecoration.lineThrough,
+                                              ),
+                                            ),
+                                          ],
+                                        )
+                                      : Text(
+                                          // Harga normal jika tidak ada diskon
+                                          formatCurrency(widget.productPrice!),
+                                          style: const TextStyle(
+                                            color: AppColors.dark,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold,
+                                            fontFamily: AppFonts.fontBold,
+                                          ),
+                                        ),
                               ],
                             ),
                           ),

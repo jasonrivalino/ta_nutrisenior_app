@@ -6,6 +6,7 @@ import '../../database/driver_list_table.dart';
 import '../../database/history_list_table.dart';
 import '../../database/product_list_table.dart';
 import '../../database/business_promo_list_table.dart';
+import '../../shared/utils/calculate_delivery_fee.dart';
 
 class HistoryController {
   static List<Map<String, dynamic>> fetchHistoryList() {
@@ -25,6 +26,12 @@ class HistoryController {
         orElse: () => {},
       );
 
+      final int? discountPercent = matchedPromo['discount_number'] as int?;
+      final bool isFreeShipment = matchedPromo['is_free_shipment'] as bool? ?? false;
+
+      final double businessDistance = matchedBusiness['business_distance']?.toDouble() ?? 0.0;
+      final int deliveryFee = calculateDeliveryFee(isFreeShipment, businessDistance);
+
       // Get matching orders by history_id
       final List<Map<String, dynamic>> matchedOrders = historyListTable
           .where((order) => order['history_id'] == historyItem['history_id'])
@@ -33,48 +40,41 @@ class HistoryController {
               (product) => product['product_id'] == order['product_id'],
               orElse: () => {},
             );
+
+            final int originalPrice = matchedProduct['product_price'] ?? 0;
+            final int discountedPrice = discountPercent != null
+                ? (originalPrice * (100 - discountPercent) ~/ 100)
+                : originalPrice;
+
             return {
               'product_name': matchedProduct['product_name'] ?? 'Unknown Product',
-              'product_price': matchedProduct['product_price'] ?? 0,
+              'product_price': discountedPrice,
               'qty_product': order['qty_product'],
               'notes': order['notes'],
             };
           }).toList();
 
-      // Calculate total order price
       final int totalOrderPrice = matchedOrders.fold(
         0,
         (sum, item) => sum + (item['product_price'] as int) * (item['qty_product'] as int),
       );
 
       final int serviceFee = matchedBusiness['service_fee'] ?? 0;
-      final int deliveryFee = historyItem['delivery_fee'] ?? 0;
-
-      // final int totalBeforeDiscount = totalOrderPrice + serviceFee + deliveryFee;
-
-      // Apply discount if available
-      final int discountPercent = matchedPromo['discount_number'] ?? 0;
-      final bool isFreeShipment = matchedPromo['is_free_shipment'] ?? false;
-
-      final int discountAmount = (totalOrderPrice * discountPercent ~/ 100);
-      final int finalDeliveryFee = isFreeShipment ? 0 : deliveryFee;
-
-      final int totalPrice = totalOrderPrice - discountAmount + serviceFee + finalDeliveryFee;
+      final int totalPrice = totalOrderPrice + serviceFee + deliveryFee;
 
       return {
         ...historyItem,
         ...matchedDriver,
         ...matchedBusiness,
-        'promo_discount': discountPercent,
+        'promo_discount': discountPercent ?? 0,
         'is_free_shipment': isFreeShipment,
+        'delivery_fee': deliveryFee,
         'order_list': matchedOrders,
         'total_price': totalPrice,
       };
     }).toList();
 
-    // Sort from newest to oldest based on 'order_date'
     allHistoryList.sort((a, b) => (b['order_date'] as DateTime).compareTo(a['order_date'] as DateTime));
-
     return allHistoryList;
   }
 }

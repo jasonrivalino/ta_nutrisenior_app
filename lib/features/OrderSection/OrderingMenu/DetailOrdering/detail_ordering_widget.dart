@@ -8,16 +8,23 @@ class ProductDetailInfoBox extends StatelessWidget {
   final String productName;
   final int productPrice;
   final String productDescription;
+  final int? discountNumber;
 
   const ProductDetailInfoBox({
     super.key,
     required this.productName,
     required this.productPrice,
     required this.productDescription,
+    this.discountNumber,
   });
 
   @override
   Widget build(BuildContext context) {
+    final bool hasDiscount = discountNumber != null;
+    final int discountedPrice = hasDiscount
+        ? (productPrice * (100 - discountNumber!) ~/ 100)
+        : productPrice;
+
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -33,30 +40,57 @@ class ProductDetailInfoBox extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // Name and Price Row
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                productName,
-                style: TextStyle(
-                  color: AppColors.dark,
-                  fontSize: 18, 
-                  fontWeight: FontWeight.bold,
-                  fontFamily: AppFonts.fontBold,
+              // Product Name
+              Expanded(
+                child: Text(
+                  productName,
+                  style: TextStyle(
+                    color: AppColors.dark,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: AppFonts.fontBold,
+                  ),
                 ),
               ),
-              Text(
-                formatCurrency(productPrice),
-                style: TextStyle(
-                  color: AppColors.dark,
-                  fontSize: 16, 
-                  fontWeight: FontWeight.bold,
-                  fontFamily: AppFonts.fontBold,
-                ),
+
+              // Price Column
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  if (hasDiscount)
+                    Text(
+                      formatCurrency(discountedPrice),
+                      style: TextStyle(
+                        color: AppColors.dark,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: AppFonts.fontBold,
+                      ),
+                    ),
+                  if (hasDiscount) const SizedBox(height: 2),
+                  Text(
+                    formatCurrency(productPrice),
+                    style: TextStyle(
+                      color: hasDiscount ? AppColors.darkGray : AppColors.dark,
+                      fontSize: hasDiscount ? 14 : 16,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: AppFonts.fontBold,
+                      decoration: hasDiscount ? TextDecoration.lineThrough : null,
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
+
           const SizedBox(height: 12),
+
+          // Description
           Text(
             productDescription,
             style: TextStyle(

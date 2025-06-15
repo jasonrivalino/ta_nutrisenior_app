@@ -220,7 +220,7 @@ class OrderListDetails extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              formatCurrency(item['product_price'] ?? 0),
+                              formatCurrency(item['product_price'] * item['qty_product']),
                               style: TextStyle(
                                 color: AppColors.dark,
                                 fontFamily: AppFonts.fontMedium,
