@@ -119,153 +119,162 @@ class _OngoingHistoryDetailsViewState extends State<OngoingHistoryDetailsView> {
       );
     }
 
-    return Scaffold(
-      backgroundColor: AppColors.woodland,
-      appBar: CustomAppBar(
-        title: "Detail Transaksi",
-        showBackButton: true,
-      ),
-      body: LayoutBuilder(
-        builder: (context, constraints) {
-          return Stack(
-            children: [
-              if (widget.status != 'diproses') ...[
-                Positioned.fill(
-                  child: GoogleMap(
-                    initialCameraPosition: const CameraPosition(
-                      target: LatLng(-6.208950, 106.816500),
-                      zoom: 14,
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) async {
+        if (didPop) {
+          return;
+        }
+        context.go('/historyOngoing');
+      },
+      child: Scaffold(
+        appBar: CustomAppBar(
+          title: "Detail Transaksi",
+          showBackButton: true,
+          onBack: () => context.go('/historyOngoing'),
+        ),
+        body: LayoutBuilder(
+          builder: (context, constraints) {
+            return Stack(
+              children: [
+                if (widget.status != 'diproses') ...[
+                  Positioned.fill(
+                    child: GoogleMap(
+                      initialCameraPosition: const CameraPosition(
+                        target: LatLng(-6.208950, 106.816500),
+                        zoom: 14,
+                      ),
+                      markers: {
+                        Marker(
+                          markerId: const MarkerId('start'),
+                          position: const LatLng(-6.210000, 106.816000),
+                          infoWindow: const InfoWindow(title: 'Start Point'),
+                          icon: customStartMarker!,
+                        ),
+                        Marker(
+                          markerId: const MarkerId('arrive'),
+                          position: const LatLng(-6.190000, 106.820000),
+                          infoWindow: const InfoWindow(title: 'Arrival Point'),
+                          icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
+                        ),
+                      },
+                      polylines: {
+                        const Polyline(
+                          polylineId: PolylineId('route'),
+                          color: Colors.blue,
+                          width: 5,
+                          points: [
+                            LatLng(-6.210000, 106.816000),
+                            LatLng(-6.190000, 106.820000),
+                          ],
+                        ),
+                      },
+                      myLocationEnabled: false,
+                      zoomControlsEnabled: false,
                     ),
-                    markers: {
-                      Marker(
-                        markerId: const MarkerId('start'),
-                        position: const LatLng(-6.210000, 106.816000),
-                        infoWindow: const InfoWindow(title: 'Start Point'),
-                        icon: customStartMarker!,
-                      ),
-                      Marker(
-                        markerId: const MarkerId('arrive'),
-                        position: const LatLng(-6.190000, 106.820000),
-                        infoWindow: const InfoWindow(title: 'Arrival Point'),
-                        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
-                      ),
-                    },
-                    polylines: {
-                      const Polyline(
-                        polylineId: PolylineId('route'),
-                        color: Colors.blue,
-                        width: 5,
-                        points: [
-                          LatLng(-6.210000, 106.816000),
-                          LatLng(-6.190000, 106.820000),
-                        ],
-                      ),
-                    },
-                    myLocationEnabled: false,
-                    zoomControlsEnabled: false,
                   ),
-                ),
-              ] else
-                Container(color: AppColors.woodland),
+                ] else
+                  Container(color: AppColors.woodland),
 
-              Positioned(
-                top: widget.status == 'diproses' ? topPositionProcessing : topPositionDelivering,
-                left: 0,
-                right: 0,
-                height: MediaQuery.of(context).size.height -
-                    (widget.status == 'diproses' ? topPositionProcessing : topPositionDelivering),
-                child: Container(
-                  decoration: const BoxDecoration(
-                    color: AppColors.soapstone,
-                    borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-                    border: Border(
-                      top: BorderSide(color: AppColors.dark, width: 1),
+                Positioned(
+                  top: widget.status == 'diproses' ? topPositionProcessing : topPositionDelivering,
+                  left: 0,
+                  right: 0,
+                  height: MediaQuery.of(context).size.height -
+                      (widget.status == 'diproses' ? topPositionProcessing : topPositionDelivering),
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      color: AppColors.soapstone,
+                      borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+                      border: Border(
+                        top: BorderSide(color: AppColors.dark, width: 1),
+                      ),
                     ),
-                  ),
-                  child: Column(
-                    children: widget.status == 'diproses'
-                        ? [
-                            SafeArea(
-                              bottom: false,
-                              child: Padding(
+                    child: Column(
+                      children: widget.status == 'diproses'
+                          ? [
+                              SafeArea(
+                                bottom: false,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(top: 60),
+                                  child: OrderStatusDetails(
+                                    businessType: widget.businessType,
+                                    status: widget.status,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 16),
+                              Expanded(
+                                child: SingleChildScrollView(
+                                  padding: EdgeInsets.only(bottom: screenHeight > 900 ? 205 : 185),
+                                  child: OrderListDetails(
+                                    orderList: widget.orderList,
+                                    serviceFee: widget.serviceFee,
+                                    deliveryFee: widget.deliveryFee,
+                                    totalPrice: widget.totalPrice,
+                                  ),
+                                ),
+                              ),
+                            ]
+                          : [
+                              Padding(
                                 padding: const EdgeInsets.only(top: 60),
                                 child: OrderStatusDetails(
                                   businessType: widget.businessType,
                                   status: widget.status,
                                 ),
                               ),
-                            ),
-                            const SizedBox(height: 16),
-                            Expanded(
-                              child: SingleChildScrollView(
-                                padding: EdgeInsets.only(bottom: screenHeight > 900 ? 205 : 185),
-                                child: OrderListDetails(
-                                  orderList: widget.orderList,
-                                  serviceFee: widget.serviceFee,
-                                  deliveryFee: widget.deliveryFee,
-                                  totalPrice: widget.totalPrice,
-                                ),
+                              const SizedBox(height: 18),
+                              DeliverDriverCard(
+                                driverId: widget.driverId,
+                                driverName: widget.driverName,
+                                driverImage: widget.driverImage,
+                                driverRate: widget.driverRating,
+                                driverPhoneNumber: widget.driverPhoneNumber,
                               ),
-                            ),
-                          ]
-                        : [
-                            Padding(
-                              padding: const EdgeInsets.only(top: 60),
-                              child: OrderStatusDetails(
-                                businessType: widget.businessType,
-                                status: widget.status,
-                              ),
-                            ),
-                            const SizedBox(height: 18),
-                            DeliverDriverCard(
-                              driverId: widget.driverId,
-                              driverName: widget.driverName,
-                              driverImage: widget.driverImage,
-                              driverRate: widget.driverRating,
-                              driverPhoneNumber: widget.driverPhoneNumber,
-                            ),
-                            const SizedBox(height: 20),
-                          ],
+                              const SizedBox(height: 20),
+                            ],
+                    ),
                   ),
                 ),
-              ),
 
-              EstimatedTimeCard(
-                businessName: widget.businessName,
-                businessImage: widget.businessImage,
-                etaText: widget.estimatedArrivalTime,
-                topPosition: (widget.status == 'diproses' ? topPositionProcessing : topPositionDelivering) - 40,
-              ),
-            ],
-          );
-        },
+                EstimatedTimeCard(
+                  businessName: widget.businessName,
+                  businessImage: widget.businessImage,
+                  etaText: widget.estimatedArrivalTime,
+                  topPosition: (widget.status == 'diproses' ? topPositionProcessing : topPositionDelivering) - 40,
+                ),
+              ],
+            );
+          },
+        ),
+        bottomNavigationBar: widget.status == 'diproses'
+            ? Container(
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                decoration: const BoxDecoration(
+                  color: AppColors.soapstone,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 10,
+                      offset: Offset(0, -2),
+                    ),
+                  ],
+                ),
+                child: WarningButton(
+                  warningText: "Batalkan Pemesanan",
+                  onPressed: () {
+                    context.push(
+                      '/history/processing/:id/cancel',
+                      extra: {
+                        'id': widget.historyId,
+                      },
+                    );
+                  },
+                ),
+              )
+            : null,
       ),
-      bottomNavigationBar: widget.status == 'diproses'
-          ? Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-              decoration: const BoxDecoration(
-                color: AppColors.soapstone,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black12,
-                    blurRadius: 10,
-                    offset: Offset(0, -2),
-                  ),
-                ],
-              ),
-              child: WarningButton(
-                warningText: "Batalkan Pemesanan",
-                onPressed: () {
-                  context.push(
-                    '/history/processing/:id/cancel',
-                    extra: {
-                      'id': widget.historyId,
-                    },
-                  );
-                },
-              ),
-            )
-          : null,
     );
   }
 }

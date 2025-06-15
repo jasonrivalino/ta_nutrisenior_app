@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../shared/styles/colors.dart';
 import '../../../shared/widgets/appbar.dart';
@@ -30,31 +31,59 @@ class BusinessListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(
-        title: appBarTitle ?? 'Promo Lengkap',
-        showBackButton: true,
-        initialIndex: initialIndex,
-        selectedIndex: bottomNavIndex,
-      ),
-      backgroundColor: AppColors.soapstone,
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          RestoMarketSelectionToggle(
-            initialIndex: initialIndex,
-            restoRoute: restoRoute,
-            marketRoute: marketRoute,
-          ),
-          Expanded(
-            child: BusinessListWidget(
-              title: promoTitle,
-              businesses: businessesData,
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) async {
+        if (didPop) {
+          return;
+        }
+
+        // Route based on condition
+        if (bottomNavIndex == 0) {
+          context.go('/homepage');
+        } else if (initialIndex == 0 && bottomNavIndex == 1) {
+          context.go('/restaurantpromo');
+        } else if (initialIndex == 1 && bottomNavIndex == 1) {
+          context.go('/marketpromo');
+        } else {
+          context.pop();
+        }
+      },
+      child: Scaffold(
+        appBar: CustomAppBar(
+          title: appBarTitle ?? 'Promo Lengkap',
+          showBackButton: true,
+          onBack: () {
+            if (bottomNavIndex == 0) {
+              context.go('/homepage');
+            } else if (initialIndex == 0 && bottomNavIndex == 1) {
+              context.go('/restaurantpromo');
+            } else if (initialIndex == 1 && bottomNavIndex == 1) {
+              context.go('/marketpromo');
+            } else {
+              context.pop();
+            }
+          },
+        ),
+        backgroundColor: AppColors.soapstone,
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            RestoMarketSelectionToggle(
+              initialIndex: initialIndex,
+              restoRoute: restoRoute,
+              marketRoute: marketRoute,
             ),
-          ),
-        ],
+            Expanded(
+              child: BusinessListWidget(
+                title: promoTitle,
+                businesses: businessesData,
+              ),
+            ),
+          ],
+        ),
+        bottomNavigationBar: BottomNavBar(currentIndex: bottomNavIndex),
       ),
-      bottomNavigationBar: BottomNavBar(currentIndex: bottomNavIndex),
     );
   }
 }

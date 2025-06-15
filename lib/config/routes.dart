@@ -67,13 +67,13 @@ class Routes {
 
   // Transaction History Section - Done History
   static const String historyDone = '/historyDone';
-  static const String historyOngoing = '/historyOngoing';
   static const String doneHistoryDetails = '/history/done/details/:id';
   static const String doneHistoryRating = '/history/done/details/:id/rating';
   static const String doneHistoryReport = '/history/done/details/:id/report';
   static const String doneHistoryReportSuccess = '/history/done/details/:id/report/success';
 
   // Transaction History Section - Processing History
+  static const String historyOngoing = '/historyOngoing';
   static const String processingHistoryDetails = '/history/processing/:id';
   static const String processingHistoryCancel = '/history/processing/:id/cancel';
   static const String deliveringHistoryDetails = '/history/delivering/:id';
@@ -266,13 +266,6 @@ final GoRouter router = GoRouter(
         return HistoryListView(routeIndex: 0);
       },
     ),
-    // Ongoing History
-    GoRoute(
-      path: Routes.historyOngoing,
-      builder: (context, state) {
-        return HistoryListView(routeIndex: 1);
-      },
-    ),
     GoRoute(
       path: Routes.doneHistoryDetails,
       builder: (context, state) {
@@ -306,6 +299,12 @@ final GoRouter router = GoRouter(
     ),
 
     // Ongoing History
+    GoRoute(
+      path: Routes.historyOngoing,
+      builder: (context, state) {
+        return HistoryListView(routeIndex: 1);
+      },
+    ),
     GoRoute(
       path: Routes.processingHistoryDetails,
       builder: (context, state) {
