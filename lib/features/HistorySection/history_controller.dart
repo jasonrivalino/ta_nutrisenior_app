@@ -4,7 +4,6 @@ import '../../database/history_order_list_table.dart';
 import '../../database/business_list_table.dart';
 import '../../database/driver_list_table.dart';
 import '../../database/history_list_table.dart';
-import '../../database/history_rating_list_table.dart';
 import '../../database/product_list_table.dart';
 import '../../database/business_promo_list_table.dart';
 
@@ -34,6 +33,7 @@ class HistoryController {
               (product) => product['product_id'] == order['product_id'],
               orElse: () => {},
             );
+            print('Matched Product: $matchedProduct');
             return {
               'product_name': matchedProduct['product_name'] ?? 'Unknown Product',
               'product_price': matchedProduct['product_price'] ?? 0,
@@ -48,7 +48,7 @@ class HistoryController {
         (sum, item) => sum + (item['product_price'] as int) * (item['qty_product'] as int),
       );
 
-      final int serviceFee = historyItem['service_fee'] ?? 0;
+      final int serviceFee = matchedBusiness['service_fee'] ?? 0;
       final int deliveryFee = historyItem['delivery_fee'] ?? 0;
 
       // final int totalBeforeDiscount = totalOrderPrice + serviceFee + deliveryFee;
@@ -91,9 +91,6 @@ class CancelledOrderController {
 
     // Remove from historyListTable
     historyListTable.removeWhere((item) => item['history_id'] == historyId);
-
-    // Remove from historyRatingList
-    historyRatingListTable.removeWhere((rating) => rating['history_id'] == historyId);
 
     debugPrint('[DEBUG] Order with history_id=$historyId cancelled and removed from all related tables.');
   }

@@ -6,14 +6,18 @@ import '../../../../shared/styles/colors.dart';
 import '../../../../shared/utils/calculate_delivery_fee.dart';
 import '../../../../shared/widgets/appbar.dart';
 import '../business_ordering_menu_widget.dart';
+import 'confirmation_ordering_controller.dart';
 import 'confirmation_ordering_widget.dart';
 
 class OrderConfirmationView extends StatefulWidget {
   final List<Map<String, dynamic>> selectedProducts;
   final int serviceFee;
   final int businessId;
+  final String businessName;
   final String businessType;
+  final String businessImage;
   final double businessDistance;
+  final String businessEstimatedDelivery;
   final bool isFreeShipment;
   final int totalPrice;
 
@@ -21,8 +25,11 @@ class OrderConfirmationView extends StatefulWidget {
     super.key,
     required this.selectedProducts,
     required this.businessId,
+    required this.businessName,
     required this.businessType,
+    required this.businessImage,
     required this.businessDistance,
+    required this.businessEstimatedDelivery,
     required this.isFreeShipment,
     required this.serviceFee,
     required this.totalPrice,
@@ -34,8 +41,11 @@ class OrderConfirmationView extends StatefulWidget {
     return OrderConfirmationView(
       selectedProducts: extra['selected_products'] as List<Map<String, dynamic>>,
       businessId: extra['business_id'] as int,
+      businessName: extra['business_name'] as String,
       businessType: extra['business_type'] as String,
+      businessImage: extra['business_image'] as String,
       businessDistance: extra['business_distance'] as double,
+      businessEstimatedDelivery: extra['business_estimated_delivery'] as String,
       isFreeShipment: extra['is_free_shipment'] as bool,
       serviceFee: extra['service_fee'] as int,
       totalPrice: extra['total_price'] as int,
@@ -235,6 +245,32 @@ class _OrderConfirmationViewState extends State<OrderConfirmationView> {
           print("Total Price: $updatedTotalPrice");
           print("Driver Note: $driverNote");
           print("Payment Method: $_selectedPaymentMethod");
+
+          // 1. Add order and get historyId
+          final int historyId = OrderConfirmationController.addOrder(
+            businessId: widget.businessId,
+            selectedProducts: _selectedProducts,
+            estimatedDelivery: widget.businessEstimatedDelivery,
+            deliveryFee: deliveryFee,
+            paymentMethod: _selectedPaymentMethod,
+          );
+
+          // 2. Navigate to processing history page with data
+          context.push(
+            '/history/processing/$historyId',
+            extra: {
+              'history_id': historyId,
+              'business_name': widget.businessName,
+              'business_type': widget.businessType,
+              'business_image': widget.businessImage,
+              'estimated_arrival_time': widget.businessEstimatedDelivery,
+              'order_list': _selectedProducts,
+              'service_fee': widget.serviceFee,
+              'delivery_fee': deliveryFee,
+              'total_price': updatedTotalPrice,
+              'status': 'diproses',
+            },
+          );
         },
       ),
     );
