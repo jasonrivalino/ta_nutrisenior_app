@@ -1,4 +1,6 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ta_nutrisenior_app/shared/styles/fonts.dart';
 
@@ -228,7 +230,17 @@ class _OrderConfirmationViewState extends State<OrderConfirmationView> {
       bottomNavigationBar: OrderBottomNavbar(
         totalPrice: _calculateUpdatedTotalPrice(),
         buttonText: "Lakukan Pemesanan",
-        onOrderPressed: () {
+        onOrderPressed: () async {
+          final connectivityResult = await Connectivity().checkConnectivity();
+          if (connectivityResult.contains(ConnectivityResult.none)) {
+            Fluttertoast.showToast(
+              msg: 'Pemesanan gagal dilakukan.\nSilahkan coba lagi.',
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+            );
+            return;
+          }
+
           final int deliveryFee = calculateDeliveryFee(widget.isFreeShipment, widget.businessDistance);
           final int updatedTotalPrice = _calculateUpdatedTotalPrice();
 
