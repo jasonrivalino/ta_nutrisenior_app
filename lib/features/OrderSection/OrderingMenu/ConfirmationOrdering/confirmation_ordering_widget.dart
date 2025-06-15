@@ -8,11 +8,13 @@ import '../../../../shared/utils/format_currency.dart';
 class RecipientLocationBox extends StatelessWidget {
   final VoidCallback onAddressClick;
   final VoidCallback onNotesClick;
+  final String note;
 
   const RecipientLocationBox({
     super.key,
     required this.onAddressClick,
     required this.onNotesClick,
+    required this.note,
   });
 
   @override
@@ -53,7 +55,7 @@ class RecipientLocationBox extends StatelessWidget {
               fontFamily: AppFonts.fontBold,
             ),
           ),
-          Text(
+          const Text(
             "Jl. Lorem Ipsum 1 No. 2",
             style: TextStyle(
               color: AppColors.dark,
@@ -64,8 +66,8 @@ class RecipientLocationBox extends StatelessWidget {
           ),
           const SizedBox(height: 4),
           Text(
-            "Note: taruh depan kamar saja nomor 11",
-            style: TextStyle(
+            "Note: $note",
+            style: const TextStyle(
               color: AppColors.dark,
               fontSize: 14,
               fontWeight: FontWeight.w500,
@@ -395,11 +397,50 @@ class AddMoreOrderButtonBox extends StatelessWidget {
   }
 }
 
-class PaymentMethodBox extends StatelessWidget {
-  const PaymentMethodBox({super.key});
+class PaymentMethodBox extends StatefulWidget {
+  final String selectedMethod;
+  final Function(String) onMethodSelected;
+
+  const PaymentMethodBox({
+    super.key,
+    required this.selectedMethod,
+    required this.onMethodSelected,
+  });
+
+  @override
+  State<PaymentMethodBox> createState() => _PaymentMethodBoxState();
+}
+
+class _PaymentMethodBoxState extends State<PaymentMethodBox> {
+  late String selectedMethod;
+
+  final List<Map<String, dynamic>> paymentOptions = [
+    {
+      'label': 'Pembayaran Tunai',
+      'icon': Icons.payments_outlined,
+    },
+    {
+      'label': 'Virtual Account Transfer',
+      'icon': Icons.account_balance_wallet_outlined,
+    },
+    {
+      'label': 'QRIS Scan',
+      'icon': Icons.qr_code_scanner_outlined,
+    },
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    selectedMethod = widget.selectedMethod;
+  }
 
   @override
   Widget build(BuildContext context) {
+    final currentOption = paymentOptions.firstWhere(
+      (option) => option['label'] == selectedMethod,
+    );
+
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -415,26 +456,107 @@ class PaymentMethodBox extends StatelessWidget {
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [
+        children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
+              const Text(
                 "Metode Pembayaran",
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  color: AppColors.dark,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: AppFonts.fontBold,
+                ),
               ),
-              Text(
-                "Lihat Semua",
-                style: TextStyle(color: AppColors.dark, fontWeight: FontWeight.bold, fontFamily: AppFonts.fontBold),
+              GestureDetector(
+                onTap: () {
+                  showModalBottomSheet(
+                    context: context,
+                    backgroundColor: AppColors.berylGreen,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+                    ),
+                    builder: (BuildContext context) {
+                      return StatefulBuilder(
+                        builder: (context, modalSetState) {
+                          return Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Padding(
+                                  padding: EdgeInsets.only(bottom: 4),
+                                  child: Text(
+                                    "Pilih Metode Pembayaran:",
+                                    style: TextStyle(
+                                      color: AppColors.dark,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: AppFonts.fontBold,
+                                    ),
+                                  ),
+                                ),
+                                ...paymentOptions.map((option) {
+                                  return Padding(
+                                    padding: const EdgeInsets.symmetric(vertical: 1),
+                                    child: RadioListTile<String>(
+                                      dense: true,
+                                      contentPadding: EdgeInsets.zero,
+                                      value: option['label'],
+                                      groupValue: selectedMethod,
+                                      onChanged: (value) {
+                                        modalSetState(() {});
+                                        setState(() {
+                                          selectedMethod = value!;
+                                        });
+                                        widget.onMethodSelected(value!); // notify parent
+                                        Navigator.pop(context);
+                                      },
+                                      title: Row(
+                                        children: [
+                                          Icon(option['icon'], size: 24),
+                                          const SizedBox(width: 6),
+                                          Text(option['label'],
+                                            style: const TextStyle(
+                                              fontSize: 14,
+                                              color: AppColors.dark,
+                                              fontWeight: FontWeight.w500,
+                                              fontFamily: AppFonts.fontMedium,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                }).toList(),
+                              ],
+                            ),
+                          );
+                        },
+                      );
+                    },
+                  );
+                },
+                child: const Text(
+                  "Lihat Semua",
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: AppFonts.fontBold,
+                  ),
+                ),
               ),
             ],
           ),
-          SizedBox(height: 12),
+          const SizedBox(height: 12),
           Row(
             children: [
-              Icon(Icons.payments_outlined),
-              SizedBox(width: 8),
-              Text("Pembayaran Tunai"),
+              Icon(currentOption['icon']),
+              const SizedBox(width: 12),
+              Text(selectedMethod),
             ],
           ),
         ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ta_nutrisenior_app/shared/styles/fonts.dart';
 
 import '../../../../shared/styles/colors.dart';
 import '../../../../shared/utils/calculate_delivery_fee.dart';
@@ -47,6 +48,8 @@ class OrderConfirmationView extends StatefulWidget {
 
 class _OrderConfirmationViewState extends State<OrderConfirmationView> {
   late List<Map<String, dynamic>> _selectedProducts;
+  String driverNote = "-";
+  String _selectedPaymentMethod = 'Pembayaran Tunai';
 
   @override
   void initState() {
@@ -80,8 +83,89 @@ class _OrderConfirmationViewState extends State<OrderConfirmationView> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             RecipientLocationBox(
-              onAddressClick: () {},
-              onNotesClick: () {},
+              onAddressClick: () {
+                // your address click handler
+              },
+              onNotesClick: () {
+                final TextEditingController controller = TextEditingController(text: driverNote == '-' ? '' : driverNote);
+
+                showModalBottomSheet(
+                  context: context,
+                  backgroundColor: AppColors.ecruWhite,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+                  ),
+                  isScrollControlled: true,
+                  builder: (BuildContext context) {
+                    return Padding(
+                      padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).viewInsets.bottom,
+                        top: 16,
+                        left: 16,
+                        right: 16,
+                      ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "Note Pengantar",
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: AppFonts.fontBold,
+                            ),
+                          ),
+                          const SizedBox(height: 12),
+                          TextField(
+                            controller: controller,
+                            maxLines: 3,
+                            style: const TextStyle(
+                              fontSize: 14,
+                              fontFamily: AppFonts.fontMedium,
+                            ),
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor: AppColors.soapstone,
+                              hintText: "Tulis note di sini...",
+                              border: const OutlineInputBorder(),
+                              contentPadding: const EdgeInsets.all(12),
+                            ),
+                          ),
+                          const SizedBox(height: 12),
+                          ElevatedButton(
+                            onPressed: () {
+                              setState(() {
+                                driverNote = controller.text.trim().isEmpty ? "-" : controller.text.trim();
+                              });
+                              print("Note Pengantar: $driverNote");
+                              context.pop();
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: AppColors.woodland,
+                              foregroundColor: AppColors.soapstone,
+                              minimumSize: const Size.fromHeight(40),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                            ),
+                            child: const Text(
+                              'Tambahkan Note',
+                              style: TextStyle(
+                                fontFamily: AppFonts.fontBold,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+                        ],
+                      ),
+                    );
+                  },
+                );
+              },
+              note: driverNote,
             ),
             const SizedBox(height: 8),
 
@@ -119,7 +203,14 @@ class _OrderConfirmationViewState extends State<OrderConfirmationView> {
             ),
             const SizedBox(height: 8),
 
-            const PaymentMethodBox(),
+            PaymentMethodBox(
+              selectedMethod: _selectedPaymentMethod,
+              onMethodSelected: (method) {
+                setState(() {
+                  _selectedPaymentMethod = method;
+                });
+              },
+            ),
             const SizedBox(height: 8),
           ],
         ),
@@ -128,7 +219,22 @@ class _OrderConfirmationViewState extends State<OrderConfirmationView> {
         totalPrice: _calculateUpdatedTotalPrice(),
         buttonText: "Lakukan Pemesanan",
         onOrderPressed: () {
-          // Implement confirmation logic
+          final int deliveryFee = calculateDeliveryFee(widget.isFreeShipment, widget.businessDistance);
+          final int updatedTotalPrice = _calculateUpdatedTotalPrice();
+
+          print("=== Order Confirmation Debug Info ===");
+          print("Selected Products:");
+          for (var product in _selectedProducts) {
+            print("Product ID: ${product['product_id']}, Name: ${product['product_name']}, "
+                  "Price: ${product['product_price']}, Quantity: ${product['qty_product']}, "
+                  "Notes: ${product['notes'] ?? '-'}");
+          }
+
+          print("Service Fee: ${widget.serviceFee}");
+          print("Delivery Fee: $deliveryFee");
+          print("Total Price: $updatedTotalPrice");
+          print("Driver Note: $driverNote");
+          print("Payment Method: $_selectedPaymentMethod");
         },
       ),
     );
