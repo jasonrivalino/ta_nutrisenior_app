@@ -22,7 +22,6 @@ class _SearchViewState extends State<SearchView> {
   int selectedIndex = 0;
   String _searchQuery = '';
 
-  bool _showSortOverlay = false;
   int _selectedSortOption = 0;
   int _tempSelectedSortOption = 0;
 
@@ -91,11 +90,35 @@ class _SearchViewState extends State<SearchView> {
 
                   setState(() => _searchQuery = value);
                 },
-                onFilterPressed: () {
-                  setState(() {
-                    _tempSelectedSortOption = _selectedSortOption;
-                    _showSortOverlay = true;
-                  });
+                onFilterPressed: () async {
+                  await showModalBottomSheet(
+                    context: context,
+                    backgroundColor: Colors.transparent,
+                    isScrollControlled: true,
+                    builder: (BuildContext context) {
+                      return SortFilterOverlay(
+                        selectedOption: _tempSelectedSortOption,
+                        onOptionSelected: (val) {
+                          setState(() => _tempSelectedSortOption = val);
+                        },
+                        onApply: () async {
+                          final connectivityResult = await Connectivity().checkConnectivity();
+                          if (connectivityResult.contains(ConnectivityResult.none)) {
+                            Fluttertoast.showToast(
+                              msg: 'Pengurutan gagal dilakukan.\nSilahkan coba lagi.',
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.BOTTOM,
+                            );
+                            return;
+                          }
+
+                          setState(() {
+                            _selectedSortOption = _tempSelectedSortOption;
+                          });
+                        },
+                      );
+                    },
+                  );
                 },
               ),
               const SizedBox(height: 24),
@@ -168,34 +191,6 @@ class _SearchViewState extends State<SearchView> {
                     ),
             ],
           ),
-          if (_showSortOverlay) ...[
-            ModalBarrier(
-              dismissible: false,
-              color: Colors.black.withAlpha(76),
-            ),
-            SortFilterOverlay(
-              selectedOption: _tempSelectedSortOption,
-              onOptionSelected: (val) {
-                setState(() => _tempSelectedSortOption = val);
-              },
-              onApply: () async {
-                final connectivityResult = await Connectivity().checkConnectivity();
-                if (connectivityResult.contains(ConnectivityResult.none)) {
-                  Fluttertoast.showToast(
-                    msg: 'Pengurutan gagal dilakukan.\nSilahkan coba lagi.',
-                    toastLength: Toast.LENGTH_SHORT,
-                    gravity: ToastGravity.BOTTOM,
-                  );
-                  return;
-                }
-
-                setState(() {
-                  _selectedSortOption = _tempSelectedSortOption;
-                  _showSortOverlay = false;
-                });
-              },
-            ),
-          ],
         ],
       ),
     );

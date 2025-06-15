@@ -218,7 +218,7 @@ class RecentSearchList extends StatelessWidget {
   }
 }
 
-class SortFilterOverlay extends StatelessWidget {
+class SortFilterOverlay extends StatefulWidget {
   final int selectedOption;
   final Function(int) onOptionSelected;
   final VoidCallback onApply;
@@ -231,59 +231,70 @@ class SortFilterOverlay extends StatelessWidget {
   });
 
   @override
+  State<SortFilterOverlay> createState() => _SortFilterOverlayState();
+}
+
+class _SortFilterOverlayState extends State<SortFilterOverlay> {
+  late int _selectedOption;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedOption = widget.selectedOption;
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Positioned(
-      bottom: 0,
-      left: 0,
-      right: 0,
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: AppColors.berylGreen,
-          borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'Urutkan Restoran berdasarkan:',
-              style: TextStyle(
-                color: AppColors.dark,
-                fontFamily: AppFonts.fontBold,
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: const BoxDecoration(
+        color: AppColors.berylGreen,
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'Urutkan Restoran berdasarkan:',
+            style: TextStyle(
+              color: AppColors.dark,
+              fontFamily: AppFonts.fontBold,
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
             ),
-            const SizedBox(height: 12),
-            _buildRadio(0, 'Rekomendasi'),
-            _buildRadio(1, 'Rating penilaian'),
-            _buildRadio(2, 'Jarak lokasi'),
-            const SizedBox(height: 15),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: onApply,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.woodland,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
+          ),
+          const SizedBox(height: 12),
+          _buildRadio(0, 'Rekomendasi'),
+          _buildRadio(1, 'Rating penilaian'),
+          _buildRadio(2, 'Jarak lokasi'),
+          const SizedBox(height: 15),
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: () {
+                widget.onOptionSelected(_selectedOption);
+                widget.onApply();
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.woodland,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
                 ),
-                child: const Text(
-                  'Pilih Urutan',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontFamily: AppFonts.fontBold,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.soapstone,
-                  ),
+              ),
+              child: const Text(
+                'Pilih Urutan',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontFamily: AppFonts.fontBold,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.soapstone,
                 ),
               ),
             ),
-            const SizedBox(height: 10),
-          ],
-        ),
+          ),
+          const SizedBox(height: 10),
+        ],
       ),
     );
   }
@@ -291,10 +302,10 @@ class SortFilterOverlay extends StatelessWidget {
   Widget _buildRadio(int value, String text) {
     return RadioListTile<int>(
       value: value,
-      groupValue: selectedOption,
+      groupValue: _selectedOption,
       onChanged: (int? value) {
         if (value != null) {
-          onOptionSelected(value);
+          setState(() => _selectedOption = value);
         }
       },
       title: Text(
