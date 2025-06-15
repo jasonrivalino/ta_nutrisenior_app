@@ -33,7 +33,6 @@ class HistoryController {
               (product) => product['product_id'] == order['product_id'],
               orElse: () => {},
             );
-            print('Matched Product: $matchedProduct');
             return {
               'product_name': matchedProduct['product_name'] ?? 'Unknown Product',
               'product_price': matchedProduct['product_price'] ?? 0,

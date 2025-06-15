@@ -281,7 +281,10 @@ class BusinessInfoCard extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 child: Center(
                   child: Text(
-                    '$formattedOpen - $formattedClose',
+                    // Add handling if 00:00 - 23:59 then change text to "Buka 24 Jam"
+                    formattedOpen == '00:00' && formattedClose == '23:59'
+                        ? 'Buka 24 Jam'
+                        : '$formattedOpen - $formattedClose',
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                       color: AppColors.dark,

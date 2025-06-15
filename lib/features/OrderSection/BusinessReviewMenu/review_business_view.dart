@@ -79,7 +79,7 @@ class _ReviewBusinessViewState extends State<ReviewBusinessView> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Wrap(
-                spacing: 8,
+                spacing: 6,
                 runSpacing: 8,
                 children: [
                   RatingFilterButton(
