@@ -93,8 +93,12 @@ class AddressChangeController {
 
   static List<Map<String, dynamic>>? _originalBusinessListTable;
 
+  // Persisted state
+  static int? lastSelectedAddressId;
+  static double? lastBusinessDistance;
+  static int? lastDeliveryFee;
+
   static void updateBusinessDistances(int selectedAddressId) {
-    // Save original only once
     _originalBusinessListTable ??= businessListTable
         .map((e) => Map<String, dynamic>.from(e))
         .toList();

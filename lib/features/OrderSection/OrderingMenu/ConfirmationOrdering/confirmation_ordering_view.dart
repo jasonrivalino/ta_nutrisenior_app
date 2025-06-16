@@ -2,11 +2,13 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ta_nutrisenior_app/shared/styles/fonts.dart';
 
+import '../../../../database/business_list_table.dart';
 import '../../../../shared/styles/colors.dart';
 import '../../../../shared/utils/calculate_delivery_fee.dart';
 import '../../../../shared/widgets/appbar.dart';
+import '../../SearchingMenu/search_controller.dart';
+import '../../SearchingMenu/search_widget.dart';
 import '../business_ordering_menu_widget.dart';
 import 'confirmation_ordering_controller.dart';
 import 'confirmation_ordering_widget.dart';
@@ -67,25 +69,61 @@ class _OrderConfirmationViewState extends State<OrderConfirmationView> {
   String driverNote = "-";
   String _selectedPaymentMethod = 'Pembayaran Tunai';
 
+  late Map<String, dynamic> _selectedAddress;
+  final TextEditingController _searchAddressController = TextEditingController();
+
+  late double _businessDistance;
+  late int _deliveryFee;
+
   @override
   void initState() {
     super.initState();
+
     _selectedProducts = List<Map<String, dynamic>>.from(widget.selectedProducts);
+
+    // Check if there's persisted state
+    final persistedId = AddressChangeController.lastSelectedAddressId;
+    final persistedDistance = AddressChangeController.lastBusinessDistance;
+    final persistedFee = AddressChangeController.lastDeliveryFee;
+
+    if (persistedId != null &&
+        persistedDistance != null &&
+        persistedFee != null &&
+        persistedId != widget.selectedAddressId) {
+      // Use persisted state
+      _selectedAddress = AddressOrderController.getAddressById(persistedId) ?? {};
+      _businessDistance = persistedDistance;
+      _deliveryFee = persistedFee;
+    } else {
+      // Use initial values from constructor
+      _selectedAddress =
+          AddressOrderController.getAddressById(widget.selectedAddressId) ?? {};
+      _businessDistance = widget.businessDistance;
+      _deliveryFee =
+          calculateDeliveryFee(widget.isFreeShipment, _businessDistance);
+
+      // Persist for first time
+      AddressChangeController.lastSelectedAddressId = widget.selectedAddressId;
+      AddressChangeController.lastBusinessDistance = _businessDistance;
+      AddressChangeController.lastDeliveryFee = _deliveryFee;
+    }
   }
+
 
   int _calculateUpdatedTotalPrice() {
     int productTotal = _selectedProducts.fold(
       0,
       (sum, product) => sum + (product['product_price'] as int) * (product['qty_product'] as int),
     );
-    final int deliveryFee = calculateDeliveryFee(widget.isFreeShipment, widget.businessDistance);
+    final int deliveryFee = calculateDeliveryFee(
+      widget.isFreeShipment,
+      _businessDistance,
+    );
     return productTotal + widget.serviceFee + deliveryFee;
   }
 
   @override
   Widget build(BuildContext context) {
-    final int deliveryFee = calculateDeliveryFee(widget.isFreeShipment, widget.businessDistance);
-
     return Scaffold(
       backgroundColor: AppColors.soapstone,
       appBar: CustomAppBar(
@@ -100,11 +138,63 @@ class _OrderConfirmationViewState extends State<OrderConfirmationView> {
           children: [
             RecipientLocationBox(
               onAddressClick: () {
-                // your address click handler
+                showModalBottomSheet(
+                  context: context,
+                  isScrollControlled: true,
+                  backgroundColor: Colors.transparent,
+                  builder: (_) => DraggableScrollableSheet(
+                    initialChildSize: 0.81,
+                    minChildSize: 0.5,
+                    maxChildSize: 0.95,
+                    expand: false,
+                    builder: (context, scrollController) {
+                      return Container(
+                        decoration: const BoxDecoration(
+                          color: AppColors.berylGreen,
+                          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                        ),
+                        child: AddressSelectionOverlay(
+                          controller: _searchAddressController,
+                          onChanged: (value) {
+                            setState(() {
+                              _searchAddressController.text = value;
+                            });
+                          },
+                          onAddressSelected: (newAddress) {
+                            final newAddressId = newAddress['address_id'];
+
+                            // Update business list distances globally
+                            AddressChangeController.updateBusinessDistances(newAddressId);
+
+                            // Get updated distance for current business
+                            final updatedBusiness = businessListTable.firstWhere(
+                              (b) => b['business_id'] == widget.businessId,
+                              orElse: () => {},
+                            );
+
+                            final newDistance =
+                                updatedBusiness['business_distance'] ?? _businessDistance;
+                            final newDeliveryFee =
+                                calculateDeliveryFee(widget.isFreeShipment, newDistance);
+
+                            setState(() {
+                              _selectedAddress = newAddress;
+                              _businessDistance = newDistance;
+                              _deliveryFee = newDeliveryFee;
+                            });
+
+                            // Persist new state
+                            AddressChangeController.lastSelectedAddressId = newAddressId;
+                            AddressChangeController.lastBusinessDistance = newDistance;
+                            AddressChangeController.lastDeliveryFee = newDeliveryFee;
+                          },
+                        ),
+                      );
+                    },
+                  ),
+                );
               },
               onNotesClick: () {
-                final TextEditingController controller = TextEditingController(text: driverNote == '-' ? '' : driverNote);
-
                 showModalBottomSheet(
                   context: context,
                   backgroundColor: AppColors.ecruWhite,
@@ -113,82 +203,28 @@ class _OrderConfirmationViewState extends State<OrderConfirmationView> {
                   ),
                   isScrollControlled: true,
                   builder: (BuildContext context) {
-                    return Padding(
-                      padding: EdgeInsets.only(
-                        bottom: MediaQuery.of(context).viewInsets.bottom,
-                        top: 16,
-                        left: 16,
-                        right: 16,
-                      ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            "Note Pengantar",
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: AppFonts.fontBold,
-                            ),
-                          ),
-                          const SizedBox(height: 12),
-                          TextField(
-                            controller: controller,
-                            maxLines: 3,
-                            style: const TextStyle(
-                              fontSize: 14,
-                              fontFamily: AppFonts.fontMedium,
-                            ),
-                            decoration: InputDecoration(
-                              filled: true,
-                              fillColor: AppColors.soapstone,
-                              hintText: "Tulis note di sini...",
-                              border: const OutlineInputBorder(),
-                              contentPadding: const EdgeInsets.all(12),
-                            ),
-                          ),
-                          const SizedBox(height: 12),
-                          ElevatedButton(
-                            onPressed: () {
-                              setState(() {
-                                driverNote = controller.text.trim().isEmpty ? "-" : controller.text.trim();
-                              });
-                              print("Note Pengantar: $driverNote");
-                              context.pop();
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: AppColors.woodland,
-                              foregroundColor: AppColors.soapstone,
-                              minimumSize: const Size.fromHeight(40),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30),
-                              ),
-                            ),
-                            child: const Text(
-                              'Tambahkan Note',
-                              style: TextStyle(
-                                fontFamily: AppFonts.fontBold,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 16),
-                        ],
-                      ),
+                    return DriverNoteOverlay(
+                      initialNote: driverNote,
+                      onNoteSubmitted: (newNote) {
+                        setState(() {
+                          driverNote = newNote;
+                        });
+                        print("Note Pengantar: $driverNote");
+                      },
                     );
                   },
                 );
               },
               note: driverNote,
+              addressName: _selectedAddress['address_name'] ?? '-',
+              addressDetail: _selectedAddress['address_detail'] ?? '-',
             ),
             const SizedBox(height: 8),
 
             OrderDetailListBox(
               selectedProducts: _selectedProducts,
               serviceFee: widget.serviceFee,
-              deliveryFee: deliveryFee,
+              deliveryFee: _deliveryFee,
               businessId: widget.businessId,
               businessType: widget.businessType,
               onCountChanged: (productId, newQty) {
@@ -244,8 +280,6 @@ class _OrderConfirmationViewState extends State<OrderConfirmationView> {
             );
             return;
           }
-
-          final int deliveryFee = calculateDeliveryFee(widget.isFreeShipment, widget.businessDistance);
           final int updatedTotalPrice = _calculateUpdatedTotalPrice();
 
           print("=== Order Confirmation Debug Info ===");
@@ -257,8 +291,9 @@ class _OrderConfirmationViewState extends State<OrderConfirmationView> {
           }
 
           print("Service Fee: ${widget.serviceFee}");
-          print("Delivery Fee: $deliveryFee");
+          print("Delivery Fee: $_deliveryFee");
           print("Total Price: $updatedTotalPrice");
+          print("Address Delivery: ${_selectedAddress['address_detail']}");
           print("Driver Note: $driverNote");
           print("Payment Method: $_selectedPaymentMethod");
 
@@ -267,11 +302,20 @@ class _OrderConfirmationViewState extends State<OrderConfirmationView> {
             businessId: widget.businessId,
             selectedProducts: _selectedProducts,
             estimatedDelivery: widget.businessEstimatedDelivery,
-            deliveryFee: deliveryFee,
+            deliveryFee: _deliveryFee,
             paymentMethod: _selectedPaymentMethod,
+            addressDetail: _selectedAddress['address_detail'],
           );
 
-          // 2. Navigate to processing history page with data
+          // Reset all business distances to default
+          AddressChangeController.updateBusinessDistances(1);
+
+          // Clear persisted state
+          AddressChangeController.lastSelectedAddressId = null;
+          AddressChangeController.lastBusinessDistance = null;
+          AddressChangeController.lastDeliveryFee = null;
+
+          // Navigate to processing history page
           context.push(
             '/history/processing/$historyId',
             extra: {
@@ -282,7 +326,7 @@ class _OrderConfirmationViewState extends State<OrderConfirmationView> {
               'estimated_arrival_time': widget.businessEstimatedDelivery,
               'order_list': _selectedProducts,
               'service_fee': widget.serviceFee,
-              'delivery_fee': deliveryFee,
+              'delivery_fee': _deliveryFee,
               'total_price': updatedTotalPrice,
               'status': 'diproses',
             },

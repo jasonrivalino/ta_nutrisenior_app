@@ -1,3 +1,4 @@
+import '../../../../database/address_list_table.dart';
 import '../../../../database/driver_list_table.dart';
 import '../../../../database/history_list_table.dart';
 import '../../../../database/history_order_list_table.dart';
@@ -9,6 +10,7 @@ class OrderConfirmationController {
     required String estimatedDelivery,
     required int deliveryFee,
     required String paymentMethod,
+    required String addressDetail,
   }) {
     int newHistoryId = historyOrderListTable.isNotEmpty
         ? historyOrderListTable.last['history_id'] + 1
@@ -21,7 +23,7 @@ class OrderConfirmationController {
       'business_id': businessId,
       'driver_id': randomDriver['driver_id'],
       'order_date': DateTime.now(),
-      'address_receiver': 'Jl. Lorem Ipsum 1 No. 2',
+      'address_receiver': addressDetail,
       'estimated_arrival_time': estimatedDelivery,
       'delivery_fee': deliveryFee,
       'payment_method': paymentMethod,
@@ -43,5 +45,15 @@ class OrderConfirmationController {
 
     print('✅ Order has been added successfully with history_id: $newHistoryId');
     return newHistoryId;
+  }
+}
+
+class AddressOrderController {
+  static Map<String, dynamic>? getAddressById(int addressId) {
+    try {
+      return addressListTable.firstWhere((a) => a['address_id'] == addressId);
+    } catch (e) {
+      return null;
+    }
   }
 }

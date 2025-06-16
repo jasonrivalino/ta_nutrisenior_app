@@ -30,7 +30,8 @@ class HistoryController {
       final bool isFreeShipment = matchedPromo['is_free_shipment'] as bool? ?? false;
 
       final double businessDistance = matchedBusiness['business_distance']?.toDouble() ?? 0.0;
-      final int deliveryFee = calculateDeliveryFee(isFreeShipment, businessDistance);
+      final int deliveryFee = historyItem['delivery_fee'] as int? ??
+          calculateDeliveryFee(isFreeShipment, businessDistance);
 
       // Get matching orders by history_id
       final List<Map<String, dynamic>> matchedOrders = historyListTable

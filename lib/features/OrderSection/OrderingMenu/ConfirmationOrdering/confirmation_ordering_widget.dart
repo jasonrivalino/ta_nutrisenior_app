@@ -9,12 +9,16 @@ class RecipientLocationBox extends StatelessWidget {
   final VoidCallback onAddressClick;
   final VoidCallback onNotesClick;
   final String note;
+  final String addressName;
+  final String addressDetail;
 
   const RecipientLocationBox({
     super.key,
     required this.onAddressClick,
     required this.onNotesClick,
     required this.note,
+    required this.addressName,
+    required this.addressDetail,
   });
 
   @override
@@ -46,8 +50,10 @@ class RecipientLocationBox extends StatelessWidget {
           ),
           const Divider(color: AppColors.dark, thickness: 1),
           const SizedBox(height: 6),
-          const Text(
-            "Rumah Wisma Teduh",
+          Text(
+            addressName,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
             style: TextStyle(
               color: AppColors.dark,
               fontSize: 16,
@@ -55,8 +61,10 @@ class RecipientLocationBox extends StatelessWidget {
               fontFamily: AppFonts.fontBold,
             ),
           ),
-          const Text(
-            "Jl. Lorem Ipsum 1 No. 2",
+          Text(
+            addressDetail,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
             style: TextStyle(
               color: AppColors.dark,
               fontSize: 14,
@@ -91,7 +99,7 @@ class RecipientLocationBox extends StatelessWidget {
                   shadowColor: Colors.transparent,
                   tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 ),
-                child: const Text("Alamat Detail"),
+                child: const Text("Pilih Alamat Detail"),
               ),
               const SizedBox(width: 10),
               ElevatedButton(
@@ -113,6 +121,86 @@ class RecipientLocationBox extends StatelessWidget {
               ),
             ],
           ),
+        ],
+      ),
+    );
+  }
+}
+
+class DriverNoteOverlay extends StatelessWidget {
+  final String initialNote;
+  final void Function(String note) onNoteSubmitted;
+
+  const DriverNoteOverlay({
+    super.key,
+    required this.initialNote,
+    required this.onNoteSubmitted,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final TextEditingController controller = TextEditingController(text: initialNote == '-' ? '' : initialNote);
+
+    return Padding(
+      padding: EdgeInsets.only(
+        bottom: MediaQuery.of(context).viewInsets.bottom,
+        top: 16,
+        left: 16,
+        right: 16,
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            "Note Pengantar",
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              fontFamily: AppFonts.fontBold,
+            ),
+          ),
+          const SizedBox(height: 12),
+          TextField(
+            controller: controller,
+            maxLines: 3,
+            style: const TextStyle(
+              fontSize: 14,
+              fontFamily: AppFonts.fontMedium,
+            ),
+            decoration: InputDecoration(
+              filled: true,
+              fillColor: AppColors.soapstone,
+              hintText: "Tulis note di sini...",
+              border: const OutlineInputBorder(),
+              contentPadding: const EdgeInsets.all(12),
+            ),
+          ),
+          const SizedBox(height: 12),
+          ElevatedButton(
+            onPressed: () {
+              final trimmed = controller.text.trim();
+              onNoteSubmitted(trimmed.isEmpty ? "-" : trimmed);
+              Navigator.of(context).pop();
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.woodland,
+              foregroundColor: AppColors.soapstone,
+              minimumSize: const Size.fromHeight(40),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30),
+              ),
+            ),
+            child: const Text(
+              'Tambahkan Note',
+              style: TextStyle(
+                fontFamily: AppFonts.fontBold,
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ),
+            ),
+          ),
+          const SizedBox(height: 16),
         ],
       ),
     );
