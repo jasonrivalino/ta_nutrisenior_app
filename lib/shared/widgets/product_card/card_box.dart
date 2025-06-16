@@ -22,6 +22,7 @@ class CardBox extends StatefulWidget {
   final String? notes;
   final ValueChanged<int>? onCountChanged;
   final ValueChanged<String>? onNotesChanged;
+  final List<Map<String, dynamic>>? addOns;
   final VoidCallback onTap;
 
   const CardBox({
@@ -42,6 +43,7 @@ class CardBox extends StatefulWidget {
     this.count = 0,
     this.notes = '',
     this.onCountChanged,
+    this.addOns,
     this.onNotesChanged,
   });
 
@@ -75,6 +77,7 @@ class _CardBoxState extends State<CardBox> {
           'product_description': widget.productDescription,
           'qty_product': widget.count,
           'notes': widget.notes,
+          'add_ons': widget.addOns,
         },
       );
 

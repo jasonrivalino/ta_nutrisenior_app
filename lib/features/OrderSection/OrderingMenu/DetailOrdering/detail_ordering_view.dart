@@ -16,6 +16,7 @@ class DetailOrderingView extends StatefulWidget {
   final String productDescription;
   final int qtyProduct;
   final String? notes;
+  final List<Map<String, dynamic>>? addOns;
 
   const DetailOrderingView({
     super.key,
@@ -29,6 +30,7 @@ class DetailOrderingView extends StatefulWidget {
     required this.productDescription,
     required this.qtyProduct,
     this.notes,
+    this.addOns,
   });
 
   factory DetailOrderingView.fromExtra(BuildContext context, GoRouterState state) {
@@ -44,6 +46,7 @@ class DetailOrderingView extends StatefulWidget {
       productDescription: extra['product_description'] as String,
       qtyProduct: extra['qty_product'] as int,
       notes: extra['notes'] as String?,
+      addOns: extra['add_ons'] as List<Map<String, dynamic>>?,
     );
   }
 
@@ -111,6 +114,10 @@ class _DetailOrderingViewState extends State<DetailOrderingView> {
                     productDescription: widget.productDescription,
                     discountNumber: widget.discountNumber,
                   ),
+                  if (widget.addOns != null && widget.addOns!.isNotEmpty)
+                    ProductAddOnsSelectionBox(
+                      addOns: widget.addOns!,
+                    ),
                   ProductNoteInputBox(
                     businessType: widget.businessType,
                     noteController: _noteController,
@@ -123,6 +130,7 @@ class _DetailOrderingViewState extends State<DetailOrderingView> {
       ),
       bottomNavigationBar: SetQuantityBottomNavbar(
         businessType: widget.businessType,
+        productPrice: widget.productPrice,
         quantity: quantity,
         onQuantityChanged: (newQty) {
           setState(() => quantity = newQty);

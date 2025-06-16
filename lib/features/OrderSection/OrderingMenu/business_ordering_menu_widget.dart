@@ -327,6 +327,7 @@ class RecommendedProductSection extends StatelessWidget {
   final String businessType;
   final int? discountNumber;
   final List<Map<String, dynamic>> products;
+  final List<Map<String, dynamic>>? addOns;
   final Map<String, int> selectedCounts;
   final Map<String, String> selectedNotes;
   final Function(String productId, int newCount) onCountChanged;
@@ -340,6 +341,7 @@ class RecommendedProductSection extends StatelessWidget {
     required this.businessType,
     this.discountNumber,
     required this.products,
+    this.addOns,
     required this.selectedCounts,
     required this.selectedNotes,
     required this.onCountChanged,
@@ -402,6 +404,7 @@ class RecommendedProductSection extends StatelessWidget {
                         onNotesChanged!(productId, notes);
                       }
                     },
+                    addOns: addOns?.where((addOn) => addOn['product_id'] == product['product_id']).toList(),
                     onTap: () async {
                       final route = '/business/detail/$businessId/ordering/$productId';
 
@@ -418,6 +421,7 @@ class RecommendedProductSection extends StatelessWidget {
                         'product_description': product['product_description'],
                         'qty_product': currentCount,
                         'notes': currentNotes,
+                        'add_ons': addOns?.where((addOn) => addOn['product_id'] == product['product_id']).toList(),
                       });
 
                       if (result != null) {
@@ -449,6 +453,7 @@ class ProductListWidget extends StatelessWidget {
   final String businessType;
   final int? discountNumber;
   final List<Map<String, dynamic>> products;
+  final List<Map<String, dynamic>>? addOns;
   final Map<String, int> selectedCounts;
   final Map<String, String> selectedNotes;
   final Function(String productId, int newCount) onCountChanged;
@@ -461,6 +466,7 @@ class ProductListWidget extends StatelessWidget {
     required this.businessType,
     this.discountNumber,
     required this.products,
+    this.addOns,
     required this.selectedCounts,
     required this.selectedNotes,
     required this.onCountChanged,
@@ -521,6 +527,7 @@ class ProductListWidget extends StatelessWidget {
                       onNotesChanged!(productId, notes);
                     }
                   },
+                  addOns: addOns?.where((addOn) => addOn['product_id'] == product['product_id']).toList(),
                   onTap: () async {
                     final route = '/business/detail/$businessId/ordering/$productId';
 
@@ -537,6 +544,7 @@ class ProductListWidget extends StatelessWidget {
                       'product_description': product['product_description'],
                       'qty_product': currentCount,
                       'notes': currentNotes,
+                      'add_ons': addOns?.where((addOn) => addOn['product_id'] == product['product_id']).toList(),
                     });
 
                     if (result != null) {

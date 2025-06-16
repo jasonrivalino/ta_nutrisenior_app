@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ta_nutrisenior_app/shared/styles/colors.dart';
 import 'package:ta_nutrisenior_app/shared/utils/format_currency.dart';
 
@@ -106,6 +107,109 @@ class ProductDetailInfoBox extends StatelessWidget {
   }
 }
 
+class ProductAddOnsSelectionBox extends StatefulWidget {
+  final List<Map<String, dynamic>> addOns;
+
+  const ProductAddOnsSelectionBox({super.key, required this.addOns});
+
+  @override
+  State<ProductAddOnsSelectionBox> createState() => _ProductAddOnsSelectionBoxState();
+}
+
+class _ProductAddOnsSelectionBoxState extends State<ProductAddOnsSelectionBox> {
+  final Set<int> _selectedAddOnIds = {};
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(top: 8),
+      padding: const EdgeInsets.symmetric(vertical: 12),
+      decoration: BoxDecoration(
+        color: AppColors.soapstone,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black12,
+            blurRadius: 4,
+            offset: Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Padding(
+            padding: EdgeInsets.only(bottom: 8, left: 16),
+            child: Text(
+              'Pilih Tambahan',
+              style: TextStyle(
+                color: AppColors.dark,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                fontFamily: AppFonts.fontBold,
+              ),
+            ),
+          ),
+          ...widget.addOns.map((addOn) {
+            final int id = addOn['add_ons_id'];
+            final String name = addOn['add_ons_name'];
+            final int price = addOn['add_ons_price'];
+            final bool isSelected = _selectedAddOnIds.contains(id);
+
+            return Material(
+              color: Colors.transparent,
+              child: InkWell(
+                hoverColor: AppColors.soapstone.withAlpha(80),
+                splashColor: AppColors.darkGray.withAlpha(50),
+                onTap: () {
+                  setState(() {
+                    if (isSelected) {
+                      _selectedAddOnIds.remove(id);
+                    } else {
+                      _selectedAddOnIds.add(id);
+                    }
+                  });
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    color: isSelected
+                        ? AppColors.soapstone.withValues(alpha: 0.3)
+                        : Colors.transparent,
+                  ),
+                  padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                  child: Row(
+                    children: [
+                      FaIcon(
+                        isSelected
+                            ? FontAwesomeIcons.solidCircleCheck
+                            : FontAwesomeIcons.circle,
+                        color: isSelected ? AppColors.dark : AppColors.darkGray,
+                        size: 20,
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Text(
+                          '$name (${formatCurrency(price)})',
+                          style: const TextStyle(
+                            color: AppColors.dark,
+                            fontSize: 14,
+                            fontFamily: AppFonts.fontMedium,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          }),
+        ],
+      ),
+    );
+  }
+}
+
 class ProductNoteInputBox extends StatelessWidget {
   final String businessType;
   final TextEditingController noteController;
@@ -122,7 +226,7 @@ class ProductNoteInputBox extends StatelessWidget {
       margin: const EdgeInsets.only(top: 8),
       padding: const EdgeInsets.fromLTRB(16, 12, 16, 16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.soapstone,
         boxShadow: [
           BoxShadow(
             color: Colors.black12,
@@ -171,6 +275,7 @@ class ProductNoteInputBox extends StatelessWidget {
 
 class SetQuantityBottomNavbar extends StatelessWidget {
   final String businessType;
+  final int productPrice;
   final int quantity;
   final void Function(int) onQuantityChanged;
   final VoidCallback onAddPressed;
@@ -178,6 +283,7 @@ class SetQuantityBottomNavbar extends StatelessWidget {
   const SetQuantityBottomNavbar({
     super.key,
     required this.businessType,
+    required this.productPrice,
     required this.quantity,
     required this.onQuantityChanged,
     required this.onAddPressed,
@@ -288,7 +394,7 @@ class SetQuantityBottomNavbar extends StatelessWidget {
                 ),
               ),
               child: Text(
-                'Tambah ${businessType == 'restaurant' ? 'Makanan' : 'Belanjaan'}',
+                'Tambah ${businessType == 'restaurant' ? 'Makanan' : 'Belanjaan'} - ${formatCurrency(productPrice * quantity)}',
                 style: TextStyle(
                   fontFamily: AppFonts.fontBold,
                   fontWeight: FontWeight.bold,

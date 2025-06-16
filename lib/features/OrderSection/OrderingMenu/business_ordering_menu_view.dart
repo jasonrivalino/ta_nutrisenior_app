@@ -100,6 +100,7 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
     setState(() {
       allProducts = productMap['allProducts'] ?? [];
       recommendedProducts = productMap['recommendedProducts'] ?? [];
+      print('Recommended Products: $recommendedProducts');
 
       // Since discount info and free shipment flag are already in the product data, grab it from any product (if exists)
       if (allProducts.isNotEmpty) {
@@ -235,6 +236,16 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
                                 businessType: widget.businessType,
                                 discountNumber: discountNumber,
                                 products: recommendedProducts,
+                                addOns: recommendedProducts
+                                  .expand((product) {
+                                    final pid = product['product_id'];
+                                    final List<Map<String, dynamic>> productAddOns = List<Map<String, dynamic>>.from(product['add_ons'] ?? []);
+                                    return productAddOns.map((addOn) => {
+                                          ...addOn,
+                                          'product_id': pid,
+                                        });
+                                  })
+                                  .toList(),
                                 selectedCounts: selectedProductCounts,
                                 selectedNotes: selectedProductNotes,
                                 onCountChanged: (productId, newCount) {
@@ -257,6 +268,16 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
                                 businessType: widget.businessType,
                                 discountNumber: discountNumber,
                                 products: allProducts,
+                                addOns: allProducts
+                                  .expand((product) {
+                                    final pid = product['product_id'];
+                                    final List<Map<String, dynamic>> productAddOns = List<Map<String, dynamic>>.from(product['add_ons'] ?? []);
+                                    return productAddOns.map((addOn) => {
+                                          ...addOn,
+                                          'product_id': pid,
+                                        });
+                                  })
+                                  .toList(),
                                 selectedCounts: selectedProductCounts,
                                 selectedNotes: selectedProductNotes,
                                 onCountChanged: (productId, newCount) {

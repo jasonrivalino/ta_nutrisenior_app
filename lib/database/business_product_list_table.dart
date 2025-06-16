@@ -1,6 +1,11 @@
 final List<Map<String, dynamic>> businessProductListTable = [
-  {'business_id': 1, 'product_id': 1, 'add_ons_id': null},
-  {'business_id': 1, 'product_id': 2, 'add_ons_id': null},
+  {'business_id': 1, 'product_id': 1, 'add_ons_id': 1},
+  {'business_id': 1, 'product_id': 1, 'add_ons_id': 2},
+  {'business_id': 1, 'product_id': 1, 'add_ons_id': 3},
+
+  {'business_id': 1, 'product_id': 2, 'add_ons_id': 4},
+  {'business_id': 1, 'product_id': 2, 'add_ons_id': 5},
+  
   {'business_id': 1, 'product_id': 3, 'add_ons_id': null},
   {'business_id': 1, 'product_id': 4, 'add_ons_id': null},
   {'business_id': 1, 'product_id': 5, 'add_ons_id': null},
