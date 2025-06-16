@@ -45,17 +45,21 @@ class _HomeTopBarSectionState extends State<HomeTopBarSection> {
           padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
-                'Hello, $userName',
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
+              Expanded(
+                child: Text(
+                  'Hello, $userName',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
               Row(
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   IconButton(
                     iconSize: 32,
@@ -95,7 +99,7 @@ class _HomeTopBarSectionState extends State<HomeTopBarSection> {
                 borderRadius: BorderRadius.circular(16.0),
               ),
               child: const Text(
-                'Cari pesanan pilihanmu',
+                'Cari pesanan pilihanmu...',
                 style: TextStyle(
                   color: Colors.black54,
                   fontSize: 16.0,

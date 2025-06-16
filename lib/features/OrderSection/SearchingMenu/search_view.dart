@@ -18,7 +18,8 @@ class SearchView extends StatefulWidget {
 }
 
 class _SearchViewState extends State<SearchView> {
-  final TextEditingController _searchController = TextEditingController();
+  final TextEditingController _searchBusinessController = TextEditingController();
+  final TextEditingController _searchAddressController = TextEditingController();
   int selectedIndex = 0;
   String _searchQuery = '';
 
@@ -28,21 +29,19 @@ class _SearchViewState extends State<SearchView> {
   final List<int> recentRestaurantSearches = [1, 6, 13];
   final List<int> recentMarketSearches = [8, 10];
 
-  List<Map<String, dynamic>> getRecentSearchData(
-      List<int> ids, List<Map<String, dynamic>> source) {
-    return ids
-        .map((id) => source.firstWhere(
-              (b) => b['business_id'] == id,
-              orElse: () => {},
-            ))
-        .where((b) => b.isNotEmpty)
-        .toList();
-  }
+  final List<int> defaultAddress = [1];
+
+  late Map<String, dynamic> _selectedAddress;
 
   @override
   void initState() {
     super.initState();
     _tempSelectedSortOption = _selectedSortOption;
+    _selectedAddress = AddressChooseController.getAddressesCondition(defaultAddress).first;
+
+    // Call update distances here using selected default address
+    final selectedId = _selectedAddress['address_id'];
+    AddressChangeController.updateBusinessDistances(selectedId);
   }
 
   @override
@@ -52,8 +51,10 @@ class _SearchViewState extends State<SearchView> {
         : SearchPageController.marketList(sortOption: _selectedSortOption);
 
     final recentSearchData = selectedIndex == 0
-        ? getRecentSearchData(recentRestaurantSearches, businesses)
-        : getRecentSearchData(recentMarketSearches, businesses);
+        ? SearchPageController.getRecentSearchBusinesses(
+            recentRestaurantSearches, 'restaurant')
+        : SearchPageController.getRecentSearchBusinesses(
+            recentMarketSearches, 'market');
 
     final filteredBusinesses = _searchQuery.isEmpty
         ? []
@@ -64,19 +65,58 @@ class _SearchViewState extends State<SearchView> {
                 .contains(_searchQuery.toLowerCase()))
             .toList();
 
-    return Scaffold(
-      backgroundColor: AppColors.soapstone,
-      appBar: CustomAppBar(title: 'Menu Pencarian', showBackButton: true),
-      body: Stack(
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 12),
-              CustomLocationAppBarTitle(),
+  return Scaffold(
+    backgroundColor: AppColors.soapstone,
+    appBar: CustomAppBar(title: 'Menu Pencarian', showBackButton: true),
+    body: Stack(
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 12),
+            CustomLocationAppBarTitle(
+              selectedAddress: _selectedAddress,
+              onAddressChanged: (newAddress) {
+                setState(() {
+                  _selectedAddress = newAddress;
+                });
+              },
+              onTap: () {
+                showModalBottomSheet(
+                  context: context,
+                  isScrollControlled: true, // Allow full height
+                  backgroundColor: Colors.transparent, // To allow rounded corners to look right
+                  builder: (_) => DraggableScrollableSheet(
+                    initialChildSize: 0.81,
+                    minChildSize: 0.5,
+                    maxChildSize: 0.95,
+                    expand: false,
+                    builder: (context, scrollController) {
+                      return Container(
+                        decoration: const BoxDecoration(
+                          color: AppColors.berylGreen,
+                          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                        ),
+                        child: AddressSelectionOverlay(
+                          controller: _searchAddressController,
+                          onChanged: (value) {
+                            setState(() {
+                              _searchAddressController.text = value;
+                            });
+                          },
+                          onAddressSelected: (newAddress) {
+                            setState(() => _selectedAddress = newAddress);
+                          },
+                        ),
+                      );
+                    },
+                  ),
+                );
+                },
+              ),
               const SizedBox(height: 16),
               SearchBarWithFilter(
-                controller: _searchController,
+                controller: _searchBusinessController,
                 onChanged: (value) async {
                   final connectivityResult = await Connectivity().checkConnectivity();
                   if (connectivityResult.contains(ConnectivityResult.none)) {
@@ -87,7 +127,6 @@ class _SearchViewState extends State<SearchView> {
                     );
                     return;
                   }
-
                   setState(() => _searchQuery = value);
                 },
                 onFilterPressed: () async {
@@ -128,7 +167,7 @@ class _SearchViewState extends State<SearchView> {
                   setState(() {
                     selectedIndex = index;
                     _searchQuery = '';
-                    _searchController.clear();
+                    _searchBusinessController.clear();
                   });
                 },
               ),
@@ -148,7 +187,7 @@ class _SearchViewState extends State<SearchView> {
 
                         setState(() {
                           _searchQuery = business['business_name'];
-                          _searchController.text = business['business_name'];
+                          _searchBusinessController.text = business['business_name'];
                         });
                       },
                     )
