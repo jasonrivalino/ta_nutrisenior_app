@@ -25,6 +25,7 @@ class BusinessOrderingMenuView extends StatefulWidget {
   final int? productId;
   final int? qtyProduct;
   final String? notes;
+  final int? selectedAddressId;
 
   const BusinessOrderingMenuView({
     super.key,
@@ -44,6 +45,7 @@ class BusinessOrderingMenuView extends StatefulWidget {
     this.productId,
     this.qtyProduct,
     this.notes,
+    this.selectedAddressId,
   });
 
   static BusinessOrderingMenuView fromExtra(BuildContext context, GoRouterState state) {
@@ -65,6 +67,7 @@ class BusinessOrderingMenuView extends StatefulWidget {
       productId: extra['product_id'] as int?,
       qtyProduct: extra['qty_product'] as int?,
       notes: extra['notes'] as String?,
+      selectedAddressId: extra['selected_address_id'] as int? ?? 1,
     );
   }
 
@@ -329,6 +332,7 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
                     'business_estimated_delivery': widget.businessEstimatedDelivery,
                     'is_free_shipment': isFreeShipment,
                     'total_price': totalSelectedPrice,
+                    'selected_address_id': widget.selectedAddressId,
                   },
                 );
 

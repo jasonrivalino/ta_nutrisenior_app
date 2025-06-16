@@ -22,6 +22,7 @@ class OrderConfirmationView extends StatefulWidget {
   final String businessEstimatedDelivery;
   final bool isFreeShipment;
   final int totalPrice;
+  final int selectedAddressId;
 
   const OrderConfirmationView({
     super.key,
@@ -35,10 +36,12 @@ class OrderConfirmationView extends StatefulWidget {
     required this.isFreeShipment,
     required this.serviceFee,
     required this.totalPrice,
+    required this.selectedAddressId,
   });
 
   static OrderConfirmationView fromExtra(BuildContext context, GoRouterState state) {
     final extra = state.extra as Map<String, dynamic>;
+    print("Address ID: ${extra['selected_address_id']}");
 
     return OrderConfirmationView(
       selectedProducts: extra['selected_products'] as List<Map<String, dynamic>>,
@@ -51,6 +54,7 @@ class OrderConfirmationView extends StatefulWidget {
       isFreeShipment: extra['is_free_shipment'] as bool,
       serviceFee: extra['service_fee'] as int,
       totalPrice: extra['total_price'] as int,
+      selectedAddressId: extra['selected_address_id'] as int,
     );
   }
 
