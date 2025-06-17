@@ -80,9 +80,9 @@ class BottomChatWidget extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB(18, 8, 8, 8),
         decoration: BoxDecoration(
           color: AppColors.soapstone,
-          boxShadow: const [
+          boxShadow: [
             BoxShadow(
-              color: AppColors.dark,
+              color: AppColors.dark.withValues(alpha: 0.15),
               blurRadius: 10,
               offset: Offset(0, -2),
             ),

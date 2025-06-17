@@ -40,8 +40,12 @@ class _ProfileCardState extends State<ProfileCard> {
       decoration: BoxDecoration(
         color: AppColors.ecruWhite,
         borderRadius: BorderRadius.circular(12),
-        boxShadow: const [
-          BoxShadow(color: AppColors.dark, blurRadius: 6, offset: Offset(0, 3)),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.dark.withValues(alpha: 0.15), 
+            blurRadius: 6, 
+            offset: Offset(0, 3)
+          ),
         ],
       ),
       child: Row(

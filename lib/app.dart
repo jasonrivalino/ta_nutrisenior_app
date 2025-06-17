@@ -24,6 +24,14 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    MediaQueryData mediaQuery = MediaQuery.of(context);
+    double deviceWidth = mediaQuery.size.width;
+    double deviceHeight = mediaQuery.size.height;
+
+    print('Device Width: $deviceWidth');
+    print('Device Height: $deviceHeight');
+    print('Device Pixel Ratio: ${mediaQuery.devicePixelRatio}');
+
     if (_showSplash) {
       return const MaterialApp(
         home: SplashScreen(),

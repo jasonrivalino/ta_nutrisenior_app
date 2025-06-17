@@ -429,11 +429,11 @@ class _AddressSelectionOverlayState extends State<AddressSelectionOverlay> {
         // Sticky Submit Button
         if (selectedAddress != null)
           Container(
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               color: AppColors.berylGreen,
               boxShadow: [
                 BoxShadow(
-                  color: AppColors.dark,
+                  color: AppColors.dark.withValues(alpha: 0.15),
                   blurRadius: 10,
                   offset: Offset(0, -2),
                 ),

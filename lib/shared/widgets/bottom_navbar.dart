@@ -29,7 +29,7 @@ class BottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: AppColors.soapstone,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(20),
@@ -37,7 +37,7 @@ class BottomNavBar extends StatelessWidget {
         ),
         boxShadow: [
           BoxShadow(
-            color: AppColors.dark,
+            color: AppColors.dark.withValues(alpha: 0.15),
             blurRadius: 10,
             offset: Offset(0, -2),
           ),

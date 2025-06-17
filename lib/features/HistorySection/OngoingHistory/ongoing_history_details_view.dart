@@ -251,11 +251,11 @@ class _OngoingHistoryDetailsViewState extends State<OngoingHistoryDetailsView> {
         bottomNavigationBar: widget.status == 'diproses'
             ? Container(
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   color: AppColors.soapstone,
                   boxShadow: [
                     BoxShadow(
-                      color: AppColors.dark,
+                      color: AppColors.dark.withValues(alpha: 0.15),
                       blurRadius: 10,
                       offset: Offset(0, -2),
                     ),
