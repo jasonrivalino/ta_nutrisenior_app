@@ -269,7 +269,7 @@ class _CardListState extends State<CardList> {
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontFamily: AppFonts.fontBold,
-                          fontSize: 17,
+                          fontSize: 18,
                           height: screenHeight > 900 ? 1.35 : 1.2,
                         ),
                         maxLines: 2,
@@ -342,7 +342,7 @@ class _CardListState extends State<CardList> {
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontFamily: AppFonts.fontBold,
-                                    fontSize: 17,
+                                    fontSize: 18,
                                     height: screenHeight > 900 ? 1.35 : 1.2,
                                   ),
                                   maxLines: 1,

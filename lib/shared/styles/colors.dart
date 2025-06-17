@@ -16,8 +16,8 @@ class AppColors {
   // Secondary color palette
   static const Color persianRed     = Color(0xFFD32F2F);     // Persian Red Color: #D32F2F
   static const Color orangyYellow   = Color(0xFFFFF176);     // Orangy Yellow Color: #FFF176
-  static const Color lightGray      = Color(0xFFE0E0E0);     // Light Gray Color: #E0E0E0
-  static const Color darkGray       = Color(0xFF979797);     // Dark Gray Color: #979797
-  static const Color artyClickAmber = Color(0xFFFFC107);     // Arty Click Amber Color: #FFC107
+  static const Color amber          = Color(0xFFFFC107);     // Arty Click Amber Color: #FFC107
   static const Color blueDress      = Color(0xFF007CE0);     // Blue Dress Color: #007CE0
+  static const Color darkGray       = Color(0xFF979797);     // Dark Gray Color: #979797
+  static const Color lightGray      = Color(0xFFE0E0E0);     // Light Gray Color: #E0E0E0
 }

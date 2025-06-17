@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../database/business_list_table.dart';
 import '../../../../shared/styles/colors.dart';
-import '../../../../shared/utils/calculate_delivery_fee.dart';
+import '../../../../shared/utils/calculate_price_fee.dart';
 import '../../../../shared/widgets/appbar.dart';
 import '../../SearchingMenu/search_controller.dart';
 import '../../SearchingMenu/search_widget.dart';

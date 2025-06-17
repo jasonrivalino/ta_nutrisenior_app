@@ -52,7 +52,7 @@ class BusinessHeaderBar extends StatelessWidget {
               CircleAvatar(
                 backgroundColor: AppColors.soapstone,
                 child: IconButton(
-                  icon: const FaIcon(FontAwesomeIcons.solidStar, size: 16, color: AppColors.artyClickAmber),
+                  icon: const FaIcon(FontAwesomeIcons.solidStar, size: 16, color: AppColors.amber),
                   onPressed: onRatingClick,
                 ),
               ),

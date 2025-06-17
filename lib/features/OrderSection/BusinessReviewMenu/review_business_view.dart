@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import '../../../shared/styles/colors.dart';
 import '../../../shared/widgets/appbar.dart';
 import '../OrderingMenu/business_ordering_menu_widget.dart';
 import 'review_business_controller.dart';
@@ -57,6 +58,7 @@ class _ReviewBusinessViewState extends State<ReviewBusinessView> {
     final ratings = controller.fetchFilteredRatings(selectedRating);
 
     return Scaffold(
+      backgroundColor: AppColors.soapstone,
       appBar: CustomAppBar(
         title: 'Rating dan Komentar',
         showBackButton: true,

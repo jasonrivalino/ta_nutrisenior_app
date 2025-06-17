@@ -6,7 +6,7 @@ import '../../database/driver_list_table.dart';
 import '../../database/history_list_table.dart';
 import '../../database/product_list_table.dart';
 import '../../database/business_promo_list_table.dart';
-import '../../shared/utils/calculate_delivery_fee.dart';
+import '../../shared/utils/calculate_price_fee.dart';
 
 class HistoryController {
   static List<Map<String, dynamic>> fetchHistoryList() {

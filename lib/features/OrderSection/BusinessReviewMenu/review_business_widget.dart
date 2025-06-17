@@ -126,7 +126,7 @@ class BusinessRatingItem extends StatelessWidget {
                       index < rating['rating_number']
                           ? FontAwesomeIcons.solidStar
                           : FontAwesomeIcons.star,
-                      color: AppColors.artyClickAmber,
+                      color: AppColors.amber,
                       size: 16,
                     );
                   }),
