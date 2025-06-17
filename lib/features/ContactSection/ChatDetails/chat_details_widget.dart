@@ -82,7 +82,7 @@ class BottomChatWidget extends StatelessWidget {
           color: AppColors.soapstone,
           boxShadow: const [
             BoxShadow(
-              color: Colors.black12,
+              color: AppColors.dark,
               blurRadius: 10,
               offset: Offset(0, -2),
             ),
@@ -119,7 +119,7 @@ class BottomChatWidget extends StatelessWidget {
                             onTap: () => onRemoveImage(index),
                             child: const CircleAvatar(
                               radius: 10,
-                              backgroundColor: Colors.black54,
+                              backgroundColor: AppColors.dark,
                               child: Icon(Icons.close, size: 14, color: AppColors.soapstone),
                             ),
                           ),

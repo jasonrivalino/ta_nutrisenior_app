@@ -95,13 +95,13 @@ class _HomeTopBarSectionState extends State<HomeTopBarSection> {
               padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
               decoration: BoxDecoration(
                 color: AppColors.soapstone,
-                border: Border.all(color: Colors.black),
+                border: Border.all(color: AppColors.dark),
                 borderRadius: BorderRadius.circular(16.0),
               ),
               child: const Text(
                 'Cari pesanan pilihanmu...',
                 style: TextStyle(
-                  color: Colors.black54,
+                  color: AppColors.dark,
                   fontSize: 16.0,
                 ),
               ),

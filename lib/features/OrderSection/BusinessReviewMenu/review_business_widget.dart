@@ -73,7 +73,7 @@ class BusinessRatingItem extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: 25,
-            backgroundColor: Colors.grey[200],
+            backgroundColor: AppColors.darkGray,
             child: ClipOval(
               child: Image.asset(
                 rating['userimage'],
@@ -126,7 +126,7 @@ class BusinessRatingItem extends StatelessWidget {
                       index < rating['rating_number']
                           ? FontAwesomeIcons.solidStar
                           : FontAwesomeIcons.star,
-                      color: Colors.amber,
+                      color: AppColors.artyClickAmber,
                       size: 16,
                     );
                   }),

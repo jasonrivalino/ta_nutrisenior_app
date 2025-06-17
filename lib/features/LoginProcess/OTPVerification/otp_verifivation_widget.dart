@@ -116,7 +116,7 @@ class OTPVerificationInputState extends State<OTPVerificationInput> {
                         text: 'kirim ulang',
                         style: const TextStyle(
                           decoration: TextDecoration.underline,
-                          color: Colors.blue,
+                          color: AppColors.blueDress,
                         ),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () async {

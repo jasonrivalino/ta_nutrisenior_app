@@ -404,7 +404,7 @@ class GiveRatingBottomNavbar extends StatelessWidget {
         color: AppColors.ecruWhite,
         boxShadow: [
           BoxShadow(
-            color: Colors.black12,
+            color: AppColors.dark,
             blurRadius: 10,
             offset: Offset(0, -2),
           ),

@@ -67,7 +67,7 @@ class FullScreenImageView extends StatelessWidget {
           imageProvider: isAsset
               ? AssetImage(imagePath)
               : FileImage(File(imagePath)) as ImageProvider,
-          backgroundDecoration: const BoxDecoration(color: Colors.black),
+          backgroundDecoration: const BoxDecoration(color: AppColors.dark),
           minScale: PhotoViewComputedScale.contained,
           maxScale: PhotoViewComputedScale.covered * 2.0,
         ),

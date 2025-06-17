@@ -433,7 +433,7 @@ class _AddressSelectionOverlayState extends State<AddressSelectionOverlay> {
               color: AppColors.berylGreen,
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black12,
+                  color: AppColors.dark,
                   blurRadius: 10,
                   offset: Offset(0, -2),
                 ),

@@ -41,7 +41,7 @@ class _ProfileCardState extends State<ProfileCard> {
         color: AppColors.ecruWhite,
         borderRadius: BorderRadius.circular(12),
         boxShadow: const [
-          BoxShadow(color: Colors.black26, blurRadius: 6, offset: Offset(0, 3)),
+          BoxShadow(color: AppColors.dark, blurRadius: 6, offset: Offset(0, 3)),
         ],
       ),
       child: Row(
@@ -70,7 +70,7 @@ class _ProfileCardState extends State<ProfileCard> {
                   child: const Text(
                     'Edit Profil',
                     style: TextStyle(
-                      color: Colors.blue,
+                      color: AppColors.blueDress,
                       decoration: TextDecoration.underline,
                     ),
                   ),

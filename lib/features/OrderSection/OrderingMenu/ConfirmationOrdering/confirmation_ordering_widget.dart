@@ -30,7 +30,7 @@ class RecipientLocationBox extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
         boxShadow: const [
           BoxShadow(
-            color: Colors.black12,
+            color: AppColors.dark,
             blurRadius: 6,
             offset: Offset(0, 2),
           ),
@@ -235,7 +235,7 @@ class OrderDetailListBox extends StatelessWidget {
         color: AppColors.ecruWhite,
         boxShadow: const [
           BoxShadow(
-            color: Colors.black12,
+            color: AppColors.dark,
             blurRadius: 6,
             offset: Offset(0, 2),
           ),
@@ -445,7 +445,7 @@ class AddMoreOrderButtonBox extends StatelessWidget {
         color: AppColors.ecruWhite,
         boxShadow: [
           BoxShadow(
-            color: Colors.black12,
+            color: AppColors.dark,
             blurRadius: 6,
             offset: Offset(0, 2),
           ),
@@ -535,7 +535,7 @@ class _PaymentMethodBoxState extends State<PaymentMethodBox> {
         color: AppColors.ecruWhite,
         boxShadow: const [
           BoxShadow(
-            color: Colors.black12,
+            color: AppColors.dark,
             blurRadius: 6,
             offset: Offset(0, 2),
           ),
@@ -631,7 +631,7 @@ class _PaymentMethodBoxState extends State<PaymentMethodBox> {
                   "Lihat Semua",
                   style: TextStyle(
                     fontSize: 14,
-                    color: Colors.black,
+                    color: AppColors.dark,
                     fontWeight: FontWeight.bold,
                     fontFamily: AppFonts.fontBold,
                   ),

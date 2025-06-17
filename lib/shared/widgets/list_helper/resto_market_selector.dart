@@ -81,7 +81,7 @@ class _SelectionToggleState extends State<RestoMarketSelectionToggle> {
                       options[index],
                       style: TextStyle(
                         fontSize: 18,
-                        color: isSelected ? AppColors.soapstone : Colors.black,
+                        color: isSelected ? AppColors.soapstone : AppColors.dark,
                         fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                       ),
                     ),
