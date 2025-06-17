@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ta_nutrisenior_app/shared/styles/colors.dart';
+import 'package:ta_nutrisenior_app/shared/utils/calculate_price_fee.dart';
 import 'package:ta_nutrisenior_app/shared/utils/format_currency.dart';
 
 import '../../../../shared/styles/fonts.dart';
@@ -289,7 +290,9 @@ class ProductNoteInputBox extends StatelessWidget {
 
 class SetQuantityBottomNavbar extends StatelessWidget {
   final String businessType;
-  final int productPrice;
+  final int baseProductPrice;
+  final int addOnsPrice;
+  final int? discountNumber;
   final int quantity;
   final void Function(int) onQuantityChanged;
   final VoidCallback onAddPressed;
@@ -297,7 +300,9 @@ class SetQuantityBottomNavbar extends StatelessWidget {
   const SetQuantityBottomNavbar({
     super.key,
     required this.businessType,
-    required this.productPrice,
+    required this.baseProductPrice,
+    required this.addOnsPrice,
+    this.discountNumber,
     required this.quantity,
     required this.onQuantityChanged,
     required this.onAddPressed,
@@ -408,7 +413,7 @@ class SetQuantityBottomNavbar extends StatelessWidget {
                 ),
               ),
               child: Text(
-                'Tambah ${businessType == 'restaurant' ? 'Makanan' : 'Belanjaan'} - ${formatCurrency(productPrice * quantity)}',
+                'Tambah ${businessType == 'restaurant' ? 'Makanan' : 'Belanjaan'} - ${formatCurrency(getFinalPrice(baseProductPrice, addOnsPrice, quantity, discountNumber))}',
                 style: TextStyle(
                   fontFamily: AppFonts.fontBold,
                   fontWeight: FontWeight.bold,
