@@ -28,10 +28,10 @@ class ProductDetailInfoBox extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.soapstone,
         boxShadow: [
           BoxShadow(
-            color: Colors.black12,
+            color: AppColors.dark.withValues(alpha: 0.15),
             blurRadius: 4,
             offset: Offset(0, 2),
           ),
@@ -109,15 +109,28 @@ class ProductDetailInfoBox extends StatelessWidget {
 
 class ProductAddOnsSelectionBox extends StatefulWidget {
   final List<Map<String, dynamic>> addOns;
+  final void Function(List<int> selectedAddOnIds) onAddOnsChanged;
+  final List<int>? initiallySelectedAddOnIds;
 
-  const ProductAddOnsSelectionBox({super.key, required this.addOns});
+  const ProductAddOnsSelectionBox({
+    super.key,
+    required this.addOns,
+    required this.onAddOnsChanged,
+    this.initiallySelectedAddOnIds,
+  });
 
   @override
   State<ProductAddOnsSelectionBox> createState() => _ProductAddOnsSelectionBoxState();
 }
 
 class _ProductAddOnsSelectionBoxState extends State<ProductAddOnsSelectionBox> {
-  final Set<int> _selectedAddOnIds = {};
+  late Set<int> _selectedAddOnIds;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedAddOnIds = Set<int>.from(widget.initiallySelectedAddOnIds ?? []);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -128,7 +141,7 @@ class _ProductAddOnsSelectionBoxState extends State<ProductAddOnsSelectionBox> {
         color: AppColors.soapstone,
         boxShadow: [
           BoxShadow(
-            color: Colors.black12,
+            color: AppColors.dark.withValues(alpha: 0.15),
             blurRadius: 4,
             offset: Offset(0, 2),
           ),
@@ -167,6 +180,7 @@ class _ProductAddOnsSelectionBoxState extends State<ProductAddOnsSelectionBox> {
                     } else {
                       _selectedAddOnIds.add(id);
                     }
+                    widget.onAddOnsChanged(_selectedAddOnIds.toList());
                   });
                 },
                 child: Container(
@@ -229,7 +243,7 @@ class ProductNoteInputBox extends StatelessWidget {
         color: AppColors.soapstone,
         boxShadow: [
           BoxShadow(
-            color: Colors.black12,
+            color: AppColors.dark.withValues(alpha: 0.15),
             blurRadius: 4,
             offset: Offset(0, 2),
           ),
@@ -296,7 +310,7 @@ class SetQuantityBottomNavbar extends StatelessWidget {
         color: AppColors.berylGreen,
         boxShadow: [
           BoxShadow(
-            color: Colors.black12,
+            color: AppColors.dark.withValues(alpha: 0.15),
             blurRadius: 10,
             offset: Offset(0, -2),
           ),
@@ -376,7 +390,7 @@ class SetQuantityBottomNavbar extends StatelessWidget {
             decoration: BoxDecoration(
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black12,
+                  color: AppColors.dark.withValues(alpha: 0.15),
                   blurRadius: 4,
                   offset: const Offset(0, 2),
                 ),

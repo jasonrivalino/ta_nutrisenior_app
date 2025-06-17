@@ -21,11 +21,13 @@ class CardList extends StatefulWidget {
   final String? productDescription;
   final int? discountNumber;
   final bool? isFreeShipment;
+  final List<Map<String, dynamic>>? addOns;
   final int? count;
   final String? notes;
+  final Map<String, List<int>> addOnsSelection;
   final ValueChanged<int>? onCountChanged;
   final ValueChanged<String>? onNotesChanged;
-  final List<Map<String, dynamic>>? addOns;
+  final void Function(Map<String, List<int>>)? onAddOnsChanged;
   final VoidCallback onTap;
 
   const CardList({
@@ -44,12 +46,14 @@ class CardList extends StatefulWidget {
     this.productDescription,
     this.discountNumber,
     this.isFreeShipment,
+    this.addOns,
     required this.onTap,
     this.count = 0,
     this.notes = '',
+    this.addOnsSelection = const {},
     this.onCountChanged,
-    this.addOns,
     this.onNotesChanged,
+    this.onAddOnsChanged,
   });
 
   @override
@@ -72,20 +76,41 @@ class _CardListState extends State<CardList> {
           'product_name': widget.productName,
           'product_price': widget.productPrice,
           'product_description': widget.productDescription,
+          'add_ons_list': widget.addOns,
           'qty_product': widget.count,
           'notes': widget.notes,
-          'add_ons': widget.addOns,
+          'add_ons': widget.addOnsSelection,
         },
       );
 
       if (result != null) {
         final newQty = result['qty_product'] ?? 0;
         final notes = result['notes'] ?? '';
+        final rawSelectedAddOns = result['add_ons'] ?? {};
+
         if (widget.onCountChanged != null) {
           widget.onCountChanged!(newQty);
         }
+
         if (widget.onNotesChanged != null) {
           widget.onNotesChanged!(notes);
+          print('Notes changed: $notes');
+        }
+
+        if (widget.onAddOnsChanged != null && rawSelectedAddOns is Map) {
+          try {
+            final castedAddOns = rawSelectedAddOns.map<String, List<int>>(
+              (key, value) => MapEntry(
+                key.toString(),
+                List<int>.from(value),
+              ),
+            );
+
+            widget.onAddOnsChanged!(castedAddOns);
+            print('Add-ons changed: $castedAddOns');
+          } catch (e) {
+            print('Error parsing add-ons map: $e');
+          }
         }
       }
     } else {
@@ -144,7 +169,7 @@ class _CardListState extends State<CardList> {
                       child: ColorFiltered(
                         colorFilter: isOpen
                             ? const ColorFilter.mode(Colors.transparent, BlendMode.saturation)
-                            : const ColorFilter.mode(Colors.grey, BlendMode.saturation),
+                            : const ColorFilter.mode(AppColors.darkGray, BlendMode.saturation),
                         child: Image.asset(
                           widget.businessImage ?? widget.productImage!,
                           fit: BoxFit.cover,
@@ -174,7 +199,7 @@ class _CardListState extends State<CardList> {
                     Positioned.fill(
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Colors.black.withAlpha(120),
+                          color: AppColors.dark.withAlpha(120),
                           borderRadius: BorderRadius.circular(8),
                         ),
                         alignment: Alignment.center,

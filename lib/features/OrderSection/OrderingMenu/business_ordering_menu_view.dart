@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../database/business_promo_list_table.dart';
 import '../../../shared/styles/colors.dart';
+import '../../../shared/utils/get_total_add_ons_price.dart';
 import 'business_ordering_menu_controller.dart';
 import 'business_ordering_menu_widget.dart';
 
@@ -25,6 +26,7 @@ class BusinessOrderingMenuView extends StatefulWidget {
   final int? productId;
   final int? qtyProduct;
   final String? notes;
+  final List<int>? addOns;
   final int? selectedAddressId;
 
   const BusinessOrderingMenuView({
@@ -45,11 +47,13 @@ class BusinessOrderingMenuView extends StatefulWidget {
     this.productId,
     this.qtyProduct,
     this.notes,
+    this.addOns,
     this.selectedAddressId,
   });
 
   static BusinessOrderingMenuView fromExtra(BuildContext context, GoRouterState state) {
     final extra = state.extra as Map<String, dynamic>;
+
     return BusinessOrderingMenuView(
       businessId: extra['business_id'] as int,
       businessName: extra['business_name'] as String,
@@ -67,6 +71,7 @@ class BusinessOrderingMenuView extends StatefulWidget {
       productId: extra['product_id'] as int?,
       qtyProduct: extra['qty_product'] as int?,
       notes: extra['notes'] as String?,
+      addOns: extra['add_ons'] as List<int>?,
       selectedAddressId: extra['selected_address_id'] as int? ?? 1,
     );
   }
@@ -83,9 +88,24 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
 
   Map<String, int> selectedProductCounts = {};
   Map<String, String> selectedProductNotes = {};
+  Map<String, List<int>> selectedAddOnIds = {};
 
   int? discountNumber;
   bool isFreeShipment = false;
+
+  // Flatten all available add-ons from products
+  List<Map<String, dynamic>> get allAddOnsList {
+    return (recommendedProducts + allProducts)
+        .expand((product) {
+          final pid = product['product_id'];
+          final List<Map<String, dynamic>> productAddOns = List<Map<String, dynamic>>.from(product['add_ons'] ?? []);
+          return productAddOns.map((addOn) => {
+                ...addOn,
+                'product_id': pid,
+              });
+        })
+        .toList();
+  }
 
   @override
   void initState() {
@@ -100,9 +120,7 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
     setState(() {
       allProducts = productMap['allProducts'] ?? [];
       recommendedProducts = productMap['recommendedProducts'] ?? [];
-      print('Recommended Products: $recommendedProducts');
 
-      // Since discount info and free shipment flag are already in the product data, grab it from any product (if exists)
       if (allProducts.isNotEmpty) {
         discountNumber = allProducts.first['discount_number'] as int?;
       }
@@ -117,22 +135,40 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
     });
   }
 
+  // Total price includes product price + selected add-ons
   int get totalSelectedPrice {
     final uniqueProducts = <String, Map<String, dynamic>>{};
-
     for (final product in recommendedProducts + allProducts) {
       final id = product['product_id'].toString();
       uniqueProducts[id] = product;
     }
 
     num total = 0;
+    print("=== Product Price Calculation Debug ===");
     for (final entry in uniqueProducts.entries) {
       final id = entry.key;
       final product = entry.value;
       final count = selectedProductCounts[id] ?? 0;
       final price = product['discounted_price'] ?? product['product_price'] ?? 0;
-      total += count * price;
+
+      if (count > 0) {
+        final subtotal = count * price;
+        // print("Product ID: $id | Qty: $count | Price: $price | Subtotal: $subtotal");
+        total += subtotal;
+      }
     }
+
+    final totalAddOnsPrice = getTotalAddOnsPrice(
+      addOns: allAddOnsList,
+      selectedAddOnIds: selectedAddOnIds.values.expand((ids) => ids).toList(),
+    );
+
+    print("Selected Add-On IDs: $selectedAddOnIds");
+    print("Add-Ons Total Price: $totalAddOnsPrice");
+
+    total += totalAddOnsPrice;
+
+    print("Final Total Price: $total");
 
     return total.toInt();
   }
@@ -248,6 +284,7 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
                                   .toList(),
                                 selectedCounts: selectedProductCounts,
                                 selectedNotes: selectedProductNotes,
+                                selectedAddOnIdsMap: selectedAddOnIds,
                                 onCountChanged: (productId, newCount) {
                                   setState(() {
                                     selectedProductCounts[productId] = newCount;
@@ -256,6 +293,11 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
                                 onNotesChanged: (productId, notes) {
                                   setState(() {
                                     selectedProductNotes[productId] = notes;
+                                  });
+                                },
+                                onAddOnsChanged: (productId, updatedAddOnIds) {
+                                  setState(() {
+                                    selectedAddOnIds[productId] = updatedAddOnIds;
                                   });
                                 },
                               ),
@@ -280,6 +322,7 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
                                   .toList(),
                                 selectedCounts: selectedProductCounts,
                                 selectedNotes: selectedProductNotes,
+                                selectedAddOnIdsMap: selectedAddOnIds,
                                 onCountChanged: (productId, newCount) {
                                   setState(() {
                                     selectedProductCounts[productId] = newCount;
@@ -288,6 +331,11 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
                                 onNotesChanged: (productId, notes) {
                                   setState(() {
                                     selectedProductNotes[productId] = notes;
+                                  });
+                                },
+                                onAddOnsChanged: (productId, updatedAddOnIds) {
+                                  setState(() {
+                                    selectedAddOnIds[productId] = updatedAddOnIds;
                                   });
                                 },
                               ),
@@ -361,10 +409,12 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
                   setState(() {
                     selectedProductCounts.clear();
                     selectedProductNotes.clear();
+                    selectedAddOnIds.clear();
                     for (final product in updated) {
                       final id = product['product_id'].toString();
                       selectedProductCounts[id] = product['qty_product'] ?? 0;
                       selectedProductNotes[id] = product['notes'] ?? '';
+                      selectedAddOnIds[id] = product['add_ons'] ?? [];
                     }
                   });
                 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../shared/styles/colors.dart';
+import '../../../../shared/utils/get_total_add_ons_price.dart';
 import '../../../../shared/widgets/appbar.dart';
 import 'detail_ordering_widget.dart';
 
@@ -14,9 +15,10 @@ class DetailOrderingView extends StatefulWidget {
   final String productName;
   final int productPrice;
   final String productDescription;
+  final List<Map<String, dynamic>>? addOnsList;
   final int qtyProduct;
   final String? notes;
-  final List<Map<String, dynamic>>? addOns;
+  final Map<String, List<int>>? selectedAddOnIdsMap;
 
   const DetailOrderingView({
     super.key,
@@ -30,11 +32,25 @@ class DetailOrderingView extends StatefulWidget {
     required this.productDescription,
     required this.qtyProduct,
     this.notes,
-    this.addOns,
+    this.addOnsList,
+    this.selectedAddOnIdsMap,
   });
 
   factory DetailOrderingView.fromExtra(BuildContext context, GoRouterState state) {
     final extra = state.extra as Map<String, dynamic>;
+
+    // Safely parse the map for selected add-ons
+    final rawAddOnsMap = extra['add_ons'] as Map?;
+    final selectedMap = rawAddOnsMap?.map(
+      (key, value) => MapEntry(key.toString(), List<int>.from(value)),
+    );
+
+    // PRINT ALL EXTRA VALUES
+    print('Extra Values:');
+    extra.forEach((key, value) {
+      print('$key: $value');
+    });
+
     return DetailOrderingView(
       businessId: extra['business_id'] as int,
       businessType: extra['business_type'] as String,
@@ -44,9 +60,10 @@ class DetailOrderingView extends StatefulWidget {
       productName: extra['product_name'] as String,
       productPrice: extra['product_price'] as int,
       productDescription: extra['product_description'] as String,
+      addOnsList: extra['add_ons_list'] as List<Map<String, dynamic>>?,
       qtyProduct: extra['qty_product'] as int,
       notes: extra['notes'] as String?,
-      addOns: extra['add_ons'] as List<Map<String, dynamic>>?,
+      selectedAddOnIdsMap: selectedMap,
     );
   }
 
@@ -57,13 +74,18 @@ class DetailOrderingView extends StatefulWidget {
 class _DetailOrderingViewState extends State<DetailOrderingView> {
   late int quantity;
   late TextEditingController _noteController;
+  List<int> selectedAddOnIds = [];
 
   @override
   void initState() {
     super.initState();
-    // If the qtyProduct is 0, start from 1
     quantity = widget.qtyProduct == 0 ? 1 : widget.qtyProduct;
     _noteController = TextEditingController(text: widget.notes ?? '');
+
+    // Use only the selected add-ons for this product
+    selectedAddOnIds = widget.selectedAddOnIdsMap?[widget.productId.toString()] ?? [];
+
+    print('Selected Add-Ons for Product ${widget.productId}: $selectedAddOnIds');
   }
 
   @override
@@ -74,6 +96,11 @@ class _DetailOrderingViewState extends State<DetailOrderingView> {
 
   @override
   Widget build(BuildContext context) {
+    final totalAddOnsPrice = getTotalAddOnsPrice(
+      addOns: widget.addOnsList ?? [],
+      selectedAddOnIds: selectedAddOnIds,
+    );
+
     return Scaffold(
       backgroundColor: AppColors.soapstone,
       appBar: CustomAppBar(
@@ -88,13 +115,9 @@ class _DetailOrderingViewState extends State<DetailOrderingView> {
             width: double.infinity,
             fit: BoxFit.cover,
             errorBuilder: (context, error, stackTrace) {
-              String fallbackImage = 'assets/images/dummy/errorhandling/dummyfood.png';
-
-              if (widget.businessType == 'restaurant') {
-                fallbackImage = 'assets/images/dummy/errorhandling/dummyfood.png';
-              } else if (widget.businessType == 'market') {
-                fallbackImage = 'assets/images/dummy/errorhandling/dummyingredient.png';
-              }
+              final fallbackImage = widget.businessType == 'restaurant'
+                  ? 'assets/images/dummy/errorhandling/dummyfood.png'
+                  : 'assets/images/dummy/errorhandling/dummyingredient.png';
 
               return Image.asset(
                 fallbackImage,
@@ -114,9 +137,15 @@ class _DetailOrderingViewState extends State<DetailOrderingView> {
                     productDescription: widget.productDescription,
                     discountNumber: widget.discountNumber,
                   ),
-                  if (widget.addOns != null && widget.addOns!.isNotEmpty)
+                  if (widget.addOnsList != null && widget.addOnsList!.isNotEmpty)
                     ProductAddOnsSelectionBox(
-                      addOns: widget.addOns!,
+                      addOns: widget.addOnsList!,
+                      initiallySelectedAddOnIds: selectedAddOnIds,
+                      onAddOnsChanged: (selectedIds) {
+                        setState(() {
+                          selectedAddOnIds = selectedIds;
+                        });
+                      },
                     ),
                   ProductNoteInputBox(
                     businessType: widget.businessType,
@@ -130,7 +159,7 @@ class _DetailOrderingViewState extends State<DetailOrderingView> {
       ),
       bottomNavigationBar: SetQuantityBottomNavbar(
         businessType: widget.businessType,
-        productPrice: widget.productPrice,
+        productPrice: widget.productPrice + totalAddOnsPrice,
         quantity: quantity,
         onQuantityChanged: (newQty) {
           setState(() => quantity = newQty);
@@ -138,10 +167,15 @@ class _DetailOrderingViewState extends State<DetailOrderingView> {
         onAddPressed: () {
           final notes = _noteController.text;
 
+          print('Selected Add-Ons: $selectedAddOnIds');
+
           context.pop({
             'product_id': widget.productId,
             'qty_product': quantity,
             'notes': notes,
+            'add_ons': {
+              widget.productId.toString(): selectedAddOnIds,
+            },
           });
         },
       ),
