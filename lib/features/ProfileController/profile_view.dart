@@ -27,7 +27,7 @@ class ProfileView extends StatelessWidget {
           SizedBox(height: MediaQuery.of(context).size.height * 0.02),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.red,
+              backgroundColor: AppColors.persianRed,
               foregroundColor: AppColors.soapstone,
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),

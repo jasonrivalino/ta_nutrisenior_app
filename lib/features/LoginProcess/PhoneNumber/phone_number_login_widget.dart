@@ -16,7 +16,7 @@ class PhoneNumberInput extends StatelessWidget {
     return TextFormField(
       keyboardType: TextInputType.phone,
       style: const TextStyle(
-        color: Colors.black, // Typed text color
+        color: AppColors.dark, // Typed text color
       ),
       decoration: InputDecoration(
         filled: true,

@@ -28,9 +28,9 @@ class RecipientLocationBox extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.ecruWhite,
         borderRadius: BorderRadius.circular(8),
-        boxShadow: const [
+        boxShadow: [
           BoxShadow(
-            color: Colors.black12,
+            color: AppColors.dark.withValues(alpha: 0.15),
             blurRadius: 6,
             offset: Offset(0, 2),
           ),
@@ -233,9 +233,9 @@ class OrderDetailListBox extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: AppColors.ecruWhite,
-        boxShadow: const [
+        boxShadow: [
           BoxShadow(
-            color: Colors.black12,
+            color: AppColors.dark.withValues(alpha: 0.15),
             blurRadius: 6,
             offset: Offset(0, 2),
           ),
@@ -441,11 +441,11 @@ class AddMoreOrderButtonBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: AppColors.ecruWhite,
         boxShadow: [
           BoxShadow(
-            color: Colors.black12,
+            color: AppColors.dark.withValues(alpha: 0.15),
             blurRadius: 6,
             offset: Offset(0, 2),
           ),
@@ -533,9 +533,9 @@ class _PaymentMethodBoxState extends State<PaymentMethodBox> {
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: AppColors.ecruWhite,
-        boxShadow: const [
+        boxShadow: [
           BoxShadow(
-            color: Colors.black12,
+            color: AppColors.dark.withValues(alpha: 0.15),
             blurRadius: 6,
             offset: Offset(0, 2),
           ),
@@ -631,7 +631,7 @@ class _PaymentMethodBoxState extends State<PaymentMethodBox> {
                   "Lihat Semua",
                   style: TextStyle(
                     fontSize: 14,
-                    color: Colors.black,
+                    color: AppColors.dark,
                     fontWeight: FontWeight.bold,
                     fontFamily: AppFonts.fontBold,
                   ),

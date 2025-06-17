@@ -131,7 +131,7 @@ class _ChatMessageTileState extends State<ChatMessageTile> {
     return widget.onTap != null
         ? InkWell(
             onTap: widget.onTap,
-            splashColor: Colors.grey.withAlpha(50),
+            splashColor: AppColors.darkGray.withAlpha(50),
             borderRadius: BorderRadius.circular(8),
             child: tileContent,
           )

@@ -161,7 +161,7 @@ class _OngoingHistoryDetailsViewState extends State<OngoingHistoryDetailsView> {
                       polylines: {
                         const Polyline(
                           polylineId: PolylineId('route'),
-                          color: Colors.blue,
+                          color: AppColors.blueDress,
                           width: 5,
                           points: [
                             LatLng(-6.210000, 106.816000),
@@ -251,11 +251,11 @@ class _OngoingHistoryDetailsViewState extends State<OngoingHistoryDetailsView> {
         bottomNavigationBar: widget.status == 'diproses'
             ? Container(
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   color: AppColors.soapstone,
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black12,
+                      color: AppColors.dark.withValues(alpha: 0.15),
                       blurRadius: 10,
                       offset: Offset(0, -2),
                     ),

@@ -52,7 +52,7 @@ class BusinessHeaderBar extends StatelessWidget {
               CircleAvatar(
                 backgroundColor: AppColors.soapstone,
                 child: IconButton(
-                  icon: const FaIcon(FontAwesomeIcons.solidStar, size: 16, color: Colors.amber),
+                  icon: const FaIcon(FontAwesomeIcons.solidStar, size: 16, color: AppColors.artyClickAmber),
                   onPressed: onRatingClick,
                 ),
               ),
@@ -108,7 +108,7 @@ class BusinessInfoCard extends StatelessWidget {
           border: Border.all(color: AppColors.dark.withValues(alpha: 0.5), width: 1),
           boxShadow: [
             BoxShadow(
-              color: AppColors.dark.withValues(alpha: 0.2), // soft shadow
+              color: AppColors.dark.withValues(alpha: 0.15), // soft shadow
               spreadRadius: 1,
               blurRadius: 8,
               offset: const Offset(0, 4), // shadow moves down
@@ -330,8 +330,10 @@ class RecommendedProductSection extends StatelessWidget {
   final List<Map<String, dynamic>>? addOns;
   final Map<String, int> selectedCounts;
   final Map<String, String> selectedNotes;
+  final Map<String, List<int>> selectedAddOnIdsMap;
   final Function(String productId, int newCount) onCountChanged;
   final Function(String productId, String notes)? onNotesChanged;
+  final Function(String productId, List<int> newSelectedAddOnIds)? onAddOnsChanged;
 
   const RecommendedProductSection({
     super.key,
@@ -344,8 +346,10 @@ class RecommendedProductSection extends StatelessWidget {
     this.addOns,
     required this.selectedCounts,
     required this.selectedNotes,
+    required this.selectedAddOnIdsMap,
     required this.onCountChanged,
     this.onNotesChanged,
+    this.onAddOnsChanged,
   });
 
   @override
@@ -384,6 +388,12 @@ class RecommendedProductSection extends StatelessWidget {
                 final productId = product['product_id'].toString();
                 final currentCount = selectedCounts[productId] ?? 0;
                 final currentNotes = selectedNotes[productId] ?? '';
+                final currentAddOns = selectedAddOnIdsMap[productId] ?? [];
+                print('Current Add-Ons for Product $productId: $currentAddOns');
+
+                final productAddOns = addOns
+                    ?.where((addOn) => addOn['product_id'].toString() == productId)
+                    .toList();
 
                 return SizedBox(
                   width: MediaQuery.of(context).size.width * 0.425,
@@ -396,15 +406,23 @@ class RecommendedProductSection extends StatelessWidget {
                     productName: product['product_name'],
                     productPrice: product['product_price'],
                     productDescription: product['product_description'],
+                    addOns: productAddOns,
                     count: currentCount,
                     notes: currentNotes,
+                    addOnsSelection: selectedAddOnIdsMap,
                     onCountChanged: (newCount) => onCountChanged(productId, newCount),
                     onNotesChanged: (notes) {
                       if (onNotesChanged != null) {
                         onNotesChanged!(productId, notes);
                       }
                     },
-                    addOns: addOns?.where((addOn) => addOn['product_id'] == product['product_id']).toList(),
+                    onAddOnsChanged: (Map<String, List<int>> selectedAddOns) {
+                      if (onAddOnsChanged != null) {
+                        // Extract relevant list for this product only
+                        final updatedAddOnIds = selectedAddOns[productId] ?? [];
+                        onAddOnsChanged!(productId, updatedAddOnIds);
+                      }
+                    },
                     onTap: () async {
                       final route = '/business/detail/$businessId/ordering/$productId';
 
@@ -419,21 +437,32 @@ class RecommendedProductSection extends StatelessWidget {
                         'product_name': product['product_name'],
                         'product_price': product['product_price'],
                         'product_description': product['product_description'],
+                        'add_ons_list': productAddOns,
                         'qty_product': currentCount,
                         'notes': currentNotes,
-                        'add_ons': addOns?.where((addOn) => addOn['product_id'] == product['product_id']).toList(),
+                        'add_ons': selectedAddOnIdsMap,
                       });
 
                       if (result != null) {
                         final returnedProductId = result['product_id'].toString();
                         final newQty = result['qty_product'] ?? 0;
                         final notes = result['notes'] ?? '';
+                        final addOnsResult = result['add_ons'] as Map<String, dynamic>?;
 
-                        print('Returned from detail: productId: $returnedProductId, qty: $newQty, notes: $notes');
+                        print('Returned from detail: productId: $returnedProductId, qty: $newQty, notes: $notes, add_ons: $addOnsResult');
 
                         onCountChanged(returnedProductId, newQty);
+
                         if (onNotesChanged != null) {
                           onNotesChanged!(returnedProductId, notes);
+                        }
+
+                        if (onAddOnsChanged != null && addOnsResult != null) {
+                          // Extract relevant list for this product only
+                          final updatedAddOnIds = List<int>.from(
+                            addOnsResult[returnedProductId] ?? [],
+                          );
+                          onAddOnsChanged!(returnedProductId, updatedAddOnIds);
                         }
                       }
                     },
@@ -456,8 +485,10 @@ class ProductListWidget extends StatelessWidget {
   final List<Map<String, dynamic>>? addOns;
   final Map<String, int> selectedCounts;
   final Map<String, String> selectedNotes;
+  final Map<String, List<int>> selectedAddOnIdsMap;
   final Function(String productId, int newCount) onCountChanged;
   final Function(String productId, String notes)? onNotesChanged;
+  final Function(String productId, List<int> newSelectedAddOnIds)? onAddOnsChanged;
 
   const ProductListWidget({
     super.key,
@@ -469,8 +500,10 @@ class ProductListWidget extends StatelessWidget {
     this.addOns,
     required this.selectedCounts,
     required this.selectedNotes,
+    required this.selectedAddOnIdsMap,
     required this.onCountChanged,
     this.onNotesChanged,
+    this.onAddOnsChanged,
   });
 
   @override
@@ -505,10 +538,10 @@ class ProductListWidget extends StatelessWidget {
               physics: const NeverScrollableScrollPhysics(), // disable nested scroll
               itemCount: products.length,
               itemBuilder: (context, index) {
-                final product = products[index];
-                final productId = product['product_id'].toString();
-                final currentCount = selectedCounts[productId] ?? 0;
-                final currentNotes = selectedNotes[productId] ?? '';
+                  final product = products[index];
+                  final productId = product['product_id'].toString();
+                  final currentCount = selectedCounts[productId] ?? 0;
+                  final currentNotes = selectedNotes[productId] ?? '';
 
                 return CardList(
                   businessId: businessId,
@@ -519,15 +552,23 @@ class ProductListWidget extends StatelessWidget {
                   productName: product['product_name'],
                   productPrice: product['product_price'],
                   productDescription: product['product_description'],
+                  addOns: addOns?.where((addOn) => addOn['product_id'] == product['product_id']).toList(),
                   count: currentCount,
                   notes: currentNotes,
+                  addOnsSelection: selectedAddOnIdsMap,
                   onCountChanged: (newCount) => onCountChanged(productId, newCount),
                   onNotesChanged: (notes) {
                     if (onNotesChanged != null) {
                       onNotesChanged!(productId, notes);
                     }
                   },
-                  addOns: addOns?.where((addOn) => addOn['product_id'] == product['product_id']).toList(),
+                  onAddOnsChanged: (Map<String, List<int>> selectedAddOns) {
+                    if (onAddOnsChanged != null) {
+                      // Extract relevant list for this product only
+                      final updatedAddOnIds = selectedAddOns[productId] ?? [];
+                      onAddOnsChanged!(productId, updatedAddOnIds);
+                    }
+                  },
                   onTap: () async {
                     final route = '/business/detail/$businessId/ordering/$productId';
 
@@ -542,21 +583,30 @@ class ProductListWidget extends StatelessWidget {
                       'product_name': product['product_name'],
                       'product_price': product['product_price'],
                       'product_description': product['product_description'],
+                      'add_ons_list': addOns?.where((addOn) => addOn['product_id'] == product['product_id']).toList(),
                       'qty_product': currentCount,
                       'notes': currentNotes,
-                      'add_ons': addOns?.where((addOn) => addOn['product_id'] == product['product_id']).toList(),
+                      'add_ons': selectedAddOnIdsMap,
                     });
 
                     if (result != null) {
                       final returnedProductId = result['product_id'].toString();
                       final newQty = result['qty_product'] ?? 0;
                       final notes = result['notes'] ?? '';
+                      final addOnsResult = result['add_ons'] as Map<String, dynamic>?;
 
                       print('Returned from detail: productId: $returnedProductId, qty: $newQty, notes: $notes');
 
                       onCountChanged(returnedProductId, newQty);
                       if (onNotesChanged != null) {
                         onNotesChanged!(returnedProductId, notes);
+                      }
+                      if (onAddOnsChanged != null && addOnsResult != null) {
+                        // Extract relevant list for this product only
+                        final updatedAddOnIds = List<int>.from(
+                          addOnsResult[returnedProductId] ?? [],
+                        );
+                        onAddOnsChanged!(returnedProductId, updatedAddOnIds);
                       }
                     }
                   },
@@ -589,7 +639,7 @@ class OrderBottomNavbar extends StatelessWidget {
         color: AppColors.berylGreen,
         boxShadow: [
           BoxShadow(
-            color: Colors.black12,
+            color: AppColors.dark.withValues(alpha: 0.15),
             blurRadius: 10,
             offset: Offset(0, -2),
           ),
@@ -627,7 +677,7 @@ class OrderBottomNavbar extends StatelessWidget {
             decoration: BoxDecoration(
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black12,
+                  color: AppColors.dark.withValues(alpha: 0.15),
                   blurRadius: 4,
                   offset: const Offset(0, 2),
                 ),

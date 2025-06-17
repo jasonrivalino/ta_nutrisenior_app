@@ -18,11 +18,13 @@ class CardBox extends StatefulWidget {
   final int? productPrice;
   final String? productDescription;
   final int? discountNumber;
-  final int? count;
-  final String? notes;
+  final List<Map<String, dynamic>>? addOns;
+  final int count;
+  final String notes;
+  final Map<String, List<int>> addOnsSelection;
   final ValueChanged<int>? onCountChanged;
   final ValueChanged<String>? onNotesChanged;
-  final List<Map<String, dynamic>>? addOns;
+  final void Function(Map<String, List<int>>)? onAddOnsChanged;
   final VoidCallback onTap;
 
   const CardBox({
@@ -39,12 +41,14 @@ class CardBox extends StatefulWidget {
     this.productPrice,
     this.productDescription,
     this.discountNumber,
+    this.addOns,
     required this.onTap,
     this.count = 0,
     this.notes = '',
+    this.addOnsSelection = const {},
     this.onCountChanged,
-    this.addOns,
     this.onNotesChanged,
+    this.onAddOnsChanged,
   });
 
   @override
@@ -60,9 +64,7 @@ class _CardBoxState extends State<CardBox> {
     });
   }
 
-  // Step 2: Add these methods inside the class
   void _incrementCount() async {
-    // If count is 0, open detail page instead
     if (widget.count == 0) {
       final result = await context.push<Map<String, dynamic>>(
         '/business/detail/${widget.businessId}/ordering/${widget.productId}',
@@ -75,33 +77,53 @@ class _CardBoxState extends State<CardBox> {
           'product_name': widget.productName,
           'product_price': widget.productPrice,
           'product_description': widget.productDescription,
+          'add_ons_list': widget.addOns,
           'qty_product': widget.count,
           'notes': widget.notes,
-          'add_ons': widget.addOns,
+          'add_ons': widget.addOnsSelection,
         },
       );
 
       if (result != null) {
         final newQty = result['qty_product'] ?? 0;
         final notes = result['notes'] ?? '';
+        final rawSelectedAddOns = result['add_ons'] ?? {};
+
         if (widget.onCountChanged != null) {
           widget.onCountChanged!(newQty);
         }
+
         if (widget.onNotesChanged != null) {
           widget.onNotesChanged!(notes);
+          print('Notes changed: $notes');
+        }
+
+        if (widget.onAddOnsChanged != null && rawSelectedAddOns is Map) {
+          try {
+            final castedAddOns = rawSelectedAddOns.map<String, List<int>>(
+              (key, value) => MapEntry(
+                key.toString(),
+                List<int>.from(value),
+              ),
+            );
+
+            widget.onAddOnsChanged!(castedAddOns);
+            print('Add-ons changed: $castedAddOns');
+          } catch (e) {
+            print('Error parsing add-ons map: $e');
+          }
         }
       }
     } else {
-      // If count is already > 0, just increment
       if (widget.onCountChanged != null) {
-        widget.onCountChanged!(widget.count! + 1);
+        widget.onCountChanged!(widget.count + 1);
       }
     }
   }
 
   void _decrementCount() {
-    if (widget.count! > 0) {
-      widget.onCountChanged!(widget.count! - 1);
+    if (widget.count > 0) {
+      widget.onCountChanged!(widget.count - 1);
     }
   }
 
@@ -123,15 +145,15 @@ class _CardBoxState extends State<CardBox> {
         decoration: BoxDecoration(
           boxShadow: _isPressed
               ? [
-                  const BoxShadow(
-                    color: Colors.black26,
+                  BoxShadow(
+                    color: AppColors.dark.withValues(alpha: 0.15),
                     blurRadius: 12,
                     offset: Offset(0, 6),
                   )
                 ]
               : [
-                  const BoxShadow(
-                    color: Colors.black12,
+                  BoxShadow(
+                    color: AppColors.dark.withValues(alpha: 0.15),
                     blurRadius: 6,
                     offset: Offset(0, 3),
                   )
@@ -196,7 +218,7 @@ class _CardBoxState extends State<CardBox> {
                                 style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 12,
-                                  color: Colors.black,
+                                  color: AppColors.dark,
                                   fontFamily: AppFonts.fontBold,
                                 ),
                               ),
@@ -217,9 +239,9 @@ class _CardBoxState extends State<CardBox> {
                                 decoration: BoxDecoration(
                                   color: AppColors.soapstone,
                                   borderRadius: BorderRadius.circular(14),
-                                  boxShadow: const [
+                                  boxShadow: [
                                     BoxShadow(
-                                      color: Colors.black12,
+                                      color: AppColors.dark.withValues(alpha: 0.15),
                                       blurRadius: 4,
                                       offset: Offset(0, 2),
                                     ),
@@ -236,9 +258,9 @@ class _CardBoxState extends State<CardBox> {
                                 decoration: BoxDecoration(
                                   color: AppColors.soapstone,
                                   borderRadius: BorderRadius.circular(20),
-                                  boxShadow: const [
+                                  boxShadow: [
                                     BoxShadow(
-                                      color: Colors.black12,
+                                      color: AppColors.dark.withValues(alpha: 0.15),
                                       blurRadius: 4,
                                       offset: Offset(0, 2),
                                     ),

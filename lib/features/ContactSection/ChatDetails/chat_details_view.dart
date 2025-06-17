@@ -158,7 +158,7 @@ class _ChatDetailViewState extends State<ChatDetailView> {
                       border: Border.all(color: AppColors.dark, width: 1.0),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withAlpha(25),
+                          color: AppColors.dark.withValues(alpha: 0.15),
                           offset: const Offset(1, -2),
                           blurRadius: 4,
                           spreadRadius: 1,
