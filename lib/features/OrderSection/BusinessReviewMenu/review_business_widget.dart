@@ -37,17 +37,17 @@ class RatingFilterButton extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const FaIcon(
+            FaIcon(
               FontAwesomeIcons.solidStar,
               size: 14,
-              color: AppColors.dark,
+              color: isSelected ? AppColors.soapstone : AppColors.dark,
             ),
             const SizedBox(width: 4),
             Text(
               label,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 14,
-                color: AppColors.dark,
+                color: isSelected ? AppColors.soapstone : AppColors.dark,
                 fontWeight: FontWeight.bold,
                 fontFamily: AppFonts.fontBold,
               ),

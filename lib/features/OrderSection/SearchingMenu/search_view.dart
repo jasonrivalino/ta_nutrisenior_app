@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:ta_nutrisenior_app/shared/styles/colors.dart';
 import 'package:ta_nutrisenior_app/shared/widgets/appbar.dart';
 
+import '../../../shared/styles/fonts.dart';
 import '../../../shared/utils/is_business_open.dart';
 import '../../../shared/widgets/product_card/card_list.dart';
 import 'search_controller.dart';
@@ -84,8 +85,8 @@ class _SearchViewState extends State<SearchView> {
               onTap: () {
                 showModalBottomSheet(
                   context: context,
-                  isScrollControlled: true, // Allow full height
-                  backgroundColor: Colors.transparent, // To allow rounded corners to look right
+                  isScrollControlled: true,
+                  backgroundColor: Colors.transparent,
                   builder: (_) => DraggableScrollableSheet(
                     initialChildSize: 0.81,
                     minChildSize: 0.5,
@@ -136,11 +137,8 @@ class _SearchViewState extends State<SearchView> {
                     isScrollControlled: true,
                     builder: (BuildContext context) {
                       return SortFilterOverlay(
-                        selectedOption: _tempSelectedSortOption,
-                        onOptionSelected: (val) {
-                          setState(() => _tempSelectedSortOption = val);
-                        },
-                        onApply: () async {
+                      selectedOption: _selectedSortOption,
+                        onApply: (newOption) async {
                           final connectivityResult = await Connectivity().checkConnectivity();
                           if (connectivityResult.contains(ConnectivityResult.none)) {
                             Fluttertoast.showToast(
@@ -148,12 +146,13 @@ class _SearchViewState extends State<SearchView> {
                               toastLength: Toast.LENGTH_SHORT,
                               gravity: ToastGravity.BOTTOM,
                             );
-                            return;
+                            return false;
                           }
 
                           setState(() {
                             _selectedSortOption = _tempSelectedSortOption;
                           });
+                          return true;
                         },
                       );
                     },
@@ -192,60 +191,75 @@ class _SearchViewState extends State<SearchView> {
                       },
                     )
                   : Expanded(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          border: Border.symmetric(
-                            horizontal: BorderSide(
-                              color: AppColors.darkGray,
-                              width: 0.5,
+                      child: filteredBusinesses.isEmpty
+                          ? Center(
+                              child: Padding(
+                                padding: const EdgeInsets.all(24.0),
+                                child: Text(
+                                  'Pencarian ${selectedIndex == 0 ? "Restoran" : "Pusat Belanja"} tidak ditemukan.',
+                                  style: TextStyle(
+                                    color: AppColors.dark.withValues(alpha: 0.8),
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                    fontFamily: AppFonts.fontMedium,
+                                  ),
+                                ),
+                              ),
+                            )
+                          : Container(
+                              decoration: BoxDecoration(
+                                border: Border.symmetric(
+                                  horizontal: BorderSide(
+                                    color: AppColors.darkGray,
+                                    width: 0.5,
+                                  ),
+                                ),
+                              ),
+                              child: ListView.builder(
+                                itemCount: filteredBusinesses.length,
+                                itemBuilder: (context, index) {
+                                  final business = filteredBusinesses[index];
+                                  final isOpen = isBusinessOpen(
+                                    business['business_open_hour'],
+                                    business['business_close_hour'],
+                                  );
+
+                                  return CardList(
+                                    businessImage: business['business_image'],
+                                    businessName: business['business_name'],
+                                    businessType: business['business_type'],
+                                    businessRate: business['business_rating'],
+                                    businessLocation: business['business_distance'],
+                                    discountNumber: business['discount_number'],
+                                    isFreeShipment: business['is_free_shipment'],
+                                    isOpen: isOpen,
+                                    onTap: () {
+                                      final route = '/business/detail/${business['business_id']}';
+
+                                      context.push(
+                                        route,
+                                        extra: {
+                                          'business_id': business['business_id'],
+                                          'business_name': business['business_name'],
+                                          'business_type': business['business_type'],
+                                          'business_image': business['business_image'],
+                                          'business_rating': business['business_rating'],
+                                          'business_distance': business['business_distance'],
+                                          'business_address': business['business_address'],
+                                          'business_open_hour': business['business_open_hour'],
+                                          'business_close_hour': business['business_close_hour'],
+                                          'estimated_delivery': business['estimated_delivery'],
+                                          'discount_number': business['discount_number'],
+                                          'is_free_shipment': business['is_free_shipment'],
+                                          'service_fee': business['service_fee'],
+                                          'selected_address_id': _selectedAddress['address_id'],
+                                        },
+                                      );
+                                    },
+                                  );
+                                },
+                              ),
                             ),
-                          ),
-                        ),
-                        child: ListView.builder(
-                          itemCount: filteredBusinesses.length,
-                          itemBuilder: (context, index) {
-                            final business = filteredBusinesses[index];
-                            final isOpen = isBusinessOpen(
-                              business['business_open_hour'],
-                              business['business_close_hour'],
-                            );
-
-                            return CardList(
-                              businessImage: business['business_image'],
-                              businessName: business['business_name'],
-                              businessType: business['business_type'],
-                              businessRate: business['business_rating'],
-                              businessLocation: business['business_distance'],
-                              discountNumber: business['discount_number'],
-                              isFreeShipment: business['is_free_shipment'],
-                              isOpen: isOpen,
-                              onTap: () {
-                                final route = '/business/detail/${business['business_id']}';
-
-                                context.push(
-                                  route,
-                                  extra: {
-                                    'business_id': business['business_id'],
-                                    'business_name': business['business_name'],
-                                    'business_type': business['business_type'],
-                                    'business_image': business['business_image'],
-                                    'business_rating': business['business_rating'],
-                                    'business_distance': business['business_distance'],
-                                    'business_address': business['business_address'],
-                                    'business_open_hour': business['business_open_hour'],
-                                    'business_close_hour': business['business_close_hour'],
-                                    'estimated_delivery': business['estimated_delivery'],
-                                    'discount_number': business['discount_number'],
-                                    'is_free_shipment': business['is_free_shipment'],
-                                    'service_fee': business['service_fee'],
-                                    'selected_address_id': _selectedAddress['address_id'],
-                                  },
-                                );
-                              },
-                            );
-                          },
-                        ),
-                      ),
                     ),
             ],
           ),

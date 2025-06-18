@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
@@ -184,6 +185,11 @@ class RecentSearchList extends StatelessWidget {
           itemCount: limitedItems.length,
           itemBuilder: (context, index) {
             final item = limitedItems[index];
+
+            // Cek tipe bisnis
+            final isMarket = item['business_type'] == 'market';
+            final iconData = isMarket ? Icons.shopping_cart : Icons.restaurant;
+
             return Padding(
               padding: const EdgeInsets.symmetric(vertical: 0),
               child: Material(
@@ -193,15 +199,13 @@ class RecentSearchList extends StatelessWidget {
                   splashColor: AppColors.woodland.withAlpha(50),
                   highlightColor: AppColors.woodland.withAlpha(25),
                   child: Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     child: Row(
                       children: [
-                        const CircleAvatar(
+                        CircleAvatar(
                           radius: 18,
                           backgroundColor: AppColors.woodland,
-                          child: Icon(Icons.restaurant,
-                              color: AppColors.soapstone, size: 18),
+                          child: Icon(iconData, color: AppColors.soapstone, size: 18),
                         ),
                         const SizedBox(width: 12),
                         Text(
@@ -260,18 +264,26 @@ class _AddressSelectionOverlayState extends State<AddressSelectionOverlay> {
     allAddresses = AddressChooseController.getAllAddresses();
   }
 
-  void _toggleBookmark(Map<String, dynamic> address) {
+  void _toggleBookmark(Map<String, dynamic> address) async {
+    final connectivityResult = await Connectivity().checkConnectivity();
+    if (connectivityResult.contains(ConnectivityResult.none)) {
+      Fluttertoast.showToast(
+        msg: "Perubahan penyimpanan alamat gagal. Silahkan coba lagi.",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+      );
+      return;
+    }
+
     setState(() {
       final isNowBookmarked = !(address['isBookmarked'] ?? false);
       address['isBookmarked'] = isNowBookmarked;
 
-      // If it becomes bookmarked and not already in mainAddress, add it
       if (isNowBookmarked &&
           !mainAddress.any((a) => a['address_id'] == address['address_id'])) {
         mainAddress.add(address);
       }
 
-      // If unbookmarked, remove from mainAddress
       if (!isNowBookmarked) {
         mainAddress.removeWhere((a) => a['address_id'] == address['address_id']);
       }
@@ -351,7 +363,21 @@ class _AddressSelectionOverlayState extends State<AddressSelectionOverlay> {
                 // Search Bar
                 TextField(
                   controller: widget.controller,
-                  onChanged: (value) {
+                  onChanged: (value) async {
+                    final connectivityResult = await Connectivity().checkConnectivity();
+                    if (connectivityResult.contains(ConnectivityResult.none)) {
+                      Fluttertoast.showToast(
+                        msg: "Pencarian gagal dilakukan.\nSilahkan coba lagi.",
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.BOTTOM,
+                      );
+                      setState(() {
+                        searchQuery = value;
+                        allAddresses = []; // Set to empty so filtered results will be empty
+                      });
+                      return;
+                    }
+
                     setState(() {
                       searchQuery = value;
                     });
@@ -419,7 +445,23 @@ class _AddressSelectionOverlayState extends State<AddressSelectionOverlay> {
                     ),
                   ),
                   const SizedBox(height: 8),
-                  ...filteredSearchResults.map((addr) => _buildAddressTile(addr)),
+                  if (filteredSearchResults.isEmpty)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 12),
+                      child: Center(
+                        child: Text(
+                          'Tidak ada hasil ditemukan.',
+                          style: TextStyle(
+                            color: AppColors.dark.withValues(alpha: 0.8),
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            fontFamily: AppFonts.fontMedium,
+                          ),
+                        ),
+                      ),
+                    )
+                  else
+                    ...filteredSearchResults.map((addr) => _buildAddressTile(addr)),
                 ],
               ],
             ),
@@ -443,10 +485,18 @@ class _AddressSelectionOverlayState extends State<AddressSelectionOverlay> {
             child: SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {
-                  final selectedId = selectedAddress!['address_id'];
+                onPressed: () async {
+                  final connectivityResult = await Connectivity().checkConnectivity();
+                  if (connectivityResult.contains(ConnectivityResult.none)) {
+                    Fluttertoast.showToast(
+                      msg: "Alamat gagal dipilih.\nSilahkan coba lagi.",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.BOTTOM,
+                    );
+                    return;
+                  }
 
-                  // Update distances based on selected address
+                  final selectedId = selectedAddress!['address_id'];
                   AddressChangeController.updateBusinessDistances(selectedId);
 
                   widget.onAddressSelected(selectedAddress!);
@@ -532,13 +582,11 @@ class _AddressSelectionOverlayState extends State<AddressSelectionOverlay> {
 
 class SortFilterOverlay extends StatefulWidget {
   final int selectedOption;
-  final Function(int) onOptionSelected;
-  final VoidCallback onApply;
+  final Future<bool> Function(int) onApply;
 
   const SortFilterOverlay({
     super.key,
     required this.selectedOption,
-    required this.onOptionSelected,
     required this.onApply,
   });
 
@@ -584,10 +632,9 @@ class _SortFilterOverlayState extends State<SortFilterOverlay> {
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-              onPressed: () {
-                widget.onOptionSelected(_selectedOption);
-                widget.onApply();
-                context.pop();
+              onPressed: () async {
+                final success = await widget.onApply(_selectedOption);
+                if (success) context.pop(); // Only close if sort succeeded
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.woodland,

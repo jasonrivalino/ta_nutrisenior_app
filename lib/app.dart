@@ -34,11 +34,13 @@ class _MyAppState extends State<MyApp> {
 
     if (_showSplash) {
       return const MaterialApp(
+        debugShowCheckedModeBanner: false,
         home: SplashScreen(),
       );
     }
 
     return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
       routerConfig: router,
       theme: ThemeData(
         fontFamily: 'Roboto',
