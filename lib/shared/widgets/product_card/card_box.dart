@@ -123,7 +123,20 @@ class _CardBoxState extends State<CardBox> {
 
   void _decrementCount() {
     if (widget.count > 0) {
-      widget.onCountChanged!(widget.count - 1);
+      final newCount = widget.count - 1;
+      widget.onCountChanged!(newCount);
+
+      if (newCount == 0) {
+        // Clear add-ons
+        if (widget.onAddOnsChanged != null) {
+          widget.onAddOnsChanged!({widget.productId.toString(): []});
+        }
+
+        // Clear notes
+        if (widget.onNotesChanged != null) {
+          widget.onNotesChanged!('');
+        }
+      }
     }
   }
 

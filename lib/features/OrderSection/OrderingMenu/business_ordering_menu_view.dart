@@ -144,7 +144,10 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
     }
 
     num total = 0;
+    final effectiveAddOnIds = <int>[];
+
     print("=== Product Price Calculation Debug ===");
+
     for (final entry in uniqueProducts.entries) {
       final id = entry.key;
       final product = entry.value;
@@ -153,21 +156,30 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
 
       if (count > 0) {
         final subtotal = count * price;
-        // print("Product ID: $id | Qty: $count | Price: $price | Subtotal: $subtotal");
         total += subtotal;
+
+        // Only include add-ons for products with count > 0
+        final addOnIds = selectedAddOnIds[id];
+        if (addOnIds != null) {
+          effectiveAddOnIds.addAll(addOnIds);
+        }
+      } else {
+        // Clean up add-ons for products with 0 count
+        if (selectedAddOnIds.containsKey(id)) {
+          selectedAddOnIds.remove(id);
+        }
       }
     }
 
     final totalAddOnsPrice = getTotalAddOnsPrice(
       addOns: allAddOnsList,
-      selectedAddOnIds: selectedAddOnIds.values.expand((ids) => ids).toList(),
+      selectedAddOnIds: effectiveAddOnIds,
     );
 
-    print("Selected Add-On IDs: $selectedAddOnIds");
+    print("Selected Add-On IDs: $effectiveAddOnIds");
     print("Add-Ons Total Price: $totalAddOnsPrice");
 
     total += totalAddOnsPrice;
-
     print("Final Total Price: $total");
 
     return total.toInt();
@@ -178,6 +190,7 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
 
   @override
   Widget build(BuildContext context) {
+    print("Selected add-ons: $selectedAddOnIds");
     return Scaffold(
       backgroundColor: AppColors.soapstone,
       body: SafeArea(
@@ -223,8 +236,12 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
 
                     Fluttertoast.showToast(
                       msg: isFavorite
-                          ? "Restoran berhasil ditambahkan ke favorit!"
-                          : "Restoran dihapus dari daftar favorit!",
+                          ? widget.businessType == 'restaurant'
+                              ? "Restoran berhasil ditambahkan ke daftar favorit!"
+                              : "Pusat belanja berhasil ditambahkan ke daftar favorit!"
+                          : widget.businessType == 'restaurant'
+                              ? "Restoran dihapus dari daftar favorit!"
+                              : "Pusat belanja dihapus dari daftar favorit!",
                       toastLength: Toast.LENGTH_SHORT,
                       gravity: ToastGravity.BOTTOM,
                     );
@@ -326,6 +343,10 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
                                 onCountChanged: (productId, newCount) {
                                   setState(() {
                                     selectedProductCounts[productId] = newCount;
+
+                                    if (newCount == 0) {
+                                      selectedAddOnIds.remove(productId);
+                                    }
                                   });
                                 },
                                 onNotesChanged: (productId, notes) {
