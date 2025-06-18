@@ -201,15 +201,23 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
               height: 150,
               width: double.infinity,
               child: ClipRRect(
-                child: Image.asset(
-                  widget.businessImage,
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) {
-                    final fallbackImage = widget.businessType == 'market'
-                        ? 'assets/images/dummy/errorhandling/dummymarket.png'
-                        : 'assets/images/dummy/errorhandling/dummyrestaurant.png';
-                    return Image.asset(fallbackImage, fit: BoxFit.cover);
-                  },
+                child: Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    Image.asset(
+                      widget.businessImage,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        final fallbackImage = widget.businessType == 'market'
+                            ? 'assets/images/dummy/errorhandling/dummymarket.png'
+                            : 'assets/images/dummy/errorhandling/dummyrestaurant.png';
+                        return Image.asset(fallbackImage, fit: BoxFit.cover);
+                      },
+                    ),
+                    Container(
+                      color: Colors.white.withValues(alpha: 0.3),
+                    ),
+                  ],
                 ),
               ),
             ),
