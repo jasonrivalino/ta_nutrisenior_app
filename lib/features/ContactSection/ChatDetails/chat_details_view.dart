@@ -51,12 +51,25 @@ class _ChatDetailViewState extends State<ChatDetailView> {
           messageContent.endsWith('.jpg') ||
           messageContent.endsWith('.jpeg'));
 
+      final isMe = chat['is_user'] == true;
+      final DateTime time = chat['message_time'];
+      final String status;
+
+      // Tentukan status awal:
+      if (isMe) {
+        final bool isRecent = DateTime.now().difference(time).inSeconds < 15;
+        // Jika baru dikirim (kurang dari 15 detik yang lalu), anggap belum berhasil -> 'sending'
+        status = isRecent ? 'sending' : 'seen';
+      } else {
+        status = 'seen'; // pesan dari driver
+      }
+
       return {
-        'isMe': chat['is_user'] == true,
+        'isMe': isMe,
         'text': isImage ? null : messageContent,
         'imagePath': isImage ? messageContent : null,
-        'time': chat['message_time'],
-        'status': 'seen',
+        'time': time,
+        'status': status,
       };
     }).toList().reversed.toList();
 
@@ -72,6 +85,15 @@ class _ChatDetailViewState extends State<ChatDetailView> {
   }
 
   void _handleSendMessage() {
+    // Cek apakah ada pesan yang masih 'sending'
+    final hasPendingMessage = _messages.any((message) =>
+        message['isMe'] == true && message['status'] == 'sending');
+
+    if (hasPendingMessage) {
+      // Jangan kirim lagi jika masih ada pesan 'sending'
+      return;
+    }
+
     final previousLength = _messages.length;
 
     _sendMessageController.sendMessage(
