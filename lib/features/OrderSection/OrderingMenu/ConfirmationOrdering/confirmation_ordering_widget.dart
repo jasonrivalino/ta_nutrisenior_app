@@ -216,6 +216,7 @@ class OrderDetailListBox extends StatelessWidget {
   final String businessType;
   final void Function(String productId, int newQty) onCountChanged;
   final void Function(String productId, String notes)? onNotesChanged;
+  final void Function(String productId, List<Map<String, dynamic>> newAddOns)? onAddOnsChanged;
 
   const OrderDetailListBox({
     super.key,
@@ -227,11 +228,11 @@ class OrderDetailListBox extends StatelessWidget {
     required this.businessType,
     required this.onCountChanged,
     this.onNotesChanged,
+    this.onAddOnsChanged,
   });
 
   @override
   Widget build(BuildContext context) {
-    print("Discount number yang masuk: $discountNumber");
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -240,7 +241,7 @@ class OrderDetailListBox extends StatelessWidget {
           BoxShadow(
             color: AppColors.dark.withValues(alpha: 0.15),
             blurRadius: 6,
-            offset: Offset(0, 2),
+            offset: const Offset(0, 2),
           ),
         ],
         borderRadius: BorderRadius.circular(4),
@@ -260,6 +261,8 @@ class OrderDetailListBox extends StatelessWidget {
           const Divider(color: AppColors.dark, thickness: 1),
           ...selectedProducts.map((product) {
             final subtotal = product['product_price'] * product['qty_product'];
+            final productIdStr = product['product_id'].toString();
+
             return Padding(
               padding: const EdgeInsets.only(top: 2, bottom: 3),
               child: Column(
@@ -273,7 +276,6 @@ class OrderDetailListBox extends StatelessWidget {
                           final productId = product['product_id'];
                           final int productIdInt = productId is int ? productId : int.parse(productId.toString());
                           final route = '/business/detail/$businessId/ordering/$productId';
-                          print("Navigating to: $route");
 
                           final result = await context.push<Map<String, dynamic>>(route, extra: {
                             'business_id': businessId,
@@ -292,8 +294,6 @@ class OrderDetailListBox extends StatelessWidget {
                             final returnedProductId = result['product_id'].toString();
                             final newQty = result['qty_product'] ?? 0;
                             final notes = result['notes'] ?? '';
-
-                            print('Returned from detail: productId: $returnedProductId, qty: $newQty, notes: $notes');
 
                             onCountChanged(returnedProductId, newQty);
                             if (onNotesChanged != null) {
@@ -369,6 +369,62 @@ class OrderDetailListBox extends StatelessWidget {
                       ),
                     ],
                   ),
+
+                  // Render add-ons below the product
+                  if (product['add_ons_details'] != null && product['add_ons_details'].isNotEmpty) ...[
+                    const SizedBox(height: 4), // Reduce from 6 to 4 or adjust as needed
+                    Column(
+                      children: List.generate(product['add_ons_details'].length, (index) {
+                        final addOn = product['add_ons_details'][index];
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            IconButton(
+                              onPressed: () {
+                                final currentAddOns = List<Map<String, dynamic>>.from(product['add_ons_details']);
+                                // Remove index array
+                                product['add_ons'].removeAt(index);
+
+                                // Remove from the currentAddOns list
+                                currentAddOns.removeAt(index);
+                                if (onAddOnsChanged != null) {
+                                  onAddOnsChanged!(productIdStr, currentAddOns);
+                                }
+                              },
+                              icon: const Icon(Icons.remove_circle, size: 20, color: AppColors.persianRed),
+                              visualDensity: VisualDensity.compact,
+                              padding: EdgeInsets.zero,
+                              constraints: const BoxConstraints(),
+                            ),
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: Text(
+                                '${addOn['add_ons_name']}',
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  color: AppColors.dark,
+                                  fontWeight: FontWeight.w500,
+                                  fontFamily: AppFonts.fontMedium,
+                                ),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            Text(
+                              formatCurrency(addOn['add_ons_price']),
+                              style: const TextStyle(
+                                fontSize: 14,
+                                color: AppColors.dark,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: AppFonts.fontBold,
+                              ),
+                            )
+                          ],
+                        );
+                      }),
+                    ),
+                  ],
                 ],
               ),
             );
@@ -622,7 +678,7 @@ class _PaymentMethodBoxState extends State<PaymentMethodBox> {
                                       ),
                                     ),
                                   );
-                                }).toList(),
+                                }),
                               ],
                             ),
                           );

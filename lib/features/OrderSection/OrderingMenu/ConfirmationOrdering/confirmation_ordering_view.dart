@@ -114,228 +114,258 @@ class _OrderConfirmationViewState extends State<OrderConfirmationView> {
 
 
   int _calculateUpdatedTotalPrice() {
-    int productTotal = _selectedProducts.fold(
-      0,
-      (sum, product) => sum + (product['product_price'] as int) * (product['qty_product'] as int),
-    );
-    final int deliveryFee = calculateDeliveryFee(
-      widget.isFreeShipment,
-      _businessDistance,
-    );
+    int productTotal = 0;
+
+    for (var product in _selectedProducts) {
+      final productPrice = product['product_price'] as int;
+      final quantity = product['qty_product'] as int;
+      final addOns = product['add_ons_details'] as List<Map<String, dynamic>>?;
+
+      // Product price
+      int totalPerProduct = productPrice * quantity;
+
+      // Add-ons price
+      if (addOns != null && addOns.isNotEmpty) {
+        for (var addOn in addOns) {
+          final addOnPrice = addOn['add_ons_price'] as int;
+          totalPerProduct += addOnPrice;
+        }
+      }
+
+      productTotal += totalPerProduct;
+    }
+
+    final deliveryFee = calculateDeliveryFee(widget.isFreeShipment, _businessDistance);
+
     return productTotal + widget.serviceFee + deliveryFee;
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.soapstone,
-      appBar: CustomAppBar(
-        title: "Konfirmasi Pesanan",
-        showBackButton: true,
-        customParam: _selectedProducts,
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.only(bottom: 16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            RecipientLocationBox(
-              onAddressClick: () {
-                showModalBottomSheet(
-                  context: context,
-                  isScrollControlled: true,
-                  backgroundColor: Colors.transparent,
-                  builder: (_) => DraggableScrollableSheet(
-                    initialChildSize: 0.81,
-                    minChildSize: 0.5,
-                    maxChildSize: 0.95,
-                    expand: false,
-                    builder: (context, scrollController) {
-                      return Container(
-                        decoration: const BoxDecoration(
-                          color: AppColors.berylGreen,
-                          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-                        ),
-                        child: AddressSelectionOverlay(
-                          controller: _searchAddressController,
-                          onChanged: (value) {
-                            setState(() {
-                              _searchAddressController.text = value;
-                            });
-                          },
-                          onAddressSelected: (newAddress) {
-                            final newAddressId = newAddress['address_id'];
+    print("Selected Products: $_selectedProducts");
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) async {
+        if (didPop) return;
+        context.pop(_selectedProducts);
+      },
+      child: Scaffold(
+        backgroundColor: AppColors.soapstone,
+        appBar: CustomAppBar(
+          title: "Konfirmasi Pesanan",
+          showBackButton: true,
+          customParam: _selectedProducts,
+        ),
+        body: SingleChildScrollView(
+          padding: const EdgeInsets.only(bottom: 16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              RecipientLocationBox(
+                onAddressClick: () {
+                  showModalBottomSheet(
+                    context: context,
+                    isScrollControlled: true,
+                    backgroundColor: Colors.transparent,
+                    builder: (_) => DraggableScrollableSheet(
+                      initialChildSize: 0.81,
+                      minChildSize: 0.5,
+                      maxChildSize: 0.95,
+                      expand: false,
+                      builder: (context, scrollController) {
+                        return Container(
+                          decoration: const BoxDecoration(
+                            color: AppColors.berylGreen,
+                            borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                          ),
+                          child: AddressSelectionOverlay(
+                            controller: _searchAddressController,
+                            onChanged: (value) {
+                              setState(() {
+                                _searchAddressController.text = value;
+                              });
+                            },
+                            onAddressSelected: (newAddress) {
+                              final newAddressId = newAddress['address_id'];
 
-                            // Update business list distances globally
-                            AddressChangeController.updateBusinessDistances(newAddressId);
+                              // Update business list distances globally
+                              AddressChangeController.updateBusinessDistances(newAddressId);
 
-                            // Get updated distance for current business
-                            final updatedBusiness = businessListTable.firstWhere(
-                              (b) => b['business_id'] == widget.businessId,
-                              orElse: () => {},
-                            );
+                              // Get updated distance for current business
+                              final updatedBusiness = businessListTable.firstWhere(
+                                (b) => b['business_id'] == widget.businessId,
+                                orElse: () => {},
+                              );
 
-                            final newDistance =
-                                updatedBusiness['business_distance'] ?? _businessDistance;
-                            final newDeliveryFee =
-                                calculateDeliveryFee(widget.isFreeShipment, newDistance);
+                              final newDistance = updatedBusiness['business_distance'] ?? _businessDistance;
+                              final newDeliveryFee = calculateDeliveryFee(widget.isFreeShipment, newDistance);
 
-                            setState(() {
-                              _selectedAddress = newAddress;
-                              _businessDistance = newDistance;
-                              _deliveryFee = newDeliveryFee;
-                            });
+                              setState(() {
+                                _selectedAddress = newAddress;
+                                _businessDistance = newDistance;
+                                _deliveryFee = newDeliveryFee;
+                              });
 
-                            // Persist new state
-                            AddressChangeController.lastSelectedAddressId = newAddressId;
-                            AddressChangeController.lastBusinessDistance = newDistance;
-                            AddressChangeController.lastDeliveryFee = newDeliveryFee;
-                          },
-                        ),
+                              // Persist new state
+                              AddressChangeController.lastSelectedAddressId = newAddressId;
+                              AddressChangeController.lastBusinessDistance = newDistance;
+                              AddressChangeController.lastDeliveryFee = newDeliveryFee;
+                            },
+                          ),
+                        );
+                      },
+                    ),
+                  );
+                },
+                onNotesClick: () {
+                  showModalBottomSheet(
+                    context: context,
+                    backgroundColor: AppColors.ecruWhite,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+                    ),
+                    isScrollControlled: true,
+                    builder: (BuildContext context) {
+                      return DriverNoteOverlay(
+                        initialNote: driverNote,
+                        onNoteSubmitted: (newNote) {
+                          setState(() {
+                            driverNote = newNote;
+                          });
+                          print("Note Pengantar: $driverNote");
+                        },
                       );
                     },
-                  ),
-                );
-              },
-              onNotesClick: () {
-                showModalBottomSheet(
-                  context: context,
-                  backgroundColor: AppColors.ecruWhite,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-                  ),
-                  isScrollControlled: true,
-                  builder: (BuildContext context) {
-                    return DriverNoteOverlay(
-                      initialNote: driverNote,
-                      onNoteSubmitted: (newNote) {
-                        setState(() {
-                          driverNote = newNote;
-                        });
-                        print("Note Pengantar: $driverNote");
-                      },
-                    );
-                  },
-                );
-              },
-              note: driverNote,
-              addressName: _selectedAddress['address_name'] ?? '-',
-              addressDetail: _selectedAddress['address_detail'] ?? '-',
-            ),
-            const SizedBox(height: 8),
+                  );
+                },
+                note: driverNote,
+                addressName: _selectedAddress['address_name'] ?? '-',
+                addressDetail: _selectedAddress['address_detail'] ?? '-',
+              ),
+              const SizedBox(height: 8),
 
-            OrderDetailListBox(
-              selectedProducts: _selectedProducts,
-              serviceFee: widget.serviceFee,
-              deliveryFee: _deliveryFee,
-              discountNumber: widget.discountNumber,
-              businessId: widget.businessId,
-              businessType: widget.businessType,
-              onCountChanged: (productId, newQty) {
-                setState(() {
-                  _selectedProducts.removeWhere((p) {
-                    final matches = p['product_id'].toString() == productId;
-                    if (matches && newQty == 0) return true;
-                    if (matches) p['qty_product'] = newQty;
-                    return false;
+              OrderDetailListBox(
+                selectedProducts: _selectedProducts,
+                serviceFee: widget.serviceFee,
+                deliveryFee: _deliveryFee,
+                discountNumber: widget.discountNumber,
+                businessId: widget.businessId,
+                businessType: widget.businessType,
+                onCountChanged: (productId, newQty) {
+                  setState(() {
+                    _selectedProducts.removeWhere((p) {
+                      final matches = p['product_id'].toString() == productId;
+                      if (matches && newQty == 0) return true;
+                      if (matches) p['qty_product'] = newQty;
+                      return false;
+                    });
                   });
-                });
-              },
-              onNotesChanged: (productId, notes) {
-                setState(() {
-                  final index = _selectedProducts.indexWhere((p) => p['product_id'].toString() == productId);
-                  if (index != -1) {
-                    _selectedProducts[index]['notes'] = notes;
-                  }
-                });
-              },
-            ),
-            const SizedBox(height: 8),
+                },
+                onNotesChanged: (productId, notes) {
+                  setState(() {
+                    final index = _selectedProducts.indexWhere(
+                      (p) => p['product_id'].toString() == productId,
+                    );
+                    if (index != -1) {
+                      _selectedProducts[index]['notes'] = notes;
+                    }
+                  });
+                },
+                onAddOnsChanged: (productId, addOns) {
+                  setState(() {
+                    final index = _selectedProducts.indexWhere(
+                      (p) => p['product_id'].toString() == productId,
+                    );
+                    if (index != -1) {
+                      _selectedProducts[index]['add_ons_details'] = addOns;
+                    }
+                  });
+                },
+              ),
+              const SizedBox(height: 8),
 
-            AddMoreOrderButtonBox(
-              onAddMorePressed: () {
-                context.pop(_selectedProducts);
-              },
-            ),
-            const SizedBox(height: 8),
+              AddMoreOrderButtonBox(
+                onAddMorePressed: () {
+                  context.pop(_selectedProducts);
+                },
+              ),
+              const SizedBox(height: 8),
 
-            PaymentMethodBox(
-              selectedMethod: _selectedPaymentMethod,
-              onMethodSelected: (method) {
-                setState(() {
-                  _selectedPaymentMethod = method;
-                });
-              },
-            ),
-            const SizedBox(height: 8),
-          ],
+              PaymentMethodBox(
+                selectedMethod: _selectedPaymentMethod,
+                onMethodSelected: (method) {
+                  setState(() {
+                    _selectedPaymentMethod = method;
+                  });
+                },
+              ),
+              const SizedBox(height: 8),
+            ],
+          ),
         ),
-      ),
-      bottomNavigationBar: OrderBottomNavbar(
-        totalPrice: _calculateUpdatedTotalPrice(),
-        buttonText: "Lakukan Pemesanan",
-        onOrderPressed: () async {
-          final connectivityResult = await Connectivity().checkConnectivity();
-          if (connectivityResult.contains(ConnectivityResult.none)) {
-            Fluttertoast.showToast(
-              msg: 'Pemesanan gagal dilakukan.\nSilahkan coba lagi.',
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.BOTTOM,
+        bottomNavigationBar: OrderBottomNavbar(
+          totalPrice: _calculateUpdatedTotalPrice(),
+          buttonText: "Lakukan Pemesanan",
+          onOrderPressed: () async {
+            final connectivityResult = await Connectivity().checkConnectivity();
+            if (connectivityResult.contains(ConnectivityResult.none)) {
+              Fluttertoast.showToast(
+                msg: 'Pemesanan gagal dilakukan.\nSilahkan coba lagi.',
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.BOTTOM,
+              );
+              return;
+            }
+
+            final int updatedTotalPrice = _calculateUpdatedTotalPrice();
+
+            print("=== Order Confirmation Debug Info ===");
+            print("Selected Products:");
+            for (var product in _selectedProducts) {
+              print(
+                "Product ID: ${product['product_id']}, Name: ${product['product_name']}, "
+                "Price: ${product['product_price']}, Quantity: ${product['qty_product']}, "
+                "Notes: ${product['notes'] ?? '-'}",
+              );
+            }
+            print("Service Fee: ${widget.serviceFee}");
+            print("Delivery Fee: $_deliveryFee");
+            print("Total Price: $updatedTotalPrice");
+            print("Address Delivery: ${_selectedAddress['address_detail']}");
+            print("Driver Note: $driverNote");
+            print("Payment Method: $_selectedPaymentMethod");
+
+            final int historyId = OrderConfirmationController.addOrder(
+              businessId: widget.businessId,
+              selectedProducts: _selectedProducts,
+              estimatedDelivery: widget.businessEstimatedDelivery,
+              deliveryFee: _deliveryFee,
+              paymentMethod: _selectedPaymentMethod,
+              addressDetail: _selectedAddress['address_detail'],
             );
-            return;
-          }
-          final int updatedTotalPrice = _calculateUpdatedTotalPrice();
 
-          print("=== Order Confirmation Debug Info ===");
-          print("Selected Products:");
-          for (var product in _selectedProducts) {
-            print("Product ID: ${product['product_id']}, Name: ${product['product_name']}, "
-                  "Price: ${product['product_price']}, Quantity: ${product['qty_product']}, "
-                  "Notes: ${product['notes'] ?? '-'}");
-          }
+            AddressChangeController.updateBusinessDistances(1);
+            AddressChangeController.lastSelectedAddressId = null;
+            AddressChangeController.lastBusinessDistance = null;
+            AddressChangeController.lastDeliveryFee = null;
 
-          print("Service Fee: ${widget.serviceFee}");
-          print("Delivery Fee: $_deliveryFee");
-          print("Total Price: $updatedTotalPrice");
-          print("Address Delivery: ${_selectedAddress['address_detail']}");
-          print("Driver Note: $driverNote");
-          print("Payment Method: $_selectedPaymentMethod");
-
-          // 1. Add order and get historyId
-          final int historyId = OrderConfirmationController.addOrder(
-            businessId: widget.businessId,
-            selectedProducts: _selectedProducts,
-            estimatedDelivery: widget.businessEstimatedDelivery,
-            deliveryFee: _deliveryFee,
-            paymentMethod: _selectedPaymentMethod,
-            addressDetail: _selectedAddress['address_detail'],
-          );
-
-          // Reset all business distances to default
-          AddressChangeController.updateBusinessDistances(1);
-
-          // Clear persisted state
-          AddressChangeController.lastSelectedAddressId = null;
-          AddressChangeController.lastBusinessDistance = null;
-          AddressChangeController.lastDeliveryFee = null;
-
-          // Navigate to processing history page
-          context.push(
-            '/history/processing/$historyId',
-            extra: {
-              'history_id': historyId,
-              'business_name': widget.businessName,
-              'business_type': widget.businessType,
-              'business_image': widget.businessImage,
-              'estimated_arrival_time': widget.businessEstimatedDelivery,
-              'order_list': _selectedProducts,
-              'service_fee': widget.serviceFee,
-              'delivery_fee': _deliveryFee,
-              'total_price': updatedTotalPrice,
-              'status': 'diproses',
-            },
-          );
-        },
+            context.push(
+              '/history/processing/$historyId',
+              extra: {
+                'history_id': historyId,
+                'business_name': widget.businessName,
+                'business_type': widget.businessType,
+                'business_image': widget.businessImage,
+                'estimated_arrival_time': widget.businessEstimatedDelivery,
+                'order_list': _selectedProducts,
+                'service_fee': widget.serviceFee,
+                'delivery_fee': _deliveryFee,
+                'total_price': updatedTotalPrice,
+                'status': 'diproses',
+              },
+            );
+          },
+        ),
       ),
     );
   }

@@ -190,7 +190,6 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
 
   @override
   Widget build(BuildContext context) {
-    print("Selected add-ons: $selectedAddOnIds");
     return Scaffold(
       backgroundColor: AppColors.soapstone,
       body: SafeArea(
@@ -404,6 +403,24 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
                   final qty = entry.value;
                   final notes = selectedProductNotes[productId] ?? '';
                   final product = uniqueProducts[productId];
+                  final addOnIds = selectedAddOnIds[productId] ?? [];
+
+                  // Match and get detailed add-on info
+                  final seenAddOnIds = <int>{};
+                  final detailedAddOns = allAddOnsList
+                      .where((addOn) =>
+                          addOn['product_id'].toString() == productId &&
+                          addOnIds.contains(addOn['add_ons_id']))
+                      .map((addOn) => {
+                            'add_ons_id': addOn['add_ons_id'],
+                            'add_ons_name': addOn['add_ons_name'],
+                            'add_ons_price': addOn['add_ons_price'],
+                          })
+                      .where((addOn) => seenAddOnIds.add(addOn['add_ons_id'] as int))
+                      .toList();
+
+                  print("Detailed add-ons for product $productId: $detailedAddOns");
+
                   if (product != null) {
                     selectedProducts.add({
                       'product_id': productId,
@@ -414,6 +431,8 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
                       'original_price': product['product_price'],
                       'qty_product': qty,
                       'notes': notes,
+                      'add_ons': addOnIds, // Just the list of IDs
+                      'add_ons_details': detailedAddOns,
                     });
                   }
                 }
