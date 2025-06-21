@@ -11,6 +11,7 @@ class OrderConfirmationController {
     required int deliveryFee,
     required String paymentMethod,
     required String addressDetail,
+    required String driverNote,
   }) {
     int newHistoryId = historyOrderListTable.isNotEmpty
         ? historyOrderListTable.last['history_id'] + 1
@@ -22,6 +23,7 @@ class OrderConfirmationController {
       'history_id': newHistoryId,
       'business_id': businessId,
       'driver_id': randomDriver['driver_id'],
+      'driver_note': driverNote,
       'order_date': DateTime.now(),
       'address_receiver': addressDetail,
       'estimated_arrival_time': estimatedDelivery,

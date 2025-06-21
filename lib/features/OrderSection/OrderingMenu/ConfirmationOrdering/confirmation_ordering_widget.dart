@@ -142,12 +142,7 @@ class DriverNoteOverlay extends StatelessWidget {
     final TextEditingController controller = TextEditingController(text: initialNote == '-' ? '' : initialNote);
 
     return Padding(
-      padding: EdgeInsets.only(
-        bottom: MediaQuery.of(context).viewInsets.bottom,
-        top: 16,
-        left: 16,
-        right: 16,
-      ),
+      padding: EdgeInsets.all(16),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -163,7 +158,7 @@ class DriverNoteOverlay extends StatelessWidget {
           const SizedBox(height: 12),
           TextField(
             controller: controller,
-            maxLines: 3,
+            maxLines: 4,
             style: const TextStyle(
               fontSize: 14,
               fontFamily: AppFonts.fontMedium,
@@ -186,7 +181,7 @@ class DriverNoteOverlay extends StatelessWidget {
             style: ElevatedButton.styleFrom(
               backgroundColor: AppColors.woodland,
               foregroundColor: AppColors.soapstone,
-              minimumSize: const Size.fromHeight(40),
+              minimumSize: const Size.fromHeight(45),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30),
               ),

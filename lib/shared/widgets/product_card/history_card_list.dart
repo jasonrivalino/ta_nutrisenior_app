@@ -160,6 +160,7 @@ class HistoryCardList extends StatelessWidget {
                                                 'business_id': historyData['business_id'],
                                                 'order_date': orderDate,
                                                 'driver_name': historyData['driver_name'],
+                                                'driver_note': historyData['driver_note'],
                                                 'business_name': historyData['business_name'],
                                                 'business_image': historyData['business_image'],
                                                 'business_type': historyData['business_type'],

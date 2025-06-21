@@ -11,6 +11,7 @@ class DoneHistoryDetailsView extends StatelessWidget {
   final int businessId;
   final DateTime orderDate;
   final String driverName;
+  final String? driverNote;
   final String businessName;
   final String businessImage;
   final String businessType;
@@ -28,6 +29,7 @@ class DoneHistoryDetailsView extends StatelessWidget {
     required this.totalPrice,
     required this.orderDate,
     required this.driverName,
+    this.driverNote,
     required this.businessName,
     required this.businessImage,
     required this.businessType,
@@ -48,6 +50,7 @@ class DoneHistoryDetailsView extends StatelessWidget {
       businessImage: extra['business_image'] as String,
       businessType: extra['business_type'] as String,
       driverName: extra['driver_name'] as String,
+      driverNote: extra['driver_note'] as String?,
       addressReceiver: extra['address_receiver'] as String,
       orderList: extra['order_list'] as List<dynamic>,
       serviceFee: extra['service_fee'] as int,
@@ -81,6 +84,7 @@ class DoneHistoryDetailsView extends StatelessWidget {
             DoneOrderTimeDriverCard(
               orderDate: orderDate,
               driverName: driverName,
+              driverNote: driverNote,
             ),
             const SizedBox(height: 16),
             DoneOrderAddressCard(

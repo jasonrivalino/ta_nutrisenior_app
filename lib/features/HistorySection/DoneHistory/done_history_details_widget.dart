@@ -14,11 +14,13 @@ import '../../../shared/utils/fullscreen_image_view.dart';
 class DoneOrderTimeDriverCard extends StatelessWidget {
   final DateTime orderDate;
   final String driverName;
+  final String? driverNote;
 
-  const DoneOrderTimeDriverCard ({
+  const DoneOrderTimeDriverCard({
     super.key,
     required this.orderDate,
     required this.driverName,
+    this.driverNote,
   });
 
   @override
@@ -46,7 +48,8 @@ class DoneOrderTimeDriverCard extends StatelessWidget {
                   color: AppColors.dark,
                 ),
               ),
-              Text(DateFormat('d MMM y, HH:mm').format(orderDate),
+              Text(
+                DateFormat('d MMM y, HH:mm').format(orderDate),
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
                   fontSize: 16,
@@ -60,6 +63,7 @@ class DoneOrderTimeDriverCard extends StatelessWidget {
           // Pengemudi
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
                 "Pengemudi",
@@ -70,16 +74,33 @@ class DoneOrderTimeDriverCard extends StatelessWidget {
                   color: AppColors.dark,
                 ),
               ),
-              Text(driverName,
+              Text(
+                driverName,
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
                   fontSize: 16,
                   fontFamily: AppFonts.fontMedium,
                   color: AppColors.dark,
                 ),
+                textAlign: TextAlign.right,
               ),
             ],
           ),
+          const SizedBox(height: 4),
+          if (driverNote != null && driverNote!.trim().isNotEmpty)
+            Padding(
+              padding: const EdgeInsets.only(top: 2),
+              child: Text(
+                "Note: $driverNote",
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 14,
+                  fontFamily: AppFonts.fontMedium,
+                  color: AppColors.dark,
+                ),
+                textAlign: TextAlign.left,
+              ),
+            ),
         ],
       ),
     );

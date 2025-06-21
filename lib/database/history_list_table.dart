@@ -18,6 +18,7 @@ final List<Map<String, dynamic>> historyListTable = [
   // history_id: 5, business_id: 1
   {'history_id': 5, 'product_id': 23, 'qty_product': 2, 'notes': 'Tanpa bawang'},
   {'history_id': 5, 'product_id': 24, 'qty_product': 1, 'notes': 'Extra keju'},
+  {'history_id': 5, 'product_id': 1, 'qty_product': 1, 'notes': ''},
 
   // history_id: 6, business_id: 5
   {'history_id': 6, 'product_id': 21, 'qty_product': 1, 'notes': ''},

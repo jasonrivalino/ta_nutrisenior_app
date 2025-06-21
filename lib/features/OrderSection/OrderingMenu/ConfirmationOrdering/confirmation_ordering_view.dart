@@ -335,6 +335,7 @@ class _OrderConfirmationViewState extends State<OrderConfirmationView> {
               deliveryFee: _deliveryFee,
               paymentMethod: _selectedPaymentMethod,
               addressDetail: _selectedAddress['address_detail'],
+              driverNote: driverNote,
             );
 
             AddressChangeController.updateBusinessDistances(1);
