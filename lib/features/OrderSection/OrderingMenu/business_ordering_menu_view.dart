@@ -26,7 +26,6 @@ class BusinessOrderingMenuView extends StatefulWidget {
   final int? productId;
   final int? qtyProduct;
   final String? notes;
-  final List<int>? addOns;
   final int? selectedAddressId;
 
   const BusinessOrderingMenuView({
@@ -47,7 +46,6 @@ class BusinessOrderingMenuView extends StatefulWidget {
     this.productId,
     this.qtyProduct,
     this.notes,
-    this.addOns,
     this.selectedAddressId,
   });
 
@@ -71,7 +69,6 @@ class BusinessOrderingMenuView extends StatefulWidget {
       productId: extra['product_id'] as int?,
       qtyProduct: extra['qty_product'] as int?,
       notes: extra['notes'] as String?,
-      addOns: extra['add_ons'] as List<int>?,
       selectedAddressId: extra['selected_address_id'] as int? ?? 1,
     );
   }
@@ -413,6 +410,18 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
                       'notes': notes,
                       'add_ons': addOnIds, // Just the list of IDs
                       'add_ons_details': detailedAddOns,
+                      'all_add_ons_details': () {
+                          final seenAddOnIds = <int>{};
+                          return allAddOnsList
+                              .where((addOn) => addOn['product_id'].toString() == productId)
+                              .where((addOn) => seenAddOnIds.add(addOn['add_ons_id'] as int)) // keep only unique IDs
+                              .map((addOn) => {
+                                    'add_ons_id': addOn['add_ons_id'],
+                                    'add_ons_name': addOn['add_ons_name'],
+                                    'add_ons_price': addOn['add_ons_price'],
+                                  })
+                              .toList();
+                        }(),
                     });
                   }
                 }

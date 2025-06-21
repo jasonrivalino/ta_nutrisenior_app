@@ -216,7 +216,7 @@ class OrderDetailListBox extends StatelessWidget {
   final String businessType;
   final void Function(String productId, int newQty) onCountChanged;
   final void Function(String productId, String notes)? onNotesChanged;
-  final void Function(String productId, List<Map<String, dynamic>> newAddOns)? onAddOnsChanged;
+  final void Function(String productId, List<int> newAddOnIds)? onAddOnsChanged;
 
   const OrderDetailListBox({
     super.key,
@@ -307,7 +307,7 @@ class OrderDetailListBox extends StatelessWidget {
                             }
                             if (onAddOnsChanged != null && addOnsResult != null) {
                               // Extract relevant list for this product only
-                              final updatedAddOnIds = List<Map<String, dynamic>>.from(
+                              final updatedAddOnIds = List<int>.from(
                                 addOnsResult[returnedProductId] ?? [],
                               );
                               onAddOnsChanged!(returnedProductId, updatedAddOnIds);
@@ -394,15 +394,16 @@ class OrderDetailListBox extends StatelessWidget {
                           children: [
                             IconButton(
                               onPressed: () {
-                                final currentAddOns = List<Map<String, dynamic>>.from(product['add_ons_details']);
-                                // Remove index array
-                                product['add_ons'].removeAt(index);
+                                final currentAddOnsDetails = List<Map<String, dynamic>>.from(product['add_ons_details']);
+                                  final removedAddOn = currentAddOnsDetails[index];
+                                  final removedAddOnId = removedAddOn['add_ons_id'];
 
-                                // Remove from the currentAddOns list
-                                currentAddOns.removeAt(index);
-                                if (onAddOnsChanged != null) {
-                                  onAddOnsChanged!(productIdStr, currentAddOns);
-                                }
+                                  final updatedAddOnIds = List<int>.from(product['add_ons']);
+                                  updatedAddOnIds.remove(removedAddOnId);
+
+                                  if (onAddOnsChanged != null) {
+                                    onAddOnsChanged!(productIdStr, updatedAddOnIds);
+                                  }
                               },
                               icon: const Icon(Icons.remove_circle, size: 20, color: AppColors.persianRed),
                               visualDensity: VisualDensity.compact,

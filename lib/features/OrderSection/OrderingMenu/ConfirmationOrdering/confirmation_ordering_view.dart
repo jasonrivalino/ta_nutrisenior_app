@@ -114,6 +114,7 @@ class _OrderConfirmationViewState extends State<OrderConfirmationView> {
 
   @override
   Widget build(BuildContext context) {
+    print("Selected Products: $_selectedProducts");
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (didPop, result) async {
@@ -242,13 +243,22 @@ class _OrderConfirmationViewState extends State<OrderConfirmationView> {
                     }
                   });
                 },
-                onAddOnsChanged: (productId, addOns) {
+                onAddOnsChanged: (productId, updatedAddOnIds) {
                   setState(() {
                     final index = _selectedProducts.indexWhere(
                       (p) => p['product_id'].toString() == productId,
                     );
                     if (index != -1) {
-                      _selectedProducts[index]['add_ons_details'] = addOns;
+                      final product = _selectedProducts[index];
+                      final allAddOnsDetails = product['all_add_ons_details'] ?? [];
+
+                      // Filter the full details list based on selected IDs
+                      final updatedAddOnDetails = (allAddOnsDetails as List)
+                          .where((addOn) => updatedAddOnIds.contains(addOn['add_ons_id']))
+                          .toList();
+
+                      product['add_ons'] = updatedAddOnIds;
+                      product['add_ons_details'] = updatedAddOnDetails;
                     }
                   });
                 },

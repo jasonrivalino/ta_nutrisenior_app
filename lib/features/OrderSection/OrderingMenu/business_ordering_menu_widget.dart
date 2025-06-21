@@ -386,8 +386,6 @@ class RecommendedProductSection extends StatelessWidget {
                 final productId = product['product_id'].toString();
                 final currentCount = selectedCounts[productId] ?? 0;
                 final currentNotes = selectedNotes[productId] ?? '';
-                final currentAddOns = currentCount > 0 ? (selectedAddOnIdsMap[productId] ?? []) : [];
-                print('Current Add-Ons for Product $productId: $currentAddOns');
 
                 return SizedBox(
                   width: MediaQuery.of(context).size.width * 0.425,
