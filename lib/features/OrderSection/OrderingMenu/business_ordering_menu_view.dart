@@ -296,16 +296,6 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
                                 businessType: widget.businessType,
                                 discountNumber: discountNumber,
                                 products: recommendedProducts,
-                                addOns: recommendedProducts
-                                  .expand((product) {
-                                    final pid = product['product_id'];
-                                    final List<Map<String, dynamic>> productAddOns = List<Map<String, dynamic>>.from(product['add_ons'] ?? []);
-                                    return productAddOns.map((addOn) => {
-                                          ...addOn,
-                                          'product_id': pid,
-                                        });
-                                  })
-                                  .toList(),
                                 selectedCounts: selectedProductCounts,
                                 selectedNotes: selectedProductNotes,
                                 selectedAddOnIdsMap: selectedAddOnIds,
@@ -334,16 +324,6 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
                                 businessType: widget.businessType,
                                 discountNumber: discountNumber,
                                 products: allProducts,
-                                addOns: allProducts
-                                  .expand((product) {
-                                    final pid = product['product_id'];
-                                    final List<Map<String, dynamic>> productAddOns = List<Map<String, dynamic>>.from(product['add_ons'] ?? []);
-                                    return productAddOns.map((addOn) => {
-                                          ...addOn,
-                                          'product_id': pid,
-                                        });
-                                  })
-                                  .toList(),
                                 selectedCounts: selectedProductCounts,
                                 selectedNotes: selectedProductNotes,
                                 selectedAddOnIdsMap: selectedAddOnIds,

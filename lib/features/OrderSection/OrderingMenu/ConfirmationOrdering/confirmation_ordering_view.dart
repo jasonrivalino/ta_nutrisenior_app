@@ -114,7 +114,6 @@ class _OrderConfirmationViewState extends State<OrderConfirmationView> {
 
   @override
   Widget build(BuildContext context) {
-    print("Selected Products: $_selectedProducts");
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (didPop, result) async {

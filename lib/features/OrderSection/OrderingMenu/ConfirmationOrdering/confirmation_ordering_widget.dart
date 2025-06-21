@@ -288,16 +288,29 @@ class OrderDetailListBox extends StatelessWidget {
                             'product_description': product['product_description'],
                             'qty_product': product['qty_product'],
                             'notes': product['notes'],
+                            'add_ons': {
+                              product['product_id'].toString(): product['add_ons'] ?? [],
+                            }
                           });
 
                           if (result != null) {
                             final returnedProductId = result['product_id'].toString();
                             final newQty = result['qty_product'] ?? 0;
                             final notes = result['notes'] ?? '';
+                            final addOnsResult = result['add_ons'] as Map<String, dynamic>?;
+
+                            print('Returned from detail: productId: $returnedProductId, qty: $newQty, notes: $notes');
 
                             onCountChanged(returnedProductId, newQty);
                             if (onNotesChanged != null) {
                               onNotesChanged!(returnedProductId, notes);
+                            }
+                            if (onAddOnsChanged != null && addOnsResult != null) {
+                              // Extract relevant list for this product only
+                              final updatedAddOnIds = List<Map<String, dynamic>>.from(
+                                addOnsResult[returnedProductId] ?? [],
+                              );
+                              onAddOnsChanged!(returnedProductId, updatedAddOnIds);
                             }
                           }
                         },
@@ -372,7 +385,7 @@ class OrderDetailListBox extends StatelessWidget {
 
                   // Render add-ons below the product
                   if (product['add_ons_details'] != null && product['add_ons_details'].isNotEmpty) ...[
-                    const SizedBox(height: 4), // Reduce from 6 to 4 or adjust as needed
+                    const SizedBox(height: 4),
                     Column(
                       children: List.generate(product['add_ons_details'].length, (index) {
                         final addOn = product['add_ons_details'][index];

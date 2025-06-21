@@ -327,7 +327,6 @@ class RecommendedProductSection extends StatelessWidget {
   final String businessType;
   final int? discountNumber;
   final List<Map<String, dynamic>> products;
-  final List<Map<String, dynamic>>? addOns;
   final Map<String, int> selectedCounts;
   final Map<String, String> selectedNotes;
   final Map<String, List<int>> selectedAddOnIdsMap;
@@ -343,7 +342,6 @@ class RecommendedProductSection extends StatelessWidget {
     required this.businessType,
     this.discountNumber,
     required this.products,
-    this.addOns,
     required this.selectedCounts,
     required this.selectedNotes,
     required this.selectedAddOnIdsMap,
@@ -391,10 +389,6 @@ class RecommendedProductSection extends StatelessWidget {
                 final currentAddOns = currentCount > 0 ? (selectedAddOnIdsMap[productId] ?? []) : [];
                 print('Current Add-Ons for Product $productId: $currentAddOns');
 
-                final productAddOns = addOns
-                    ?.where((addOn) => addOn['product_id'].toString() == productId)
-                    .toList();
-
                 return SizedBox(
                   width: MediaQuery.of(context).size.width * 0.425,
                   child: CardBox(
@@ -406,7 +400,6 @@ class RecommendedProductSection extends StatelessWidget {
                     productName: product['product_name'],
                     productPrice: product['product_price'],
                     productDescription: product['product_description'],
-                    addOns: productAddOns,
                     count: currentCount,
                     notes: currentNotes,
                     addOnsSelection: selectedAddOnIdsMap,
@@ -437,7 +430,6 @@ class RecommendedProductSection extends StatelessWidget {
                         'product_name': product['product_name'],
                         'product_price': product['product_price'],
                         'product_description': product['product_description'],
-                        'add_ons_list': productAddOns,
                         'qty_product': currentCount,
                         'notes': currentNotes,
                         'add_ons': selectedAddOnIdsMap,
@@ -482,7 +474,6 @@ class ProductListWidget extends StatelessWidget {
   final String businessType;
   final int? discountNumber;
   final List<Map<String, dynamic>> products;
-  final List<Map<String, dynamic>>? addOns;
   final Map<String, int> selectedCounts;
   final Map<String, String> selectedNotes;
   final Map<String, List<int>> selectedAddOnIdsMap;
@@ -497,7 +488,6 @@ class ProductListWidget extends StatelessWidget {
     required this.businessType,
     this.discountNumber,
     required this.products,
-    this.addOns,
     required this.selectedCounts,
     required this.selectedNotes,
     required this.selectedAddOnIdsMap,
@@ -552,7 +542,6 @@ class ProductListWidget extends StatelessWidget {
                   productName: product['product_name'],
                   productPrice: product['product_price'],
                   productDescription: product['product_description'],
-                  addOns: addOns?.where((addOn) => addOn['product_id'] == product['product_id']).toList(),
                   count: currentCount,
                   notes: currentNotes,
                   addOnsSelection: selectedAddOnIdsMap,
@@ -583,7 +572,6 @@ class ProductListWidget extends StatelessWidget {
                       'product_name': product['product_name'],
                       'product_price': product['product_price'],
                       'product_description': product['product_description'],
-                      'add_ons_list': addOns?.where((addOn) => addOn['product_id'] == product['product_id']).toList(),
                       'qty_product': currentCount,
                       'notes': currentNotes,
                       'add_ons': selectedAddOnIdsMap,

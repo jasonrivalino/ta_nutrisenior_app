@@ -18,7 +18,6 @@ class CardBox extends StatefulWidget {
   final int? productPrice;
   final String? productDescription;
   final int? discountNumber;
-  final List<Map<String, dynamic>>? addOns;
   final int count;
   final String notes;
   final Map<String, List<int>> addOnsSelection;
@@ -41,7 +40,6 @@ class CardBox extends StatefulWidget {
     this.productPrice,
     this.productDescription,
     this.discountNumber,
-    this.addOns,
     required this.onTap,
     this.count = 0,
     this.notes = '',
@@ -77,7 +75,6 @@ class _CardBoxState extends State<CardBox> {
           'product_name': widget.productName,
           'product_price': widget.productPrice,
           'product_description': widget.productDescription,
-          'add_ons_list': widget.addOns,
           'qty_product': widget.count,
           'notes': widget.notes,
           'add_ons': widget.addOnsSelection,

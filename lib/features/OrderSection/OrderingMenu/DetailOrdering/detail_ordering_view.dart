@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ta_nutrisenior_app/features/OrderSection/OrderingMenu/DetailOrdering/detail_ordering_controller.dart';
 
 import '../../../../shared/styles/colors.dart';
 import '../../../../shared/utils/get_total_add_ons_price.dart';
@@ -15,7 +16,6 @@ class DetailOrderingView extends StatefulWidget {
   final String productName;
   final int productPrice;
   final String productDescription;
-  final List<Map<String, dynamic>>? addOnsList;
   final int qtyProduct;
   final String? notes;
   final Map<String, List<int>>? selectedAddOnIdsMap;
@@ -32,7 +32,6 @@ class DetailOrderingView extends StatefulWidget {
     required this.productDescription,
     required this.qtyProduct,
     this.notes,
-    this.addOnsList,
     this.selectedAddOnIdsMap,
   });
 
@@ -45,12 +44,6 @@ class DetailOrderingView extends StatefulWidget {
       (key, value) => MapEntry(key.toString(), List<int>.from(value)),
     );
 
-    // PRINT ALL EXTRA VALUES
-    print('Extra Values:');
-    extra.forEach((key, value) {
-      print('$key: $value');
-    });
-
     return DetailOrderingView(
       businessId: extra['business_id'] as int,
       businessType: extra['business_type'] as String,
@@ -60,7 +53,6 @@ class DetailOrderingView extends StatefulWidget {
       productName: extra['product_name'] as String,
       productPrice: extra['product_price'] as int,
       productDescription: extra['product_description'] as String,
-      addOnsList: extra['add_ons_list'] as List<Map<String, dynamic>>?,
       qtyProduct: extra['qty_product'] as int,
       notes: extra['notes'] as String?,
       selectedAddOnIdsMap: selectedMap,
@@ -74,18 +66,28 @@ class DetailOrderingView extends StatefulWidget {
 class _DetailOrderingViewState extends State<DetailOrderingView> {
   late int quantity;
   late TextEditingController _noteController;
+
+  List<Map<String, dynamic>> addOnsList = [];
   List<int> selectedAddOnIds = [];
 
   @override
   void initState() {
     super.initState();
+
     quantity = widget.qtyProduct == 0 ? 1 : widget.qtyProduct;
     _noteController = TextEditingController(text: widget.notes ?? '');
 
     // Use only the selected add-ons for this product
     selectedAddOnIds = widget.selectedAddOnIdsMap?[widget.productId.toString()] ?? [];
 
+    // Fetch add-ons list specific for this product and business
+    addOnsList = getAddOnsForProductController(
+      productId: widget.productId,
+      businessId: widget.businessId,
+    );
+
     print('Selected Add-Ons for Product ${widget.productId}: $selectedAddOnIds');
+    print('Generated Add-Ons List: $addOnsList');
   }
 
   @override
@@ -97,7 +99,7 @@ class _DetailOrderingViewState extends State<DetailOrderingView> {
   @override
   Widget build(BuildContext context) {
     final totalAddOnsPrice = getTotalAddOnsPrice(
-      addOns: widget.addOnsList ?? [],
+      addOns: addOnsList,
       selectedAddOnIds: selectedAddOnIds,
     );
 
@@ -137,9 +139,9 @@ class _DetailOrderingViewState extends State<DetailOrderingView> {
                     productDescription: widget.productDescription,
                     discountNumber: widget.discountNumber,
                   ),
-                  if (widget.addOnsList != null && widget.addOnsList!.isNotEmpty)
+                  if (addOnsList.isNotEmpty)
                     ProductAddOnsSelectionBox(
-                      addOns: widget.addOnsList!,
+                      addOns: addOnsList,
                       initiallySelectedAddOnIds: selectedAddOnIds,
                       onAddOnsChanged: (selectedIds) {
                         setState(() {
