@@ -413,7 +413,7 @@ class SetQuantityBottomNavbar extends StatelessWidget {
                 ),
               ),
               child: Text(
-                'Tambah ${businessType == 'restaurant' ? 'Makanan' : 'Belanjaan'} - ${formatCurrency(getFinalPrice(baseProductPrice, addOnsPrice, quantity, discountNumber))}',
+                'Tambah ${businessType == 'restaurant' ? 'Makanan' : 'Belanjaan'} - ${formatCurrency(getProductPrice(baseProductPrice, addOnsPrice, quantity, discountNumber))}',
                 style: TextStyle(
                   fontFamily: AppFonts.fontBold,
                   fontWeight: FontWeight.bold,

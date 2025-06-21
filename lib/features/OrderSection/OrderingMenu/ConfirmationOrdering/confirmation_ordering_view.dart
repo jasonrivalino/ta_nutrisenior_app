@@ -112,34 +112,6 @@ class _OrderConfirmationViewState extends State<OrderConfirmationView> {
     }
   }
 
-
-  int _calculateUpdatedTotalPrice() {
-    int productTotal = 0;
-
-    for (var product in _selectedProducts) {
-      final productPrice = product['product_price'] as int;
-      final quantity = product['qty_product'] as int;
-      final addOns = product['add_ons_details'] as List<Map<String, dynamic>>?;
-
-      // Product price
-      int totalPerProduct = productPrice * quantity;
-
-      // Add-ons price
-      if (addOns != null && addOns.isNotEmpty) {
-        for (var addOn in addOns) {
-          final addOnPrice = addOn['add_ons_price'] as int;
-          totalPerProduct += addOnPrice;
-        }
-      }
-
-      productTotal += totalPerProduct;
-    }
-
-    final deliveryFee = calculateDeliveryFee(widget.isFreeShipment, _businessDistance);
-
-    return productTotal + widget.serviceFee + deliveryFee;
-  }
-
   @override
   Widget build(BuildContext context) {
     print("Selected Products: $_selectedProducts");
@@ -304,7 +276,13 @@ class _OrderConfirmationViewState extends State<OrderConfirmationView> {
           ),
         ),
         bottomNavigationBar: OrderBottomNavbar(
-          totalPrice: _calculateUpdatedTotalPrice(),
+          totalPrice: calculateFinalOrderTotal(
+            _selectedProducts,
+            widget.serviceFee,
+            widget.isFreeShipment,
+            _businessDistance,
+            calculateDeliveryFee,
+          ),
           buttonText: "Lakukan Pemesanan",
           onOrderPressed: () async {
             final connectivityResult = await Connectivity().checkConnectivity();
@@ -317,7 +295,13 @@ class _OrderConfirmationViewState extends State<OrderConfirmationView> {
               return;
             }
 
-            final int updatedTotalPrice = _calculateUpdatedTotalPrice();
+            final int updatedTotalPrice = calculateFinalOrderTotal(
+              _selectedProducts,
+              widget.serviceFee,
+              widget.isFreeShipment,
+              _businessDistance,
+              calculateDeliveryFee,
+            );
 
             print("=== Order Confirmation Debug Info ===");
             print("Selected Products:");

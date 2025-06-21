@@ -412,7 +412,7 @@ class OrderDetailListBox extends StatelessWidget {
                             ),
                             const SizedBox(width: 8),
                             Text(
-                              formatCurrency(addOn['add_ons_price']),
+                              formatCurrency(addOn['add_ons_price'] * product['qty_product']),
                               style: const TextStyle(
                                 fontSize: 14,
                                 color: AppColors.dark,

@@ -144,7 +144,6 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
     }
 
     num total = 0;
-    final effectiveAddOnIds = <int>[];
 
     print("=== Product Price Calculation Debug ===");
 
@@ -158,28 +157,29 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
         final subtotal = count * price;
         total += subtotal;
 
+        final addOnIds = selectedAddOnIds[id]?.toSet().toList() ?? [];
+
         // Only include add-ons for products with count > 0
-        final addOnIds = selectedAddOnIds[id];
-        if (addOnIds != null) {
-          effectiveAddOnIds.addAll(addOnIds);
+        final productAddOns = allAddOnsList.where(
+          (addOn) => addOn['product_id'].toString() == id,
+        ).toList();
+
+        final addOnsTotalPrice = getTotalAddOnsPrice(
+          addOns: productAddOns,
+          selectedAddOnIds: addOnIds,
+        ) * count;
+
+        total += addOnsTotalPrice;
+
+        if (addOnsTotalPrice > 0) {
+          print("Add-Ons for Product ID $id: x$count = $addOnsTotalPrice");
         }
       } else {
-        // Clean up add-ons for products with 0 count
-        if (selectedAddOnIds.containsKey(id)) {
-          selectedAddOnIds.remove(id);
-        }
+        // Remove unused add-ons
+        selectedAddOnIds.remove(id);
       }
     }
 
-    final totalAddOnsPrice = getTotalAddOnsPrice(
-      addOns: allAddOnsList,
-      selectedAddOnIds: effectiveAddOnIds,
-    );
-
-    print("Selected Add-On IDs: $effectiveAddOnIds");
-    print("Add-Ons Total Price: $totalAddOnsPrice");
-
-    total += totalAddOnsPrice;
     print("Final Total Price: $total");
 
     return total.toInt();
