@@ -211,6 +211,7 @@ class OrderDetailListBox extends StatelessWidget {
   final List<Map<String, dynamic>> selectedProducts;
   final int serviceFee;
   final int deliveryFee;
+  final int? discountNumber;
   final int businessId;
   final String businessType;
   final void Function(String productId, int newQty) onCountChanged;
@@ -221,6 +222,7 @@ class OrderDetailListBox extends StatelessWidget {
     required this.selectedProducts,
     required this.serviceFee,
     required this.deliveryFee,
+    this.discountNumber,
     required this.businessId,
     required this.businessType,
     required this.onCountChanged,
@@ -229,6 +231,7 @@ class OrderDetailListBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("Discount number yang masuk: $discountNumber");
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -276,9 +279,10 @@ class OrderDetailListBox extends StatelessWidget {
                             'business_id': businessId,
                             'business_type': businessType,
                             'product_id': productIdInt,
+                            'discount_number': discountNumber,
                             'product_image': product['product_image'],
                             'product_name': product['product_name'],
-                            'product_price': product['product_price'],
+                            'product_price': product['original_price'],
                             'product_description': product['product_description'],
                             'qty_product': product['qty_product'],
                             'notes': product['notes'],

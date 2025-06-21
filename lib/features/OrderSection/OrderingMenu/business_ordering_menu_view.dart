@@ -411,6 +411,7 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
                       'product_image': product['product_image'],
                       'product_description': product['product_description'],
                       'product_price': product['discounted_price'] ?? product['product_price'],
+                      'original_price': product['product_price'],
                       'qty_product': qty,
                       'notes': notes,
                     });
@@ -428,6 +429,7 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
                     'business_image': widget.businessImage,
                     'business_distance': widget.businessDistance,
                     'business_estimated_delivery': widget.businessEstimatedDelivery,
+                    'discount_number': widget.discountNumber,
                     'is_free_shipment': isFreeShipment,
                     'total_price': totalSelectedPrice,
                     'selected_address_id': widget.selectedAddressId,

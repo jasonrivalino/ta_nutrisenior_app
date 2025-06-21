@@ -22,6 +22,7 @@ class OrderConfirmationView extends StatefulWidget {
   final String businessImage;
   final double businessDistance;
   final String businessEstimatedDelivery;
+  final int? discountNumber;
   final bool isFreeShipment;
   final int totalPrice;
   final int selectedAddressId;
@@ -35,6 +36,7 @@ class OrderConfirmationView extends StatefulWidget {
     required this.businessImage,
     required this.businessDistance,
     required this.businessEstimatedDelivery,
+    this.discountNumber,
     required this.isFreeShipment,
     required this.serviceFee,
     required this.totalPrice,
@@ -53,6 +55,7 @@ class OrderConfirmationView extends StatefulWidget {
       businessImage: extra['business_image'] as String,
       businessDistance: extra['business_distance'] as double,
       businessEstimatedDelivery: extra['business_estimated_delivery'] as String,
+      discountNumber: extra['discount_number'] as int?,
       isFreeShipment: extra['is_free_shipment'] as bool,
       serviceFee: extra['service_fee'] as int,
       totalPrice: extra['total_price'] as int,
@@ -225,6 +228,7 @@ class _OrderConfirmationViewState extends State<OrderConfirmationView> {
               selectedProducts: _selectedProducts,
               serviceFee: widget.serviceFee,
               deliveryFee: _deliveryFee,
+              discountNumber: widget.discountNumber,
               businessId: widget.businessId,
               businessType: widget.businessType,
               onCountChanged: (productId, newQty) {
