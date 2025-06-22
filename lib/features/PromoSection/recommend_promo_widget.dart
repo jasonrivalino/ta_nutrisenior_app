@@ -56,6 +56,8 @@ class RecommendedPromoSection extends StatelessWidget {
                   businessType: business['business_type'],
                   businessRate: business['business_rating'],
                   businessLocation: business['business_distance'],
+                  businessOpenHour: business['business_open_hour'],
+                  businessCloseHour: business['business_close_hour'],
                   discountNumber: business['discount_number'],
                   onTap: () {
                     final route = '/business/detail/${business['business_id']}';

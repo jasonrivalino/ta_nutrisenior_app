@@ -1,21 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:ta_nutrisenior_app/shared/styles/colors.dart';
 import '../../styles/fonts.dart';
+import '../../utils/is_business_open.dart';
 
 class ListTitle extends StatelessWidget {
   final String title;
+  final DateTime? businessOpenHour;
+  final DateTime? businessCloseHour;
 
   const ListTitle({
     super.key,
+    this.businessOpenHour,
+    this.businessCloseHour,
     required this.title,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.fromLTRB(10, 8, 20, 8),
+      padding: const EdgeInsets.fromLTRB(10, 7, 20, 7),
       decoration: BoxDecoration(
-        color: AppColors.drabGreen,
+        color: (businessOpenHour == null || businessCloseHour == null || isBusinessOpen(businessOpenHour, businessCloseHour))
+            ? AppColors.drabGreen
+            : AppColors.darkGray,
         borderRadius: const BorderRadius.only(
           topRight: Radius.circular(30),
           bottomRight: Radius.circular(30),
@@ -23,11 +30,11 @@ class ListTitle extends StatelessWidget {
       ),
       child: Text(
         title,
-        style: const TextStyle(
+        style: TextStyle(
           fontSize: 20,
           fontWeight: FontWeight.w700,
           fontFamily: AppFonts.fontBold,
-          color: AppColors.soapstone,
+          color: AppColors.soapstone
         ),
       ),
     );

@@ -176,6 +176,8 @@ class RecommendedHomeSection extends StatelessWidget {
                         businessType: business['business_type'],
                         businessRate: business['business_rating'],
                         businessLocation: business['business_distance'],
+                        businessOpenHour: business['business_open_hour'],
+                        businessCloseHour: business['business_close_hour'],
                         onTap: () {
                           final route = '/business/detail/${business['business_id']}';
                           context.push(route, extra: business);
@@ -273,6 +275,8 @@ class _RecommendedTodayCarouselState extends State<RecommendedTodayCarousel> wit
                 businessType: business['business_type'],
                 businessRate: business['business_rating'],
                 businessLocation: business['business_distance'],
+                businessOpenHour: business['business_open_hour'],
+                businessCloseHour: business['business_close_hour'],
                 onTap: () {
                   final route = '/business/detail/${business['business_id']}';
                   context.push(route, extra: business);

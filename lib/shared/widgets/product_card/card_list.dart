@@ -145,7 +145,7 @@ class _CardListState extends State<CardList> {
     return Material(
       color: Colors.transparent,
       child: InkWell(
-        onTap: isOpen ? widget.onTap : null,
+        onTap: widget.onTap,
         hoverColor: AppColors.soapstone.withAlpha(80),
         splashColor: AppColors.darkGray.withAlpha(50),
         child: Ink(
@@ -205,7 +205,7 @@ class _CardListState extends State<CardList> {
                       ),
                     ),
                   ),
-                  if (!isOpen)
+                  if (!isOpen && widget.businessImage != null)
                     Positioned.fill(
                       child: Container(
                         decoration: BoxDecoration(
@@ -414,7 +414,7 @@ class _CardListState extends State<CardList> {
                                     color: AppColors.soapstone,
                                   ),
                                   child: InkWell(
-                                    onTap: _incrementCount,
+                                    onTap: isOpen ? _incrementCount : null,
                                     borderRadius: BorderRadius.circular(20),
                                     child: const Icon(
                                       Icons.add,
@@ -435,7 +435,7 @@ class _CardListState extends State<CardList> {
                                       color: AppColors.soapstone,
                                     ),
                                     child: InkWell(
-                                      onTap: _decrementCount,
+                                      onTap: isOpen ? _decrementCount : null,
                                       borderRadius: BorderRadius.circular(6),
                                       child: const Icon(
                                         Icons.remove,
@@ -462,7 +462,7 @@ class _CardListState extends State<CardList> {
                                       color: AppColors.soapstone,
                                     ),
                                     child: InkWell(
-                                      onTap: _incrementCount,
+                                      onTap: isOpen ? _incrementCount : null,
                                       borderRadius: BorderRadius.circular(6),
                                       child: const Icon(
                                         Icons.add,

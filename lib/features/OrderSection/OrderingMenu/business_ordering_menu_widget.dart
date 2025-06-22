@@ -6,6 +6,7 @@ import '../../../shared/styles/colors.dart';
 import '../../../shared/styles/fonts.dart';
 import '../../../shared/utils/format_currency.dart';
 import '../../../shared/utils/formatted_time.dart';
+import '../../../shared/utils/is_business_open.dart';
 import '../../../shared/widgets/list_helper/list_title.dart';
 import '../../../shared/widgets/product_card/card_box.dart';
 import '../../../shared/widgets/product_card/card_list.dart';
@@ -103,7 +104,9 @@ class BusinessInfoCard extends StatelessWidget {
       padding: const EdgeInsets.only(left: 16, right: 16),
       child: Container(
         decoration: BoxDecoration(
-          color: AppColors.ecruWhite,
+          color: isBusinessOpen(businessOpenHour, businessCloseHour)
+              ? AppColors.ecruWhite
+              : AppColors.lightGray,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(color: AppColors.dark.withValues(alpha: 0.5), width: 1),
           boxShadow: [
@@ -135,23 +138,28 @@ class BusinessInfoCard extends StatelessWidget {
                           ),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(8),
-                            child: Image.asset(
-                              businessImage,
-                              height: screenHeight > 900 ? 70 : 65,
-                              width: screenHeight > 900 ? 70 : 65,
-                              fit: BoxFit.cover,
-                              errorBuilder: (context, error, stackTrace) {
-                                String fallbackImage = 'assets/images/dummy/errorhandling/dummyrestaurant.png';
-                                if (businessType == 'market') {
-                                  fallbackImage = 'assets/images/dummy/errorhandling/dummymarket.png';
-                                }
-                                return Image.asset(
-                                  fallbackImage,
-                                  height: screenHeight > 900 ? 70 : 65,
-                                  width: screenHeight > 900 ? 70 : 65,
-                                  fit: BoxFit.cover,
-                                );
-                              },
+                            child: ColorFiltered(
+                              colorFilter: isBusinessOpen(businessOpenHour, businessCloseHour)
+                                  ? const ColorFilter.mode(Colors.transparent, BlendMode.saturation)
+                                  : const ColorFilter.mode(AppColors.darkGray, BlendMode.saturation),
+                              child: Image.asset(
+                                businessImage,
+                                height: screenHeight > 900 ? 70 : 65,
+                                width: screenHeight > 900 ? 70 : 65,
+                                fit: BoxFit.cover,
+                                errorBuilder: (context, error, stackTrace) {
+                                  String fallbackImage = 'assets/images/dummy/errorhandling/dummyrestaurant.png';
+                                  if (businessType == 'market') {
+                                    fallbackImage = 'assets/images/dummy/errorhandling/dummymarket.png';
+                                  }
+                                  return Image.asset(
+                                    fallbackImage,
+                                    height: screenHeight > 900 ? 70 : 65,
+                                    width: screenHeight > 900 ? 70 : 65,
+                                    fit: BoxFit.cover,
+                                  );
+                                },
+                              ),
                             ),
                           ),
                         ),
@@ -163,7 +171,9 @@ class BusinessInfoCard extends StatelessWidget {
                             child: Container(
                               padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 1),
                               decoration: BoxDecoration(
-                                color: AppColors.orangyYellow,
+                                color: isBusinessOpen(businessOpenHour, businessCloseHour)
+                                    ? AppColors.orangyYellow
+                                    : AppColors.darkGray,
                                 border: Border.all(color: AppColors.darkGray, width: 1),
                                 borderRadius: const BorderRadius.only(
                                   bottomLeft: Radius.circular(8),
@@ -325,6 +335,8 @@ class RecommendedProductSection extends StatelessWidget {
   final double heightCard;
   final int businessId;
   final String businessType;
+  final DateTime businessOpenHour;
+  final DateTime businessCloseHour;
   final int? discountNumber;
   final List<Map<String, dynamic>> products;
   final Map<String, int> selectedCounts;
@@ -340,6 +352,8 @@ class RecommendedProductSection extends StatelessWidget {
     required this.heightCard,
     required this.businessId,
     required this.businessType,
+    required this.businessOpenHour,
+    required this.businessCloseHour,
     this.discountNumber,
     required this.products,
     required this.selectedCounts,
@@ -360,7 +374,11 @@ class RecommendedProductSection extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              ListTitle(title: title),
+              ListTitle(
+                title: title,
+                businessOpenHour: businessOpenHour,
+                businessCloseHour: businessCloseHour,
+              ),
             ],
           ),
         ),
@@ -392,6 +410,8 @@ class RecommendedProductSection extends StatelessWidget {
                   child: CardBox(
                     businessId: businessId,
                     businessType: businessType,
+                    businessOpenHour: businessOpenHour,
+                    businessCloseHour: businessCloseHour,
                     discountNumber: discountNumber,
                     productId: product['product_id'],
                     productImage: product['product_image'],
@@ -415,6 +435,11 @@ class RecommendedProductSection extends StatelessWidget {
                       }
                     },
                     onTap: () async {
+                      // Add handling if business is closed
+                      if (!isBusinessOpen(businessOpenHour, businessCloseHour)) {
+                        return;
+                      }
+
                       final route = '/business/detail/$businessId/ordering/$productId';
 
                       print('Navigating to: $route');
@@ -470,6 +495,8 @@ class ProductListWidget extends StatelessWidget {
   final String? title;
   final int businessId;
   final String businessType;
+  final DateTime businessOpenHour;
+  final DateTime businessCloseHour;
   final int? discountNumber;
   final List<Map<String, dynamic>> products;
   final Map<String, int> selectedCounts;
@@ -484,6 +511,8 @@ class ProductListWidget extends StatelessWidget {
     required this.title,
     required this.businessId,
     required this.businessType,
+    required this.businessOpenHour,
+    required this.businessCloseHour,
     this.discountNumber,
     required this.products,
     required this.selectedCounts,
@@ -499,10 +528,12 @@ class ProductListWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (title != null) ...[
-          ListTitle(title: title!),
-          const SizedBox(height: 17.5),
-        ],
+        ListTitle(
+          title: title!,
+          businessOpenHour: businessOpenHour,
+          businessCloseHour: businessCloseHour,
+        ),
+        const SizedBox(height: 12),
         if (products.isEmpty)
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.0),
@@ -530,10 +561,12 @@ class ProductListWidget extends StatelessWidget {
                   final productId = product['product_id'].toString();
                   final currentCount = selectedCounts[productId] ?? 0;
                   final currentNotes = selectedNotes[productId] ?? '';
+                  final isOpen = isBusinessOpen(businessOpenHour, businessCloseHour);
 
                 return CardList(
                   businessId: businessId,
                   businessType: businessType,
+                  isOpen: isOpen,
                   discountNumber: discountNumber,
                   productId: product['product_id'],
                   productImage: product['product_image'],

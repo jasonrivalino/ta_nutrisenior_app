@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import '../../../database/business_promo_list_table.dart';
 import '../../../shared/styles/colors.dart';
 import '../../../shared/utils/get_total_add_ons_price.dart';
+import '../../../shared/utils/is_business_open.dart';
 import 'business_ordering_menu_controller.dart';
 import 'business_ordering_menu_widget.dart';
 
@@ -200,18 +201,26 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
                 child: Stack(
                   fit: StackFit.expand,
                   children: [
-                    Image.asset(
-                      widget.businessImage,
-                      fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) {
-                        final fallbackImage = widget.businessType == 'market'
-                            ? 'assets/images/dummy/errorhandling/dummymarket.png'
-                            : 'assets/images/dummy/errorhandling/dummyrestaurant.png';
-                        return Image.asset(fallbackImage, fit: BoxFit.cover);
-                      },
+                    ColorFiltered(
+                      colorFilter: isBusinessOpen(widget.businessOpenHour, widget.businessCloseHour)
+                          ? const ColorFilter.mode(Colors.transparent, BlendMode.saturation)
+                          : const ColorFilter.mode(AppColors.darkGray, BlendMode.saturation),
+                      child: Image.asset(
+                        widget.businessImage,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          final fallbackImage = widget.businessType == 'market'
+                              ? 'assets/images/dummy/errorhandling/dummymarket.png'
+                              : 'assets/images/dummy/errorhandling/dummyrestaurant.png';
+                          return Image.asset(
+                            fallbackImage,
+                            fit: BoxFit.cover,
+                          );
+                        },
+                      ),
                     ),
                     Container(
-                      color: Colors.white.withValues(alpha: 0.3),
+                      color: Colors.white.withAlpha(77), // roughly 30% transparency
                     ),
                   ],
                 ),
@@ -291,6 +300,8 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
                                 heightCard: (discountNumber != null) ? 220 : 200,
                                 businessId: widget.businessId,
                                 businessType: widget.businessType,
+                                businessOpenHour: widget.businessOpenHour,
+                                businessCloseHour: widget.businessCloseHour,
                                 discountNumber: discountNumber,
                                 products: recommendedProducts,
                                 selectedCounts: selectedProductCounts,
@@ -319,6 +330,8 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
                                     : 'Daftar Belanjaan',
                                 businessId: widget.businessId,
                                 businessType: widget.businessType,
+                                businessOpenHour: widget.businessOpenHour,
+                                businessCloseHour: widget.businessCloseHour,
                                 discountNumber: discountNumber,
                                 products: allProducts,
                                 selectedCounts: selectedProductCounts,

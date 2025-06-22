@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:ta_nutrisenior_app/shared/styles/colors.dart';
 import 'package:ta_nutrisenior_app/shared/utils/format_currency.dart';
 import '../../styles/fonts.dart';
+import '../../utils/is_business_open.dart';
 
 class CardBox extends StatefulWidget {
   final int? businessId;
@@ -12,6 +13,8 @@ class CardBox extends StatefulWidget {
   final String businessType;
   final double? businessRate;
   final double? businessLocation;
+  final DateTime businessOpenHour;
+  final DateTime businessCloseHour;
   final int? productId;
   final String? productImage;
   final String? productName;
@@ -34,6 +37,8 @@ class CardBox extends StatefulWidget {
     required this.businessType,
     this.businessRate,
     this.businessLocation,
+    required this.businessOpenHour,
+    required this.businessCloseHour,
     this.productId,
     this.productImage,
     this.productName,
@@ -142,6 +147,11 @@ class _CardBoxState extends State<CardBox> {
     final screenHeight = MediaQuery.of(context).size.height;
     final imageHeight = (screenHeight * 0.10).clamp(100.0, 120.0);
 
+    final isOpen = isBusinessOpen(
+      widget.businessOpenHour,
+      widget.businessCloseHour,
+    );
+
     return GestureDetector(
       onTapDown: (_) => _setPressed(true),
       onTapUp: (_) {
@@ -182,12 +192,9 @@ class _CardBoxState extends State<CardBox> {
                 borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
                 child: Stack(
                   children: [
-                    Image.asset(
-                      widget.businessImage ?? widget.productImage!,
-                      height: imageHeight,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) {
+                    Builder(
+                      builder: (context) {
+                        final imagePath = widget.businessImage ?? widget.productImage!;
                         String fallbackImage = 'assets/images/dummy/errorhandling/dummyrestaurant.png';
 
                         if (widget.businessType == 'restaurant' && widget.businessImage != null) {
@@ -200,15 +207,51 @@ class _CardBoxState extends State<CardBox> {
                           fallbackImage = 'assets/images/dummy/errorhandling/dummyingredient.png';
                         }
 
-                        return Image.asset(
-                          fallbackImage,
-                          height: imageHeight,
-                          width: double.infinity,
-                          fit: BoxFit.cover,
+                        return ColorFiltered(
+                          colorFilter: isOpen
+                              ? const ColorFilter.mode(Colors.transparent, BlendMode.saturation)
+                              : const ColorFilter.mode(AppColors.darkGray, BlendMode.saturation),
+                          child: Image.asset(
+                            imagePath,
+                            height: imageHeight,
+                            width: double.infinity,
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) {
+                              return Image.asset(
+                                fallbackImage,
+                                height: imageHeight,
+                                width: double.infinity,
+                                fit: BoxFit.cover,
+                              );
+                            },
+                          ),
                         );
                       },
                     ),
-                    if (widget.discountNumber != null && widget.businessImage != null)
+
+                    if (!isOpen && widget.businessImage != null)
+                      Positioned(
+                        top: 8,
+                        right: 8,
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                          decoration: BoxDecoration(
+                            color: AppColors.persianRed,
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                          child: const Text(
+                            'TUTUP',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: AppFonts.fontBold,
+                            ),
+                          ),
+                        ),
+                      ),
+
+                    if (widget.discountNumber != null && widget.businessImage != null) 
                       Positioned(
                         bottom: 4,
                         right: 4,
@@ -217,7 +260,7 @@ class _CardBoxState extends State<CardBox> {
                           child: Container(
                             padding: const EdgeInsets.all(8),
                             decoration: BoxDecoration(
-                              color: AppColors.orangyYellow,
+                              color: isOpen ? AppColors.orangyYellow : AppColors.darkGray,
                               shape: BoxShape.circle,
                               border: Border.all(color: AppColors.dark, width: 1),
                             ),
@@ -258,7 +301,7 @@ class _CardBoxState extends State<CardBox> {
                                   ],
                                 ),
                                 child: InkWell(
-                                  onTap: _incrementCount,
+                                  onTap: isOpen ? _incrementCount : null,
                                   borderRadius: BorderRadius.circular(14),
                                   child: const Icon(Icons.add, size: 16, color: AppColors.dark),
                                 ),
@@ -280,7 +323,7 @@ class _CardBoxState extends State<CardBox> {
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     GestureDetector(
-                                      onTap: _decrementCount,
+                                      onTap: isOpen ? _decrementCount : null,
                                       child: const Icon(Icons.remove, size: 16, color: AppColors.dark),
                                     ),
                                     const SizedBox(width: 10),
@@ -294,7 +337,7 @@ class _CardBoxState extends State<CardBox> {
                                     ),
                                     const SizedBox(width: 10),
                                     GestureDetector(
-                                      onTap: _incrementCount,
+                                      onTap: isOpen ? _incrementCount : null,
                                       child: const Icon(Icons.add, size: 16, color: AppColors.dark),
                                     ),
                                   ],
