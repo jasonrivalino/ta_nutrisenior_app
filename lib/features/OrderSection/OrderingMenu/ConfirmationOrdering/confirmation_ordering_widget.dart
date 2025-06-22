@@ -43,7 +43,7 @@ class RecipientLocationBox extends StatelessWidget {
             "Lokasi Penerima",
             style: TextStyle(
               color: AppColors.dark,
-              fontSize: 16,
+              fontSize: 20,
               fontWeight: FontWeight.bold,
               fontFamily: AppFonts.fontBold,
             ),
@@ -99,7 +99,13 @@ class RecipientLocationBox extends StatelessWidget {
                   shadowColor: Colors.transparent,
                   tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 ),
-                child: const Text("Pilih Alamat Detail"),
+                child: const Text("Pilih Alamat Detail",
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    fontFamily: AppFonts.fontMedium,
+                  ),
+                ),
               ),
               const SizedBox(width: 10),
               ElevatedButton(
@@ -117,7 +123,13 @@ class RecipientLocationBox extends StatelessWidget {
                   shadowColor: Colors.transparent,
                   tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 ),
-                child: const Text("Tambahkan Note"),
+                child: const Text("Tambahkan Note",
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    fontFamily: AppFonts.fontMedium,
+                  ),
+                ),
               ),
             ],
           ),
@@ -150,7 +162,7 @@ class DriverNoteOverlay extends StatelessWidget {
           const Text(
             "Note Pengantar",
             style: TextStyle(
-              fontSize: 18,
+              fontSize: 20,
               fontWeight: FontWeight.bold,
               fontFamily: AppFonts.fontBold,
             ),
@@ -183,7 +195,7 @@ class DriverNoteOverlay extends StatelessWidget {
               foregroundColor: AppColors.soapstone,
               minimumSize: const Size.fromHeight(45),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30),
+                borderRadius: BorderRadius.circular(20),
               ),
             ),
             child: const Text(
@@ -248,7 +260,7 @@ class OrderDetailListBox extends StatelessWidget {
             "Detail Pesanan",
             style: TextStyle(
               color: AppColors.dark,
-              fontSize: 16,
+              fontSize: 20,
               fontWeight: FontWeight.bold,
               fontFamily: AppFonts.fontBold,
             ),
@@ -318,7 +330,7 @@ class OrderDetailListBox extends StatelessWidget {
                         child: const Text(
                           "Ubah",
                           style: TextStyle(
-                            fontSize: 14,
+                            fontSize: 16,
                             color: AppColors.dark,
                             fontWeight: FontWeight.w500,
                             fontFamily: AppFonts.fontMedium,
@@ -329,7 +341,7 @@ class OrderDetailListBox extends StatelessWidget {
                       Text(
                         "${product['qty_product']}x",
                         style: const TextStyle(
-                          fontSize: 14,
+                          fontSize: 16,
                           color: AppColors.dark,
                           fontWeight: FontWeight.bold,
                           fontFamily: AppFonts.fontBold,
@@ -345,7 +357,7 @@ class OrderDetailListBox extends StatelessWidget {
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
-                                fontSize: 14,
+                                fontSize: 16,
                                 color: AppColors.dark,
                                 fontWeight: FontWeight.bold,
                                 fontFamily: AppFonts.fontBold,
@@ -369,7 +381,7 @@ class OrderDetailListBox extends StatelessWidget {
                       Text(
                         formatCurrency(subtotal),
                         style: const TextStyle(
-                          fontSize: 14,
+                          fontSize: 16,
                           color: AppColors.dark,
                           fontWeight: FontWeight.bold,
                           fontFamily: AppFonts.fontBold,
@@ -405,12 +417,12 @@ class OrderDetailListBox extends StatelessWidget {
                               padding: EdgeInsets.zero,
                               constraints: const BoxConstraints(),
                             ),
-                            const SizedBox(width: 8),
+                            const SizedBox(width: 14),
                             Expanded(
                               child: Text(
                                 '${addOn['add_ons_name']}',
                                 style: const TextStyle(
-                                  fontSize: 14,
+                                  fontSize: 16,
                                   color: AppColors.dark,
                                   fontWeight: FontWeight.w500,
                                   fontFamily: AppFonts.fontMedium,
@@ -419,11 +431,11 @@ class OrderDetailListBox extends StatelessWidget {
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),
-                            const SizedBox(width: 8),
+                            const SizedBox(width: 12),
                             Text(
                               formatCurrency(addOn['add_ons_price'] * product['qty_product']),
                               style: const TextStyle(
-                                fontSize: 14,
+                                fontSize: 16,
                                 color: AppColors.dark,
                                 fontWeight: FontWeight.bold,
                                 fontFamily: AppFonts.fontBold,
@@ -448,7 +460,7 @@ class OrderDetailListBox extends StatelessWidget {
                 const Text(
                   "Harga Pelayanan",
                   style: TextStyle(
-                    fontSize: 14,
+                    fontSize: 16,
                     color: AppColors.dark,
                     fontWeight: FontWeight.bold,
                     fontFamily: AppFonts.fontBold,
@@ -457,7 +469,7 @@ class OrderDetailListBox extends StatelessWidget {
                 Text(
                   formatCurrency(serviceFee),
                   style: const TextStyle(
-                    fontSize: 14,
+                    fontSize: 16,
                     color: AppColors.dark,
                     fontWeight: FontWeight.bold,
                     fontFamily: AppFonts.fontBold,
@@ -474,7 +486,7 @@ class OrderDetailListBox extends StatelessWidget {
                 const Text(
                   "Harga Pengiriman",
                   style: TextStyle(
-                    fontSize: 14,
+                    fontSize: 16,
                     color: AppColors.dark,
                     fontWeight: FontWeight.bold,
                     fontFamily: AppFonts.fontBold,
@@ -483,7 +495,7 @@ class OrderDetailListBox extends StatelessWidget {
                 Text(
                   deliveryFee == 0 ? 'Gratis' : formatCurrency(deliveryFee),
                   style: const TextStyle(
-                    fontSize: 14,
+                    fontSize: 16,
                     color: AppColors.dark,
                     fontWeight: FontWeight.bold,
                     fontFamily: AppFonts.fontBold,
@@ -523,10 +535,10 @@ class AddMoreOrderButtonBox extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Text("Ingin Tambah Pesanan lagi??",
+          const Text("Tambah Pesanan lagi??",
             style: TextStyle(
               color: AppColors.dark,
-              fontSize: 16,
+              fontSize: 20,
               fontWeight: FontWeight.bold,
               fontFamily: AppFonts.fontBold,
             ),
@@ -621,7 +633,7 @@ class _PaymentMethodBoxState extends State<PaymentMethodBox> {
                 "Metode Pembayaran",
                 style: TextStyle(
                   color: AppColors.dark,
-                  fontSize: 16,
+                  fontSize: 20,
                   fontWeight: FontWeight.bold,
                   fontFamily: AppFonts.fontBold,
                 ),
@@ -649,7 +661,7 @@ class _PaymentMethodBoxState extends State<PaymentMethodBox> {
                                     "Pilih Metode Pembayaran:",
                                     style: TextStyle(
                                       color: AppColors.dark,
-                                      fontSize: 16,
+                                      fontSize: 20,
                                       fontWeight: FontWeight.bold,
                                       fontFamily: AppFonts.fontBold,
                                     ),
@@ -674,10 +686,10 @@ class _PaymentMethodBoxState extends State<PaymentMethodBox> {
                                       title: Row(
                                         children: [
                                           Icon(option['icon'], size: 24),
-                                          const SizedBox(width: 6),
+                                          const SizedBox(width: 10),
                                           Text(option['label'],
                                             style: const TextStyle(
-                                              fontSize: 14,
+                                              fontSize: 16,
                                               color: AppColors.dark,
                                               fontWeight: FontWeight.w500,
                                               fontFamily: AppFonts.fontMedium,
@@ -699,7 +711,7 @@ class _PaymentMethodBoxState extends State<PaymentMethodBox> {
                 child: const Text(
                   "Lihat Semua",
                   style: TextStyle(
-                    fontSize: 14,
+                    fontSize: 16,
                     color: AppColors.dark,
                     fontWeight: FontWeight.bold,
                     fontFamily: AppFonts.fontBold,
@@ -708,12 +720,20 @@ class _PaymentMethodBoxState extends State<PaymentMethodBox> {
               ),
             ],
           ),
-          const SizedBox(height: 12),
+          const Divider(color: AppColors.dark, thickness: 1),
+          const SizedBox(height: 6),
           Row(
             children: [
               Icon(currentOption['icon']),
               const SizedBox(width: 12),
-              Text(selectedMethod),
+              Text(selectedMethod,
+                style: const TextStyle(
+                  fontSize: 16,
+                  color: AppColors.dark,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: AppFonts.fontBold,
+                ),
+              ),
             ],
           ),
         ],
