@@ -241,7 +241,7 @@ class DoneOrderDetailsCard extends StatelessWidget {
           const Divider(),
           
           ...orderList.map<Widget>((item) {
-            final addOns = item['add_ons'] as List<dynamic>? ?? [];
+            final addOns = (item['add_ons_details'] as List?) ?? [];
 
             return Padding(
               padding: EdgeInsets.only(

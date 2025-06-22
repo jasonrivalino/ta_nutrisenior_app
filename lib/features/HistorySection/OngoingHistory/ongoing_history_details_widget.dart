@@ -198,7 +198,7 @@ class OrderListDetails extends StatelessWidget {
 
             if (orderList != null && orderList!.isNotEmpty)
               ...orderList!.map((item) {
-                final addOns = item['add_ons'] as List<dynamic>? ?? [];
+                final addOns = (item['add_ons_details'] as List?) ?? [];
 
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -289,9 +289,9 @@ class OrderListDetails extends StatelessWidget {
                                               ),
                                             ),
                                           ),
-                                          const SizedBox(width: 8),
+                                          const SizedBox(width: 12),
                                           Text(
-                                            formatCurrency(addOn['total_price']),
+                                            formatCurrency(addOn['add_ons_price'] * item['qty_product']),
                                             style: const TextStyle(
                                               color: AppColors.dark,
                                               fontFamily: AppFonts.fontMedium,

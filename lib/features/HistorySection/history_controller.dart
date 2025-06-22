@@ -98,7 +98,7 @@ class HistoryController {
               'product_price': discountedPrice,
               'qty_product': qty,
               'notes': order['notes'],
-              'add_ons': matchedAddOns,
+              'add_ons_details': matchedAddOns,
               'add_ons_total': addOnsTotal,
             };
           }).toList();

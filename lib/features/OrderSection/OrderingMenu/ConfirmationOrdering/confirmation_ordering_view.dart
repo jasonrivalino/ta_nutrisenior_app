@@ -318,7 +318,7 @@ class _OrderConfirmationViewState extends State<OrderConfirmationView> {
               print(
                 "Product ID: ${product['product_id']}, Name: ${product['product_name']}, "
                 "Price: ${product['product_price']}, Quantity: ${product['qty_product']}, "
-                "Notes: ${product['notes'] ?? '-'}",
+                "Notes: ${product['notes'] ?? '-'}, Add-Ons: ${product['add_ons'] ?? '-'}",
               );
             }
             print("Service Fee: ${widget.serviceFee}");
