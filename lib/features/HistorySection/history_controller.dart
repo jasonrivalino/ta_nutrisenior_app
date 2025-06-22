@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../database/addons_list_table.dart';
+import '../../database/business_product_list_table.dart';
+import '../../database/history_add_ons_list_table.dart';
 import '../../database/history_order_list_table.dart';
 import '../../database/business_list_table.dart';
 import '../../database/driver_list_table.dart';
@@ -33,12 +36,19 @@ class HistoryController {
       final int deliveryFee = historyItem['delivery_fee'] as int? ??
           calculateDeliveryFee(isFreeShipment, businessDistance);
 
-      // Get matching orders by history_id
+      // print('--- History ID: ${historyItem['history_id']} ---');
+      // print('Delivery Fee: $deliveryFee');
+      // print('Discount: $discountPercent%');
+      // print('Free Shipment: $isFreeShipment');
+
       final List<Map<String, dynamic>> matchedOrders = historyListTable
           .where((order) => order['history_id'] == historyItem['history_id'])
           .map((order) {
+            final int productId = order['product_id'];
+            final int qty = order['qty_product'] ?? 1;
+
             final matchedProduct = productListTable.firstWhere(
-              (product) => product['product_id'] == order['product_id'],
+              (product) => product['product_id'] == productId,
               orElse: () => {},
             );
 
@@ -47,21 +57,65 @@ class HistoryController {
                 ? (originalPrice * (100 - discountPercent) ~/ 100)
                 : originalPrice;
 
+            // print('Product: ${matchedProduct['product_name']}');
+            // print('Original Price: $originalPrice');
+            // print('Discounted Price: $discountedPrice');
+            // print('Quantity: $qty');
+
+            // Filter only add-ons belonging to this product
+            final List<Map<String, dynamic>> matchedAddOns = historyAddOnsList
+                .where((entry) =>
+                    entry['history_id'] == historyItem['history_id'] &&
+                    businessProductListTable.any((bp) =>
+                        bp['product_id'] == productId &&
+                        bp['add_ons_id'] == entry['add_ons_id']))
+                .map((entry) {
+                  final addOn = addOnsListTable.firstWhere(
+                    (a) => a['add_ons_id'] == entry['add_ons_id'],
+                    orElse: () => {},
+                  );
+
+                  final int addOnPrice = addOn['add_ons_price'] ?? 0;
+                  final int totalAddOnPrice = addOnPrice * qty;
+
+                  // print('  Add-on: ${addOn['add_ons_name']}');
+                  // print('  Add-on Price: $addOnPrice');
+                  // print('  Total Add-on Price (x$qty): $totalAddOnPrice');
+
+                  return {
+                    ...addOn,
+                    'total_price': totalAddOnPrice,
+                  };
+                }).toList();
+
+            final int addOnsTotal = matchedAddOns.fold(0, (sum, a) => sum + (a['total_price'] as int));
+
+            // final int orderTotal = discountedPrice * qty + addOnsTotal;
+            // print('Total for this product (price * qty + add-ons): $orderTotal');
+
             return {
               'product_name': matchedProduct['product_name'] ?? 'Unknown Product',
               'product_price': discountedPrice,
-              'qty_product': order['qty_product'],
+              'qty_product': qty,
               'notes': order['notes'],
+              'add_ons': matchedAddOns,
+              'add_ons_total': addOnsTotal,
             };
           }).toList();
 
       final int totalOrderPrice = matchedOrders.fold(
         0,
-        (sum, item) => sum + (item['product_price'] as int) * (item['qty_product'] as int),
+        (sum, item) =>
+            sum +
+            ((item['product_price'] as int) * (item['qty_product'] as int)) +
+            (item['add_ons_total'] as int),
       );
 
       final int serviceFee = matchedBusiness['service_fee'] ?? 0;
       final int totalPrice = totalOrderPrice + serviceFee + deliveryFee;
+
+      // print('Service Fee: $serviceFee');
+      // print('Final Total Price for history ID ${historyItem['history_id']}: $totalPrice\n');
 
       return {
         ...historyItem,

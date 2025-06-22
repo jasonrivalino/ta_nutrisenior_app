@@ -103,9 +103,9 @@ class _OngoingHistoryDetailsViewState extends State<OngoingHistoryDetailsView> {
     final screenHeight = MediaQuery.of(context).size.height;
 
     if (orderCount == 1) {
-      topPositionProcessing = screenHeight > 900 ? 300 : 190;
+      topPositionProcessing = screenHeight > 900 ? 275 : 165;
     } else if (orderCount == 2) {
-      topPositionProcessing = screenHeight > 900 ? 220 : 115;
+      topPositionProcessing = screenHeight > 900 ? 190 : 110;
     } else {
       topPositionProcessing = screenHeight > 900 ? 140 : 80;
     }
@@ -141,7 +141,7 @@ class _OngoingHistoryDetailsViewState extends State<OngoingHistoryDetailsView> {
                   Positioned.fill(
                     child: GoogleMap(
                       initialCameraPosition: const CameraPosition(
-                        target: LatLng(-6.208950, 106.816500),
+                        target: LatLng(-6.210950, 106.818350),
                         zoom: 14,
                       ),
                       markers: {

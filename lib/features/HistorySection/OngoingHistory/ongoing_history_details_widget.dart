@@ -196,31 +196,29 @@ class OrderListDetails extends StatelessWidget {
             ),
             const Divider(color: AppColors.dark),
 
-            // Tampilkan semua item tanpa scroll
             if (orderList != null && orderList!.isNotEmpty)
               ...orderList!.map((item) {
+                final addOns = item['add_ons'] as List<dynamic>? ?? [];
+
                 return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    // Padded Row section
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 12),
-                      child: ListTile(
-                        contentPadding: EdgeInsets.zero,
-                        title: Text(
-                          item['product_name'] ?? '',
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            color: AppColors.dark,
-                            fontFamily: AppFonts.fontBold,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                          ),
-                        ),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              formatCurrency(item['product_price'] * item['qty_product']),
+                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          // Qty Box
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+                            decoration: BoxDecoration(
+                              color: AppColors.soapstone,
+                              borderRadius: BorderRadius.circular(6),
+                              border: Border.all(color: AppColors.dark),
+                            ),
+                            child: Text(
+                              "${item['qty_product']} pcs",
                               style: TextStyle(
                                 color: AppColors.dark,
                                 fontFamily: AppFonts.fontMedium,
@@ -228,44 +226,126 @@ class OrderListDetails extends StatelessWidget {
                                 fontSize: 14,
                               ),
                             ),
-                            if ((item['notes'] as String?)?.isNotEmpty ?? false) ...[
-                              const SizedBox(height: 4), // <-- Gap added here
-                              Text(
-                                "Note: ${item['notes']}",
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  color: AppColors.dark,
-                                  fontFamily: AppFonts.fontMedium,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 14,
-                                ),
-                              ),
-                            ],
-                          ],
-                        ),
-                        trailing: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
-                          decoration: BoxDecoration(
-                            color: AppColors.soapstone,
-                            borderRadius: BorderRadius.circular(6),
-                            border: Border.all(color: AppColors.dark),
                           ),
-                          child: Text("${item['qty_product']} pcs",
-                            style: TextStyle(
-                              color: AppColors.dark,
-                              fontFamily: AppFonts.fontMedium,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 14,
+                          SizedBox(width: 12),
+
+                          // Product Name + Add-ons
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        item['product_name'] ?? '',
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          color: AppColors.dark,
+                                          fontFamily: AppFonts.fontBold,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 8),
+                                    Text(
+                                      formatCurrency(item['product_price'] * item['qty_product']),
+                                      style: TextStyle(
+                                        color: AppColors.dark,
+                                        fontFamily: AppFonts.fontBold,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+
+                                // Add-ons List
+                                if (addOns.isNotEmpty)
+                                  ...addOns.map<Widget>((addOn) {
+                                    return Padding(
+                                      padding: const EdgeInsets.only(top: 2, left: 2),
+                                      child: Row(
+                                        children: [
+                                          const Text(
+                                            '+',
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              fontFamily: AppFonts.fontMedium,
+                                              color: AppColors.dark,
+                                            ),
+                                          ),
+                                          const SizedBox(width: 6),
+                                          Expanded(
+                                            child: Text(
+                                              addOn['add_ons_name'],
+                                              style: const TextStyle(
+                                                color: AppColors.dark,
+                                                fontFamily: AppFonts.fontMedium,
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 14,
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(width: 8),
+                                          Text(
+                                            formatCurrency(addOn['total_price']),
+                                            style: const TextStyle(
+                                              color: AppColors.dark,
+                                              fontFamily: AppFonts.fontMedium,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 14,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  }),
+                              ],
                             ),
                           ),
-                        ),
+                        ],
                       ),
                     ),
-                    const Divider(color: AppColors.dark),
+
+                    // Notes (if any)
+                    if ((item['notes'] as String?)?.isNotEmpty ?? false)
+                      Padding(
+                        padding: const EdgeInsets.only(left: 19, right: 12, bottom: 4),
+                          child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const Text(
+                              'Note:',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontFamily: AppFonts.fontMedium,
+                                color: AppColors.dark,
+                              ),
+                            ),
+                            const SizedBox(width: 19),
+                            Expanded(
+                              child: Text(
+                                item['notes'],
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  fontFamily: AppFonts.fontMedium,
+                                  color: AppColors.dark,
+                                ),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                   ],
                 );
               }),
+            
+            const Divider(color: AppColors.dark),
 
             // Harga-harga
             Padding(

@@ -86,10 +86,9 @@ class DoneOrderTimeDriverCard extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 4),
           if (driverNote != null && driverNote!.trim().isNotEmpty)
             Padding(
-              padding: const EdgeInsets.only(top: 2),
+              padding: const EdgeInsets.symmetric(vertical: 2),
               child: Text(
                 "Note: $driverNote",
                 style: TextStyle(
@@ -242,29 +241,46 @@ class DoneOrderDetailsCard extends StatelessWidget {
           const Divider(),
           
           ...orderList.map<Widget>((item) {
+            final addOns = item['add_ons'] as List<dynamic>? ?? [];
+
             return Padding(
               padding: EdgeInsets.only(
-                bottom: item != orderList.last ? 8.0 : 0.0,
+                bottom: item != orderList.last ? 8.0 : 2.0,
               ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('${item['qty_product']}x ',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                      fontFamily: AppFonts.fontBold,
-                      color: AppColors.dark,
-                    ),
-                  ),
-                  SizedBox(width: 12),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                  Padding(
+                    padding: const EdgeInsets.only(left: 6),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Text(item['product_name'],
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
+                        Text(
+                          '${item['qty_product']}x ',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                            fontFamily: AppFonts.fontBold,
+                            color: AppColors.dark,
+                          ),
+                        ),
+                        const SizedBox(width: 18),
+                        Expanded(
+                          child: Text(
+                            item['product_name'],
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                              fontFamily: AppFonts.fontBold,
+                              color: AppColors.dark,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        Text(
+                          formatCurrency(item['product_price'] * item['qty_product']),
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
@@ -272,26 +288,84 @@ class DoneOrderDetailsCard extends StatelessWidget {
                             color: AppColors.dark,
                           ),
                         ),
-                        if (item['notes'] != null && item['notes'].toString().isNotEmpty)
-                          Text('Note: ${item['notes']}',
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w500,
+                      ],
+                    ),
+                  ),
+
+                  // Add-ons shown per row
+                  if (addOns.isNotEmpty)
+                    Padding(
+                      padding: const EdgeInsets.only(left: 11, top: 2, bottom: 4),
+                      child: Column(
+                        children: addOns.map<Widget>((addOn) {
+                          return Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text('+',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 14,
+                                  fontFamily: AppFonts.fontMedium,
+                                  color: AppColors.dark,
+                                ),
+                              ),
+                              const SizedBox(width: 34),
+                              Expanded(
+                                child: Text(
+                                  addOn['add_ons_name'],
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 14,
+                                    fontFamily: AppFonts.fontMedium,
+                                    color: AppColors.dark,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 12),
+                              Text(formatCurrency(addOn['total_price']),
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                  fontFamily: AppFonts.fontBold,
+                                  color: AppColors.dark,
+                                ),
+                              ),
+                            ],
+                          );
+                        }).toList(),
+                      ),
+                    ),
+
+                  if (item['notes'] != null && item['notes'].toString().isNotEmpty)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 2),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          const Text(
+                            'Note:',
+                            style: TextStyle(
                               fontSize: 14,
                               fontFamily: AppFonts.fontMedium,
                               color: AppColors.dark,
                             ),
                           ),
-                      ],
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: Text(
+                              item['notes'],
+                              style: const TextStyle(
+                                fontSize: 14,
+                                fontFamily: AppFonts.fontMedium,
+                                color: AppColors.dark,
+                              ),
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  Text(formatCurrency(item['product_price'] * item['qty_product']),
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                      fontFamily: AppFonts.fontBold,
-                      color: AppColors.dark,
-                    ),
-                  ),
                 ],
               ),
             );
@@ -533,7 +607,6 @@ class RatingBox extends StatelessWidget {
         final ratingComment = rating['rating_comment'];
         final ratingDate = rating['rating_date'] as DateTime;
         final imagePaths = rating['rating_images'] as List<String>?;
-        print("imagePaths: $imagePaths");
 
         final ratingTitle = ratingType == 'driver'
             ? 'Rating untuk Pengemudi'

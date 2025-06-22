@@ -67,7 +67,7 @@ List<Map<String, dynamic>> historyOrderListTable = [
     'order_date': DateTime(2025, 3, 27, 14, 50),
     'address_receiver': 'Jl. Matahari No. 5',
     'estimated_arrival_time': null,
-    'delivery_fee': 45000,
+    'delivery_fee': 4500,
     'payment_method': 'Pembayaran Tunai',
     'status': 'selesai',
   },

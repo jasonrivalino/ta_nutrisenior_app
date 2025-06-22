@@ -44,5 +44,5 @@ final List<Map<String, dynamic>> historyListTable = [
   {'history_id': 11, 'product_id': 12, 'qty_product': 1, 'notes': ''},
 
   // history_id: 12, business_id: 1
-  {'history_id': 12, 'product_id': 2, 'qty_product': 2, 'notes': ''},
+  {'history_id': 12, 'product_id': 2, 'qty_product': 2, 'notes': 'yang enak'},
 ];
