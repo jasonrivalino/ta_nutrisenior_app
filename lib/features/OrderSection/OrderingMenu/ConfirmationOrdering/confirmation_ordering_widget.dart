@@ -266,142 +266,171 @@ class OrderDetailListBox extends StatelessWidget {
             ),
           ),
           const Divider(color: AppColors.dark, thickness: 1),
-          ...selectedProducts.map((product) {
-            final subtotal = product['product_price'] * product['qty_product'];
-            final productIdStr = product['product_id'].toString();
 
-            return Padding(
-              padding: const EdgeInsets.only(top: 2, bottom: 3),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      TextButton(
-                        onPressed: () async {
-                          final productId = product['product_id'];
-                          final int productIdInt = productId is int ? productId : int.parse(productId.toString());
-                          final route = '/business/detail/$businessId/ordering/$productId';
+          /// Handling when empty
+          if (selectedProducts.isEmpty)
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 5.0),
+              child: Center(
+                child: Column(
+                  children: [
+                    Text(
+                      'Pesanan masih kosong',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: AppFonts.fontBold,
+                        color: AppColors.dark,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      'Silakan tambahkan ${businessType == "restaurant" ? "makanan" : "belanjaan"} terlebih dahulu',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        fontFamily: AppFonts.fontMedium,
+                        color: AppColors.dark,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+              ),
+            )
+          else
+            ...selectedProducts.map((product) {
+              final subtotal = product['product_price'] * product['qty_product'];
+              final productIdStr = product['product_id'].toString();
 
-                          final result = await context.push<Map<String, dynamic>>(route, extra: {
-                            'business_id': businessId,
-                            'business_type': businessType,
-                            'product_id': productIdInt,
-                            'discount_number': discountNumber,
-                            'product_image': product['product_image'],
-                            'product_name': product['product_name'],
-                            'product_price': product['original_price'],
-                            'product_description': product['product_description'],
-                            'qty_product': product['qty_product'],
-                            'notes': product['notes'],
-                            'add_ons': {
-                              product['product_id'].toString(): product['add_ons'] ?? [],
+              return Padding(
+                padding: const EdgeInsets.only(top: 2, bottom: 3),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        TextButton(
+                          onPressed: () async {
+                            final productId = product['product_id'];
+                            final int productIdInt = productId is int ? productId : int.parse(productId.toString());
+                            final route = '/business/detail/$businessId/ordering/$productId';
+
+                            final result = await context.push<Map<String, dynamic>>(route, extra: {
+                              'business_id': businessId,
+                              'business_type': businessType,
+                              'product_id': productIdInt,
+                              'discount_number': discountNumber,
+                              'product_image': product['product_image'],
+                              'product_name': product['product_name'],
+                              'product_price': product['original_price'],
+                              'product_description': product['product_description'],
+                              'qty_product': product['qty_product'],
+                              'notes': product['notes'],
+                              'add_ons': {
+                                productIdStr: product['add_ons'] ?? [],
+                              }
+                            });
+
+                            if (result != null) {
+                              final returnedProductId = result['product_id'].toString();
+                              final newQty = result['qty_product'] ?? 0;
+                              final notes = result['notes'] ?? '';
+                              final addOnsResult = result['add_ons'] as Map<String, dynamic>?;
+
+                              onCountChanged(returnedProductId, newQty);
+                              if (onNotesChanged != null) {
+                                onNotesChanged!(returnedProductId, notes);
+                              }
+                              if (onAddOnsChanged != null && addOnsResult != null) {
+                                final updatedAddOnIds = List<int>.from(
+                                  addOnsResult[returnedProductId] ?? [],
+                                );
+                                onAddOnsChanged!(returnedProductId, updatedAddOnIds);
+                              }
                             }
-                          });
-
-                          if (result != null) {
-                            final returnedProductId = result['product_id'].toString();
-                            final newQty = result['qty_product'] ?? 0;
-                            final notes = result['notes'] ?? '';
-                            final addOnsResult = result['add_ons'] as Map<String, dynamic>?;
-
-                            print('Returned from detail: productId: $returnedProductId, qty: $newQty, notes: $notes');
-
-                            onCountChanged(returnedProductId, newQty);
-                            if (onNotesChanged != null) {
-                              onNotesChanged!(returnedProductId, notes);
-                            }
-                            if (onAddOnsChanged != null && addOnsResult != null) {
-                              // Extract relevant list for this product only
-                              final updatedAddOnIds = List<int>.from(
-                                addOnsResult[returnedProductId] ?? [],
-                              );
-                              onAddOnsChanged!(returnedProductId, updatedAddOnIds);
-                            }
-                          }
-                        },
-                        style: TextButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
-                          minimumSize: const Size(0, 24),
-                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                          foregroundColor: AppColors.dark,
-                        ),
-                        child: const Text(
-                          "Ubah",
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: AppColors.dark,
-                            fontWeight: FontWeight.w500,
-                            fontFamily: AppFonts.fontMedium,
+                          },
+                          style: TextButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
+                            minimumSize: const Size(0, 24),
+                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            foregroundColor: AppColors.dark,
+                          ),
+                          child: const Text(
+                            "Ubah",
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: AppColors.dark,
+                              fontWeight: FontWeight.w500,
+                              fontFamily: AppFonts.fontMedium,
+                            ),
                           ),
                         ),
-                      ),
-                      const SizedBox(width: 8),
-                      Text(
-                        "${product['qty_product']}x",
-                        style: const TextStyle(
-                          fontSize: 16,
-                          color: AppColors.dark,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: AppFonts.fontBold,
+                        const SizedBox(width: 8),
+                        Text(
+                          "${product['qty_product']}x",
+                          style: const TextStyle(
+                            fontSize: 16,
+                            color: AppColors.dark,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: AppFonts.fontBold,
+                          ),
                         ),
-                      ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              product['product_name'],
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                fontSize: 16,
-                                color: AppColors.dark,
-                                fontWeight: FontWeight.bold,
-                                fontFamily: AppFonts.fontBold,
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                product['product_name'],
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  color: AppColors.dark,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: AppFonts.fontBold,
+                                ),
                               ),
-                            ),
-                            Text(
-                              "Note: ${(product['notes']?.toString().trim().isNotEmpty ?? false) ? product['notes'] : '-'}",
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                fontSize: 14,
-                                color: AppColors.dark,
-                                fontWeight: FontWeight.w500,
-                                fontFamily: AppFonts.fontMedium,
+                              Text(
+                                "Note: ${(product['notes']?.toString().trim().isNotEmpty ?? false) ? product['notes'] : '-'}",
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  color: AppColors.dark,
+                                  fontWeight: FontWeight.w500,
+                                  fontFamily: AppFonts.fontMedium,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                      const SizedBox(width: 12),
-                      Text(
-                        formatCurrency(subtotal),
-                        style: const TextStyle(
-                          fontSize: 16,
-                          color: AppColors.dark,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: AppFonts.fontBold,
+                        const SizedBox(width: 12),
+                        Text(
+                          formatCurrency(subtotal),
+                          style: const TextStyle(
+                            fontSize: 16,
+                            color: AppColors.dark,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: AppFonts.fontBold,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
+                      ],
+                    ),
 
-                  // Render add-ons below the product
-                  if (product['add_ons_details'] != null && product['add_ons_details'].isNotEmpty) ...[
-                    const SizedBox(height: 4),
-                    Column(
-                      children: List.generate(product['add_ons_details'].length, (index) {
-                        final addOn = product['add_ons_details'][index];
-                        return Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            IconButton(
-                              onPressed: () {
-                                final currentAddOnsDetails = List<Map<String, dynamic>>.from(product['add_ons_details']);
+                    if (product['add_ons_details'] != null && product['add_ons_details'].isNotEmpty) ...[
+                      const SizedBox(height: 4),
+                      Column(
+                        children: List.generate(product['add_ons_details'].length, (index) {
+                          final addOn = product['add_ons_details'][index];
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              IconButton(
+                                onPressed: () {
+                                  final currentAddOnsDetails = List<Map<String, dynamic>>.from(product['add_ons_details']);
                                   final removedAddOn = currentAddOnsDetails[index];
                                   final removedAddOnId = removedAddOn['add_ons_id'];
 
@@ -411,47 +440,49 @@ class OrderDetailListBox extends StatelessWidget {
                                   if (onAddOnsChanged != null) {
                                     onAddOnsChanged!(productIdStr, updatedAddOnIds);
                                   }
-                              },
-                              icon: const Icon(Icons.remove_circle, size: 20, color: AppColors.persianRed),
-                              visualDensity: VisualDensity.compact,
-                              padding: EdgeInsets.zero,
-                              constraints: const BoxConstraints(),
-                            ),
-                            const SizedBox(width: 14),
-                            Expanded(
-                              child: Text(
-                                '${addOn['add_ons_name']}',
+                                },
+                                icon: const Icon(Icons.remove_circle, size: 20, color: AppColors.persianRed),
+                                visualDensity: VisualDensity.compact,
+                                padding: EdgeInsets.zero,
+                                constraints: const BoxConstraints(),
+                              ),
+                              const SizedBox(width: 14),
+                              Expanded(
+                                child: Text(
+                                  '${addOn['add_ons_name']}',
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    color: AppColors.dark,
+                                    fontWeight: FontWeight.w500,
+                                    fontFamily: AppFonts.fontMedium,
+                                  ),
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                              const SizedBox(width: 12),
+                              Text(
+                                formatCurrency(addOn['add_ons_price'] * product['qty_product']),
                                 style: const TextStyle(
                                   fontSize: 16,
                                   color: AppColors.dark,
-                                  fontWeight: FontWeight.w500,
-                                  fontFamily: AppFonts.fontMedium,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: AppFonts.fontBold,
                                 ),
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                            const SizedBox(width: 12),
-                            Text(
-                              formatCurrency(addOn['add_ons_price'] * product['qty_product']),
-                              style: const TextStyle(
-                                fontSize: 16,
-                                color: AppColors.dark,
-                                fontWeight: FontWeight.bold,
-                                fontFamily: AppFonts.fontBold,
-                              ),
-                            )
-                          ],
-                        );
-                      }),
-                    ),
+                              )
+                            ],
+                          );
+                        }),
+                      ),
+                    ],
                   ],
-                ],
-              ),
-            );
-          }),
+                ),
+              );
+            }),
+
           const Divider(color: AppColors.dark, thickness: 1),
           const SizedBox(height: 4),
+
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 2),
             child: Row(
@@ -478,6 +509,7 @@ class OrderDetailListBox extends StatelessWidget {
               ],
             ),
           ),
+
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 2),
             child: Row(

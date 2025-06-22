@@ -78,9 +78,13 @@ class _OrderConfirmationViewState extends State<OrderConfirmationView> {
   late double _businessDistance;
   late int _deliveryFee;
 
+  final FToast fToast = FToast();
+
   @override
   void initState() {
     super.initState();
+
+    fToast.init(context);
 
     _selectedProducts = List<Map<String, dynamic>>.from(widget.selectedProducts);
 
@@ -294,6 +298,31 @@ class _OrderConfirmationViewState extends State<OrderConfirmationView> {
           ),
           buttonText: "Lakukan Pemesanan",
           onOrderPressed: () async {
+            // If no selected products
+            if (_selectedProducts.isEmpty) {
+              fToast.showToast(
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(25.0),
+                    color: AppColors.dark,
+                  ),
+                  child: Text(
+                    "Tidak dapat melakukan pemesanan, \nsilahkan tambahkan ${widget.businessType == "restaurant" ? "makanan" : "belanjaan"} terlebih dahulu",
+                    style: const TextStyle(
+                      color: AppColors.soapstone, 
+                      fontSize: 14.0, 
+                      fontWeight: FontWeight.w500
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                gravity: ToastGravity.BOTTOM,
+                toastDuration: const Duration(seconds: 5),
+              );
+              return;
+            }
+
             final connectivityResult = await Connectivity().checkConnectivity();
             if (connectivityResult.contains(ConnectivityResult.none)) {
               Fluttertoast.showToast(
