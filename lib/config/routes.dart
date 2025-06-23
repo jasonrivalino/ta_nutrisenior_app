@@ -344,6 +344,7 @@ final GoRouter router = GoRouter(
         final data = state.extra != null && state.extra is Map<String, dynamic>
             ? (state.extra as Map<String, dynamic>)
             : null;
+
         final chatData = ChatListController.fetchChatListData(
           route: '/chatlist/detail/:driverId',
           driverId: state.pathParameters['driverId'],
@@ -354,6 +355,7 @@ final GoRouter router = GoRouter(
           driverName: data?['driver_name'],
           driverImage: data?['driver_image'],
           chatDetailsData: chatData,
+          isReported: data?['is_reported'] ?? false,
         );
       },
     ),

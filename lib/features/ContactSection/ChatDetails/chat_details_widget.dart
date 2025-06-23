@@ -63,6 +63,7 @@ class BottomChatWidget extends StatelessWidget {
   final List<XFile> selectedImages;
   final void Function(int) onRemoveImage;
   final VoidCallback onSendMessage;
+  final bool isReported;
 
   const BottomChatWidget({
     super.key,
@@ -71,6 +72,7 @@ class BottomChatWidget extends StatelessWidget {
     required this.selectedImages,
     required this.onRemoveImage,
     required this.onSendMessage,
+    this.isReported = false,
   });
 
   @override
@@ -84,93 +86,107 @@ class BottomChatWidget extends StatelessWidget {
             BoxShadow(
               color: AppColors.dark.withValues(alpha: 0.15),
               blurRadius: 10,
-              offset: Offset(0, -2),
+              offset: const Offset(0, -2),
             ),
           ],
         ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            if (selectedImages.isNotEmpty)
-              SizedBox(
-                height: 90,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: selectedImages.length,
-                  itemBuilder: (context, index) {
-                    return Stack(
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 6),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(8),
-                            child: Image.file(
-                              File(selectedImages[index].path),
-                              width: 80,
-                              height: 80,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          top: 0,
-                          right: 0,
-                          child: GestureDetector(
-                            onTap: () => onRemoveImage(index),
-                            child: const CircleAvatar(
-                              radius: 10,
-                              backgroundColor: AppColors.dark,
-                              child: Icon(Icons.close, size: 14, color: AppColors.soapstone),
-                            ),
-                          ),
-                        ),
-                      ],
-                    );
-                  },
+        child: isReported
+            ? Container(
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                child: const Text(
+                  'Pengemudi telah dilaporkan',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: AppColors.persianRed,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
                 ),
+              )
+            : Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if (selectedImages.isNotEmpty)
+                    SizedBox(
+                      height: 90,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: selectedImages.length,
+                        itemBuilder: (context, index) {
+                          return Stack(
+                            children: [
+                              Container(
+                                margin: const EdgeInsets.symmetric(horizontal: 6),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(8),
+                                  child: Image.file(
+                                    File(selectedImages[index].path),
+                                    width: 80,
+                                    height: 80,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                              Positioned(
+                                top: 0,
+                                right: 0,
+                                child: GestureDetector(
+                                  onTap: () => onRemoveImage(index),
+                                  child: const CircleAvatar(
+                                    radius: 10,
+                                    backgroundColor: AppColors.dark,
+                                    child: Icon(Icons.close, size: 14, color: AppColors.soapstone),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      ),
+                    ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextField(
+                          controller: controller,
+                          decoration: const InputDecoration(
+                            hintText: "Ketik chat...",
+                            hintStyle: TextStyle(
+                              fontFamily: AppFonts.fontBold,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 16,
+                              color: AppColors.darkGray,
+                            ),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(25)),
+                            ),
+                            contentPadding: EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                          ),
+                        ),
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.image),
+                        color: AppColors.woodland,
+                        iconSize: 30,
+                        padding: EdgeInsets.zero,
+                        onPressed: onChooseImage,
+                      ),
+                      IconButton(
+                        onPressed: onSendMessage,
+                        icon: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                          decoration: BoxDecoration(
+                            color: AppColors.woodland,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: const Icon(Icons.send, color: AppColors.soapstone, size: 20),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
-            Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: controller,
-                    decoration: const InputDecoration(
-                      hintText: "Ketik chat...",
-                      hintStyle: TextStyle(
-                        fontFamily: AppFonts.fontBold,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 16,
-                        color: AppColors.darkGray,
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(25)),
-                      ),
-                      contentPadding: EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-                    ),
-                  ),
-                ),
-                IconButton(
-                  icon: const Icon(Icons.image),
-                  color: AppColors.woodland,
-                  iconSize: 30,
-                  padding: EdgeInsets.zero,
-                  onPressed: onChooseImage,
-                ),
-                IconButton(
-                  onPressed: onSendMessage,
-                  icon: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-                    decoration: BoxDecoration(
-                      color: AppColors.woodland,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: const Icon(Icons.send, color: AppColors.soapstone, size: 20),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
       ),
     );
   }

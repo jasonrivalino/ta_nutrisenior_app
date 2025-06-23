@@ -18,6 +18,7 @@ class ChatDetailView extends StatefulWidget {
   final String driverName;
   final String driverImage;
   final List<Map<String, dynamic>> chatDetailsData;
+  final bool isReported;
 
   const ChatDetailView({
     super.key,
@@ -25,6 +26,7 @@ class ChatDetailView extends StatefulWidget {
     required this.driverName,
     required this.driverImage,
     required this.chatDetailsData,
+    this.isReported = false,
   });
 
   @override
@@ -277,6 +279,7 @@ class _ChatDetailViewState extends State<ChatDetailView> {
             selectedImages: _selectedImages,
             onRemoveImage: _removeImage,
             onSendMessage: _handleSendMessage,
+            isReported: widget.isReported,
           ),
         ],
       ),

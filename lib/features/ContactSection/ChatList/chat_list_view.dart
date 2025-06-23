@@ -38,11 +38,13 @@ class ChatListView extends StatelessWidget {
             numberMessageReceived: chat['numberMessageReceived'] as int?,
             onTap: () {
               controller.clearNumberMessageReceived(driverId: chat['driver_id']);
+              print("Is reported: ${chat['isReported']}");
               context.push('/chatlist/detail/${chat['driver_id']}',
                   extra: {
                     'driver_id': chat['driver_id'],
                     'driver_name': chat['driver_name'],
                     'driver_image': chat['driver_image'],
+                    'is_reported': chat['is_reported'] ?? false,
                   });
             },
           );

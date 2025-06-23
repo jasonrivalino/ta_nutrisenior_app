@@ -4,6 +4,7 @@ import '../../../../database/driver_list_table.dart';
 import '../../../../database/history_add_ons_list_table.dart';
 import '../../../../database/history_list_table.dart';
 import '../../../../database/history_order_list_table.dart';
+import '../../../../database/report_list_table.dart';
 
 class OrderConfirmationController {
   static int addOrder({
@@ -19,7 +20,21 @@ class OrderConfirmationController {
         ? historyOrderListTable.last['history_id'] + 1
         : 1;
 
-    final randomDriver = driverListTable[random.nextInt(driverListTable.length)];
+    // Exclude drivers in the report list
+    final List<int> reportedDriverIds = reportListTable
+        .where((report) => report['driver_id'] != null)
+        .map((report) => report['driver_id'] as int)
+        .toList();
+
+    final availableDrivers = driverListTable
+        .where((driver) => !reportedDriverIds.contains(driver['driver_id']))
+        .toList();
+
+    if (availableDrivers.isEmpty) {
+      throw Exception('No available drivers. All have been reported.');
+    }
+
+    final randomDriver = availableDrivers[random.nextInt(availableDrivers.length)];
 
     historyOrderListTable.add({
       'history_id': newHistoryId,
@@ -57,7 +72,6 @@ class OrderConfirmationController {
       }
     }
 
-    // ✅ Add chat message if driverNote is not empty
     if (driverNote.trim().isNotEmpty && driverNote.trim() != "-") {
       final newChatId = chatListTable.isNotEmpty
           ? chatListTable.last['chat_id'] + 1
