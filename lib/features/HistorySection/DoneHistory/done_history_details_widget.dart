@@ -614,20 +614,26 @@ class RatingBox extends StatelessWidget {
       return const SizedBox.shrink();
     }
 
-    // Pisahkan rating berdasarkan tipe
-    final driverRatings = ratings.where((r) => r['rating_type'] == 'driver').toList();
-    final businessRatings = ratings.where((r) => r['rating_type'] != 'driver').toList();
+    final driverRatings =
+        ratings.where((r) => r['rating_type'] == 'driver').toList();
+    final businessRatings =
+        ratings.where((r) => r['rating_type'] != 'driver').toList();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // === DRIVER ===
+        // === DRIVER REPORT ===
         if (driverReport != null)
-            _buildReportBox(
-              title: 'Pengemudi telah dilaporkan',
-              reason: driverReport!['report_reason'],
-              description: driverReport!['report_description'] ?? '-',
-            ),
+          _buildReportBox(
+            context: context,
+            title: 'Pengemudi telah dilaporkan',
+            reason: driverReport?['report_reason'] ?? '-',
+            description: driverReport?['report_description'] ?? '-',
+            reportImages:
+                (driverReport?['report_images'] as List<String>? ?? []),
+          ),
+
+        // === DRIVER RATINGS ===
         ...driverRatings.map((rating) => _buildRatingBox(
               context,
               rating,
@@ -635,13 +641,20 @@ class RatingBox extends StatelessWidget {
               businessName,
             )),
 
-        // === BUSINESS ===
+        // === BUSINESS REPORT ===
         if (businessReport != null)
-            _buildReportBox(
-              title: 'Pengemudi telah dilaporkan',
-              reason: driverReport!['report_reason'],
-              description: driverReport!['report_description'] ?? '-',
-            ),
+          _buildReportBox(
+            context: context,
+            title: businessType == 'restaurant'
+                ? 'Restoran telah dilaporkan'
+                : 'Pusat Belanja telah dilaporkan',
+            reason: businessReport?['report_reason'] ?? '-',
+            description: businessReport?['report_description'] ?? '-',
+            reportImages:
+                (businessReport?['report_images'] as List<String>? ?? []),
+          ),
+
+        // === BUSINESS RATINGS ===
         ...businessRatings.map((rating) => _buildRatingBox(
               context,
               rating,
@@ -652,7 +665,13 @@ class RatingBox extends StatelessWidget {
     );
   }
 
-  Widget _buildReportBox({required String title, required String reason, required String description}) {
+  Widget _buildReportBox({
+    required BuildContext context,
+    required String title,
+    required String reason,
+    required String description,
+    List<String> reportImages = const [],
+  }) {
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.only(bottom: 16),
@@ -694,6 +713,57 @@ class RatingBox extends StatelessWidget {
               color: AppColors.persianRed,
             ),
           ),
+          if (reportImages.isNotEmpty) ...[
+            const SizedBox(height: 8),
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: reportImages.map((path) {
+                final isFileImage = !path.startsWith('assets/');
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => FullScreenImageView(
+                          imagePath: path,
+                          senderName: 'Gambar Laporan',
+                        ),
+                      ),
+                    );
+                  },
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: isFileImage
+                        ? Image.file(
+                            File(path),
+                            width: 60,
+                            height: 60,
+                            fit: BoxFit.cover,
+                            errorBuilder: (_, __, ___) => Container(
+                              width: 60,
+                              height: 60,
+                              color: AppColors.lightGray,
+                              child: const Icon(Icons.broken_image),
+                            ),
+                          )
+                        : Image.asset(
+                            path,
+                            width: 60,
+                            height: 60,
+                            fit: BoxFit.cover,
+                            errorBuilder: (_, __, ___) => Container(
+                              width: 60,
+                              height: 60,
+                              color: AppColors.lightGray,
+                              child: const Icon(Icons.broken_image),
+                            ),
+                          ),
+                  ),
+                );
+              }).toList(),
+            ),
+          ],
         ],
       ),
     );
@@ -705,8 +775,8 @@ class RatingBox extends StatelessWidget {
     String label,
     String businessName,
   ) {
-    final ratingNumber = rating['rating_number'];
-    final ratingComment = rating['rating_comment'];
+    final ratingNumber = rating['rating_number'] ?? 0;
+    final ratingComment = rating['rating_comment'] ?? '-';
     final ratingDate = rating['rating_date'] as DateTime;
     final imagePaths = rating['rating_images'] as List<String>?;
 

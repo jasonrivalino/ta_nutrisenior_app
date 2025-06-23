@@ -64,7 +64,7 @@ class OrderConfirmationController {
       if (product.containsKey('add_ons') && product['add_ons'] is List) {
         final List<dynamic> addOns = product['add_ons'];
         for (var addOn in addOns) {
-          historyAddOnsList.add({
+          historyAddOnsListTable.add({
             'history_id': newHistoryId,
             'add_ons_id': addOn is int ? addOn : int.parse(addOn.toString()),
           });

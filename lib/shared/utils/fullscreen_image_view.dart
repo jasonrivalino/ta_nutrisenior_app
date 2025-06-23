@@ -16,7 +16,7 @@ class FullScreenImageView extends StatelessWidget {
     super.key,
     required this.imagePath,
     required this.senderName,
-    required this.sendTime,
+    this.sendTime,
   });
 
   bool _isAsset(String path) {
@@ -37,28 +37,33 @@ class FullScreenImageView extends StatelessWidget {
           icon: const Icon(Icons.arrow_back, color: AppColors.soapstone),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              senderName,
-              style: const TextStyle(
-                fontSize: 16,
-                color: AppColors.soapstone,
-                fontWeight: FontWeight.bold,
-                fontFamily: AppFonts.fontBold,
+        title: SizedBox(
+          height: kToolbarHeight,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                senderName,
+                style: const TextStyle(
+                  fontSize: 16,
+                  color: AppColors.soapstone,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: AppFonts.fontBold,
+                ),
               ),
-            ),
-            Text(
-              formatFullDateTime(sendTime),
-              style: const TextStyle(
-                fontSize: 12,
-                color: AppColors.soapstone,
-                fontWeight: FontWeight.w500,
-                fontFamily: AppFonts.fontMedium,
-              ),
-            ),
-          ],
+              if (sendTime != null)
+                Text(
+                  formatFullDateTime(sendTime),
+                  style: const TextStyle(
+                    fontSize: 12,
+                    color: AppColors.soapstone,
+                    fontWeight: FontWeight.w500,
+                    fontFamily: AppFonts.fontMedium,
+                  ),
+                ),
+            ],
+          ),
         ),
       ),
       body: Hero(

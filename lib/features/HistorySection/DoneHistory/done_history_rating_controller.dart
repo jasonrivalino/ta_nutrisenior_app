@@ -1,5 +1,6 @@
 import '../../../database/history_rating_image_list_table.dart';
 import '../../../database/history_rating_list_table.dart';
+import '../../../database/report_image_list_table.dart';
 import '../../../database/report_list_table.dart';
 
 class HistoryRatingController {
@@ -60,20 +61,42 @@ class HistoryRatingController {
 
 class ReportController {
   static Map<String, dynamic>? getDriverReport(int driverId) {
-    return reportListTable.firstWhere(
-      (report) => report['driver_id'] == driverId,
+    final report = reportListTable.firstWhere(
+      (r) => r['driver_id'] == driverId,
       orElse: () => {},
-    ).isNotEmpty ? reportListTable.firstWhere(
-      (report) => report['driver_id'] == driverId,
-    ) : null;
+    );
+
+    if (report.isEmpty) return null;
+
+    final reportId = report['report_id'];
+    final reportImages = reportImageListTable
+        .where((img) => img['report_id'] == reportId)
+        .map((img) => img['report_image'] as String)
+        .toList();
+
+    return {
+      ...report,
+      'report_images': reportImages,
+    };
   }
 
   static Map<String, dynamic>? getBusinessReport(int businessId) {
-    return reportListTable.firstWhere(
-      (report) => report['business_id'] == businessId,
+    final report = reportListTable.firstWhere(
+      (r) => r['business_id'] == businessId,
       orElse: () => {},
-    ).isNotEmpty ? reportListTable.firstWhere(
-      (report) => report['business_id'] == businessId,
-    ) : null;
+    );
+
+    if (report.isEmpty) return null;
+
+    final reportId = report['report_id'];
+    final reportImages = reportImageListTable
+        .where((img) => img['report_id'] == reportId)
+        .map((img) => img['report_image'] as String)
+        .toList();
+
+    return {
+      ...report,
+      'report_images': reportImages,
+    };
   }
 }

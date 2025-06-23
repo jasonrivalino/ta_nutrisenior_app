@@ -170,6 +170,9 @@ flutter:
     - assets/images/dummy/comment/comment4.png
     - assets/images/dummy/comment/comment5.png
 
+    # Asset report images
+    - assets/images/dummy/comment/report.png
+
     # Asset message images
     - assets/images/dummy/chat/delivery_arrived.png
     - assets/images/dummy/chat/thankful_emoji.png

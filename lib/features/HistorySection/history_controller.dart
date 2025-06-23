@@ -63,7 +63,7 @@ class HistoryController {
             // print('Quantity: $qty');
 
             // Filter only add-ons belonging to this product
-            final List<Map<String, dynamic>> matchedAddOns = historyAddOnsList
+            final List<Map<String, dynamic>> matchedAddOns = historyAddOnsListTable
                 .where((entry) =>
                     entry['history_id'] == historyItem['history_id'] &&
                     businessProductListTable.any((bp) =>

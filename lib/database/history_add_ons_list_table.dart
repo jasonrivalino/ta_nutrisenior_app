@@ -1,4 +1,4 @@
-final List<Map<String, dynamic>> historyAddOnsList = [
+final List<Map<String, dynamic>> historyAddOnsListTable = [
   {
     'history_id': 5,
     'add_ons_id': 1,

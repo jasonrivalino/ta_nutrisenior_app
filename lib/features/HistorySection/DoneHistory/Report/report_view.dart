@@ -254,6 +254,7 @@ class _ReportViewState extends State<ReportView> {
                                       driverId: (widget.isDriver && widget.driverId != null) ? widget.driverId : null,
                                       reportReason: reportReason,
                                       reportDescription: reportDescription,
+                                      reportImages: _selectedImages, // tambahkan ini
                                     );
 
                                     if (!mounted) return;
