@@ -10,27 +10,35 @@ import 'package:ta_nutrisenior_app/shared/widgets/warning_button.dart';
 import '../../../../shared/utils/handling_choose_image.dart';
 import '../../../../shared/widgets/comment_input_card.dart';
 import '../../../../shared/widgets/confirm_dialog.dart';
+import 'report_controller.dart';
 import 'report_data.dart';
 
 class ReportView extends StatefulWidget {
   final int id;
   final bool isDriver;
+  final int? driverId;
+  final int? businessId;
   final String? businessType;
 
   const ReportView({
     super.key,
     required this.id,
     required this.isDriver,
+    this.driverId,
+    this.businessId,
     this.businessType,
   });
 
   factory ReportView.fromExtra(GoRouterState state) {
     final extra = state.extra as Map<String, dynamic>? ?? {};
+    print('ReportView.fromExtra: $extra');
 
     return ReportView(
       id: extra['id'] as int,
-      isDriver: extra['isDriver'] as bool,
-      businessType: extra['businessType'] as String?,
+      isDriver: extra['is_driver'] as bool,
+      driverId: extra['driver_id'] as int?,
+      businessId: extra['business_id'] as int?,
+      businessType: extra['business_type'] as String?,
     );
   }
 
@@ -66,13 +74,13 @@ class _ReportViewState extends State<ReportView> {
 
   List<Map<String, dynamic>> get _reportReasons {
     if (widget.isDriver) return driverReportReason;
-    if (widget.businessType == "Restaurant") return restaurantReportReason;
+    if (widget.businessType == "restaurant") return restaurantReportReason;
     return marketReportReason;
   }
 
   @override
   Widget build(BuildContext context) {
-    final isRestaurant = widget.businessType == "Restaurant";
+    final isRestaurant = widget.businessType == "restaurant";
 
     final String appBarTitle = widget.isDriver
         ? "Laporkan Pengemudi"
@@ -224,22 +232,38 @@ class _ReportViewState extends State<ReportView> {
                                       return;
                                     }
 
-                                    // Show loading dialog using safe root context
+                                    // Show loading dialog
                                     showDialog(
                                       context: rootContext,
                                       barrierDismissible: false,
-                                      builder: (_) => const Center(
-                                        child: CircularProgressIndicator(),
-                                      ),
+                                      builder: (_) => const Center(child: CircularProgressIndicator()),
                                     );
 
                                     await Future.delayed(const Duration(seconds: 2));
 
-                                    if (!mounted) return;
+                                    // Determine report reason
+                                    final String reportReason = selectedReasonId == 999
+                                        ? otherReasonText.trim()
+                                        : _reportReasons.firstWhere((r) => r['id'] == selectedReasonId)['reason'];
 
+                                    final String reportDescription = _commentController.text.trim();
+
+                                    // Add report to table
+                                    ReportFillController.addReport(
+                                      businessId: (!widget.isDriver && widget.businessId != null) ? widget.businessId : null,
+                                      driverId: (widget.isDriver && widget.driverId != null) ? widget.driverId : null,
+                                      reportReason: reportReason,
+                                      reportDescription: reportDescription,
+                                    );
+
+                                    if (!mounted) return;
                                     rootContext.pop();
 
-                                    rootContext.push('/history/done/details/:id/report/success', extra: widget.id);
+                                    // Navigate to success screen
+                                    rootContext.push(
+                                      '/history/done/details/:id/report/success',
+                                      extra: widget.id,
+                                    );
                                   },
                                 );
                               },

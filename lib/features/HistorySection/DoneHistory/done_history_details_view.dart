@@ -127,6 +127,7 @@ class DoneHistoryDetailsView extends StatelessWidget {
               context.push('/history/done/details/:id/rating', extra: {
                 'history_id': historyId,
                 'business_id': businessId,
+                'driver_id': driverId,
                 'driver_name': driverName,
               });
             },

@@ -15,6 +15,7 @@ import 'rating_controller.dart';
 class RatingView extends StatefulWidget {
   final int historyId;
   final int businessId;
+  final int? driverId;
   final String? driverName;
   final String? businessName;
   final String? businessType;
@@ -24,6 +25,7 @@ class RatingView extends StatefulWidget {
     super.key,
     required this.historyId,
     required this.businessId,
+    this.driverId,
     this.driverName,
     this.businessName,
     this.businessType,
@@ -35,6 +37,7 @@ class RatingView extends StatefulWidget {
     return RatingView(
       historyId: extra['history_id'] as int,
       businessId: extra['business_id'] as int,
+      driverId: extra['driver_id'] as int?,
       driverName: extra['driver_name'] as String?,
       businessName: extra['business_name'] as String?,
       businessImage: extra['business_image'] as String?,
@@ -134,8 +137,10 @@ class _RatingViewState extends State<RatingView> {
                 onTap: () {
                   context.push('/history/done/details/:id/report', extra: {
                     'id': widget.historyId,
-                    'isDriver': isDriver,
-                    'businessType': widget.businessType,
+                    'driver_id': widget.driverId,
+                    'is_driver': isDriver,
+                    'business_id': widget.businessId,
+                    'business_type': widget.businessType,
                   });
                 },
                 child: Row(

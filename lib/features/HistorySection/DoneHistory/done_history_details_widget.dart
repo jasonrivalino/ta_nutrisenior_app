@@ -623,10 +623,11 @@ class RatingBox extends StatelessWidget {
       children: [
         // === DRIVER ===
         if (driverReport != null)
-          _buildReportBox(
-            title: 'Pengemudi telah dilaporkan',
-            reason: driverReport!['report_reason'],
-          ),
+            _buildReportBox(
+              title: 'Pengemudi telah dilaporkan',
+              reason: driverReport!['report_reason'],
+              description: driverReport!['report_description'] ?? '-',
+            ),
         ...driverRatings.map((rating) => _buildRatingBox(
               context,
               rating,
@@ -636,11 +637,11 @@ class RatingBox extends StatelessWidget {
 
         // === BUSINESS ===
         if (businessReport != null)
-          _buildReportBox(
-            title:
-                '${businessType == 'restaurant' ? 'Restoran' : 'Pusat Belanja'} telah dilaporkan',
-            reason: businessReport!['report_reason'],
-          ),
+            _buildReportBox(
+              title: 'Pengemudi telah dilaporkan',
+              reason: driverReport!['report_reason'],
+              description: driverReport!['report_description'] ?? '-',
+            ),
         ...businessRatings.map((rating) => _buildRatingBox(
               context,
               rating,
@@ -651,7 +652,7 @@ class RatingBox extends StatelessWidget {
     );
   }
 
-  Widget _buildReportBox({required String title, required String reason}) {
+  Widget _buildReportBox({required String title, required String reason, required String description}) {
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.only(bottom: 16),
@@ -667,19 +668,29 @@ class RatingBox extends StatelessWidget {
           Text(
             title,
             style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              fontFamily: AppFonts.fontBold,
+              color: AppColors.persianRed,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            'Alasan: $reason',
+            style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
               fontFamily: AppFonts.fontBold,
               color: AppColors.persianRed,
             ),
           ),
-          const SizedBox(height: 6),
+          const SizedBox(height: 8),
           Text(
-            'Alasan: $reason',
+            description,
             style: TextStyle(
               fontSize: 14,
-              fontWeight: FontWeight.w600,
-              fontFamily: AppFonts.fontBold,
+              fontWeight: FontWeight.w500,
+              fontFamily: AppFonts.fontMedium,
               color: AppColors.persianRed,
             ),
           ),
