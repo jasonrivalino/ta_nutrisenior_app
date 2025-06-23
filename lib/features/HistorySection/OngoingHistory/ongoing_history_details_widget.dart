@@ -289,14 +289,14 @@ class OrderListDetails extends StatelessWidget {
                                               ),
                                             ),
                                           ),
-                                          const SizedBox(width: 12),
+                                          const SizedBox(width: 16),
                                           Text(
                                             formatCurrency(addOn['add_ons_price'] * item['qty_product']),
                                             style: const TextStyle(
-                                              color: AppColors.dark,
-                                              fontFamily: AppFonts.fontMedium,
-                                              fontWeight: FontWeight.w500,
+                                              fontWeight: FontWeight.bold,
                                               fontSize: 14,
+                                              fontFamily: AppFonts.fontBold,
+                                              color: AppColors.dark,
                                             ),
                                           ),
                                         ],

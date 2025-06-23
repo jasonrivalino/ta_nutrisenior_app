@@ -139,7 +139,7 @@ class RecipientLocationBox extends StatelessWidget {
   }
 }
 
-class DriverNoteOverlay extends StatelessWidget {
+class DriverNoteOverlay extends StatefulWidget {
   final String initialNote;
   final void Function(String note) onNoteSubmitted;
 
@@ -150,11 +150,35 @@ class DriverNoteOverlay extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    final TextEditingController controller = TextEditingController(text: initialNote == '-' ? '' : initialNote);
+  State<DriverNoteOverlay> createState() => _DriverNoteOverlayState();
+}
 
-    return Padding(
-      padding: EdgeInsets.all(16),
+class _DriverNoteOverlayState extends State<DriverNoteOverlay> {
+  late final TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController(
+      text: widget.initialNote == '-' ? '' : widget.initialNote,
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      padding: EdgeInsets.only(
+        bottom: MediaQuery.of(context).viewInsets.bottom + 16,
+        left: 16,
+        right: 16,
+        top: 16,
+      ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -169,7 +193,7 @@ class DriverNoteOverlay extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           TextField(
-            controller: controller,
+            controller: _controller,
             maxLines: 4,
             style: const TextStyle(
               fontSize: 14,
@@ -186,8 +210,8 @@ class DriverNoteOverlay extends StatelessWidget {
           const SizedBox(height: 12),
           ElevatedButton(
             onPressed: () {
-              final trimmed = controller.text.trim();
-              onNoteSubmitted(trimmed.isEmpty ? "-" : trimmed);
+              final trimmed = _controller.text.trim();
+              widget.onNoteSubmitted(trimmed.isEmpty ? "-" : trimmed);
               Navigator.of(context).pop();
             },
             style: ElevatedButton.styleFrom(
@@ -207,7 +231,6 @@ class DriverNoteOverlay extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: 16),
         ],
       ),
     );

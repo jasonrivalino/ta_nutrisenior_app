@@ -590,6 +590,11 @@ class ProductListWidget extends StatelessWidget {
                     }
                   },
                   onTap: () async {
+                    // Add handling if business is closed
+                    if (!isBusinessOpen(businessOpenHour, businessCloseHour)) {
+                      return;
+                    }
+
                     final route = '/business/detail/$businessId/ordering/$productId';
 
                     print('Navigating to: $route');
