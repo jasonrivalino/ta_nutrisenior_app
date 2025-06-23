@@ -1,5 +1,6 @@
 import '../../../database/history_rating_image_list_table.dart';
 import '../../../database/history_rating_list_table.dart';
+import '../../../database/report_list_table.dart';
 
 class HistoryRatingController {
   static List<Map<String, dynamic>> fetchRatingsByHistoryId(int historyId) {
@@ -54,5 +55,25 @@ class HistoryRatingController {
         .toList();
 
     return [...driverRatings, ...businessRatings];
+  }
+}
+
+class ReportController {
+  static Map<String, dynamic>? getDriverReport(int driverId) {
+    return reportListTable.firstWhere(
+      (report) => report['driver_id'] == driverId,
+      orElse: () => {},
+    ).isNotEmpty ? reportListTable.firstWhere(
+      (report) => report['driver_id'] == driverId,
+    ) : null;
+  }
+
+  static Map<String, dynamic>? getBusinessReport(int businessId) {
+    return reportListTable.firstWhere(
+      (report) => report['business_id'] == businessId,
+      orElse: () => {},
+    ).isNotEmpty ? reportListTable.firstWhere(
+      (report) => report['business_id'] == businessId,
+    ) : null;
   }
 }

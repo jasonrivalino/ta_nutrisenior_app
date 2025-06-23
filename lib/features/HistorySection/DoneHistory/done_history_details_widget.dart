@@ -476,6 +476,8 @@ class GiveRatingBottomNavbar extends StatelessWidget {
   final List<Map<String, dynamic>> ratings;
   final VoidCallback onDriverPressed;
   final VoidCallback onBusinessPressed;
+  final Map<String, dynamic>? driverReport;
+  final Map<String, dynamic>? businessReport;
 
   const GiveRatingBottomNavbar({
     super.key,
@@ -483,6 +485,8 @@ class GiveRatingBottomNavbar extends StatelessWidget {
     required this.ratings,
     required this.onDriverPressed,
     required this.onBusinessPressed,
+    this.driverReport,
+    this.businessReport,
   });
 
   @override
@@ -490,8 +494,13 @@ class GiveRatingBottomNavbar extends StatelessWidget {
     final hasDriverRating = ratings.any((r) => r['rating_type'] == 'driver');
     final hasBusinessRating = ratings.any((r) => r['rating_type'] == businessType.toLowerCase());
 
-    // Don't show anything if both ratings exist
-    if (hasDriverRating && hasBusinessRating) return const SizedBox.shrink();
+    final shouldShowDriverButton = !hasDriverRating && driverReport == null;
+    final shouldShowBusinessButton = !hasBusinessRating && businessReport == null;
+
+    // Hide bottom bar completely if both buttons shouldn't show
+    if (!shouldShowDriverButton && !shouldShowBusinessButton) {
+      return const SizedBox.shrink();
+    }
 
     return Container(
       padding: const EdgeInsets.fromLTRB(12, 16, 12, 24),
@@ -499,9 +508,9 @@ class GiveRatingBottomNavbar extends StatelessWidget {
         color: AppColors.ecruWhite,
         boxShadow: [
           BoxShadow(
-            color: AppColors.dark.withValues(alpha: 0.15),
+            color: AppColors.dark.withAlpha(38),
             blurRadius: 10,
-            offset: Offset(0, -2),
+            offset: const Offset(0, -2),
           ),
         ],
       ),
@@ -521,7 +530,7 @@ class GiveRatingBottomNavbar extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              if (!hasDriverRating)
+              if (shouldShowDriverButton)
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.woodland,
@@ -546,7 +555,7 @@ class GiveRatingBottomNavbar extends StatelessWidget {
                     ),
                   ),
                 ),
-              if (!hasBusinessRating)
+              if (shouldShowBusinessButton)
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.woodland,
@@ -584,155 +593,222 @@ class GiveRatingBottomNavbar extends StatelessWidget {
 class RatingBox extends StatelessWidget {
   final int historyId;
   final String businessName;
+  final String? businessType;
   final List<Map<String, dynamic>> ratings;
+  final Map<String, dynamic>? driverReport;
+  final Map<String, dynamic>? businessReport;
 
   const RatingBox({
     super.key,
     required this.historyId,
     required this.businessName,
+    this.businessType,
     required this.ratings,
+    this.driverReport,
+    this.businessReport,
   });
 
   @override
   Widget build(BuildContext context) {
-    if (ratings.isEmpty) return const SizedBox.shrink();
+    if (ratings.isEmpty && driverReport == null && businessReport == null) {
+      return const SizedBox.shrink();
+    }
 
-    print("ratings: $ratings");
+    // Pisahkan rating berdasarkan tipe
+    final driverRatings = ratings.where((r) => r['rating_type'] == 'driver').toList();
+    final businessRatings = ratings.where((r) => r['rating_type'] != 'driver').toList();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: ratings.map((rating) {
-        final ratingType = rating['rating_type'];
-        final ratingNumber = rating['rating_number'];
-        final ratingComment = rating['rating_comment'];
-        final ratingDate = rating['rating_date'] as DateTime;
-        final imagePaths = rating['rating_images'] as List<String>?;
-
-        final ratingTitle = ratingType == 'driver'
-            ? 'Rating untuk Pengemudi'
-            : 'Rating untuk ${ratingType == 'restaurant' ? 'Restoran' : 'Pusat Belanja'}';
-
-        return Container(
-          margin: const EdgeInsets.only(bottom: 16),
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: AppColors.ecruWhite,
-            border: Border.all(color: AppColors.darkGray, width: 0.5),
-            borderRadius: BorderRadius.circular(8),
+      children: [
+        // === DRIVER ===
+        if (driverReport != null)
+          _buildReportBox(
+            title: 'Pengemudi telah dilaporkan',
+            reason: driverReport!['report_reason'],
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                ratingTitle,
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: AppFonts.fontBold,
-                  color: AppColors.dark,
-                ),
-              ),
-              const SizedBox(height: 8),
-              Row(
-                children: List.generate(5, (index) {
-                  return Container(
-                    margin: const EdgeInsets.only(right: 4),
-                    child: FaIcon(
-                      index < ratingNumber
-                          ? FontAwesomeIcons.solidStar
-                          : FontAwesomeIcons.star,
-                      color: AppColors.dark,
-                      size: 16,
-                    ),
-                  );
-                }),
-              ),
-              const SizedBox(height: 6),
-              Text(
-                ratingComment,
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: AppFonts.fontBold,
-                  color: AppColors.dark,
-                ),
-              ),
-              if (imagePaths != null && imagePaths.isNotEmpty) ...[
-                const SizedBox(height: 6),
-                Wrap(
-                  spacing: 8,
-                  runSpacing: 8,
-                  children: imagePaths.map((path) {
-                    final isFileImage = !path.startsWith('assets/');
-                    return GestureDetector(
-                      onTap: () {
-                        String senderLabel;
-                        if (ratingType == 'driver') {
-                          senderLabel = 'Pengemudi';
-                        } else if (ratingType == 'restaurant') {
-                          senderLabel = 'Restoran';
-                        } else {
-                          senderLabel = 'Pusat Belanja';
-                        }
+        ...driverRatings.map((rating) => _buildRatingBox(
+              context,
+              rating,
+              'Pengemudi',
+              businessName,
+            )),
 
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => FullScreenImageView(
-                              imagePath: path,
-                              senderName: 'Rating $senderLabel - $businessName',
-                              sendTime:
-                                  '${formatDate(ratingDate)} ${ratingDate.hour.toString().padLeft(2, '0')}:${ratingDate.minute.toString().padLeft(2, '0')}',
-                            ),
-                          ),
-                        );
-                      },
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(8),
-                        child: isFileImage
-                            ? Image.file(
-                                File(path),
-                                width: 60,
-                                height: 60,
-                                fit: BoxFit.cover,
-                                errorBuilder: (_, __, ___) => Container(
-                                  width: 60,
-                                  height: 60,
-                                  color: AppColors.lightGray,
-                                  child: const Icon(Icons.broken_image),
-                                ),
-                              )
-                            : Image.asset(
-                                path,
-                                width: 60,
-                                height: 60,
-                                fit: BoxFit.cover,
-                                errorBuilder: (_, __, ___) => Container(
-                                  width: 60,
-                                  height: 60,
-                                  color: AppColors.lightGray,
-                                  child: const Icon(Icons.broken_image),
-                                ),
-                              ),
+        // === BUSINESS ===
+        if (businessReport != null)
+          _buildReportBox(
+            title:
+                '${businessType == 'restaurant' ? 'Restoran' : 'Pusat Belanja'} telah dilaporkan',
+            reason: businessReport!['report_reason'],
+          ),
+        ...businessRatings.map((rating) => _buildRatingBox(
+              context,
+              rating,
+              businessType == 'restaurant' ? 'Restoran' : 'Pusat Belanja',
+              businessName,
+            )),
+      ],
+    );
+  }
+
+  Widget _buildReportBox({required String title, required String reason}) {
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: AppColors.ecruWhite,
+        border: Border.all(color: AppColors.persianRed, width: 1),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              fontFamily: AppFonts.fontBold,
+              color: AppColors.persianRed,
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            'Alasan: $reason',
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+              fontFamily: AppFonts.fontBold,
+              color: AppColors.persianRed,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildRatingBox(
+    BuildContext context,
+    Map<String, dynamic> rating,
+    String label,
+    String businessName,
+  ) {
+    final ratingNumber = rating['rating_number'];
+    final ratingComment = rating['rating_comment'];
+    final ratingDate = rating['rating_date'] as DateTime;
+    final imagePaths = rating['rating_images'] as List<String>?;
+
+    return Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: AppColors.ecruWhite,
+        border: Border.all(color: AppColors.darkGray, width: 0.5),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Rating untuk $label',
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              fontFamily: AppFonts.fontBold,
+              color: AppColors.dark,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Row(
+            children: List.generate(5, (index) {
+              return Container(
+                margin: const EdgeInsets.only(right: 4),
+                child: FaIcon(
+                  index < ratingNumber
+                      ? FontAwesomeIcons.solidStar
+                      : FontAwesomeIcons.star,
+                  color: AppColors.dark,
+                  size: 16,
+                ),
+              );
+            }),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            ratingComment,
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+              fontFamily: AppFonts.fontBold,
+              color: AppColors.dark,
+            ),
+          ),
+          if (imagePaths != null && imagePaths.isNotEmpty) ...[
+            const SizedBox(height: 6),
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: imagePaths.map((path) {
+                final isFileImage = !path.startsWith('assets/');
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => FullScreenImageView(
+                          imagePath: path,
+                          senderName: 'Rating $label - $businessName',
+                          sendTime:
+                              '${formatDate(ratingDate)} ${ratingDate.hour.toString().padLeft(2, '0')}:${ratingDate.minute.toString().padLeft(2, '0')}',
+                        ),
                       ),
                     );
-                  }).toList(),
-                ),
-              ],
-              const SizedBox(height: 10),
-              Text(
-                '${formatDate(ratingDate)} ${ratingDate.hour.toString().padLeft(2, '0')}:${ratingDate.minute.toString().padLeft(2, '0')}',
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: AppFonts.fontBold,
-                  color: AppColors.dark,
-                ),
-              ),
-            ],
+                  },
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: isFileImage
+                        ? Image.file(
+                            File(path),
+                            width: 60,
+                            height: 60,
+                            fit: BoxFit.cover,
+                            errorBuilder: (_, __, ___) => Container(
+                              width: 60,
+                              height: 60,
+                              color: AppColors.lightGray,
+                              child: const Icon(Icons.broken_image),
+                            ),
+                          )
+                        : Image.asset(
+                            path,
+                            width: 60,
+                            height: 60,
+                            fit: BoxFit.cover,
+                            errorBuilder: (_, __, ___) => Container(
+                              width: 60,
+                              height: 60,
+                              color: AppColors.lightGray,
+                              child: const Icon(Icons.broken_image),
+                            ),
+                          ),
+                  ),
+                );
+              }).toList(),
+            ),
+          ],
+          const SizedBox(height: 10),
+          Text(
+            '${formatDate(ratingDate)} ${ratingDate.hour.toString().padLeft(2, '0')}:${ratingDate.minute.toString().padLeft(2, '0')}',
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+              fontFamily: AppFonts.fontBold,
+              color: AppColors.dark,
+            ),
           ),
-        );
-      }).toList(),
+        ],
+      ),
     );
   }
 }

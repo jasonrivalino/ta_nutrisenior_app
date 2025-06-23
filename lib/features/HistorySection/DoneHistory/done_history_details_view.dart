@@ -10,6 +10,7 @@ class DoneHistoryDetailsView extends StatelessWidget {
   final int historyId;
   final int businessId;
   final DateTime orderDate;
+  final int driverId;
   final String driverName;
   final String? driverNote;
   final String businessName;
@@ -28,6 +29,7 @@ class DoneHistoryDetailsView extends StatelessWidget {
     required this.businessId,
     required this.totalPrice,
     required this.orderDate,
+    required this.driverId,
     required this.driverName,
     this.driverNote,
     required this.businessName,
@@ -49,6 +51,7 @@ class DoneHistoryDetailsView extends StatelessWidget {
       businessName: extra['business_name'] as String,
       businessImage: extra['business_image'] as String,
       businessType: extra['business_type'] as String,
+      driverId: extra['driver_id'] as int,
       driverName: extra['driver_name'] as String,
       driverNote: extra['driver_note'] as String?,
       addressReceiver: extra['address_receiver'] as String,
@@ -64,6 +67,9 @@ class DoneHistoryDetailsView extends StatelessWidget {
   Widget build(BuildContext context) {
     // Gunakan yang sudah terurut dari controller
     final ratings = HistoryRatingController.fetchOrderedRatings(historyId);
+
+    final driverReport = ReportController.getDriverReport(driverId);
+    final businessReport = ReportController.getBusinessReport(businessId);
 
     final hasDriverRating = ratings.any((r) => r['rating_type'] == 'driver');
     final hasBusinessRating = ratings.any((r) => r['rating_type'] == businessType.toLowerCase());
@@ -103,7 +109,10 @@ class DoneHistoryDetailsView extends StatelessWidget {
             RatingBox(
               historyId: historyId,
               businessName: businessName,
+              businessType: businessType,
               ratings: ratings,
+              driverReport: driverReport,
+              businessReport: businessReport,
             ),
           ],
         ),
@@ -112,6 +121,8 @@ class DoneHistoryDetailsView extends StatelessWidget {
         ? GiveRatingBottomNavbar(
             businessType: businessType,
             ratings: ratings,
+            driverReport: driverReport,
+            businessReport: businessReport,
             onDriverPressed: () {
               context.push('/history/done/details/:id/rating', extra: {
                 'history_id': historyId,
