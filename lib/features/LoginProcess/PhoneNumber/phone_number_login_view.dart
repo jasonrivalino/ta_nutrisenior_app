@@ -73,7 +73,7 @@ class _PhoneNumberLoginViewState extends State<PhoneNumberLoginView> {
                     SubmitButton(
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
-                          await NotificationService.showNotification(
+                          await OTPNotificationService.showNotification(
                             title: "OTP Verifikasi",
                             body: "Kode OTP untuk verifikasi nomor telepon Anda adalah 123456",
                           );

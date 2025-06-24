@@ -16,6 +16,11 @@ String formatTime(dynamic time) {
   }
 }
 
+// Format date for display (dd/MM/yyyy)
+String formatDate(DateTime date) {
+  return '${date.day.toString().padLeft(2, '0')}/${date.month.toString().padLeft(2, '0')}/${date.year}';
+}
+
 // Format full date and time (dd MMMM yyyy, HH:mm)
 String formatFullDateTime(dynamic time) {
   if (time is DateTime) {
@@ -30,9 +35,4 @@ String formatFullDateTime(dynamic time) {
   } else {
     return '';
   }
-}
-
-// Format date for display (dd/MM/yyyy)
-String formatDate(DateTime date) {
-  return '${date.day.toString().padLeft(2, '0')}/${date.month.toString().padLeft(2, '0')}/${date.year}';
 }

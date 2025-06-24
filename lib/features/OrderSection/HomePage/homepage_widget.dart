@@ -6,9 +6,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../shared/styles/colors.dart';
 import '../../../shared/utils/carousel_card.dart';
+import '../../../shared/widgets/detail_card/card_box.dart';
 import '../../../shared/widgets/list_helper/lihat_lengkap_button.dart';
 import '../../../shared/widgets/list_helper/list_title.dart';
-import '../../../shared/widgets/product_card/card_box.dart';
 
 // Class for the Home Page Top Bar Section
 class HomeTopBarSection extends StatefulWidget {

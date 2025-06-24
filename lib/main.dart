@@ -5,6 +5,6 @@ import './app.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await NotificationService.init(); // Initialize notifications
+  await OTPNotificationService.init(); // Initialize notifications
   runApp(const MyApp());
 }

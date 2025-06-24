@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../shared/styles/colors.dart';
 import '../../../shared/widgets/appbar.dart';
 import '../../../shared/widgets/bottom_navbar.dart';
-import '../../../shared/widgets/product_card/history_card_list.dart';
+import '../../shared/widgets/detail_card/history_card_list.dart';
 
 import 'history_controller.dart';
 

@@ -3,8 +3,8 @@ import 'package:go_router/go_router.dart';
 
 import '../../../shared/styles/colors.dart';
 import '../../../shared/utils/is_business_open.dart';
+import '../../../shared/widgets/detail_card/card_list.dart';
 import '../../../shared/widgets/list_helper/list_title.dart';
-import '../../../shared/widgets/product_card/card_list.dart';
 
 class BusinessListWidget extends StatelessWidget {
   final String? title;

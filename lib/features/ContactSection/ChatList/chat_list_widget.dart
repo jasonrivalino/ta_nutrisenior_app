@@ -37,7 +37,7 @@ class _ChatMessageTileState extends State<ChatMessageTile> {
   }
 
   Future<void> _loadDisplayMessage() async {
-    final result = await imageSentMessageHandling(
+    final result = await handleSendImageMessages(
       messageText: widget.messageText,
       isUser: widget.isUser,
       driverName: widget.driverName,

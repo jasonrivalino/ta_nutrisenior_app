@@ -8,8 +8,26 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../styles/colors.dart';
 
+// Function conditionally to show the image or text message
+class MessageStatusIcon extends StatelessWidget {
+  final String? status;
+
+  const MessageStatusIcon({super.key, required this.status});
+
+  @override
+  Widget build(BuildContext context) {
+    if (status == 'sending') {
+      return const Icon(Icons.access_time, size: 14, color: AppColors.soapstone);
+    } else if (status == 'sent') {
+      return const Icon(Icons.check, size: 14, color: AppColors.soapstone);
+    } else {
+      return const Icon(Icons.done_all, size: 14, color: AppColors.soapstone);
+    }
+  }
+}
+
 /// Function to handle sending messages and images
-void handleSendMessages({
+void handleSendTextMessages({
   required TextEditingController controller,
   required List<Map<String, dynamic>> messages,
   required List<XFile> selectedImages,
@@ -40,22 +58,23 @@ void handleSendMessages({
   onClearImages();
 }
 
-// Function conditionally to show the image or text message
-class MessageStatusIcon extends StatelessWidget {
-  final String? status;
+Future<String> handleSendImageMessages({
+  required String messageText,
+  required bool isUser,
+  required String driverName,
+}) async {
+  // Detect both assets and picked image file paths
+  final isImage = messageText.trim().startsWith('assets/images/') ||
+      messageText.trim().contains('/data/user/') ||
+      messageText.trim().contains('/storage/emulated/');
 
-  const MessageStatusIcon({super.key, required this.status});
-
-  @override
-  Widget build(BuildContext context) {
-    if (status == 'sending') {
-      return const Icon(Icons.access_time, size: 14, color: AppColors.soapstone);
-    } else if (status == 'sent') {
-      return const Icon(Icons.check, size: 14, color: AppColors.soapstone);
-    } else {
-      return const Icon(Icons.done_all, size: 14, color: AppColors.soapstone);
-    }
+  if (isImage) {
+    final prefs = await SharedPreferences.getInstance();
+    final userName = prefs.getString('userName') ?? 'You';
+    final senderName = isUser ? userName : driverName;
+    return '$senderName sent a photo';
   }
+  return messageText;
 }
 
 // Function to update message status
@@ -121,23 +140,4 @@ void updateMessageStatus({
     // Already online: proceed directly
     proceedWithStatusUpdate();
   }
-}
-
-Future<String> imageSentMessageHandling({
-  required String messageText,
-  required bool isUser,
-  required String driverName,
-}) async {
-  // Detect both assets and picked image file paths
-  final isImage = messageText.trim().startsWith('assets/images/') ||
-      messageText.trim().contains('/data/user/') ||
-      messageText.trim().contains('/storage/emulated/');
-
-  if (isImage) {
-    final prefs = await SharedPreferences.getInstance();
-    final userName = prefs.getString('userName') ?? 'You';
-    final senderName = isUser ? userName : driverName;
-    return '$senderName sent a photo';
-  }
-  return messageText;
 }

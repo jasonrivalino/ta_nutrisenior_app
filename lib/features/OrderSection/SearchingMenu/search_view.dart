@@ -6,8 +6,9 @@ import 'package:go_router/go_router.dart';
 import '../../../shared/styles/colors.dart';
 import '../../../shared/styles/fonts.dart';
 import '../../../shared/utils/is_business_open.dart';
+import '../../../shared/widgets/address_selection_overlay.dart';
 import '../../../shared/widgets/appbar.dart';
-import '../../../shared/widgets/product_card/card_list.dart';
+import '../../../shared/widgets/detail_card/card_list.dart';
 
 import 'search_widget.dart';
 import 'search_controller.dart';

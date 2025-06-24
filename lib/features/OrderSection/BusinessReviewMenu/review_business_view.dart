@@ -3,9 +3,9 @@ import 'package:go_router/go_router.dart';
 
 import '../../../shared/styles/colors.dart';
 import '../../../shared/widgets/appbar.dart';
+import '../../../shared/widgets/detail_card/business_detail_card.dart';
 
 import 'review_business_widget.dart';
-import '../OrderingMenu/business_ordering_menu_widget.dart';
 import 'review_business_controller.dart';
 
 class ReviewBusinessView extends StatefulWidget {
