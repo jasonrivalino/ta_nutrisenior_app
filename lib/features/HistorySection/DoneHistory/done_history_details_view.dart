@@ -68,8 +68,8 @@ class DoneHistoryDetailsView extends StatelessWidget {
     // Gunakan yang sudah terurut dari controller
     final ratings = HistoryRatingController.fetchOrderedRatings(historyId);
 
-    final driverReport = ReportController.getDriverReport(driverId);
-    final businessReport = ReportController.getBusinessReport(businessId);
+    final driverReport = HistoryReportController.getDriverReport(driverId);
+    final businessReport = HistoryReportController.getBusinessReport(businessId);
 
     final hasDriverRating = ratings.any((r) => r['rating_type'] == 'driver');
     final hasBusinessRating = ratings.any((r) => r['rating_type'] == businessType.toLowerCase());
@@ -106,7 +106,7 @@ class DoneHistoryDetailsView extends StatelessWidget {
               paymentMethod: paymentMethod,
             ),
             const SizedBox(height: 16),
-            RatingBox(
+            FeedbackInformationBox(
               historyId: historyId,
               businessName: businessName,
               businessType: businessType,
@@ -118,7 +118,7 @@ class DoneHistoryDetailsView extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: showBottomNavbar
-        ? GiveRatingBottomNavbar(
+        ? GiveFeedbackBottomNavbar(
             businessType: businessType,
             ratings: ratings,
             driverReport: driverReport,

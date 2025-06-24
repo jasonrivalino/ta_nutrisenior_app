@@ -471,126 +471,7 @@ class DoneOrderDetailsCard extends StatelessWidget {
   }
 }
 
-class GiveRatingBottomNavbar extends StatelessWidget {
-  final String businessType;
-  final List<Map<String, dynamic>> ratings;
-  final VoidCallback onDriverPressed;
-  final VoidCallback onBusinessPressed;
-  final Map<String, dynamic>? driverReport;
-  final Map<String, dynamic>? businessReport;
-
-  const GiveRatingBottomNavbar({
-    super.key,
-    required this.businessType,
-    required this.ratings,
-    required this.onDriverPressed,
-    required this.onBusinessPressed,
-    this.driverReport,
-    this.businessReport,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final hasDriverRating = ratings.any((r) => r['rating_type'] == 'driver');
-    final hasBusinessRating = ratings.any((r) => r['rating_type'] == businessType.toLowerCase());
-
-    final shouldShowDriverButton = !hasDriverRating && driverReport == null;
-    final shouldShowBusinessButton = !hasBusinessRating && businessReport == null;
-
-    // Hide bottom bar completely if both buttons shouldn't show
-    if (!shouldShowDriverButton && !shouldShowBusinessButton) {
-      return const SizedBox.shrink();
-    }
-
-    return Container(
-      padding: const EdgeInsets.fromLTRB(12, 16, 12, 24),
-      decoration: BoxDecoration(
-        color: AppColors.ecruWhite,
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.dark.withAlpha(38),
-            blurRadius: 10,
-            offset: const Offset(0, -2),
-          ),
-        ],
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Text(
-            "Yuk berikan penilaian!",
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              fontFamily: AppFonts.fontBold,
-              color: AppColors.dark,
-            ),
-          ),
-          const SizedBox(height: 12),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              if (shouldShowDriverButton)
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.woodland,
-                    foregroundColor: AppColors.soapstone,
-                    padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                    minimumSize: const Size(0, 40),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    elevation: 0,
-                    shadowColor: Colors.transparent,
-                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  ),
-                  onPressed: onDriverPressed,
-                  child: const Text(
-                    "Pengemudi",
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: AppFonts.fontBold,
-                      color: AppColors.soapstone,
-                    ),
-                  ),
-                ),
-              if (shouldShowBusinessButton)
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.woodland,
-                    foregroundColor: AppColors.soapstone,
-                    padding: EdgeInsets.symmetric(
-                      horizontal: businessType == 'restaurant' ? 40.0 : 22.0,
-                    ),
-                    minimumSize: const Size(0, 40),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    elevation: 0,
-                    shadowColor: Colors.transparent,
-                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  ),
-                  onPressed: onBusinessPressed,
-                  child: Text(
-                    businessType == 'restaurant' ? "Restoran" : "Pusat Belanja",
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: AppFonts.fontBold,
-                      color: AppColors.soapstone,
-                    ),
-                  ),
-                ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class RatingBox extends StatelessWidget {
+class FeedbackInformationBox extends StatelessWidget {
   final int historyId;
   final String businessName;
   final String? businessType;
@@ -598,7 +479,7 @@ class RatingBox extends StatelessWidget {
   final Map<String, dynamic>? driverReport;
   final Map<String, dynamic>? businessReport;
 
-  const RatingBox({
+  const FeedbackInformationBox({
     super.key,
     required this.historyId,
     required this.businessName,
@@ -887,6 +768,125 @@ class RatingBox extends StatelessWidget {
               fontFamily: AppFonts.fontBold,
               color: AppColors.dark,
             ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class GiveFeedbackBottomNavbar extends StatelessWidget {
+  final String businessType;
+  final List<Map<String, dynamic>> ratings;
+  final VoidCallback onDriverPressed;
+  final VoidCallback onBusinessPressed;
+  final Map<String, dynamic>? driverReport;
+  final Map<String, dynamic>? businessReport;
+
+  const GiveFeedbackBottomNavbar({
+    super.key,
+    required this.businessType,
+    required this.ratings,
+    required this.onDriverPressed,
+    required this.onBusinessPressed,
+    this.driverReport,
+    this.businessReport,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final hasDriverRating = ratings.any((r) => r['rating_type'] == 'driver');
+    final hasBusinessRating = ratings.any((r) => r['rating_type'] == businessType.toLowerCase());
+
+    final shouldShowDriverButton = !hasDriverRating && driverReport == null;
+    final shouldShowBusinessButton = !hasBusinessRating && businessReport == null;
+
+    // Hide bottom bar completely if both buttons shouldn't show
+    if (!shouldShowDriverButton && !shouldShowBusinessButton) {
+      return const SizedBox.shrink();
+    }
+
+    return Container(
+      padding: const EdgeInsets.fromLTRB(12, 16, 12, 24),
+      decoration: BoxDecoration(
+        color: AppColors.ecruWhite,
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.dark.withAlpha(38),
+            blurRadius: 10,
+            offset: const Offset(0, -2),
+          ),
+        ],
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Text(
+            "Yuk berikan penilaian!",
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              fontFamily: AppFonts.fontBold,
+              color: AppColors.dark,
+            ),
+          ),
+          const SizedBox(height: 12),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              if (shouldShowDriverButton)
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.woodland,
+                    foregroundColor: AppColors.soapstone,
+                    padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                    minimumSize: const Size(0, 40),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    elevation: 0,
+                    shadowColor: Colors.transparent,
+                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  ),
+                  onPressed: onDriverPressed,
+                  child: const Text(
+                    "Pengemudi",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: AppFonts.fontBold,
+                      color: AppColors.soapstone,
+                    ),
+                  ),
+                ),
+              if (shouldShowBusinessButton)
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.woodland,
+                    foregroundColor: AppColors.soapstone,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: businessType == 'restaurant' ? 40.0 : 22.0,
+                    ),
+                    minimumSize: const Size(0, 40),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    elevation: 0,
+                    shadowColor: Colors.transparent,
+                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  ),
+                  onPressed: onBusinessPressed,
+                  child: Text(
+                    businessType == 'restaurant' ? "Restoran" : "Pusat Belanja",
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: AppFonts.fontBold,
+                      color: AppColors.soapstone,
+                    ),
+                  ),
+                ),
+            ],
           ),
         ],
       ),

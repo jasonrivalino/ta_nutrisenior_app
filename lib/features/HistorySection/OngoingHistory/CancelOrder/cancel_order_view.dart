@@ -2,13 +2,13 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ta_nutrisenior_app/shared/styles/colors.dart';
-import 'package:ta_nutrisenior_app/shared/styles/fonts.dart';
-import 'package:ta_nutrisenior_app/shared/widgets/appbar.dart';
-import 'package:ta_nutrisenior_app/shared/widgets/confirm_dialog.dart';
-import 'package:ta_nutrisenior_app/shared/widgets/warning_button.dart';
+import '../../../../shared/styles/colors.dart';
+import '../../../../shared/styles/fonts.dart';
+import '../../../../shared/widgets/appbar.dart';
+import '../../../../shared/widgets/confirm_dialog.dart';
+import '../../../../shared/widgets/warning_button.dart';
 
-import '../../history_controller.dart';
+import 'cancel_order_controller.dart';
 
 class CancelOrderView extends StatefulWidget {
   final int historyId;
@@ -26,7 +26,7 @@ class _CancelOrderViewState extends State<CancelOrderView> {
   int? selectedReasonId;
   String otherReasonText = '';
 
-  final List<Map<String, dynamic>> cancelReasons = [
+  final List<Map<String, dynamic>> cancelOrderReason = [
     {'id': 1, 'reason': 'Pesanan terlalu lama sampai'},
     {'id': 2, 'reason': 'Ingin memesan dari restoran lain'},
     {'id': 3, 'reason': 'Menu yang dipesan salah atau berubah pikiran'},
@@ -66,7 +66,7 @@ class _CancelOrderViewState extends State<CancelOrderView> {
                           textAlign: TextAlign.center,
                         ),
                         SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                        ...cancelReasons.map((reason) {
+                        ...cancelOrderReason.map((reason) {
                           return RadioListTile<int>(
                             value: reason['id'],
                             groupValue: selectedReasonId,

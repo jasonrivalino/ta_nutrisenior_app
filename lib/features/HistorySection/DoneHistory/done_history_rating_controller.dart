@@ -59,7 +59,7 @@ class HistoryRatingController {
   }
 }
 
-class ReportController {
+class HistoryReportController {
   static Map<String, dynamic>? getDriverReport(int driverId) {
     final report = reportListTable.firstWhere(
       (r) => r['driver_id'] == driverId,
