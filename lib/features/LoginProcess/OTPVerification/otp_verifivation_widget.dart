@@ -1,7 +1,9 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import '../../../shared/styles/colors.dart';
+
 import '../../../config/constants.dart';
+
+import '../../../shared/styles/colors.dart';
 import '../../../shared/styles/fonts.dart';
 import '../../../shared/utils/otp_notification.dart';
 import '../../../shared/utils/validate_otp.dart';

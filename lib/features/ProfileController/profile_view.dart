@@ -4,12 +4,12 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:ta_nutrisenior_app/shared/styles/colors.dart';
-import 'package:ta_nutrisenior_app/shared/styles/fonts.dart';
-import 'package:ta_nutrisenior_app/shared/widgets/appbar.dart';
-
+import '../../shared/styles/colors.dart';
+import '../../shared/styles/fonts.dart';
 import '../../shared/utils/google_auth_service.dart';
+import '../../shared/widgets/appbar.dart';
 import '../../shared/widgets/confirm_dialog.dart';
+
 import 'profile_widget.dart';
 
 class ProfileView extends StatelessWidget {

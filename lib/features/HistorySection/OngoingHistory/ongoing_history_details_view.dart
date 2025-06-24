@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:ta_nutrisenior_app/features/HistorySection/OngoingHistory/ongoing_history_details_widget.dart';
-import 'package:ta_nutrisenior_app/shared/widgets/appbar.dart';
-import 'package:ta_nutrisenior_app/shared/widgets/warning_button.dart';
 
 import '../../../shared/styles/colors.dart';
+import '../../../shared/widgets/appbar.dart';
+import '../../../shared/widgets/warning_button.dart';
+
+import 'ongoing_history_details_widget.dart';
 
 class OngoingHistoryDetailsView extends StatefulWidget {
   final int historyId;

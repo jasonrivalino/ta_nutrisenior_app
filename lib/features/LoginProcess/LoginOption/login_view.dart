@@ -5,11 +5,11 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../shared/utils/google_auth_service.dart';
-import 'login_widget.dart';
-
 import '../../../shared/styles/colors.dart';
 import '../../../shared/styles/fonts.dart';
+import '../../../shared/utils/google_auth_service.dart';
+
+import 'login_widget.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});

@@ -2,15 +2,16 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:ta_nutrisenior_app/features/ContactSection/ChatDetails/chat_details_widget.dart';
-import 'package:ta_nutrisenior_app/shared/styles/fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../shared/styles/fonts.dart';
 import '../../../shared/styles/colors.dart';
 import '../../../shared/utils/formatted_time.dart';
 import '../../../shared/utils/fullscreen_image_view.dart';
 import '../../../shared/utils/handling_chat_send.dart';
 import '../../../shared/utils/handling_choose_image.dart';
+
+import 'chat_details_widget.dart';
 import '../chat_controller.dart';
 
 class ChatDetailView extends StatefulWidget {

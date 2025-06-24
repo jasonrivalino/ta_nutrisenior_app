@@ -2,12 +2,14 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
+
 import '../../../../shared/styles/colors.dart';
 import '../../../../shared/styles/fonts.dart';
 import '../../../../shared/widgets/appbar.dart';
 import '../../../../shared/widgets/confirm_dialog.dart';
 import '../../../../shared/widgets/warning_button.dart';
 
+import 'cancel_order_data.dart';
 import 'cancel_order_controller.dart';
 
 class CancelOrderView extends StatefulWidget {
@@ -25,14 +27,6 @@ class CancelOrderView extends StatefulWidget {
 class _CancelOrderViewState extends State<CancelOrderView> {
   int? selectedReasonId;
   String otherReasonText = '';
-
-  final List<Map<String, dynamic>> cancelOrderReason = [
-    {'id': 1, 'reason': 'Pesanan terlalu lama sampai'},
-    {'id': 2, 'reason': 'Ingin memesan dari restoran lain'},
-    {'id': 3, 'reason': 'Menu yang dipesan salah atau berubah pikiran'},
-    {'id': 4, 'reason': 'Alamat pengantaran salah'},
-    {'id': 5, 'reason': 'Tidak bisa dihubungi terlalu lama'},
-  ];
 
   @override
   Widget build(BuildContext context) {

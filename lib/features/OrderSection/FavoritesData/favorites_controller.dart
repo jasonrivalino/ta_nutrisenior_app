@@ -1,6 +1,6 @@
 import '../../../database/business_list_table.dart';
-import '../../../database/favorites_list_table.dart';
 import '../../../database/business_promo_list_table.dart';
+import '../../../database/favorites_list_table.dart';
 
 class FavoritesController {
   static List<Map<String, dynamic>> get favoritesRestaurant {

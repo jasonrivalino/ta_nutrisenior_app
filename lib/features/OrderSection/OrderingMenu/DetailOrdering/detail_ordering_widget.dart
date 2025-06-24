@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:ta_nutrisenior_app/shared/styles/colors.dart';
-import 'package:ta_nutrisenior_app/shared/utils/calculate_price_fee.dart';
-import 'package:ta_nutrisenior_app/shared/utils/format_currency.dart';
 
+import '../../../../shared/styles/colors.dart';
 import '../../../../shared/styles/fonts.dart';
+import '../../../../shared/utils/calculate_price_fee.dart';
+import '../../../../shared/utils/format_currency.dart';
 
 class ProductDetailInfoBox extends StatelessWidget {
   final String productName;

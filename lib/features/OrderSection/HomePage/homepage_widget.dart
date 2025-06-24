@@ -3,13 +3,12 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:ta_nutrisenior_app/shared/widgets/list_helper/lihat_lengkap_button.dart';
-import 'package:ta_nutrisenior_app/shared/widgets/list_helper/list_title.dart';
-
-import 'package:ta_nutrisenior_app/shared/widgets/product_card/card_box.dart';
 
 import '../../../shared/styles/colors.dart';
 import '../../../shared/utils/carousel_card.dart';
+import '../../../shared/widgets/list_helper/lihat_lengkap_button.dart';
+import '../../../shared/widgets/list_helper/list_title.dart';
+import '../../../shared/widgets/product_card/card_box.dart';
 
 // Class for the Home Page Top Bar Section
 class HomeTopBarSection extends StatefulWidget {

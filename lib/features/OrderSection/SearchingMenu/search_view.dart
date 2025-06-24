@@ -2,14 +2,15 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ta_nutrisenior_app/shared/styles/colors.dart';
-import 'package:ta_nutrisenior_app/shared/widgets/appbar.dart';
 
+import '../../../shared/styles/colors.dart';
 import '../../../shared/styles/fonts.dart';
 import '../../../shared/utils/is_business_open.dart';
+import '../../../shared/widgets/appbar.dart';
 import '../../../shared/widgets/product_card/card_list.dart';
-import 'search_controller.dart';
+
 import 'search_widget.dart';
+import 'search_controller.dart';
 
 class SearchView extends StatefulWidget {
   const SearchView({super.key});

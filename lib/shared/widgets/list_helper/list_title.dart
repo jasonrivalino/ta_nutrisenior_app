@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:ta_nutrisenior_app/shared/styles/colors.dart';
-import '../../styles/fonts.dart';
-import '../../utils/is_business_open.dart';
+
+import '../../../shared/styles/colors.dart';
+import '../../../shared/styles/fonts.dart';
+import '../../../shared/utils/is_business_open.dart';
 
 class ListTitle extends StatelessWidget {
   final String title;

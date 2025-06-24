@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../shared/utils/otp_notification.dart';
-import "phone_number_login_widget.dart";
-import "../../../shared/widgets/submit_button.dart";
-
 import '../../../shared/styles/colors.dart';
 import '../../../shared/styles/fonts.dart';
+import '../../../shared/utils/otp_notification.dart';
+import "../../../shared/widgets/submit_button.dart";
+
+import "phone_number_login_widget.dart";
 
 class PhoneNumberLoginView extends StatefulWidget {
   const PhoneNumberLoginView({super.key});

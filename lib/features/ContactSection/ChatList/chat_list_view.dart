@@ -4,8 +4,9 @@ import 'package:go_router/go_router.dart';
 import '../../../shared/styles/colors.dart';
 import '../../../shared/widgets/appbar.dart';
 import '../../../shared/widgets/bottom_navbar.dart';
-import '../chat_controller.dart';
+
 import 'chat_list_widget.dart';
+import '../chat_controller.dart';
 
 class ChatListView extends StatelessWidget {
   final List<Map<String, dynamic>> chatListData;

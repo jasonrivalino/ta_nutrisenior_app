@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ta_nutrisenior_app/shared/widgets/list_helper/lihat_lengkap_button.dart';
-import 'package:ta_nutrisenior_app/shared/widgets/list_helper/list_title.dart';
 
+import '../../shared/widgets/list_helper/lihat_lengkap_button.dart';
+import '../../shared/widgets/list_helper/list_title.dart';
 import '../../shared/widgets/product_card/card_box.dart';
 
 class RecommendedPromoCardList extends StatelessWidget {

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+
 import '../../../shared/styles/colors.dart';
 import '../../../shared/widgets/bottom_navbar.dart';
 
 import 'homepage_widget.dart';
-
-import '../../../features/OrderSection/HomePage/homepage_controller.dart';
+import 'homepage_controller.dart';
 
 class HomePageView extends StatelessWidget {
   const HomePageView({super.key});

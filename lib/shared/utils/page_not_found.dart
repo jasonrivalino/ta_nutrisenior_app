@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ta_nutrisenior_app/shared/widgets/appbar.dart';
+
+import '../../shared/widgets/appbar.dart';
 
 class PageNotFound extends StatelessWidget {
   const PageNotFound({super.key});

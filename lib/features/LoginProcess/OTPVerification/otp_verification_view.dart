@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 
-import "../../../shared/widgets/submit_button.dart";
 import '../../../shared/styles/colors.dart';
 import '../../../shared/styles/fonts.dart';
+import "../../../shared/widgets/submit_button.dart";
+
 import 'otp_verifivation_widget.dart';
 
 class OTPVerificationView extends StatefulWidget {

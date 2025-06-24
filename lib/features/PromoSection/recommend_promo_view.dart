@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:ta_nutrisenior_app/features/PromoSection/recommend_promo_widget.dart';
 
 import '../../../shared/styles/colors.dart';
 import '../../../shared/widgets/appbar.dart';
 import '../../../shared/widgets/bottom_navbar.dart';
-
-// Assuming SelectionToggle is imported or defined somewhere:
 import '../../../shared/widgets/list_helper/resto_market_selector.dart';
+
+import 'recommend_promo_widget.dart';
 
 class RecommendPromoView extends StatelessWidget {
   final int initialIndex;

@@ -1,9 +1,9 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:ta_nutrisenior_app/shared/styles/colors.dart';
-
+import '../../shared/styles/colors.dart';
 import '../../shared/utils/handling_choose_image.dart';
 
 class ProfileCard extends StatefulWidget {

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ta_nutrisenior_app/shared/styles/colors.dart';
-import 'package:ta_nutrisenior_app/shared/utils/format_currency.dart';
-import '../../styles/fonts.dart';
-import '../../utils/is_business_open.dart';
+
+import '../../../shared/styles/colors.dart';
+import '../../../shared/utils/format_currency.dart';
+import '../../../shared/styles/fonts.dart';
+import '../../../shared/utils/is_business_open.dart';
 
 class CardBox extends StatefulWidget {
   final int? businessId;

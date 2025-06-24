@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
-import 'package:ta_nutrisenior_app/shared/styles/fonts.dart';
 
-import '../../styles/colors.dart';
+import '../../../shared/styles/fonts.dart';
+import '../../../shared/styles/colors.dart';
 
 class HistoryCardList extends StatelessWidget {
   final Map<String, dynamic> historyData;

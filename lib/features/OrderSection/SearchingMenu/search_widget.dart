@@ -1,9 +1,11 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ta_nutrisenior_app/shared/styles/colors.dart';
-import 'package:ta_nutrisenior_app/shared/styles/fonts.dart';
+
+import '../../../shared/styles/colors.dart';
+import '../../../shared/styles/fonts.dart';
 
 import 'search_controller.dart';
 

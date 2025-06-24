@@ -2,16 +2,17 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ta_nutrisenior_app/shared/styles/colors.dart';
-import 'package:ta_nutrisenior_app/shared/styles/fonts.dart';
-import 'package:ta_nutrisenior_app/shared/widgets/appbar.dart';
-import 'package:ta_nutrisenior_app/shared/widgets/warning_button.dart';
 
+import '../../../../shared/styles/colors.dart';
+import '../../../../shared/styles/fonts.dart';
 import '../../../../shared/utils/handling_choose_image.dart';
-import '../../../../shared/widgets/feedback_input_card.dart';
+import '../../../../shared/widgets/appbar.dart';
 import '../../../../shared/widgets/confirm_dialog.dart';
-import 'report_controller.dart';
+import '../../../../shared/widgets/feedback_input_card.dart';
+import '../../../../shared/widgets/warning_button.dart';
+
 import 'report_data.dart';
+import 'report_controller.dart';
 
 class ReportView extends StatefulWidget {
   final int id;

@@ -1,5 +1,5 @@
-import '../../../database/other_user_rating_list_table.dart';
 import '../../../database/other_user_rating_image_list_table.dart';
+import '../../../database/other_user_rating_list_table.dart';
 
 class ReviewBusinessController {
   final int businessId;

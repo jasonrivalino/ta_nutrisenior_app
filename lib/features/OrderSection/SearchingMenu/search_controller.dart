@@ -3,6 +3,7 @@ import 'dart:math';
 import '../../../database/address_list_table.dart';
 import '../../../database/business_list_table.dart';
 import '../../../database/business_promo_list_table.dart';
+
 import '../../../shared/utils/is_business_open.dart';
 
 class SearchPageController {

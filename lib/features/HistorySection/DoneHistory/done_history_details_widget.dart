@@ -3,9 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
-import 'package:ta_nutrisenior_app/shared/styles/colors.dart';
-import 'package:ta_nutrisenior_app/shared/styles/fonts.dart';
 
+import '../../../shared/styles/colors.dart';
+import '../../../shared/styles/fonts.dart';
 import '../../../shared/utils/format_currency.dart';
 import '../../../shared/utils/formatted_time.dart';
 import '../../../shared/utils/fullscreen_image_view.dart';

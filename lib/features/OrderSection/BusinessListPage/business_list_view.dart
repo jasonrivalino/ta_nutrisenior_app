@@ -4,9 +4,8 @@ import 'package:go_router/go_router.dart';
 import '../../../shared/styles/colors.dart';
 import '../../../shared/widgets/appbar.dart';
 import '../../../shared/widgets/bottom_navbar.dart';
-
-// Assuming SelectionToggle is imported or defined somewhere:
 import '../../../shared/widgets/list_helper/resto_market_selector.dart';
+
 import 'business_list_widget.dart';
 
 class BusinessListView extends StatelessWidget {

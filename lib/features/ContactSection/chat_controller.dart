@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
-// Import database tables
-import '../../database/driver_list_table.dart';
 import '../../database/chat_list_table.dart';
+import '../../database/driver_list_table.dart';
 import '../../database/number_message_received_list_table.dart';
 import '../../database/report_list_table.dart';
 
