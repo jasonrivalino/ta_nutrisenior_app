@@ -54,14 +54,14 @@ class RecommendPromoView extends StatelessWidget {
               restoRoute: restoRoute,
               marketRoute: marketRoute,
             ),
-            RecommendedPromoSection(
+            RecommendedPromoCardList(
               title: 'Promo Diskon',
               routeDetail: discountRouteDetail,
               heightCard: heightCard,
               businesses: discountBusinesses,
             ),
             SizedBox(height: gapHeight),
-            RecommendedPromoSection(
+            RecommendedPromoCardList(
               title: 'Gratis Ongkir',
               routeDetail: freeShipmentRouteDetail,
               heightCard: heightCard,

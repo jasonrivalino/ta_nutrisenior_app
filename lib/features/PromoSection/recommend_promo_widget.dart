@@ -5,13 +5,13 @@ import 'package:ta_nutrisenior_app/shared/widgets/list_helper/list_title.dart';
 
 import '../../shared/widgets/product_card/card_box.dart';
 
-class RecommendedPromoSection extends StatelessWidget {
+class RecommendedPromoCardList extends StatelessWidget {
   final String title;
   final String routeDetail;
   final double heightCard;
   final List<Map<String, dynamic>> businesses;
 
-  const RecommendedPromoSection({
+  const RecommendedPromoCardList({
     super.key,
     required this.title,
     required this.routeDetail,
