@@ -74,7 +74,7 @@ class BusinessListView extends StatelessWidget {
               marketRoute: marketRoute,
             ),
             Expanded(
-              child: BusinessListWidget(
+              child: BusinessListItem(
                 title: promoTitle,
                 businesses: businessesData,
               ),

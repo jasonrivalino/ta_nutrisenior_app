@@ -11,7 +11,7 @@ import '../../../../shared/widgets/address_selection_overlay.dart';
 import '../../../../shared/widgets/appbar.dart';
 
 import '../../SearchingMenu/search_controller.dart';
-import '../business_ordering_menu_widget.dart';
+import '../../../../shared/widgets/order_bottom_navbar.dart';
 
 import 'confirmation_ordering_widget.dart';
 import 'confirmation_ordering_controller.dart';
@@ -92,30 +92,30 @@ class _OrderConfirmationViewState extends State<OrderConfirmationView> {
     _selectedProducts = List<Map<String, dynamic>>.from(widget.selectedProducts);
 
     // Check if there's persisted state
-    final persistedId = AddressChangeController.lastSelectedAddressId;
-    final persistedDistance = AddressChangeController.lastBusinessDistance;
-    final persistedFee = AddressChangeController.lastDeliveryFee;
+    final persistedId = RecipientAddressController.lastSelectedAddressId;
+    final persistedDistance = RecipientAddressController.lastBusinessDistance;
+    final persistedFee = RecipientAddressController.lastDeliveryFee;
 
     if (persistedId != null &&
         persistedDistance != null &&
         persistedFee != null &&
         persistedId != widget.selectedAddressId) {
       // Use persisted state
-      _selectedAddress = AddressOrderController.getAddressById(persistedId) ?? {};
+      _selectedAddress = AddressRecipientChooseController.getAddressById(persistedId) ?? {};
       _businessDistance = persistedDistance;
       _deliveryFee = persistedFee;
     } else {
       // Use initial values from constructor
       _selectedAddress =
-          AddressOrderController.getAddressById(widget.selectedAddressId) ?? {};
+          AddressRecipientChooseController.getAddressById(widget.selectedAddressId) ?? {};
       _businessDistance = widget.businessDistance;
       _deliveryFee =
           getDeliveryFee(widget.isFreeShipment, _businessDistance);
 
       // Persist for first time
-      AddressChangeController.lastSelectedAddressId = widget.selectedAddressId;
-      AddressChangeController.lastBusinessDistance = _businessDistance;
-      AddressChangeController.lastDeliveryFee = _deliveryFee;
+      RecipientAddressController.lastSelectedAddressId = widget.selectedAddressId;
+      RecipientAddressController.lastBusinessDistance = _businessDistance;
+      RecipientAddressController.lastDeliveryFee = _deliveryFee;
     }
   }
 
@@ -168,7 +168,7 @@ class _OrderConfirmationViewState extends State<OrderConfirmationView> {
                               final newAddressId = newAddress['address_id'];
 
                               // Update business list distances globally
-                              AddressChangeController.updateBusinessDistances(newAddressId);
+                              RecipientAddressController.updateBusinessDistances(newAddressId);
 
                               // Get updated distance for current business
                               final updatedBusiness = businessListTable.firstWhere(
@@ -186,9 +186,9 @@ class _OrderConfirmationViewState extends State<OrderConfirmationView> {
                               });
 
                               // Persist new state
-                              AddressChangeController.lastSelectedAddressId = newAddressId;
-                              AddressChangeController.lastBusinessDistance = newDistance;
-                              AddressChangeController.lastDeliveryFee = newDeliveryFee;
+                              RecipientAddressController.lastSelectedAddressId = newAddressId;
+                              RecipientAddressController.lastBusinessDistance = newDistance;
+                              RecipientAddressController.lastDeliveryFee = newDeliveryFee;
                             },
                           ),
                         );
@@ -370,10 +370,10 @@ class _OrderConfirmationViewState extends State<OrderConfirmationView> {
               driverNote: driverNote,
             );
 
-            AddressChangeController.updateBusinessDistances(1);
-            AddressChangeController.lastSelectedAddressId = null;
-            AddressChangeController.lastBusinessDistance = null;
-            AddressChangeController.lastDeliveryFee = null;
+            RecipientAddressController.updateBusinessDistances(1);
+            RecipientAddressController.lastSelectedAddressId = null;
+            RecipientAddressController.lastBusinessDistance = null;
+            RecipientAddressController.lastDeliveryFee = null;
 
             context.push(
               '/history/processing/$historyId',

@@ -5,12 +5,12 @@ import 'package:go_router/go_router.dart';
 import '../../../shared/styles/colors.dart';
 import '../../../shared/styles/fonts.dart';
 
-class CustomLocationAppBarTitle extends StatelessWidget {
+class OrderLocationSelection extends StatelessWidget {
   final Map<String, dynamic> selectedAddress;
   final Function(Map<String, dynamic>) onAddressChanged;
   final VoidCallback onTap;
 
-  const CustomLocationAppBarTitle({
+  const OrderLocationSelection({
     super.key,
     required this.selectedAddress,
     required this.onAddressChanged,

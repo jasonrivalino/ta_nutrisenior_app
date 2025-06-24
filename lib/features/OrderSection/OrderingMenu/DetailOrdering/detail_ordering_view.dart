@@ -84,7 +84,7 @@ class _DetailOrderingViewState extends State<DetailOrderingView> {
     selectedAddOnIds = widget.selectedAddOnIdsMap?[widget.productId.toString()] ?? [];
 
     // Fetch add-ons list specific for this product and business
-    addOnsList = getAddOnsForProductController(
+    addOnsList = AddOnsController.getAddOnsForProduct(
       productId: widget.productId,
       businessId: widget.businessId,
     );

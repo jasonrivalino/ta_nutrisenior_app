@@ -2,6 +2,8 @@ import '../../../database/business_list_table.dart';
 import '../../../database/business_promo_list_table.dart';
 import '../../../database/recommended_business_list_table.dart';
 
+import '../../../shared/utils/is_business_open.dart';
+
 final List<Map<String, dynamic>> _recommendedListTable = recommendedBusinessListTable;
 final List<Map<String, dynamic>> _promoListTable = businessPromoListTable;
 
@@ -69,13 +71,5 @@ class HomePageController {
     return _getRecommendedBusinessesByCategory('market')
         .where((b) => b['business_type'] == 'market')
         .toList();
-  }
-
-  static bool isBusinessOpen(DateTime? open, DateTime? close) {
-    if (open == null || close == null) return true;
-    final now = DateTime.now();
-    final openToday = DateTime(now.year, now.month, now.day, open.hour, open.minute);
-    final closeToday = DateTime(now.year, now.month, now.day, close.hour, close.minute);
-    return now.isAfter(openToday) && now.isBefore(closeToday);
   }
 }

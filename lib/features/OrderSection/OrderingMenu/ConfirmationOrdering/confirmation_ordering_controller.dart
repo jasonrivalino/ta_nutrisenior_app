@@ -6,6 +6,16 @@ import '../../../../database/history_list_table.dart';
 import '../../../../database/history_order_list_table.dart';
 import '../../../../database/report_list_table.dart';
 
+class AddressRecipientChooseController {
+  static Map<String, dynamic>? getAddressById(int addressId) {
+    try {
+      return addressListTable.firstWhere((a) => a['address_id'] == addressId);
+    } catch (e) {
+      return null;
+    }
+  }
+}
+
 class OrderConfirmationController {
   static int addOrder({
     required int businessId,
@@ -88,15 +98,5 @@ class OrderConfirmationController {
 
     print('✅ Order has been added successfully with history_id: $newHistoryId');
     return newHistoryId;
-  }
-}
-
-class AddressOrderController {
-  static Map<String, dynamic>? getAddressById(int addressId) {
-    try {
-      return addressListTable.firstWhere((a) => a['address_id'] == addressId);
-    } catch (e) {
-      return null;
-    }
   }
 }

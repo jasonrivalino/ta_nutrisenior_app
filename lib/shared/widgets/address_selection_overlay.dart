@@ -38,9 +38,9 @@ class _AddressSelectionOverlayState extends State<AddressSelectionOverlay> {
   @override
   void initState() {
     super.initState();
-    mainAddress = AddressChooseController.getMainAddress();
-    recentAddresses = AddressChooseController.getAddressesCondition(recentAddressSearches);
-    allAddresses = AddressChooseController.getAllAddresses();
+    mainAddress = AddressListController.getMainAddress();
+    recentAddresses = AddressListController.getAddressesCondition(recentAddressSearches);
+    allAddresses = AddressListController.getAllAddresses();
   }
 
   void _toggleBookmark(Map<String, dynamic> address) async {
@@ -276,7 +276,7 @@ class _AddressSelectionOverlayState extends State<AddressSelectionOverlay> {
                   }
 
                   final selectedId = selectedAddress!['address_id'];
-                  AddressChangeController.updateBusinessDistances(selectedId);
+                  RecipientAddressController.updateBusinessDistances(selectedId);
 
                   widget.onAddressSelected(selectedAddress!);
                   context.pop();

@@ -6,11 +6,11 @@ import '../../../shared/utils/is_business_open.dart';
 import '../../../shared/widgets/detail_card/card_list.dart';
 import '../../../shared/widgets/list_helper/list_title.dart';
 
-class BusinessListWidget extends StatelessWidget {
+class BusinessListItem extends StatelessWidget {
   final String? title;
   final List<Map<String, dynamic>> businesses;
 
-  const BusinessListWidget({
+  const BusinessListItem({
     super.key,
     required this.title,
     required this.businesses,

@@ -11,6 +11,7 @@ import '../../../shared/styles/colors.dart';
 import '../../../shared/utils/calculate_price_fee.dart';
 import '../../../shared/utils/is_business_open.dart';
 import '../../../shared/widgets/detail_card/business_detail_card.dart';
+import '../../../shared/widgets/order_bottom_navbar.dart';
 
 import 'business_ordering_menu_widget.dart';
 import 'business_ordering_menu_controller.dart';
@@ -326,7 +327,7 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
                                 },
                               ),
                               const SizedBox(height: 14),
-                              ProductListWidget(
+                              ProductListSection(
                                 title: widget.businessType == 'restaurant'
                                     ? 'Daftar Menu'
                                     : 'Daftar Belanjaan',

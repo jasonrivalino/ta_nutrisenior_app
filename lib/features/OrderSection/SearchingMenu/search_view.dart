@@ -35,10 +35,10 @@ class _SearchViewState extends State<SearchView> {
   @override
   void initState() {
     super.initState();
-    _selectedAddress = AddressChooseController.getAddressesCondition(defaultAddress).first;
+    _selectedAddress = AddressListController.getAddressesCondition(defaultAddress).first;
 
     final selectedId = _selectedAddress['address_id'];
-    AddressChangeController.updateBusinessDistances(selectedId);
+    RecipientAddressController.updateBusinessDistances(selectedId);
   }
 
   @override
@@ -70,7 +70,7 @@ class _SearchViewState extends State<SearchView> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 12),
-              CustomLocationAppBarTitle(
+              OrderLocationSelection(
                 selectedAddress: _selectedAddress,
                 onAddressChanged: (newAddress) {
                   setState(() {

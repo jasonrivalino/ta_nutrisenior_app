@@ -6,6 +6,36 @@ import '../../../database/business_promo_list_table.dart';
 
 import '../../../shared/utils/is_business_open.dart';
 
+class RecentSearchController {
+  static const int _maxRecent = 5;
+
+  static final List<int> _recentRestaurantSearches = [1, 6, 13];
+  static final List<int> _recentMarketSearches = [8, 10];
+
+  static List<int> getRecentSearches(String businessType) {
+    return businessType == 'restaurant'
+        ? _recentRestaurantSearches
+        : _recentMarketSearches;
+  }
+
+  static void addToRecent(int businessId, String businessType) {
+    final list = businessType == 'restaurant'
+        ? _recentRestaurantSearches
+        : _recentMarketSearches;
+
+    // Remove if already exists to avoid duplicates
+    list.remove(businessId);
+
+    // Add to start
+    list.insert(0, businessId);
+
+    // Enforce max size
+    if (list.length > _maxRecent) {
+      list.removeLast();
+    }
+  }
+}
+
 class SearchPageController {
   static List<Map<String, dynamic>> getRecentSearchBusinesses(List<int> recentSearchIds, String type) {
     final businesses = _joinedBusinessData
@@ -69,7 +99,7 @@ class SearchPageController {
   }
 }
 
-class AddressChooseController {
+class AddressListController {
   static List<Map<String, dynamic>> getAddressesCondition(List <int> addressIdList){
     return addressIdList
         .map((id) => addressListTable.firstWhere(
@@ -89,37 +119,7 @@ class AddressChooseController {
   }
 }
 
-class RecentSearchController {
-  static const int _maxRecent = 5;
-
-  static final List<int> _recentRestaurantSearches = [1, 6, 13];
-  static final List<int> _recentMarketSearches = [8, 10];
-
-  static List<int> getRecentSearches(String businessType) {
-    return businessType == 'restaurant'
-        ? _recentRestaurantSearches
-        : _recentMarketSearches;
-  }
-
-  static void addToRecent(int businessId, String businessType) {
-    final list = businessType == 'restaurant'
-        ? _recentRestaurantSearches
-        : _recentMarketSearches;
-
-    // Remove if already exists to avoid duplicates
-    list.remove(businessId);
-
-    // Add to start
-    list.insert(0, businessId);
-
-    // Enforce max size
-    if (list.length > _maxRecent) {
-      list.removeLast();
-    }
-  }
-}
-
-class AddressChangeController {
+class RecipientAddressController {
   static List<int> mainAddressSearches = [1];
 
   static List<Map<String, dynamic>>? _originalBusinessListTable;

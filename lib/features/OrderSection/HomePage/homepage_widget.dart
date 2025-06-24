@@ -112,85 +112,6 @@ class _HomeTopBarSectionState extends State<HomeTopBarSection> {
   }
 }
 
-// Class for the Recommended Section
-class RecommendedHomeSection extends StatelessWidget {
-  final String category;
-  final String title;
-  final double heightCard;
-  final String? routeDetail;
-  final List<Map<String, dynamic>> businesses;
-
-  const RecommendedHomeSection({
-    super.key,
-    required this.category,
-    required this.title,
-    required this.heightCard,
-    this.routeDetail,
-    required this.businesses,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    if (businesses.isEmpty) return const SizedBox();
-
-    final isToday = category == 'RecommendedToday';
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(right: 16.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              ListTitle(title: title),
-              if (!isToday && routeDetail != null)
-                LihatLengkapButton(routeName: routeDetail!),
-            ],
-          ),
-        ),
-        const SizedBox(height: 12),
-
-        isToday
-            ? RecommendedTodayCarousel(
-                businesses: businesses,
-                heightCard: heightCard,
-              )
-            : SizedBox(
-                height: heightCard,
-                child: ListView.separated(
-                  scrollDirection: Axis.horizontal,
-                  padding:
-                      const EdgeInsets.only(left: 16, right: 16, bottom: 12),
-                  itemCount: businesses.take(5).length,
-                  separatorBuilder: (context, index) =>
-                      const SizedBox(width: 16),
-                  itemBuilder: (context, index) {
-                    final business = businesses[index];
-                    return SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.425,
-                      child: CardBox(
-                        businessImage: business['business_image'],
-                        businessName: business['business_name'],
-                        businessType: business['business_type'],
-                        businessRate: business['business_rating'],
-                        businessLocation: business['business_distance'],
-                        businessOpenHour: business['business_open_hour'],
-                        businessCloseHour: business['business_close_hour'],
-                        onTap: () {
-                          final route = '/business/detail/${business['business_id']}';
-                          context.push(route, extra: business);
-                        },
-                      ),
-                    );
-                  },
-                ),
-              ),
-      ],
-    );
-  }
-}
-
 // Class for the Recommended Today Carousel
 class RecommendedTodayCarousel extends StatefulWidget {
   final List<Map<String, dynamic>> businesses;
@@ -285,6 +206,85 @@ class _RecommendedTodayCarouselState extends State<RecommendedTodayCarousel> wit
           },
         ),
       ),
+    );
+  }
+}
+
+// Class for the Recommended Section
+class RecommendedHomeSection extends StatelessWidget {
+  final String category;
+  final String title;
+  final double heightCard;
+  final String? routeDetail;
+  final List<Map<String, dynamic>> businesses;
+
+  const RecommendedHomeSection({
+    super.key,
+    required this.category,
+    required this.title,
+    required this.heightCard,
+    this.routeDetail,
+    required this.businesses,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    if (businesses.isEmpty) return const SizedBox();
+
+    final isToday = category == 'RecommendedToday';
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(right: 16.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              ListTitle(title: title),
+              if (!isToday && routeDetail != null)
+                LihatLengkapButton(routeName: routeDetail!),
+            ],
+          ),
+        ),
+        const SizedBox(height: 12),
+
+        isToday
+            ? RecommendedTodayCarousel(
+                businesses: businesses,
+                heightCard: heightCard,
+              )
+            : SizedBox(
+                height: heightCard,
+                child: ListView.separated(
+                  scrollDirection: Axis.horizontal,
+                  padding:
+                      const EdgeInsets.only(left: 16, right: 16, bottom: 12),
+                  itemCount: businesses.take(5).length,
+                  separatorBuilder: (context, index) =>
+                      const SizedBox(width: 16),
+                  itemBuilder: (context, index) {
+                    final business = businesses[index];
+                    return SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.425,
+                      child: CardBox(
+                        businessImage: business['business_image'],
+                        businessName: business['business_name'],
+                        businessType: business['business_type'],
+                        businessRate: business['business_rating'],
+                        businessLocation: business['business_distance'],
+                        businessOpenHour: business['business_open_hour'],
+                        businessCloseHour: business['business_close_hour'],
+                        onTap: () {
+                          final route = '/business/detail/${business['business_id']}';
+                          context.push(route, extra: business);
+                        },
+                      ),
+                    );
+                  },
+                ),
+              ),
+      ],
     );
   }
 }
