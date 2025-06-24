@@ -8,7 +8,7 @@ import 'package:ta_nutrisenior_app/shared/styles/fonts.dart';
 import 'package:ta_nutrisenior_app/shared/widgets/appbar.dart';
 
 import '../../../../shared/utils/handling_choose_image.dart';
-import '../../../../shared/widgets/comment_input_card.dart';
+import '../../../../shared/widgets/feedback_input_card.dart';
 import '../../../../shared/widgets/submit_button.dart';
 import 'rating_controller.dart';
 
@@ -124,7 +124,7 @@ class _RatingViewState extends State<RatingView> {
                 },
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.035),
-              CommentInputCard(
+              FeedbackInputCard(
                 controller: _commentController,
                 titleText: "Berikan Komentar",
                 placeholderText: "Masukkan komentar Anda...",

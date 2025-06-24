@@ -8,7 +8,7 @@ import 'package:ta_nutrisenior_app/shared/widgets/appbar.dart';
 import 'package:ta_nutrisenior_app/shared/widgets/warning_button.dart';
 
 import '../../../../shared/utils/handling_choose_image.dart';
-import '../../../../shared/widgets/comment_input_card.dart';
+import '../../../../shared/widgets/feedback_input_card.dart';
 import '../../../../shared/widgets/confirm_dialog.dart';
 import 'report_controller.dart';
 import 'report_data.dart';
@@ -176,7 +176,7 @@ class _ReportViewState extends State<ReportView> {
                             ),
                           ),
                         SizedBox(height: MediaQuery.of(context).size.height * 0.025),
-                        CommentInputCard(
+                        FeedbackInputCard(
                           controller: _commentController,
                           titleText: "Penjelasan",
                           placeholderText:

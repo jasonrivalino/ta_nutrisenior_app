@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../styles/colors.dart';
 import '../styles/fonts.dart';
 
-class CommentInputCard extends StatelessWidget {
+class FeedbackInputCard extends StatelessWidget {
   final TextEditingController controller;
   final String titleText;
   final String placeholderText;
@@ -12,15 +12,15 @@ class CommentInputCard extends StatelessWidget {
   final VoidCallback onChooseImage;
   final Function(int) onRemoveImage;
 
-  const CommentInputCard({
-    Key? key,
+  const FeedbackInputCard({
+    super.key,
     required this.controller,
     required this.titleText,
     required this.placeholderText,
     required this.selectedImages,
     required this.onChooseImage,
     required this.onRemoveImage,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
