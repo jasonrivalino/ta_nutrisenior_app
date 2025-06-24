@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../config/constants.dart';
+
 import '../../../../database/history_rating_image_list_table.dart';
 import '../../../../database/history_rating_list_table.dart';
 import '../../../../database/other_user_rating_image_list_table.dart';
@@ -70,7 +72,7 @@ class BusinessRatingController {
       'rating_id': newRatingId,
       'business_id': businessId,
       'username': username,
-      'userimage': 'assets/images/dummy/chat/driver.png',
+      'userimage': AppConstants.driverImagePlaceholder,
       'rating_date': now,
       'rating_number': ratingNumber,
       'rating_comment': ratingComment,

@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../../../config/constants.dart';
+
 import '../../../shared/styles/colors.dart';
 import '../../../shared/styles/fonts.dart';
 import '../../../shared/utils/formatted_time.dart';
@@ -82,7 +84,7 @@ class BusinessRatingItem extends StatelessWidget {
                 height: 50,
                 errorBuilder: (context, error, stackTrace) {
                   return Image.asset(
-                    'assets/images/dummy/userreview/johndoe.png',
+                    AppConstants.johndoeImage,
                     fit: BoxFit.cover,
                     width: 50,
                     height: 50,

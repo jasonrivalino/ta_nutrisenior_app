@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+import '../../../config/constants.dart';
+
 import '../../../shared/styles/colors.dart';
 import '../../../shared/widgets/appbar.dart';
 import '../../../shared/widgets/warning_button.dart';
@@ -90,7 +92,7 @@ class _OngoingHistoryDetailsViewState extends State<OngoingHistoryDetailsView> {
   Future<void> _loadCustomMarker() async {
     final bitmap = await BitmapDescriptor.asset(
       const ImageConfiguration(size: Size(40, 40)),
-      'assets/images/dummy/motorcycle_delivery.png',
+      AppConstants.motorcycleDeliveryIcon,
     );
     setState(() {
       customStartMarker = bitmap;

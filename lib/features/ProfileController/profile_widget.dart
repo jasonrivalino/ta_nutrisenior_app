@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../config/constants.dart';
+
 import '../../shared/styles/colors.dart';
 import '../../shared/utils/handling_choose_image.dart';
 
@@ -54,7 +56,7 @@ class _ProfileCardState extends State<ProfileCard> {
             radius: 28,
             backgroundImage: _image != null
                 ? FileImage(_image!)
-                : const AssetImage('assets/images/dummy/chat/driver.png') as ImageProvider,
+                : const AssetImage(AppConstants.driverImagePlaceholder) as ImageProvider,
           ),
           const SizedBox(width: 16),
           Expanded(

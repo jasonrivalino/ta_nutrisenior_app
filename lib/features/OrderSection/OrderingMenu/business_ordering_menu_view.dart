@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../config/constants.dart';
+
 import '../../../database/business_promo_list_table.dart';
 
 import '../../../shared/styles/colors.dart';
@@ -212,8 +214,8 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
                         fit: BoxFit.cover,
                         errorBuilder: (context, error, stackTrace) {
                           final fallbackImage = widget.businessType == 'market'
-                              ? 'assets/images/dummy/errorhandling/dummymarket.png'
-                              : 'assets/images/dummy/errorhandling/dummyrestaurant.png';
+                              ? AppConstants.errorDummyMarket
+                              : AppConstants.errorDummyRestaurant;
                           return Image.asset(
                             fallbackImage,
                             fit: BoxFit.cover,

@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
-import '../../../shared/styles/fonts.dart';
-import '../../../shared/styles/colors.dart';
+import '../../../config/constants.dart';
+
+import '../../styles/fonts.dart';
+import '../../styles/colors.dart';
 
 class HistoryCardList extends StatelessWidget {
   final Map<String, dynamic> historyData;
@@ -78,9 +80,9 @@ class HistoryCardList extends StatelessWidget {
                         height: 70,
                         fit: BoxFit.cover,
                         errorBuilder: (context, error, stackTrace) {
-                          String fallbackImage = 'assets/images/dummy/errorhandling/dummyrestaurant.png';
+                          String fallbackImage = AppConstants.errorDummyRestaurant;
                           if (historyData['business_type'] == 'market' && businessImage.isNotEmpty) {
-                            fallbackImage = 'assets/images/dummy/errorhandling/dummymarket.png';
+                            fallbackImage = AppConstants.errorDummyMarket;
                           }
                           return Image.asset(
                             fallbackImage,

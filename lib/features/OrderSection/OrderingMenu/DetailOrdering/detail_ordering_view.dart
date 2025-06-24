@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../config/constants.dart';
+
 import '../../../../shared/styles/colors.dart';
 import '../../../../shared/utils/get_total_add_ons_price.dart';
 import '../../../../shared/widgets/appbar.dart';
@@ -119,9 +121,8 @@ class _DetailOrderingViewState extends State<DetailOrderingView> {
             fit: BoxFit.cover,
             errorBuilder: (context, error, stackTrace) {
               final fallbackImage = widget.businessType == 'restaurant'
-                  ? 'assets/images/dummy/errorhandling/dummyfood.png'
-                  : 'assets/images/dummy/errorhandling/dummyingredient.png';
-
+                  ? AppConstants.errorDummyFood
+                  : AppConstants.errorDummyIngredient;
               return Image.asset(
                 fallbackImage,
                 height: 200,

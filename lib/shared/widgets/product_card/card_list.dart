@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../shared/styles/colors.dart';
-import '../../../shared/styles/fonts.dart';
-import '../../../shared/utils/format_currency.dart';
+import '../../../config/constants.dart';
+
+import '../../styles/colors.dart';
+import '../../styles/fonts.dart';
+import '../../utils/format_currency.dart';
 
 class CardList extends StatefulWidget {
   final int? businessId;
@@ -184,16 +186,16 @@ class _CardListState extends State<CardList> {
                           widget.businessImage ?? widget.productImage!,
                           fit: BoxFit.cover,
                           errorBuilder: (context, error, stackTrace) {
-                            String fallbackImage = 'assets/images/dummy/errorhandling/dummyrestaurant.png';
+                            String fallbackImage = AppConstants.errorDummyRestaurant;
 
                             if (widget.businessType == 'restaurant' && widget.businessImage != null) {
-                              fallbackImage = 'assets/images/dummy/errorhandling/dummyrestaurant.png';
+                              fallbackImage = AppConstants.errorDummyRestaurant;
                             } else if (widget.businessType == 'market' && widget.businessImage != null) {
-                              fallbackImage = 'assets/images/dummy/errorhandling/dummymarket.png';
+                              fallbackImage = AppConstants.errorDummyMarket;
                             } else if (widget.businessType == 'restaurant' && widget.productImage != null) {
-                              fallbackImage = 'assets/images/dummy/errorhandling/dummyfood.png';
+                              fallbackImage = AppConstants.errorDummyFood;
                             } else if (widget.businessType == 'market' && widget.productImage != null) {
-                              fallbackImage = 'assets/images/dummy/errorhandling/dummyingredient.png';
+                              fallbackImage = AppConstants.errorDummyIngredient;
                             }
 
                             return Image.asset(

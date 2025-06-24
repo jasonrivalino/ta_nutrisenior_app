@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../config/constants.dart';
+
 import '../../../../shared/styles/colors.dart';
 import '../../../../shared/styles/fonts.dart';
 
@@ -36,7 +38,7 @@ class RatingCard extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(8),
                 child: Image.asset(
-                  businessImage ?? 'assets/images/dummy/chat/driver.png',
+                  businessImage ?? AppConstants.driverImagePlaceholder,
                   width: 60,
                   height: 60,
                   fit: BoxFit.cover,

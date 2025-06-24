@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../shared/styles/colors.dart';
+import '../styles/colors.dart';
 import '../styles/fonts.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {

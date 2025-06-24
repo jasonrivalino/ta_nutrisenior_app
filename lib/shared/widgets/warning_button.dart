@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../shared/styles/colors.dart';
-import '../../../shared/styles/fonts.dart';
+import '../styles/colors.dart';
+import '../styles/fonts.dart';
 
 class WarningButton extends StatelessWidget {
   final String warningText;

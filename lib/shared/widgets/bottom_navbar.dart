@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../shared/styles/colors.dart';
+import '../styles/colors.dart';
 
 class BottomNavBar extends StatelessWidget {
   final int currentIndex;

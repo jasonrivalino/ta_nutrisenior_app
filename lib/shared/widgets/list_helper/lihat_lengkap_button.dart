@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../shared/styles/colors.dart';
-import '../../../shared/styles/fonts.dart';
+import '../../styles/colors.dart';
+import '../../styles/fonts.dart';
 
 class LihatLengkapButton extends StatelessWidget {
   final String routeName;

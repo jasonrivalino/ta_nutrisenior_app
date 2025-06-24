@@ -5,6 +5,8 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../config/constants.dart';
+
 import '../../../shared/styles/colors.dart';
 import '../../../shared/styles/fonts.dart';
 import '../../../shared/utils/google_auth_service.dart';
@@ -39,7 +41,7 @@ class _LoginViewState extends State<LoginView> {
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.0375),
               Image.asset(
-                'assets/images/transparentAppLogo.png',
+                AppConstants.transparentAppLogo,
                 width: 250,
                 height: 250,
               ),
@@ -57,7 +59,7 @@ class _LoginViewState extends State<LoginView> {
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.015),
                     LoginButton.withImage(
-                      imagePath: 'assets/images/media/google.png',
+                      imagePath: AppConstants.googleLogo,
                       text: "Login Akun Google",
                       onPressed: () async {
                         try {

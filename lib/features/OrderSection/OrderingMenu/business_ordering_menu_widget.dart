@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../config/constants.dart';
 import '../../../shared/styles/colors.dart';
 import '../../../shared/styles/fonts.dart';
 import '../../../shared/utils/format_currency.dart';
@@ -148,9 +149,9 @@ class BusinessInfoCard extends StatelessWidget {
                                 width: screenHeight > 900 ? 70 : 65,
                                 fit: BoxFit.cover,
                                 errorBuilder: (context, error, stackTrace) {
-                                  String fallbackImage = 'assets/images/dummy/errorhandling/dummyrestaurant.png';
+                                  String fallbackImage = AppConstants.errorDummyRestaurant;
                                   if (businessType == 'market') {
-                                    fallbackImage = 'assets/images/dummy/errorhandling/dummymarket.png';
+                                    fallbackImage = AppConstants.errorDummyMarket;
                                   }
                                   return Image.asset(
                                     fallbackImage,

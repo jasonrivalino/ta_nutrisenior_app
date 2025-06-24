@@ -4,6 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../config/constants.dart';
+
 import '../../../shared/styles/colors.dart';
 import '../../../shared/styles/fonts.dart';
 import '../../../shared/utils/format_currency.dart';
@@ -477,7 +479,7 @@ class DeliverDriverCard extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(8),
             child: Image.asset(
-              driverImage ?? 'assets/images/dummy/chat/driver.png',
+              driverImage ?? AppConstants.driverImagePlaceholder,
               width: 55,
               height: 55,
               fit: BoxFit.cover,
