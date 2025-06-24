@@ -7,14 +7,16 @@ import '../styles/fonts.dart';
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final bool showBackButton;
-  final List<Map<String, dynamic>>? customParam;
+  final List<Map<String, dynamic>>? customParam1;
+  final String? customParam2;
   final VoidCallback? onBack;
 
   const CustomAppBar({
     super.key,
     required this.title,
     this.showBackButton = true,
-    this.customParam,
+    this.customParam1,
+    this.customParam2,
     this.onBack,
   });
 
@@ -41,8 +43,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               onPressed: () {
                 if (onBack != null) {
                   onBack!(); // use custom back behavior
-                } else if (customParam != null && customParam!.isNotEmpty) {
-                  context.pop(customParam);
+                } else if (customParam1 != null && customParam1!.isNotEmpty && customParam2 != null && customParam2!.isNotEmpty) {
+                  context.pop({
+                    'selected_products': customParam1,
+                    'driver_note': customParam2,
+                  });
                 } else {
                   context.pop();
                 }

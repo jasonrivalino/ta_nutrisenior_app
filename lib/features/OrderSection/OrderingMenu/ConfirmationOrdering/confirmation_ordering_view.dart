@@ -29,6 +29,7 @@ class OrderConfirmationView extends StatefulWidget {
   final bool isFreeShipment;
   final int totalPrice;
   final int selectedAddressId;
+  final String? savedDriverNote;
 
   const OrderConfirmationView({
     super.key,
@@ -44,6 +45,7 @@ class OrderConfirmationView extends StatefulWidget {
     required this.serviceFee,
     required this.totalPrice,
     required this.selectedAddressId,
+    this.savedDriverNote,
   });
 
   static OrderConfirmationView fromExtra(BuildContext context, GoRouterState state) {
@@ -63,6 +65,7 @@ class OrderConfirmationView extends StatefulWidget {
       serviceFee: extra['service_fee'] as int,
       totalPrice: extra['total_price'] as int,
       selectedAddressId: extra['selected_address_id'] as int,
+      savedDriverNote: extra['driver_note'] as String?,
     );
   }
 
@@ -90,6 +93,10 @@ class _OrderConfirmationViewState extends State<OrderConfirmationView> {
     fToast.init(context);
 
     _selectedProducts = List<Map<String, dynamic>>.from(widget.selectedProducts);
+
+    driverNote = widget.savedDriverNote?.trim().isNotEmpty == true
+      ? widget.savedDriverNote!
+      : "-";
 
     // Check if there's persisted state
     final persistedId = RecipientAddressController.lastSelectedAddressId;
@@ -126,14 +133,18 @@ class _OrderConfirmationViewState extends State<OrderConfirmationView> {
       canPop: false,
       onPopInvokedWithResult: (didPop, result) async {
         if (didPop) return;
-        context.pop(_selectedProducts);
+        context.pop({
+          'selected_products': _selectedProducts,
+          'driver_note': driverNote,
+        });
       },
       child: Scaffold(
         backgroundColor: AppColors.soapstone,
         appBar: CustomAppBar(
           title: "Konfirmasi Pesanan",
           showBackButton: true,
-          customParam: _selectedProducts,
+          customParam1: _selectedProducts,
+          customParam2: driverNote,
         ),
         body: SingleChildScrollView(
           padding: const EdgeInsets.only(bottom: 16),
@@ -274,7 +285,10 @@ class _OrderConfirmationViewState extends State<OrderConfirmationView> {
 
               AddMoreOrderButtonBox(
                 onAddMorePressed: () {
-                  context.pop(_selectedProducts);
+                  context.pop({
+                    'selected_products': _selectedProducts,
+                    'driver_note': driverNote,
+                  });
                 },
               ),
               const SizedBox(height: 8),

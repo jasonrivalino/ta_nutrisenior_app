@@ -95,6 +95,7 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
   Map<String, List<int>> selectedAddOnIds = {};
 
   int? discountNumber;
+  String savedDriverNote = "-";
   bool isFreeShipment = false;
 
   // Flatten all available add-ons from products
@@ -442,7 +443,7 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
                   }
                 }
 
-                final updated = await context.push<List<Map<String, dynamic>>>(
+                final result = await context.push<Map<String, dynamic>>(
                   '/business/detail/${widget.businessId}/confirm',
                   extra: {
                     'selected_products': selectedProducts,
@@ -457,20 +458,26 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
                     'is_free_shipment': isFreeShipment,
                     'total_price': totalSelectedPrice,
                     'selected_address_id': widget.selectedAddressId,
+                    'driver_note': savedDriverNote,
                   },
                 );
 
-                if (updated != null) {
+                if (result != null) {
+                  final updatedProducts = result['selected_products'] as List<Map<String, dynamic>>;
+                  final returnedDriverNote = result['driver_note'] as String? ?? '-';
+
                   setState(() {
                     selectedProductCounts.clear();
                     selectedProductNotes.clear();
                     selectedAddOnIds.clear();
-                    for (final product in updated) {
+                    for (final product in updatedProducts) {
                       final id = product['product_id'].toString();
                       selectedProductCounts[id] = product['qty_product'] ?? 0;
                       selectedProductNotes[id] = product['notes'] ?? '';
                       selectedAddOnIds[id] = product['add_ons'] ?? [];
                     }
+
+                    savedDriverNote = returnedDriverNote;
                   });
                 }
               },
