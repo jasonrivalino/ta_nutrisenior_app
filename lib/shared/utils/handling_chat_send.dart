@@ -4,6 +4,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../styles/colors.dart';
 
@@ -120,4 +121,23 @@ void updateMessageStatus({
     // Already online: proceed directly
     proceedWithStatusUpdate();
   }
+}
+
+Future<String> imageSentMessageHandling({
+  required String messageText,
+  required bool isUser,
+  required String driverName,
+}) async {
+  // Detect both assets and picked image file paths
+  final isImage = messageText.trim().startsWith('assets/images/') ||
+      messageText.trim().contains('/data/user/') ||
+      messageText.trim().contains('/storage/emulated/');
+
+  if (isImage) {
+    final prefs = await SharedPreferences.getInstance();
+    final userName = prefs.getString('userName') ?? 'You';
+    final senderName = isUser ? userName : driverName;
+    return '$senderName sent a photo';
+  }
+  return messageText;
 }

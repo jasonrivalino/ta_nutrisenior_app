@@ -8,7 +8,7 @@ import '../../../config/constants.dart';
 import '../../../database/business_promo_list_table.dart';
 
 import '../../../shared/styles/colors.dart';
-import '../../../shared/utils/get_total_add_ons_price.dart';
+import '../../../shared/utils/calculate_price_fee.dart';
 import '../../../shared/utils/is_business_open.dart';
 
 import 'business_ordering_menu_widget.dart';
@@ -166,10 +166,7 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
           (addOn) => addOn['product_id'].toString() == id,
         ).toList();
 
-        final addOnsTotalPrice = getTotalAddOnsPrice(
-          addOns: productAddOns,
-          selectedAddOnIds: addOnIds,
-        ) * count;
+        final addOnsTotalPrice = calculateTotalAddOnsPrice(productAddOns, addOnIds) * count;
 
         total += addOnsTotalPrice;
 

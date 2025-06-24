@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../config/constants.dart';
+
 import '../../../shared/styles/colors.dart';
 import '../../../shared/styles/fonts.dart';
 import '../../../shared/utils/format_currency.dart';
@@ -96,8 +97,8 @@ class BusinessInfoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final formattedOpen = businessOpenHour != null ? formatHours(businessOpenHour!) : null;
-    final formattedClose = businessCloseHour != null ? formatHours(businessCloseHour!) : null;
+    final formattedOpen = businessOpenHour != null ? formatTime(businessOpenHour!) : null;
+    final formattedClose = businessCloseHour != null ? formatTime(businessCloseHour!) : null;
 
     final screenHeight = MediaQuery.of(context).size.height;
 

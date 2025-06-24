@@ -110,7 +110,7 @@ class _OrderConfirmationViewState extends State<OrderConfirmationView> {
           AddressOrderController.getAddressById(widget.selectedAddressId) ?? {};
       _businessDistance = widget.businessDistance;
       _deliveryFee =
-          calculateDeliveryFee(widget.isFreeShipment, _businessDistance);
+          getDeliveryFee(widget.isFreeShipment, _businessDistance);
 
       // Persist for first time
       AddressChangeController.lastSelectedAddressId = widget.selectedAddressId;
@@ -177,7 +177,7 @@ class _OrderConfirmationViewState extends State<OrderConfirmationView> {
                               );
 
                               final newDistance = updatedBusiness['business_distance'] ?? _businessDistance;
-                              final newDeliveryFee = calculateDeliveryFee(widget.isFreeShipment, newDistance);
+                              final newDeliveryFee = getDeliveryFee(widget.isFreeShipment, newDistance);
 
                               setState(() {
                                 _selectedAddress = newAddress;
@@ -297,7 +297,7 @@ class _OrderConfirmationViewState extends State<OrderConfirmationView> {
             widget.serviceFee,
             widget.isFreeShipment,
             _businessDistance,
-            calculateDeliveryFee,
+            getDeliveryFee,
           ),
           buttonText: "Lakukan Pemesanan",
           onOrderPressed: () async {
@@ -341,7 +341,7 @@ class _OrderConfirmationViewState extends State<OrderConfirmationView> {
               widget.serviceFee,
               widget.isFreeShipment,
               _businessDistance,
-              calculateDeliveryFee,
+              getDeliveryFee,
             );
 
             print("=== Order Confirmation Debug Info ===");

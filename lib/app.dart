@@ -16,23 +16,29 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+
+    // Delay splash screen logic
     Future.delayed(const Duration(seconds: 1), () {
       setState(() {
         _showSplash = false;
       });
     });
+
+    // Schedule a callback after first frame to safely access MediaQuery
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final mediaQuery = MediaQuery.of(context);
+      final deviceWidth = mediaQuery.size.width;
+      final deviceHeight = mediaQuery.size.height;
+      final pixelRatio = mediaQuery.devicePixelRatio;
+
+      print('Device Width: $deviceWidth');
+      print('Device Height: $deviceHeight');
+      print('Device Pixel Ratio: $pixelRatio');
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    MediaQueryData mediaQuery = MediaQuery.of(context);
-    double deviceWidth = mediaQuery.size.width;
-    double deviceHeight = mediaQuery.size.height;
-
-    print('Device Width: $deviceWidth');
-    print('Device Height: $deviceHeight');
-    print('Device Pixel Ratio: ${mediaQuery.devicePixelRatio}');
-
     if (_showSplash) {
       return const MaterialApp(
         debugShowCheckedModeBanner: false,

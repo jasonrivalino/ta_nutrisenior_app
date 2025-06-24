@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../shared/styles/colors.dart';
-import '../../../shared/utils/image_sent_message_handling.dart';
+import '../../../shared/utils/handling_chat_send.dart';
 
 class ChatMessageTile extends StatefulWidget {
   final String driverImage;

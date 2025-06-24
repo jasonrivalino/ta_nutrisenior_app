@@ -45,11 +45,8 @@ class _SelectionToggleState extends State<RestoMarketSelectionToggle> {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
 
-    final double paddingVertical = (screenHeight * 0.045).clamp(20.0, 40.0);
-
-    print('Screen Width: $screenWidth');
-    print('Screen Height: $screenHeight');
-    print('Padding Vertical: $paddingVertical');
+    // print('Screen Width: $screenWidth');
+    // print('Screen Height: $screenHeight');
 
     return Padding(
       padding: EdgeInsets.symmetric(

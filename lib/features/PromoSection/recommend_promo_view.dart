@@ -36,7 +36,7 @@ class RecommendPromoView extends StatelessWidget {
     final gapHeight =
         (screenHeight * 0.03).clamp(0.0, screenHeight > 900 ? 30.0 : 17.5);
 
-    print('Height Card: $heightCard');
+    // print('Height Card: $heightCard');
 
     return Scaffold(
       appBar: CustomAppBar(

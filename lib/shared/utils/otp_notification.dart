@@ -5,7 +5,7 @@ class NotificationService {
 
   static Future<void> init() async {
     const AndroidInitializationSettings androidSettings =
-        AndroidInitializationSettings('ic_notification'); // Your custom icon here
+        AndroidInitializationSettings('ic_notification');
 
     const InitializationSettings settings =
         InitializationSettings(android: androidSettings);

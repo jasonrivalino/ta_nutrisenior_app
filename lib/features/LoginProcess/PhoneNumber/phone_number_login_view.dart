@@ -63,7 +63,7 @@ class _PhoneNumberLoginViewState extends State<PhoneNumberLoginView> {
                         if (value == null || value.isEmpty) {
                           return 'Nomor telepon tidak boleh kosong';
                         }
-                        if (!RegExp(r'^(08)[0-9]{8,}$').hasMatch(value)) {
+                        if (!RegExp(r'^08[0-9]{9,11}$').hasMatch(value)) {
                           return 'Nomor telepon tidak valid';
                         }
                         return null;

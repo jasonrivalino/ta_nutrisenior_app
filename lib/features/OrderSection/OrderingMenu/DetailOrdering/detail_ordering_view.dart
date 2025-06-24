@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../config/constants.dart';
 
 import '../../../../shared/styles/colors.dart';
-import '../../../../shared/utils/get_total_add_ons_price.dart';
+import '../../../../shared/utils/calculate_price_fee.dart';
 import '../../../../shared/widgets/appbar.dart';
 
 import 'detail_ordering_widget.dart';
@@ -101,10 +101,7 @@ class _DetailOrderingViewState extends State<DetailOrderingView> {
 
   @override
   Widget build(BuildContext context) {
-    final totalAddOnsPrice = getTotalAddOnsPrice(
-      addOns: addOnsList,
-      selectedAddOnIds: selectedAddOnIds,
-    );
+    final totalAddOnsPrice = calculateTotalAddOnsPrice(addOnsList, selectedAddOnIds);
 
     return Scaffold(
       backgroundColor: AppColors.soapstone,

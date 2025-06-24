@@ -33,7 +33,7 @@ class HistoryController {
 
       final double businessDistance = matchedBusiness['business_distance']?.toDouble() ?? 0.0;
       final int deliveryFee = historyItem['delivery_fee'] as int? ??
-          calculateDeliveryFee(isFreeShipment, businessDistance);
+          getDeliveryFee(isFreeShipment, businessDistance);
 
       // print('--- History ID: ${historyItem['history_id']} ---');
       // print('Delivery Fee: $deliveryFee');
