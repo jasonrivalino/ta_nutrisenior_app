@@ -30,48 +30,68 @@ class FullScreenImageView extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.dark,
       extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: AppColors.soapstone),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        title: SizedBox(
-          height: kToolbarHeight,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                senderName,
-                style: AppTextStyles.textBold(
-                  size: 18,
-                  color: AppColors.soapstone,
-                ),
-              ),
-              if (sendTime != null)
-                Text(
-                  formatFullDateTime(sendTime),
-                  style: AppTextStyles.textMedium(
-                    size: 14,
-                    color: AppColors.soapstone,
-                  ),
-                ),
-            ],
+      body: Stack(
+        children: [
+          // Fullscreen image
+          Hero(
+            tag: imagePath,
+            child: PhotoView(
+              imageProvider: isAsset
+                  ? AssetImage(imagePath)
+                  : FileImage(File(imagePath)) as ImageProvider,
+              backgroundDecoration: const BoxDecoration(color: AppColors.dark),
+              minScale: PhotoViewComputedScale.contained,
+              maxScale: PhotoViewComputedScale.covered * 2.0,
+            ),
           ),
-        ),
-      ),
-      body: Hero(
-        tag: imagePath,
-        child: PhotoView(
-          imageProvider: isAsset
-              ? AssetImage(imagePath)
-              : FileImage(File(imagePath)) as ImageProvider,
-          backgroundDecoration: const BoxDecoration(color: AppColors.dark),
-          minScale: PhotoViewComputedScale.contained,
-          maxScale: PhotoViewComputedScale.covered * 2.0,
-        ),
+
+          // Overlay AppBar
+          Container(
+            padding: EdgeInsets.only(
+              top: MediaQuery.of(context).padding.top,
+              left: 8,
+              right: 8,
+            ),
+            decoration: BoxDecoration(
+              color: AppColors.dark.withValues(alpha: 0.8),
+            ),
+            child: SizedBox(
+              height: kToolbarHeight,
+              child: Row(
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.arrow_back, color: AppColors.soapstone),
+                    onPressed: () => Navigator.of(context).pop(),
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          senderName,
+                          style: AppTextStyles.textBold(
+                            size: 18,
+                            color: AppColors.soapstone,
+                          ),
+                        ),
+                        if (sendTime != null)
+                          Text(
+                            formatFullDateTime(sendTime),
+                            style: AppTextStyles.textMedium(
+                              size: 14,
+                              color: AppColors.soapstone,
+                            ),
+                          ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
