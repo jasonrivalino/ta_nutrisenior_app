@@ -5,8 +5,6 @@ import 'package:go_router/go_router.dart';
 
 import '../../../config/constants.dart';
 
-import '../../../database/business_promo_list_table.dart';
-
 import '../../../shared/styles/colors.dart';
 import '../../../shared/utils/calculate_price_fee.dart';
 import '../../../shared/utils/is_business_open.dart';
@@ -127,14 +125,10 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
       recommendedProducts = productMap['recommendedProducts'] ?? [];
 
       if (allProducts.isNotEmpty) {
-        discountNumber = allProducts.first['discount_number'] as int?;
+        discountNumber = BusinessOrderingMenuController.getDiscountNumber(widget.businessId);
       }
 
-      final promo = businessPromoListTable.firstWhere(
-        (entry) => entry['business_id'] == widget.businessId,
-        orElse: () => {},
-      );
-      isFreeShipment = promo['is_free_shipment'] as bool? ?? false;
+      isFreeShipment = BusinessOrderingMenuController.getIsFreeShipment(widget.businessId);
 
       isLoading = false;
     });

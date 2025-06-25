@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../database/business_list_table.dart';
-
 import '../../../../shared/styles/colors.dart';
 import '../../../../shared/utils/calculate_price_fee.dart';
 import '../../../../shared/widgets/address_selection_overlay.dart';
@@ -182,12 +180,7 @@ class _OrderConfirmationViewState extends State<OrderConfirmationView> {
                               RecipientAddressController.updateBusinessDistances(newAddressId);
 
                               // Get updated distance for current business
-                              final updatedBusiness = businessListTable.firstWhere(
-                                (b) => b['business_id'] == widget.businessId,
-                                orElse: () => {},
-                              );
-
-                              final newDistance = updatedBusiness['business_distance'] ?? _businessDistance;
+                              final newDistance = UpdateBusinessDistanceController.getBusinessDistanceById(widget.businessId);
                               final newDeliveryFee = getDeliveryFee(widget.isFreeShipment, newDistance);
 
                               setState(() {

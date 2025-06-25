@@ -75,6 +75,24 @@ class BusinessOrderingMenuController {
       'recommendedProducts': recommendedProducts,
     };
   }
+
+  // Tambahan di BusinessOrderingMenuController
+  static Map<String, dynamic> getPromoByBusinessId(int businessId) {
+    return businessPromoListTable.firstWhere(
+      (promo) => promo['business_id'] == businessId,
+      orElse: () => {},
+    );
+  }
+
+  static int? getDiscountNumber(int businessId) {
+    final promo = getPromoByBusinessId(businessId);
+    return promo['discount_number'] as int?;
+  }
+
+  static bool getIsFreeShipment(int businessId) {
+    final promo = getPromoByBusinessId(businessId);
+    return promo['is_free_shipment'] as bool? ?? false;
+  }
 }
 
 // Fetch for favorite businesses

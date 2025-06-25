@@ -1,4 +1,5 @@
 import '../../../../database/address_list_table.dart';
+import '../../../../database/business_list_table.dart';
 import '../../../../database/chat_list_table.dart';
 import '../../../../database/driver_list_table.dart';
 import '../../../../database/history_add_ons_list_table.dart';
@@ -13,6 +14,20 @@ class AddressRecipientChooseController {
     } catch (e) {
       return null;
     }
+  }
+}
+
+class UpdateBusinessDistanceController {
+  static Map<String, dynamic>? getBusinessById(int businessId) {
+    try {
+      return businessListTable.firstWhere((b) => b['business_id'] == businessId);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  static double getBusinessDistanceById(int businessId) {
+    return getBusinessById(businessId)?['business_distance'] ?? 0.0;
   }
 }
 
