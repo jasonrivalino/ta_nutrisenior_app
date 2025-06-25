@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import 'elevated_button.dart';
 import '../styles/colors.dart';
 import '../styles/texts.dart';
 
@@ -41,18 +42,11 @@ class ConfirmDialog extends StatelessWidget {
             const SizedBox(height: 20),
             SizedBox(
               width: double.infinity,
-              child: ElevatedButton(
+              child: ElevatedButtonWidget.warningButton(
                 onPressed: () async {
                   context.pop();
-                  await onConfirm(); // Await async action
+                  await onConfirm();
                 },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.persianRed,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                ),
                 child: Text(
                   confirmText,
                   style: AppTextStyles.textBold(
@@ -62,24 +56,19 @@ class ConfirmDialog extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 8),
             SizedBox(
               width: double.infinity,
-              child: ElevatedButton(
+              child: ElevatedButtonWidget(
                 onPressed: () => context.pop(),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.dark,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                ),
+                backgroundColor: AppColors.dark,
+                foregroundColor: AppColors.soapstone,
+                textStyle: AppTextStyles.textBold(size: 16, color: AppColors.soapstone),
+                borderRadius: 8,
+                padding: const EdgeInsets.symmetric(vertical: 12),
                 child: Text(
                   cancelText,
-                  style: AppTextStyles.textBold(
-                    size: 16,
-                    color: AppColors.soapstone,
-                  ),
+                  style: AppTextStyles.textBold(size: 16, color: AppColors.soapstone),
                 ),
               ),
             ),

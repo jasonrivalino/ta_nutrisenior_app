@@ -8,8 +8,8 @@ import '../../../../shared/styles/texts.dart';
 import '../../../../shared/utils/handling_choose_image.dart';
 import '../../../../shared/widgets/appbar.dart';
 import '../../../../shared/widgets/confirm_dialog.dart';
+import '../../../../shared/widgets/elevated_button.dart';
 import '../../../../shared/widgets/feedback_input_card.dart';
-import '../../../../shared/widgets/warning_button.dart';
 
 import 'report_data.dart';
 import 'report_controller.dart';
@@ -200,8 +200,9 @@ class _ReportViewState extends State<ReportView> {
                                 onRemoveImage: _removeImage,
                               ),
                               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                              WarningButton(
-                                warningText: "Berikan Laporkan",
+                              ElevatedButtonWidget.submitFormButton(
+                                text: "Berikan Laporan",
+                                backgroundColor: AppColors.persianRed,
                                 onPressed: () async {
                                   if (selectedReasonId == null || (selectedReasonId == 999 && otherReasonText.trim().isEmpty)) {
                                     ScaffoldMessenger.of(context).showSnackBar(
@@ -283,7 +284,6 @@ class _ReportViewState extends State<ReportView> {
                             ],
                           ),
                         ),
-
                       ],
                     ),
                   ),

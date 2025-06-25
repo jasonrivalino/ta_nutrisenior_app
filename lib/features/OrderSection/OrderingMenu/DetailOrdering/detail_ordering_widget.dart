@@ -5,6 +5,7 @@ import '../../../../shared/styles/colors.dart';
 import '../../../../shared/styles/texts.dart';
 import '../../../../shared/utils/calculate_price_fee.dart';
 import '../../../../shared/utils/format_currency.dart';
+import '../../../../shared/widgets/elevated_button.dart';
 
 class ProductDetailInfoBox extends StatelessWidget {
   final String productName;
@@ -384,16 +385,8 @@ class SetQuantityBottomNavbar extends StatelessWidget {
               ],
               borderRadius: BorderRadius.circular(8),
             ),
-            child: ElevatedButton(
+            child: ElevatedButtonWidget.bottomButton(
               onPressed: onAddPressed,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.woodland,
-                foregroundColor: AppColors.soapstone,
-                minimumSize: const Size.fromHeight(45),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-              ),
               child: Text(
                 'Tambah ${businessType == 'restaurant' ? 'Makanan' : 'Belanjaan'} - ${formatCurrency(getProductPrice(baseProductPrice, addOnsPrice, quantity, discountNumber))}',
                 style: AppTextStyles.textBold(

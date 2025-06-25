@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../shared/styles/colors.dart';
 import '../../../shared/utils/format_currency.dart';
 import '../styles/texts.dart';
+import 'elevated_button.dart';
 
 class OrderBottomNavbar extends StatelessWidget {
   final int totalPrice;
@@ -65,16 +66,8 @@ class OrderBottomNavbar extends StatelessWidget {
               ],
               borderRadius: BorderRadius.circular(8),
             ),
-            child: ElevatedButton(
+            child: ElevatedButtonWidget.bottomButton(
               onPressed: onOrderPressed,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.woodland,
-                foregroundColor: AppColors.soapstone,
-                minimumSize: const Size.fromHeight(45),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-              ),
               child: Text(
                 buttonText,
                 style: AppTextStyles.textBold(

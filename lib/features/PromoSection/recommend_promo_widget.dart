@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../shared/styles/colors.dart';
+import '../../shared/styles/texts.dart';
 import '../../shared/widgets/detail_card/card_box.dart';
-import '../../shared/widgets/list_helper/lihat_lengkap_button.dart';
+import '../../shared/widgets/elevated_button.dart';
 import '../../shared/widgets/list_helper/list_title.dart';
 
 class RecommendedPromoCardList extends StatelessWidget {
@@ -31,7 +33,23 @@ class RecommendedPromoCardList extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               ListTitle(title: title),
-              LihatLengkapButton(routeName: routeDetail),
+              ElevatedButtonWidget(
+                onPressed: () => context.push(routeDetail),
+                backgroundColor: AppColors.woodland,
+                foregroundColor: AppColors.soapstone,
+                textStyle: AppTextStyles.textBold(size: 14, color: AppColors.soapstone),
+                padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 8.0),
+                minimumSize: const Size(0, 30),
+                borderRadius: 8,
+                elevation: 0,
+                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                child: Text('Lihat Lengkap >',
+                  style: AppTextStyles.textBold(
+                    size: 14,
+                    color: AppColors.soapstone
+                  )
+                ),
+              ),
             ],
           ),
         ),

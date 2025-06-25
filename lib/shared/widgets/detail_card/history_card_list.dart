@@ -7,6 +7,7 @@ import '../../../config/constants.dart';
 import '../../styles/colors.dart';
 import '../../styles/texts.dart';
 import '../../utils/formatted_time.dart';
+import '../elevated_button.dart';
 
 class HistoryCardList extends StatelessWidget {
   final Map<String, dynamic> historyData;
@@ -127,24 +128,7 @@ class HistoryCardList extends StatelessWidget {
                                   if (status == 'selesai')
                                     Row(
                                       children: [
-                                        ElevatedButton(
-                                          style: ElevatedButton.styleFrom(
-                                            padding: const EdgeInsets.symmetric(horizontal: 24),
-                                            side: const BorderSide(color: AppColors.dark),
-                                            foregroundColor: AppColors.dark,
-                                            backgroundColor: AppColors.soapstone,
-                                            minimumSize: const Size(0, 33),
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(8),
-                                            ),
-                                            textStyle: AppTextStyles.textBold(
-                                              size: 14,
-                                              color: AppColors.dark,
-                                            ),
-                                            elevation: 0,
-                                            shadowColor: Colors.transparent,
-                                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                          ),
+                                        ElevatedButtonWidget(
                                           onPressed: () {
                                             context.push(
                                               '/history/done/details/$historyId',
@@ -167,55 +151,49 @@ class HistoryCardList extends StatelessWidget {
                                               },
                                             );
                                           },
-                                          child: const Text("Detail"),
+                                          backgroundColor: AppColors.soapstone,
+                                          foregroundColor: AppColors.dark,
+                                          borderSide: const BorderSide(color: AppColors.dark),
+                                          textStyle: AppTextStyles.textBold(size: 14, color: AppColors.dark),
+                                          padding: const EdgeInsets.symmetric(horizontal: 24),
+                                          minimumSize: const Size(0, 33),
+                                          borderRadius: 8,
+                                          elevation: 0,
+                                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                          child: Text("Detail",
+                                            style: AppTextStyles.textBold(
+                                              size: 14,
+                                              color: AppColors.dark,
+                                            ),
+                                          ),
                                         ),
                                         const SizedBox(width: 8),
-                                        ElevatedButton(
-                                          style: ElevatedButton.styleFrom(
-                                            backgroundColor: AppColors.woodland,
-                                            foregroundColor: AppColors.soapstone,
-                                            padding: const EdgeInsets.symmetric(horizontal: 8),
-                                            minimumSize: const Size(0, 33),
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(8),
-                                            ),
-                                            textStyle: AppTextStyles.textBold(
-                                              size: 14,
-                                              color: AppColors.soapstone,
-                                            ),
-                                            elevation: 0,
-                                            shadowColor: Colors.transparent,
-                                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                          ),
+                                        ElevatedButtonWidget(
                                           onPressed: () {
                                             final route = '/business/detail/${historyData['business_id']}';
                                             context.push(route, extra: historyData);
                                           },
-                                          child: const Text("Pesan Lagi"),
+                                          backgroundColor: AppColors.woodland,
+                                          foregroundColor: AppColors.soapstone,
+                                          textStyle: AppTextStyles.textBold(size: 14, color: AppColors.soapstone),
+                                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                                          minimumSize: const Size(0, 33),
+                                          borderRadius: 8,
+                                          elevation: 0,
+                                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                          child: Text("Pesan Lagi",
+                                            style: AppTextStyles.textBold(
+                                              size: 14,
+                                              color: AppColors.soapstone,
+                                            ),
+                                          ),
                                         ),
                                       ],
                                     )
                                   else
                                     Align(
                                       alignment: Alignment.centerRight,
-                                      child: ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                          padding: const EdgeInsets.symmetric(horizontal: 24),
-                                          side: const BorderSide(color: AppColors.dark),
-                                          foregroundColor: AppColors.dark,
-                                          backgroundColor: AppColors.soapstone,
-                                          minimumSize: const Size(0, 33),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(8),
-                                          ),
-                                          textStyle: AppTextStyles.textBold(
-                                            size: 14,
-                                            color: AppColors.soapstone,
-                                          ),
-                                          elevation: 0,
-                                          shadowColor: Colors.transparent,
-                                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                        ),
+                                      child: ElevatedButtonWidget(
                                         onPressed: () {
                                           if (status == 'diproses') {
                                             context.push(
@@ -252,7 +230,21 @@ class HistoryCardList extends StatelessWidget {
                                             );
                                           }
                                         },
-                                        child: const Text("Detail"),
+                                        backgroundColor: AppColors.soapstone,
+                                        foregroundColor: AppColors.dark,
+                                        borderSide: const BorderSide(color: AppColors.dark),
+                                        textStyle: AppTextStyles.textBold(size: 14, color: AppColors.soapstone),
+                                        padding: const EdgeInsets.symmetric(horizontal: 24),
+                                        minimumSize: const Size(0, 33),
+                                        borderRadius: 8,
+                                        elevation: 0,
+                                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                        child: Text("Detail",
+                                          style: AppTextStyles.textBold(
+                                            size: 14,
+                                            color: AppColors.dark,
+                                          ),
+                                        ),
                                       ),
                                     ),
                                 ],

@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../shared/styles/colors.dart';
 import '../../../../shared/styles/texts.dart';
 import '../../../../shared/utils/format_currency.dart';
+import '../../../../shared/widgets/elevated_button.dart';
 
 class RecipientLocationBox extends StatelessWidget {
   final VoidCallback onAddressClick;
@@ -77,20 +78,16 @@ class RecipientLocationBox extends StatelessWidget {
           const SizedBox(height: 12),
           Row(
             children: [
-              ElevatedButton(
+              ElevatedButtonWidget(
                 onPressed: onAddressClick,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.woodland,
-                  foregroundColor: AppColors.soapstone,
-                  padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                  minimumSize: const Size(0, 35),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  elevation: 0,
-                  shadowColor: Colors.transparent,
-                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                ),
+                backgroundColor: AppColors.woodland,
+                foregroundColor: AppColors.soapstone,
+                textStyle: AppTextStyles.textMedium(size: 14, color: AppColors.soapstone),
+                padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                minimumSize: const Size(0, 35),
+                borderRadius: 8,
+                elevation: 0,
+                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 child: Text("Pilih Alamat Detail",
                   style: AppTextStyles.textMedium(
                     size: 14,
@@ -99,21 +96,17 @@ class RecipientLocationBox extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 10),
-              ElevatedButton(
+              ElevatedButtonWidget(
                 onPressed: onNotesClick,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.woodland,
-                  foregroundColor: AppColors.soapstone,
-                  padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                  minimumSize: const Size(0, 35),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    side: const BorderSide(color: AppColors.woodland),
-                  ),
-                  elevation: 0,
-                  shadowColor: Colors.transparent,
-                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                ),
+                backgroundColor: AppColors.woodland,
+                foregroundColor: AppColors.soapstone,
+                textStyle: AppTextStyles.textMedium(size: 14, color: AppColors.soapstone),
+                padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                minimumSize: const Size(0, 35),
+                borderRadius: 8,
+                borderSide: const BorderSide(color: AppColors.woodland),
+                elevation: 0,
+                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 child: Text("Tambahkan Note",
                   style: AppTextStyles.textMedium(
                     size: 14,
@@ -164,7 +157,7 @@ class _DriverNoteOverlayState extends State<DriverNoteOverlay> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       padding: EdgeInsets.only(
-        bottom: MediaQuery.of(context).viewInsets.bottom + 16,
+        bottom: MediaQuery.of(context).viewInsets.bottom + 20,
         left: 16,
         right: 16,
         top: 16,
@@ -197,22 +190,13 @@ class _DriverNoteOverlayState extends State<DriverNoteOverlay> {
             ),
           ),
           const SizedBox(height: 12),
-          ElevatedButton(
+          ElevatedButtonWidget.bottomButton(
             onPressed: () {
               final trimmed = _controller.text.trim();
               widget.onNoteSubmitted(trimmed.isEmpty ? "-" : trimmed);
-              Navigator.of(context).pop();
+              context.pop();
             },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.woodland,
-              foregroundColor: AppColors.soapstone,
-              minimumSize: const Size.fromHeight(45),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
-              ),
-            ),
-            child: Text(
-              'Tambahkan Note',
+            child: Text('Tambahkan Note',
               style: AppTextStyles.textBold(
                 size: 16,
                 color: AppColors.soapstone,
@@ -556,22 +540,10 @@ class AddMoreOrderButtonBox extends StatelessWidget {
               color: AppColors.dark,
             ),
           ),
-          ElevatedButton.icon(
+          ElevatedButtonWidget.iconButton(
             onPressed: onAddMorePressed,
-            icon: const Icon(Icons.add, size: 16),
-            label: const Text("Tambah"),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.woodland,
-              foregroundColor: AppColors.soapstone,
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-              minimumSize: const Size(0, 30),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(6),
-              ),
-              elevation: 0,
-              shadowColor: Colors.transparent,
-              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            ),
+            icon: const Icon(Icons.add, size: 16, color: AppColors.soapstone),
+            label: "Tambah",
           ),
         ],
       ),

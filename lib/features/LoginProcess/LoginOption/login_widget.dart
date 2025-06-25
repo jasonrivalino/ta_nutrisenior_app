@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../shared/styles/colors.dart';
 import '../../../shared/styles/texts.dart';
+import '../../../shared/widgets/elevated_button.dart';
 
 class LoginButton extends StatelessWidget {
   final FaIcon? icon;
@@ -26,16 +27,13 @@ class LoginButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
+    return ElevatedButtonWidget(
       onPressed: onPressed,
-      style: ElevatedButton.styleFrom(
-        backgroundColor: AppColors.woodland,
-        foregroundColor: AppColors.soapstone,
-        minimumSize: const Size.fromHeight(55),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30),
-        ),
-      ),
+      backgroundColor: AppColors.woodland,
+      foregroundColor: AppColors.soapstone,
+      minimumSize: Size.fromHeight(55),
+      borderRadius: 30,
+      textStyle: AppTextStyles.textBold(size: 20, color: AppColors.soapstone),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -43,7 +41,7 @@ class LoginButton extends StatelessWidget {
           Container(
             width: 36,
             height: 36,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               shape: BoxShape.circle,
               color: AppColors.soapstone,
             ),
@@ -56,12 +54,12 @@ class LoginButton extends StatelessWidget {
                   )
                 : Image.asset(imagePath!, width: 20, height: 20),
           ),
-          const SizedBox(width: 12), // Gap between icon and text
+          const SizedBox(width: 12),
           Text(
             text,
             style: AppTextStyles.textBold(
-              size: 18,
-              color: AppColors.soapstone,
+              size: 18, 
+              color: AppColors.soapstone
             ),
           ),
         ],

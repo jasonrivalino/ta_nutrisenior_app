@@ -42,6 +42,8 @@ class FullScreenImageView extends StatelessWidget {
               backgroundDecoration: const BoxDecoration(color: AppColors.dark),
               minScale: PhotoViewComputedScale.contained,
               maxScale: PhotoViewComputedScale.covered * 2.0,
+              initialScale: PhotoViewComputedScale.contained,
+              basePosition: Alignment.center,
             ),
           ),
 
@@ -75,6 +77,8 @@ class FullScreenImageView extends StatelessWidget {
                             size: 18,
                             color: AppColors.soapstone,
                           ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                         ),
                         if (sendTime != null)
                           Text(

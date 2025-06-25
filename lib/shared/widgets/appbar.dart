@@ -30,7 +30,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         title,
         style: AppTextStyles.textBold(
           size: 24,
-          color: AppColors.dark.withValues(alpha: 0.8),
+          color: AppColors.dark,
         ),
       ),
       backgroundColor: AppColors.berylGreen,

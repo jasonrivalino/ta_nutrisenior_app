@@ -7,7 +7,7 @@ import '../../../../shared/styles/colors.dart';
 import '../../../../shared/styles/texts.dart';
 import '../../../../shared/widgets/appbar.dart';
 import '../../../../shared/widgets/confirm_dialog.dart';
-import '../../../../shared/widgets/warning_button.dart';
+import '../../../../shared/widgets/elevated_button.dart';
 
 import 'cancel_order_data.dart';
 import 'cancel_order_controller.dart';
@@ -119,68 +119,68 @@ class _CancelOrderViewState extends State<CancelOrderView> {
                             ),
                           ),
                         SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-                        WarningButton(
-                          warningText: "Batalkan Pemesanan",
-                          onPressed: () async {
-                            if (selectedReasonId == null || (selectedReasonId == 999 && otherReasonText.trim().isEmpty)) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text("Pilih alasan pembatalan pesanan terlebih dahulu."),
-                                  backgroundColor: AppColors.persianRed,
-                                  behavior: SnackBarBehavior.floating,
-                                ),
-                              );
-                              return;
-                            }
-                            
-                            // Capture a stable context before any dialogs
-                            final rootContext = context;
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                          child: ElevatedButtonWidget.submitFormButton(
+                            text: "Batalkan Pemesanan",
+                            backgroundColor: AppColors.persianRed,
+                            onPressed: () async {
+                              if (selectedReasonId == null || (selectedReasonId == 999 && otherReasonText.trim().isEmpty)) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text("Pilih alasan pembatalan pesanan terlebih dahulu."),
+                                    backgroundColor: AppColors.persianRed,
+                                    behavior: SnackBarBehavior.floating,
+                                  ),
+                                );
+                                return;
+                              }
 
-                            showDialog(
-                              context: rootContext,
-                              builder: (BuildContext dialogContext) {
-                                return ConfirmDialog(
-                                  titleText: 'Apakah yakin ingin membatalkan pesanan?',
-                                  confirmText: 'Ya, batalkan pesanan',
-                                  cancelText: 'Tidak, lanjutkan pemesanan',
-                                  onConfirm: () async {
-                                    final connectivityResult = await Connectivity().checkConnectivity();
-                                    if (connectivityResult.contains(ConnectivityResult.none)) {
+                              final rootContext = context;
+
+                              showDialog(
+                                context: rootContext,
+                                builder: (BuildContext dialogContext) {
+                                  return ConfirmDialog(
+                                    titleText: 'Apakah yakin ingin membatalkan pesanan?',
+                                    confirmText: 'Ya, batalkan pesanan',
+                                    cancelText: 'Tidak, lanjutkan pemesanan',
+                                    onConfirm: () async {
+                                      final connectivityResult = await Connectivity().checkConnectivity();
+                                      if (connectivityResult.contains(ConnectivityResult.none)) {
+                                        Fluttertoast.showToast(
+                                          msg: 'Pembatalan pesanan gagal. \nSilahkan coba lagi.',
+                                          toastLength: Toast.LENGTH_SHORT,
+                                          gravity: ToastGravity.BOTTOM,
+                                        );
+                                        return;
+                                      }
+
+                                      showDialog(
+                                        context: rootContext,
+                                        barrierDismissible: false,
+                                        builder: (_) => const Center(child: CircularProgressIndicator()),
+                                      );
+
+                                      await Future.delayed(const Duration(seconds: 2));
+                                      if (!mounted) return;
+
+                                      CancelledOrderController(historyId: widget.historyId).cancelOrder();
+
+                                      rootContext.pop(); // Close loading
                                       Fluttertoast.showToast(
-                                        msg: 'Pembatalan pesanan gagal. \nSilahkan coba lagi.',
+                                        msg: 'Pesanan berhasil dibatalkan.',
                                         toastLength: Toast.LENGTH_SHORT,
                                         gravity: ToastGravity.BOTTOM,
                                       );
-                                      return;
-                                    }
 
-                                    // Show loading
-                                    showDialog(
-                                      context: rootContext,
-                                      barrierDismissible: false,
-                                      builder: (_) => const Center(child: CircularProgressIndicator()),
-                                    );
-
-                                    await Future.delayed(const Duration(seconds: 2));
-
-                                    if (!mounted) return;
-
-                                    // Cancel logic using controller
-                                    CancelledOrderController(historyId: widget.historyId).cancelOrder();
-
-                                    rootContext.pop(); // Close loading
-                                    Fluttertoast.showToast(
-                                      msg: 'Pesanan berhasil dibatalkan.',
-                                      toastLength: Toast.LENGTH_SHORT,
-                                      gravity: ToastGravity.BOTTOM,
-                                    );
-
-                                    rootContext.go('/historyOngoing');
-                                  },
-                                );
-                              },
-                            );
-                          },
+                                      rootContext.go('/historyOngoing');
+                                    },
+                                  );
+                                },
+                              );
+                            },
+                          ),
                         ),
                       ],
                     ),

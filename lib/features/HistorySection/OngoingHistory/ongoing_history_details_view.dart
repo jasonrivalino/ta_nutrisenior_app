@@ -5,8 +5,9 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../../config/constants.dart';
 
 import '../../../shared/styles/colors.dart';
+import '../../../shared/styles/texts.dart';
 import '../../../shared/widgets/appbar.dart';
-import '../../../shared/widgets/warning_button.dart';
+import '../../../shared/widgets/elevated_button.dart';
 
 import 'ongoing_history_details_widget.dart';
 
@@ -253,7 +254,7 @@ class _OngoingHistoryDetailsViewState extends State<OngoingHistoryDetailsView> {
         ),
         bottomNavigationBar: widget.status == 'diproses'
             ? Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                padding: const EdgeInsets.fromLTRB(16, 15, 16, 20),
                 decoration: BoxDecoration(
                   color: AppColors.soapstone,
                   boxShadow: [
@@ -264,8 +265,7 @@ class _OngoingHistoryDetailsViewState extends State<OngoingHistoryDetailsView> {
                     ),
                   ],
                 ),
-                child: WarningButton(
-                  warningText: "Batalkan Pemesanan",
+                child: ElevatedButtonWidget.bottomButton(
                   onPressed: () {
                     context.push(
                       '/history/processing/:id/cancel',
@@ -274,6 +274,13 @@ class _OngoingHistoryDetailsViewState extends State<OngoingHistoryDetailsView> {
                       },
                     );
                   },
+                  backgroundColor: AppColors.persianRed,
+                  child: Text("Batalkan Pemesanan",
+                    style: AppTextStyles.textBold(
+                      size: 16,
+                      color: AppColors.soapstone,
+                    ),
+                  ),
                 ),
               )
             : null,

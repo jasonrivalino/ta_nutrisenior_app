@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../shared/styles/colors.dart';
 import '../../../shared/styles/texts.dart';
-import "../../../shared/widgets/submit_button.dart";
+import '../../../shared/widgets/elevated_button.dart';
 
 import 'otp_verifivation_widget.dart';
 
@@ -55,7 +55,7 @@ class _OTPVerificationViewState extends State<OTPVerificationView> {
                     SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                     OTPVerificationInput(key: _otpWidgetKey),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.175),
-                    SubmitButton(
+                    ElevatedButtonWidget.submitFormButton(
                       onPressed: () async {
                         // Check internet connection
                         final connectivityResult = await Connectivity().checkConnectivity();
@@ -78,7 +78,6 @@ class _OTPVerificationViewState extends State<OTPVerificationView> {
                         }
                       },
                     ),
-
                   ],
                 ),
               ),

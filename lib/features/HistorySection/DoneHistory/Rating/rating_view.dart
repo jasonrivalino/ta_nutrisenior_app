@@ -7,8 +7,8 @@ import '../../../../shared/styles/colors.dart';
 import '../../../../shared/styles/texts.dart';
 import '../../../../shared/utils/handling_choose_image.dart';
 import '../../../../shared/widgets/appbar.dart';
+import '../../../../shared/widgets/elevated_button.dart';
 import '../../../../shared/widgets/feedback_input_card.dart';
-import '../../../../shared/widgets/submit_button.dart';
 
 import 'rating_widget.dart';
 import 'rating_controller.dart';
@@ -158,7 +158,7 @@ class _RatingViewState extends State<RatingView> {
                 ),
               ),
               SizedBox(height: 24),
-              SubmitButton(
+              ElevatedButtonWidget.submitFormButton(
                 onPressed: () async {
                   if (selectedRating == 0) {
                     ScaffoldMessenger.of(context).showSnackBar(
@@ -170,7 +170,7 @@ class _RatingViewState extends State<RatingView> {
                     );
                     return;
                   }
-                  
+
                   if (_commentController.text.trim().isEmpty) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
@@ -220,7 +220,7 @@ class _RatingViewState extends State<RatingView> {
                     );
                   }
 
-                  Navigator.of(context).pop(); // Close loading dialog
+                  Navigator.of(context).pop(); // Close loading
 
                   Fluttertoast.showToast(
                     msg: "Rating berhasil diberikan!",
@@ -231,7 +231,6 @@ class _RatingViewState extends State<RatingView> {
                   context.go('/historyDone');
                 },
               ),
-              SizedBox(height: 24),
             ],
           ),
         ),

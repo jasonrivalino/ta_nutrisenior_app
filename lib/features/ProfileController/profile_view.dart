@@ -9,6 +9,7 @@ import '../../shared/styles/texts.dart';
 import '../../shared/utils/google_auth_service.dart';
 import '../../shared/widgets/appbar.dart';
 import '../../shared/widgets/confirm_dialog.dart';
+import '../../shared/widgets/elevated_button.dart';
 
 import 'profile_widget.dart';
 
@@ -25,15 +26,8 @@ class ProfileView extends StatelessWidget {
           SizedBox(height: MediaQuery.of(context).size.height * 0.03),
           const ProfileCard(),
           SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.persianRed,
-              foregroundColor: AppColors.soapstone,
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-            ),
+          ElevatedButtonWidget.warningButton(
             onPressed: () {
-              // Capture a stable context before any dialogs
               final rootContext = context;
 
               showDialog(
@@ -54,7 +48,6 @@ class ProfileView extends StatelessWidget {
                         return;
                       }
 
-                      // Show loading dialog using safe root context
                       showDialog(
                         context: rootContext,
                         barrierDismissible: false,
@@ -62,17 +55,16 @@ class ProfileView extends StatelessWidget {
                           child: CircularProgressIndicator(),
                         ),
                       );
-                      // Sign out from Google
+
                       await GoogleAuthService.signOutGoogle();
 
-                      // Clear SharedPreferences
                       final prefs = await SharedPreferences.getInstance();
                       await prefs.clear();
-                      
+
                       await Future.delayed(const Duration(seconds: 2));
 
                       rootContext.pop();
-                                    
+
                       Fluttertoast.showToast(
                         msg: 'Logout berhasil.',
                         toastLength: Toast.LENGTH_SHORT,
@@ -84,7 +76,13 @@ class ProfileView extends StatelessWidget {
                 },
               );
             },
-            child: const Text('Logout Akun'),
+            padding: EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+            child: Text('Logout Akun',
+              style: AppTextStyles.textBold(
+                size: 16,
+                color: AppColors.soapstone,
+              ),
+            ),
           ),
           const SizedBox(height: 16),
           Padding(

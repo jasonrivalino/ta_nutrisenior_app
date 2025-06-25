@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import '../../../shared/styles/colors.dart';
 import '../../../shared/styles/texts.dart';
 import '../../../shared/utils/otp_notification.dart';
-import "../../../shared/widgets/submit_button.dart";
+import '../../../shared/widgets/elevated_button.dart';
 
 import "phone_number_login_widget.dart";
 
@@ -66,7 +66,7 @@ class _PhoneNumberLoginViewState extends State<PhoneNumberLoginView> {
                       },
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.175),
-                    SubmitButton(
+                    ElevatedButtonWidget.submitFormButton(
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
                           await OTPNotificationService.showNotification(

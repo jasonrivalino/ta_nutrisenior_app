@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../shared/styles/colors.dart';
 import '../../../shared/styles/texts.dart';
+import '../../../shared/widgets/elevated_button.dart';
 
 class OrderLocationSelection extends StatelessWidget {
   final Map<String, dynamic> selectedAddress;
@@ -248,7 +249,7 @@ class _SortFilterOverlayState extends State<SortFilterOverlay> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.fromLTRB(16, 15, 16, 20),
       decoration: const BoxDecoration(
         color: AppColors.berylGreen,
         borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
@@ -271,20 +272,14 @@ class _SortFilterOverlayState extends State<SortFilterOverlay> {
           _buildRadio(0, 'Rekomendasi'),
           _buildRadio(1, 'Rating penilaian'),
           _buildRadio(2, 'Jarak lokasi'),
-          const SizedBox(height: 15),
+          const SizedBox(height: 12),
           SizedBox(
             width: double.infinity,
-            child: ElevatedButton(
+            child: ElevatedButtonWidget.bottomButton(
               onPressed: () async {
                 final success = await widget.onApply(_selectedOption);
                 if (success) context.pop();
               },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.woodland,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
               child: Text(
                 'Pilih Urutan',
                 style: AppTextStyles.textBold(
@@ -294,7 +289,6 @@ class _SortFilterOverlayState extends State<SortFilterOverlay> {
               ),
             ),
           ),
-          const SizedBox(height: 10),
         ],
       ),
     );

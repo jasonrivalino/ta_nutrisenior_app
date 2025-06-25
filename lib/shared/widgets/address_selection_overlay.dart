@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 
 import '../styles/colors.dart';
 import '../styles/texts.dart';
+import 'elevated_button.dart';
 
 import '../../features/OrderSection/SearchingMenu/search_controller.dart';
 
@@ -104,33 +105,15 @@ class _AddressSelectionOverlayState extends State<AddressSelectionOverlay> {
                         color: AppColors.dark,
                       ),
                     ),
-                    ElevatedButton.icon(
+                    ElevatedButtonWidget.iconButton(
                       onPressed: () {
                         if (recentAddresses.isNotEmpty) {
                           setState(() => selectedAddress = recentAddresses.first);
                         }
                       },
-                      icon: const Icon(Icons.my_location, size: 18),
-                      label: Text(
-                        'Lokasi Sekarang',
-                        style: AppTextStyles.textMedium(
-                          size: 14,
-                          color: AppColors.soapstone,
-                        ),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.woodland,
-                        foregroundColor: AppColors.soapstone,
-                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                        minimumSize: const Size(0, 30),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        elevation: 0,
-                        shadowColor: Colors.transparent,
-                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      ),
-                    )
+                      icon: const Icon(Icons.my_location, size: 18, color: AppColors.soapstone),
+                      label: 'Lokasi Sekarang',
+                    ),
                   ],
                 ),
                 const SizedBox(height: 16),
@@ -248,10 +231,10 @@ class _AddressSelectionOverlayState extends State<AddressSelectionOverlay> {
                 ),
               ],
             ),
-            padding: const EdgeInsets.fromLTRB(16, 15, 16, 25),
+            padding: const EdgeInsets.fromLTRB(16, 15, 16, 20),
             child: SizedBox(
               width: double.infinity,
-              child: ElevatedButton(
+              child: ElevatedButtonWidget.bottomButton(
                 onPressed: () async {
                   final connectivityResult = await Connectivity().checkConnectivity();
                   if (connectivityResult.contains(ConnectivityResult.none)) {
@@ -269,14 +252,6 @@ class _AddressSelectionOverlayState extends State<AddressSelectionOverlay> {
                   widget.onAddressSelected(selectedAddress!);
                   context.pop();
                 },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.woodland,
-                  foregroundColor: AppColors.soapstone,
-                  padding: const EdgeInsets.symmetric(vertical: 14),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
                 child: Text(
                   'Pilih Alamat',
                   style: AppTextStyles.textBold(

@@ -9,6 +9,7 @@ import '../../../shared/styles/texts.dart';
 import '../../../shared/utils/format_currency.dart';
 import '../../../shared/utils/formatted_time.dart';
 import '../../../shared/utils/fullscreen_image_view.dart';
+import '../../../shared/widgets/elevated_button.dart';
 
 // Class to display order time and driver name in a card format
 class DoneOrderTimeDriverCard extends StatelessWidget {
@@ -770,22 +771,17 @@ class GiveFeedbackBottomNavbar extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               if (shouldShowDriverButton)
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.woodland,
-                    foregroundColor: AppColors.soapstone,
-                    padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                    minimumSize: const Size(0, 40),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    elevation: 0,
-                    shadowColor: Colors.transparent,
-                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  ),
+                ElevatedButtonWidget(
                   onPressed: onDriverPressed,
-                  child: Text(
-                    "Pengemudi",
+                  backgroundColor: AppColors.woodland,
+                  foregroundColor: AppColors.soapstone,
+                  textStyle: AppTextStyles.textBold(size: 16, color: AppColors.soapstone),
+                  padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                  minimumSize: const Size(0, 40),
+                  borderRadius: 20,
+                  elevation: 0,
+                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  child: Text("Pengemudi",
                     style: AppTextStyles.textBold(
                       size: 16,
                       color: AppColors.soapstone,
@@ -793,22 +789,18 @@ class GiveFeedbackBottomNavbar extends StatelessWidget {
                   ),
                 ),
               if (shouldShowBusinessButton)
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.woodland,
-                    foregroundColor: AppColors.soapstone,
-                    padding: EdgeInsets.symmetric(
-                      horizontal: businessType == 'restaurant' ? 40.0 : 22.0,
-                    ),
-                    minimumSize: const Size(0, 40),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    elevation: 0,
-                    shadowColor: Colors.transparent,
-                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  ),
+                ElevatedButtonWidget(
                   onPressed: onBusinessPressed,
+                  backgroundColor: AppColors.woodland,
+                  foregroundColor: AppColors.soapstone,
+                  textStyle: AppTextStyles.textBold(size: 16, color: AppColors.soapstone),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: businessType == 'restaurant' ? 40.0 : 22.0,
+                  ),
+                  minimumSize: const Size(0, 40),
+                  borderRadius: 20,
+                  elevation: 0,
+                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   child: Text(
                     businessType == 'restaurant' ? "Restoran" : "Pusat Belanja",
                     style: AppTextStyles.textBold(
