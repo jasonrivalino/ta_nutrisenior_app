@@ -65,7 +65,7 @@ class _LoginViewState extends State<LoginView> {
                               await GoogleAuthService.googleSignIn.signIn();
                           if (googleUser == null) {
                             Fluttertoast.showToast(
-                              msg: "Login tidak berhasil. \nSilakan ulangi.",
+                              msg: "Login tidak berhasil. \nSilahkan ulangi...",
                               toastLength: Toast.LENGTH_SHORT,
                               gravity: ToastGravity.BOTTOM,
                             );
@@ -85,7 +85,7 @@ class _LoginViewState extends State<LoginView> {
                           context.go('/homepage');
                         } catch (e) {
                           Fluttertoast.showToast(
-                            msg: "Login tidak berhasil. \nSilahkan ulangi..",
+                            msg: "Login tidak berhasil. \nSilahkan ulangi...",
                             toastLength: Toast.LENGTH_SHORT,
                             gravity: ToastGravity.BOTTOM,
                           );
