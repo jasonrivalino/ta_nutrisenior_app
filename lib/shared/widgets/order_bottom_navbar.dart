@@ -29,7 +29,7 @@ class OrderBottomNavbar extends StatelessWidget {
           ),
         ],
       ),
-      padding: const EdgeInsets.fromLTRB(16, 15, 16, 25),
+      padding: const EdgeInsets.fromLTRB(16, 15, 16, 20),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
