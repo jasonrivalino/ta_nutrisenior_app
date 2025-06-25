@@ -62,7 +62,6 @@ class BusinessListItem extends StatelessWidget {
             ),
           ),
         ),
-        const SizedBox(height: 5),
       ],
     );
   }
