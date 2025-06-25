@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../shared/widgets/appbar.dart';
+import '../styles/colors.dart';
+import '../styles/texts.dart';
+import '../widgets/appbar.dart';
 
 class PageNotFound extends StatelessWidget {
   const PageNotFound({super.key});
@@ -15,7 +17,10 @@ class PageNotFound extends StatelessWidget {
       body: Center(
         child: Text(
           'Halaman tidak ditemukan',
-          style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+          style: AppTextStyles.textBold(
+            size: 25,
+            color: AppColors.dark,
+          ),
         ),
       ),
     );

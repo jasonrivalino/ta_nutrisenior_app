@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../shared/styles/colors.dart';
+import '../../../shared/styles/texts.dart';
 import '../../../shared/utils/is_business_open.dart';
 import '../../../shared/widgets/detail_card/card_box.dart';
 import '../../../shared/widgets/detail_card/card_list.dart';
@@ -116,11 +117,14 @@ class RecommendedProductSection extends StatelessWidget {
         ),
         const SizedBox(height: 12),
         if (products.isEmpty)
-          const Padding(
+          Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.0),
             child: Text(
               "Rekomendasi produk saat ini belum tersedia",
-              style: TextStyle(fontSize: 14, color: AppColors.dark),
+              style: AppTextStyles.textMedium(
+                size: 14,
+                color: AppColors.dark,
+              ),
             ),
           )
         else
@@ -267,11 +271,14 @@ class ProductListSection extends StatelessWidget {
         ),
         const SizedBox(height: 12),
         if (products.isEmpty)
-          const Padding(
+          Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.0),
             child: Text(
               "Daftar produk saat ini belum tersedia",
-              style: TextStyle(fontSize: 14, color: AppColors.dark),
+              style: AppTextStyles.textMedium(
+                size: 14,
+                color: AppColors.dark,
+              ),
             ),
           )
         else

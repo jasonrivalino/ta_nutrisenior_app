@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../styles/colors.dart';
-import '../styles/fonts.dart';
+import '../styles/texts.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -28,11 +28,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       title: Text(
         title,
-        style: const TextStyle(
-          fontFamily: AppFonts.fontBold,
-          fontWeight: FontWeight.bold,
-          fontSize: 24,
-          color: AppColors.dark,
+        style: AppTextStyles.textBold(
+          size: 24,
+          color: AppColors.dark.withValues(alpha: 0.8),
         ),
       ),
       backgroundColor: AppColors.berylGreen,

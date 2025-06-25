@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../shared/styles/colors.dart';
+import '../../../shared/styles/texts.dart';
 
 class PhoneNumberInput extends StatelessWidget {
   final String hintText;
@@ -16,15 +17,19 @@ class PhoneNumberInput extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       keyboardType: TextInputType.phone,
-      style: const TextStyle(
-        color: AppColors.dark, // Typed text color
+      style: AppTextStyles.textMedium(
+        size: 16,
+        color: AppColors.dark,
       ),
       decoration: InputDecoration(
         filled: true,
         fillColor: AppColors.soapstone, // Background color
         contentPadding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 20.0), // Padding
         hintText: hintText,
-        hintStyle: const TextStyle(color: AppColors.darkGray), // Placeholder color
+        hintStyle: AppTextStyles.textMedium(
+          size: 16,
+          color: AppColors.darkGray,
+        ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30),
           borderSide: const BorderSide(color: AppColors.dark, width: 2.0),

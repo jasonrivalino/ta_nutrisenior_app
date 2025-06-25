@@ -295,7 +295,7 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
                                 title: widget.businessType == 'restaurant'
                                     ? 'Rekomendasi Menu'
                                     : 'Rekomendasi Belanjaan',
-                                heightCard: (discountNumber != null) ? 220 : 200,
+                                heightCard: (discountNumber != null) ? 225 : 200,
                                 businessId: widget.businessId,
                                 businessType: widget.businessType,
                                 businessOpenHour: widget.businessOpenHour,

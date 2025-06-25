@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../styles/colors.dart';
+import '../../styles/texts.dart';
 
 class RestoMarketSelectionToggle extends StatefulWidget {
   final int initialIndex;
@@ -77,11 +78,15 @@ class _SelectionToggleState extends State<RestoMarketSelectionToggle> {
                     alignment: Alignment.center,
                     child: Text(
                       options[index],
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: isSelected ? AppColors.soapstone : AppColors.dark,
-                        fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                      ),
+                      style: isSelected
+                        ? AppTextStyles.textBold(
+                            size: 18,
+                            color: AppColors.soapstone,
+                          )
+                        : AppTextStyles.textMedium(
+                            size: 18,
+                            color: AppColors.dark,
+                          ),
                     ),
                   ),
                 ),

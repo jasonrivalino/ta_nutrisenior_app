@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../shared/styles/colors.dart';
-import '../../shared/styles/fonts.dart';
+import '../../shared/styles/texts.dart';
 import '../../shared/utils/google_auth_service.dart';
 import '../../shared/widgets/appbar.dart';
 import '../../shared/widgets/confirm_dialog.dart';
@@ -93,11 +93,9 @@ class ProfileView extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: Text(
                 'Akun',
-                style: TextStyle(
+                style: AppTextStyles.textBold(
+                  size: 20,
                   color: AppColors.dark,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: AppFonts.fontBold,
                 ),
               ),
             ),
@@ -124,11 +122,9 @@ class ProfileView extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: Text(
                 'General',
-                style: TextStyle(
+                style: AppTextStyles.textBold(
+                  size: 20,
                   color: AppColors.dark,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: AppFonts.fontBold,
                 ),
               ),
             ),

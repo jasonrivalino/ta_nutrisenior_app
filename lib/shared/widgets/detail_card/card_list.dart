@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../../config/constants.dart';
 
 import '../../styles/colors.dart';
-import '../../styles/fonts.dart';
+import '../../styles/texts.dart';
 import '../../utils/format_currency.dart';
 
 class CardList extends StatefulWidget {
@@ -215,13 +215,11 @@ class _CardListState extends State<CardList> {
                           borderRadius: BorderRadius.circular(8),
                         ),
                         alignment: Alignment.center,
-                        child: const Text(
+                        child: Text(
                           'Tutup',
-                          style: TextStyle(
+                          style: AppTextStyles.textBold(
+                            size: 13,
                             color: AppColors.soapstone,
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: AppFonts.fontBold,
                           ),
                         ),
                       ),
@@ -244,24 +242,22 @@ class _CardListState extends State<CardList> {
                         child: widget.discountNumber != null
                             ? Text(
                                 'Diskon ${widget.discountNumber}%',
-                                style: const TextStyle(
+                                style: AppTextStyles.textBold(
+                                  size: 13,
                                   color: AppColors.dark,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
                                 ),
                               )
                             : Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 mainAxisSize: MainAxisSize.min,
-                                children: const [
+                                children: [
                                   FaIcon(FontAwesomeIcons.personBiking, size: 12, color: AppColors.dark),
                                   SizedBox(width: 6),
                                   Text(
                                     'FREE',
-                                    style: TextStyle(
+                                    style: AppTextStyles.textBold(
+                                      size: 13,
                                       color: AppColors.dark,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                 ],
@@ -278,10 +274,9 @@ class _CardListState extends State<CardList> {
                     if (widget.businessName != null) ...[
                       Text(
                         widget.businessName!,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontFamily: AppFonts.fontBold,
-                          fontSize: 18,
+                        style: AppTextStyles.textBold(
+                          size: 18,
+                          color: AppColors.dark,
                           height: screenHeight > 900 ? 1.35 : 1.2,
                         ),
                         maxLines: 2,
@@ -305,10 +300,9 @@ class _CardListState extends State<CardList> {
                                   const SizedBox(width: 3),
                                   Text(
                                     '${widget.businessRate!.toStringAsFixed(1)}/5',
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontFamily: AppFonts.fontMedium,
-                                      fontSize: 14,
+                                    style: AppTextStyles.textMedium(
+                                      size: 14,
+                                      color: AppColors.dark,
                                     ),
                                   ),
                                 ],
@@ -330,10 +324,9 @@ class _CardListState extends State<CardList> {
                                   const SizedBox(width: 3),
                                   Text(
                                     '${widget.businessLocation!.toStringAsFixed(2)} km',
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontFamily: AppFonts.fontMedium,
-                                      fontSize: 14,
+                                    style: AppTextStyles.textMedium(
+                                      size: 14,
+                                      color: AppColors.dark,
                                     ),
                                   ),
                                 ],
@@ -351,10 +344,9 @@ class _CardListState extends State<CardList> {
                               children: [
                                 Text(
                                   widget.productName!,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: AppFonts.fontBold,
-                                    fontSize: 18,
+                                  style: AppTextStyles.textBold(
+                                    size: 18,
+                                    color: AppColors.dark,
                                     height: screenHeight > 900 ? 1.35 : 1.2,
                                   ),
                                   maxLines: 1,
@@ -370,21 +362,19 @@ class _CardListState extends State<CardList> {
                                               formatCurrency(
                                                 (widget.productPrice! * (100 - widget.discountNumber!) ~/ 100),
                                               ),
-                                              style: const TextStyle(
+                                              style: AppTextStyles.textBold(
+                                                size: 16,
                                                 color: AppColors.dark,
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.bold,
-                                                fontFamily: AppFonts.fontBold,
+                                                height: screenHeight > 900 ? 1.35 : 1.2,
                                               ),
                                             ),
                                             const SizedBox(width: 6),
                                             Text(
                                               // Harga asli dicoret
                                               formatCurrency(widget.productPrice!),
-                                              style: const TextStyle(
+                                              style: AppTextStyles.textMedium(
+                                                size: 13,
                                                 color: AppColors.darkGray,
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.normal,
                                                 decoration: TextDecoration.lineThrough,
                                               ),
                                             ),
@@ -393,11 +383,10 @@ class _CardListState extends State<CardList> {
                                       : Text(
                                           // Harga normal jika tidak ada diskon
                                           formatCurrency(widget.productPrice!),
-                                          style: const TextStyle(
+                                          style: AppTextStyles.textBold(
+                                            size: 16,
                                             color: AppColors.dark,
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.bold,
-                                            fontFamily: AppFonts.fontBold,
+                                            height: screenHeight > 900 ? 1.35 : 1.2,
                                           ),
                                         ),
                               ],
@@ -449,9 +438,9 @@ class _CardListState extends State<CardList> {
                                   const SizedBox(width: 8),
                                   Text(
                                     '${widget.count}',
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 14,
+                                    style: AppTextStyles.textBold(
+                                      size: 16,
+                                      color: AppColors.dark,
                                     ),
                                   ),
                                   const SizedBox(width: 8),

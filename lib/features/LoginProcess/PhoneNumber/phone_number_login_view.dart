@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../shared/styles/colors.dart';
-import '../../../shared/styles/fonts.dart';
+import '../../../shared/styles/texts.dart';
 import '../../../shared/utils/otp_notification.dart';
 import "../../../shared/widgets/submit_button.dart";
 
@@ -32,26 +32,22 @@ class _PhoneNumberLoginViewState extends State<PhoneNumberLoginView> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text(
+                    Text(
                       "Login\nNomor Telepon",
                       textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 40,
-                        fontFamily: AppFonts.fontBold,
-                        fontWeight: FontWeight.bold,
+                      style: AppTextStyles.textBold(
+                        size: 40,
                         color: AppColors.dark,
                       ),
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.15),
-                    const Align(
+                    Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
                         "Masukkan Nomor Telepon",
                         textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontFamily: AppFonts.fontBold,
-                          fontWeight: FontWeight.bold,
+                        style: AppTextStyles.textBold(
+                          size: 20,
                           color: AppColors.dark,
                         ),
                       ),

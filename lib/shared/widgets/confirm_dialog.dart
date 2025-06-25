@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../styles/colors.dart';
+import '../styles/texts.dart';
 
 class ConfirmDialog extends StatelessWidget {
   final String titleText;
@@ -32,10 +33,9 @@ class ConfirmDialog extends StatelessWidget {
             Text(
               titleText,
               textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-                color: Color(0xFF1C1C1E),
+              style: AppTextStyles.textBold(
+                size: 20,
+                color: AppColors.dark,
               ),
             ),
             const SizedBox(height: 20),
@@ -55,9 +55,8 @@ class ConfirmDialog extends StatelessWidget {
                 ),
                 child: Text(
                   confirmText,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
+                  style: AppTextStyles.textBold(
+                    size: 16,
                     color: AppColors.soapstone,
                   ),
                 ),
@@ -77,9 +76,8 @@ class ConfirmDialog extends StatelessWidget {
                 ),
                 child: Text(
                   cancelText,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
+                  style: AppTextStyles.textBold(
+                    size: 16,
                     color: AppColors.soapstone,
                   ),
                 ),

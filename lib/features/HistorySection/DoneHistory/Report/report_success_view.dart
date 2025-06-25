@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../shared/styles/colors.dart';
-import '../../../../shared/styles/fonts.dart';
+import '../../../../shared/styles/texts.dart';
 
 class ReportSuccess extends StatefulWidget {
   final int id;
@@ -41,24 +41,20 @@ class _ReportSuccessState extends State<ReportSuccess> {
             children: [
               const Icon(Icons.check_circle, color: AppColors.dark, size: 180),
               SizedBox(height: mediaQuery.size.height * 0.05),
-              const Text(
+              Text(
                 'Laporan Berhasil',
-                style: TextStyle(
-                  fontSize: 24,
+                style: AppTextStyles.textBold(
+                  size: 24,
                   color: AppColors.dark,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: AppFonts.fontBold,
                 ),
               ),
               SizedBox(height: mediaQuery.size.height * 0.025),
-              const Text(
+              Text(
                 'Laporan berhasil dikirim. Kami akan meninjau laporan Anda sesegera mungkin.',
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 16,
+                style: AppTextStyles.textBold(
+                  size: 16,
                   color: AppColors.dark,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: AppFonts.fontBold,
                 ),
               ),
             ],

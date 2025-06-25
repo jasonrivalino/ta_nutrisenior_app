@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-
 import 'package:go_router/go_router.dart';
 
 import '../../../shared/styles/colors.dart';
-import '../../../shared/styles/fonts.dart';
+import '../../../shared/styles/texts.dart';
 
 class OrderLocationSelection extends StatelessWidget {
   final Map<String, dynamic> selectedAddress;
@@ -35,19 +34,19 @@ class OrderLocationSelection extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   'Lokasi',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 14,
+                  style: AppTextStyles.textMedium(
+                    size: 14,
+                    color: AppColors.dark,
                   ),
                 ),
                 const SizedBox(height: 1),
                 Text(
                   selectedAddress['address_name'] ?? 'Pilih Lokasi',
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
+                  style: AppTextStyles.textBold(
+                    size: 16,
+                    color: AppColors.dark,
                   ),
                 ),
               ],
@@ -129,13 +128,10 @@ class BusinessSelectionSearch extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 18),
                 child: Text(
                   tabs[index],
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontFamily: AppFonts.fontBold,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.dark,
-                  decoration:
-                      isSelected ? TextDecoration.underline : TextDecoration.none,
+                style: AppTextStyles.textBold(
+                  size: 18,
+                  color: AppColors.dark,
+                  decoration: isSelected ? TextDecoration.underline : TextDecoration.none,
                 ),
               ),
             ),
@@ -165,14 +161,12 @@ class RecentSearchList extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Padding(
+        Padding(
           padding: EdgeInsets.fromLTRB(16, 12, 16, 8),
           child: Text(
             'Pencarian Sebelumnya',
-            style: TextStyle(
-              fontSize: 16,
-              fontFamily: AppFonts.fontBold,
-              fontWeight: FontWeight.bold,
+            style: AppTextStyles.textBold(
+              size: 16,
               color: AppColors.dark,
             ),
           ),
@@ -208,10 +202,8 @@ class RecentSearchList extends StatelessWidget {
                         const SizedBox(width: 12),
                         Text(
                           item['business_name'],
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontFamily: AppFonts.fontMedium,
-                            fontWeight: FontWeight.w500,
+                          style: AppTextStyles.textMedium(
+                            size: 16,
                             color: AppColors.dark,
                           ),
                         ),
@@ -229,11 +221,13 @@ class RecentSearchList extends StatelessWidget {
 }
 
 class SortFilterOverlay extends StatefulWidget {
+  final String businessType;
   final int selectedOption;
   final Future<bool> Function(int) onApply;
 
   const SortFilterOverlay({
     super.key,
+    required this.businessType,
     required this.selectedOption,
     required this.onApply,
   });
@@ -263,13 +257,14 @@ class _SortFilterOverlayState extends State<SortFilterOverlay> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Urutkan Restoran berdasarkan:',
-            style: TextStyle(
+          Text(
+            // CHANGE TEXT BASED ON BUSINESS TYPE
+            widget.businessType == 'market'
+                ? 'Urutkan Pusat Belanja berdasarkan:'
+                : 'Urutkan Restoran berdasarkan:',
+            style: AppTextStyles.textBold(
+              size: 20,
               color: AppColors.dark,
-              fontFamily: AppFonts.fontBold,
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
             ),
           ),
           const SizedBox(height: 12),
@@ -282,7 +277,7 @@ class _SortFilterOverlayState extends State<SortFilterOverlay> {
             child: ElevatedButton(
               onPressed: () async {
                 final success = await widget.onApply(_selectedOption);
-                if (success) context.pop(); // Only close if sort succeeded
+                if (success) context.pop();
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.woodland,
@@ -290,12 +285,10 @@ class _SortFilterOverlayState extends State<SortFilterOverlay> {
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
-              child: const Text(
+              child: Text(
                 'Pilih Urutan',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontFamily: AppFonts.fontBold,
-                  fontWeight: FontWeight.bold,
+                style: AppTextStyles.textBold(
+                  size: 16,
                   color: AppColors.soapstone,
                 ),
               ),
@@ -318,10 +311,8 @@ class _SortFilterOverlayState extends State<SortFilterOverlay> {
       },
       title: Text(
         text,
-        style: const TextStyle(
-          fontSize: 14,
-          fontFamily: AppFonts.fontMedium,
-          fontWeight: FontWeight.w500,
+        style: AppTextStyles.textMedium(
+          size: 16,
           color: AppColors.dark,
         ),
       ),

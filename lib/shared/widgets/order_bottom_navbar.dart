@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../../shared/styles/colors.dart';
-import '../../../shared/styles/fonts.dart';
 import '../../../shared/utils/format_currency.dart';
+import '../styles/texts.dart';
 
 class OrderBottomNavbar extends StatelessWidget {
   final int totalPrice;
@@ -35,21 +35,18 @@ class OrderBottomNavbar extends StatelessWidget {
         children: [
           Row(
             children: [
-              const Text(
+              Text(
                 "Total Harga",
-                style: TextStyle(
+                style: AppTextStyles.textBold(
+                  size: 16,
                   color: AppColors.dark,
-                  fontSize: 16,
-                  fontFamily: AppFonts.fontBold,
-                  fontWeight: FontWeight.bold,
                 ),
               ),
               const Spacer(),
               Text(
                 formatCurrency(totalPrice),
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
+                style: AppTextStyles.textBold(
+                  size: 16,
                   color: AppColors.dark,
                 ),
               ),
@@ -80,10 +77,9 @@ class OrderBottomNavbar extends StatelessWidget {
               ),
               child: Text(
                 buttonText,
-                style: TextStyle(
-                  fontFamily: AppFonts.fontBold,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
+                style: AppTextStyles.textBold(
+                  size: 16,
+                  color: AppColors.soapstone,
                 ),
               ),
             ),

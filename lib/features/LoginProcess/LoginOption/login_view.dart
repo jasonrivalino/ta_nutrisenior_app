@@ -8,7 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../config/constants.dart';
 
 import '../../../shared/styles/colors.dart';
-import '../../../shared/styles/fonts.dart';
+import '../../../shared/styles/texts.dart';
 import '../../../shared/utils/google_auth_service.dart';
 
 import 'login_widget.dart';
@@ -30,12 +30,10 @@ class _LoginViewState extends State<LoginView> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text(
+              Text(
                 "Login",
-                style: TextStyle(
-                  fontSize: 56,
-                  fontFamily: AppFonts.fontBold,
-                  fontWeight: FontWeight.bold,
+                style: AppTextStyles.textBold(
+                  size: 56,
                   color: AppColors.dark,
                 ),
               ),

@@ -4,12 +4,13 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../shared/styles/colors.dart';
+import '../../../../shared/styles/texts.dart';
 import '../../../../shared/utils/calculate_price_fee.dart';
 import '../../../../shared/widgets/address_selection_overlay.dart';
 import '../../../../shared/widgets/appbar.dart';
+import '../../../../shared/widgets/order_bottom_navbar.dart';
 
 import '../../SearchingMenu/search_controller.dart';
-import '../../../../shared/widgets/order_bottom_navbar.dart';
 
 import 'confirmation_ordering_widget.dart';
 import 'confirmation_ordering_controller.dart';
@@ -319,10 +320,9 @@ class _OrderConfirmationViewState extends State<OrderConfirmationView> {
                   ),
                   child: Text(
                     "Tidak dapat melakukan pemesanan, \nsilahkan tambahkan ${widget.businessType == "restaurant" ? "makanan" : "belanjaan"} terlebih dahulu",
-                    style: const TextStyle(
-                      color: AppColors.soapstone, 
-                      fontSize: 14.0, 
-                      fontWeight: FontWeight.w500
+                    style: AppTextStyles.textBold(
+                      size: 14,
+                      color: AppColors.soapstone,
                     ),
                     textAlign: TextAlign.center,
                   ),

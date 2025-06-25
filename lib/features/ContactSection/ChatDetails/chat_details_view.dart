@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../shared/styles/fonts.dart';
 import '../../../shared/styles/colors.dart';
+import '../../../shared/styles/texts.dart';
 import '../../../shared/utils/formatted_time.dart';
 import '../../../shared/utils/fullscreen_image_view.dart';
 import '../../../shared/utils/handling_chat_send.dart';
@@ -241,12 +241,10 @@ class _ChatDetailViewState extends State<ChatDetailView> {
                             padding: const EdgeInsets.only(top: 4),
                             child: Text(
                               text,
-                              style: TextStyle(
-                                fontFamily: AppFonts.fontBold,
-                                fontWeight: FontWeight.w700,
-                                fontSize: 16,
-                                color: isMe ? AppColors.soapstone : AppColors.dark,
-                              ),
+                                style: AppTextStyles.textBold(
+                                  size: 16,
+                                  color: isMe ? AppColors.soapstone : AppColors.dark,
+                                ),
                             ),
                           ),
                         const SizedBox(height: 4),
@@ -256,8 +254,8 @@ class _ChatDetailViewState extends State<ChatDetailView> {
                           children: [
                             Text(
                               formatTime(message['time']),
-                              style: TextStyle(
-                                fontSize: 14,
+                              style: AppTextStyles.textMedium(
+                                size: 14,
                                 color: isMe ? AppColors.soapstone : AppColors.dark,
                               ),
                             ),

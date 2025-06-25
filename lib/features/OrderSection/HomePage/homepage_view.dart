@@ -17,7 +17,7 @@ class HomePageView extends StatelessWidget {
         (screenHeight * 0.205).clamp(180.0, double.infinity);
     final heightCard = (screenHeight * 0.235).clamp(200.0, double.infinity);
     final gapHeight =
-        (screenHeight * 0.03).clamp(0.0, screenHeight > 900 ? 17.5 : 25.0);
+        (screenHeight * 0.0325).clamp(0.0, screenHeight > 900 ? 25.5 : 30.0);
 
     return Scaffold(
       backgroundColor: AppColors.soapstone,

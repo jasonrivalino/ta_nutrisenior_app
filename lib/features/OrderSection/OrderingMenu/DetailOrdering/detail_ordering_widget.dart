@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../shared/styles/colors.dart';
-import '../../../../shared/styles/fonts.dart';
+import '../../../../shared/styles/texts.dart';
 import '../../../../shared/utils/calculate_price_fee.dart';
 import '../../../../shared/utils/format_currency.dart';
 
@@ -51,11 +51,9 @@ class ProductDetailInfoBox extends StatelessWidget {
               Expanded(
                 child: Text(
                   productName,
-                  style: TextStyle(
+                  style: AppTextStyles.textBold(
+                    size: 18,
                     color: AppColors.dark,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: AppFonts.fontBold,
                   ),
                 ),
               ),
@@ -67,21 +65,17 @@ class ProductDetailInfoBox extends StatelessWidget {
                   if (hasDiscount)
                     Text(
                       formatCurrency(discountedPrice),
-                      style: TextStyle(
+                      style: AppTextStyles.textBold(
+                        size: 16,
                         color: AppColors.dark,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: AppFonts.fontBold,
                       ),
                     ),
                   if (hasDiscount) const SizedBox(height: 2),
                   Text(
                     formatCurrency(productPrice),
-                    style: TextStyle(
+                    style: AppTextStyles.textBold(
+                      size: hasDiscount ? 14 : 16,
                       color: hasDiscount ? AppColors.darkGray : AppColors.dark,
-                      fontSize: hasDiscount ? 14 : 16,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: AppFonts.fontBold,
                       decoration: hasDiscount ? TextDecoration.lineThrough : null,
                     ),
                   ),
@@ -95,11 +89,9 @@ class ProductDetailInfoBox extends StatelessWidget {
           // Description
           Text(
             productDescription,
-            style: TextStyle(
+            style: AppTextStyles.textMedium(
+              size: 14,
               color: AppColors.dark,
-              fontSize: 14,
-              fontWeight: FontWeight.w500,
-              fontFamily: AppFonts.fontMedium,
             ),
           ),
         ],
@@ -151,15 +143,13 @@ class _ProductAddOnsSelectionBoxState extends State<ProductAddOnsSelectionBox> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(
+          Padding(
             padding: EdgeInsets.only(bottom: 8, left: 16),
             child: Text(
               'Pilih Tambahan',
-              style: TextStyle(
+              style: AppTextStyles.textBold(
+                size: 18,
                 color: AppColors.dark,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                fontFamily: AppFonts.fontBold,
               ),
             ),
           ),
@@ -205,11 +195,9 @@ class _ProductAddOnsSelectionBoxState extends State<ProductAddOnsSelectionBox> {
                       Expanded(
                         child: Text(
                           '$name (${formatCurrency(price)})',
-                          style: const TextStyle(
+                          style: AppTextStyles.textMedium(
+                            size: 14,
                             color: AppColors.dark,
-                            fontSize: 14,
-                            fontFamily: AppFonts.fontMedium,
-                            fontWeight: FontWeight.w500,
                           ),
                         ),
                       ),
@@ -255,20 +243,16 @@ class ProductNoteInputBox extends StatelessWidget {
         children: [
           Text(
             "Note", 
-            style: TextStyle(
+            style: AppTextStyles.textBold(
+              size: 18,
               color: AppColors.dark,
-              fontSize: 16, 
-              fontWeight: FontWeight.bold,
-              fontFamily: AppFonts.fontBold,
             ),
           ),
           const SizedBox(height: 10),
           TextField(
-            style: const TextStyle(
+            style: AppTextStyles.textMedium(
+              size: 14,
               color: AppColors.dark,
-              fontSize: 14,
-              fontFamily: AppFonts.fontMedium,
-              fontWeight: FontWeight.w500,
             ),
             controller: noteController,
             maxLines: 5,
@@ -327,13 +311,11 @@ class SetQuantityBottomNavbar extends StatelessWidget {
         children: [
           Row(
             children: [
-              const Text(
+              Text(
                 "Jumlah Pesanan",
-                style: TextStyle(
+                style: AppTextStyles.textBold(
+                  size: 16,
                   color: AppColors.dark,
-                  fontSize: 16,
-                  fontFamily: AppFonts.fontBold,
-                  fontWeight: FontWeight.bold,
                 ),
               ),
               const Spacer(),
@@ -361,9 +343,9 @@ class SetQuantityBottomNavbar extends StatelessWidget {
                   const SizedBox(width: 8),
                   Text(
                     quantity.toString(),
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
+                    style: AppTextStyles.textBold(
+                      size: 16,
+                      color: AppColors.dark,
                     ),
                   ),
                   const SizedBox(width: 8),
@@ -414,10 +396,9 @@ class SetQuantityBottomNavbar extends StatelessWidget {
               ),
               child: Text(
                 'Tambah ${businessType == 'restaurant' ? 'Makanan' : 'Belanjaan'} - ${formatCurrency(getProductPrice(baseProductPrice, addOnsPrice, quantity, discountNumber))}',
-                style: TextStyle(
-                  fontFamily: AppFonts.fontBold,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
+                style: AppTextStyles.textBold(
+                  size: 16,
+                  color: AppColors.soapstone,
                 ),
               ),
             ),

@@ -34,7 +34,7 @@ class RecommendPromoView extends StatelessWidget {
     // Constraint for responsive height
     final heightCard = (screenHeight * 0.235).clamp(200.0, double.infinity);
     final gapHeight =
-        (screenHeight * 0.03).clamp(0.0, screenHeight > 900 ? 30.0 : 17.5);
+        (screenHeight * 0.0325).clamp(0.0, screenHeight > 900 ? 30.0 : 18.5);
 
     // print('Height Card: $heightCard');
 

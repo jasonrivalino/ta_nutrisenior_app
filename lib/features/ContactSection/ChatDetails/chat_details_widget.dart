@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../shared/styles/colors.dart';
-import '../../../shared/styles/fonts.dart';
+import '../../../shared/styles/texts.dart';
 
 class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -41,10 +41,8 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
             Expanded(
               child: Text(
                 title,
-                style: const TextStyle(
-                  fontFamily: AppFonts.fontBold,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 24,
+                style: AppTextStyles.textBold(
+                  size: 24,
                   color: AppColors.dark,
                 ),
                 overflow: TextOverflow.ellipsis,
@@ -94,13 +92,12 @@ class BottomChatWidget extends StatelessWidget {
             ? Container(
                 width: double.infinity,
                 padding: const EdgeInsets.symmetric(vertical: 16),
-                child: const Text(
+                child: Text(
                   'Pengemudi telah dilaporkan',
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: AppTextStyles.textBold(
+                    size: 18,
                     color: AppColors.persianRed,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
                   ),
                 ),
               )
@@ -150,12 +147,10 @@ class BottomChatWidget extends StatelessWidget {
                       Expanded(
                         child: TextField(
                           controller: controller,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             hintText: "Ketik chat...",
-                            hintStyle: TextStyle(
-                              fontFamily: AppFonts.fontBold,
-                              fontWeight: FontWeight.w700,
-                              fontSize: 16,
+                            hintStyle: AppTextStyles.textBold(
+                              size: 16,
                               color: AppColors.darkGray,
                             ),
                             border: OutlineInputBorder(

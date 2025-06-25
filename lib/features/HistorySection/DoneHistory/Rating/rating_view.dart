@@ -4,7 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../shared/styles/colors.dart';
-import '../../../../shared/styles/fonts.dart';
+import '../../../../shared/styles/texts.dart';
 import '../../../../shared/utils/handling_choose_image.dart';
 import '../../../../shared/widgets/appbar.dart';
 import '../../../../shared/widgets/feedback_input_card.dart';
@@ -105,10 +105,8 @@ class _RatingViewState extends State<RatingView> {
               SizedBox(height: MediaQuery.of(context).size.height * 0.05),
               Text(
                 isDriver ? "Beri Rating Pengemudi" : "Beri Rating ${isRestaurant ? 'Restoran' : 'Pusat Belanja'}",
-                style: const TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: AppFonts.fontBold,
+                style: AppTextStyles.textBold(
+                  size: 22,
                   color: AppColors.dark,
                 ),
                 textAlign: TextAlign.center,
@@ -151,11 +149,9 @@ class _RatingViewState extends State<RatingView> {
                     SizedBox(width: 6),
                     Text(
                       isDriver ? "Laporkan Pengemudi" : "Laporkan ${isRestaurant ? 'Restoran' : 'Pusat Belanja'}",
-                      style: const TextStyle(
+                      style: AppTextStyles.textMedium(
+                        size: 14,
                         color: AppColors.persianRed,
-                        fontSize: 14,
-                        fontFamily: AppFonts.fontMedium,
-                        fontWeight: FontWeight.w500,
                       ),
                     ),
                   ],
@@ -164,21 +160,21 @@ class _RatingViewState extends State<RatingView> {
               SizedBox(height: 24),
               SubmitButton(
                 onPressed: () async {
-                  if (_commentController.text.trim().isEmpty) {
+                  if (selectedRating == 0) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
-                        content: Text("Komentar tidak boleh kosong."),
+                        content: Text("Rating tidak boleh kosong."),
                         backgroundColor: AppColors.persianRed,
                         behavior: SnackBarBehavior.floating,
                       ),
                     );
                     return;
                   }
-
-                  if (selectedRating == 0) {
+                  
+                  if (_commentController.text.trim().isEmpty) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
-                        content: Text("Rating tidak boleh kosong."),
+                        content: Text("Komentar tidak boleh kosong."),
                         backgroundColor: AppColors.persianRed,
                         behavior: SnackBarBehavior.floating,
                       ),

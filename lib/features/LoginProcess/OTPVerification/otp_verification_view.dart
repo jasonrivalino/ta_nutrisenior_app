@@ -4,7 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../shared/styles/colors.dart';
-import '../../../shared/styles/fonts.dart';
+import '../../../shared/styles/texts.dart';
 import "../../../shared/widgets/submit_button.dart";
 
 import 'otp_verifivation_widget.dart';
@@ -32,26 +32,22 @@ class _OTPVerificationViewState extends State<OTPVerificationView> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text(
+                    Text(
                       "Verifikasi OTP\nNomor Telepon",
                       textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 40,
-                        fontFamily: AppFonts.fontBold,
-                        fontWeight: FontWeight.bold,
+                      style: AppTextStyles.textBold(
+                        size: 40,
                         color: AppColors.dark,
                       ),
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.15),
-                    const Align(
+                    Align(
                       alignment: Alignment.center,
                       child: Text(
                         "Masukkan Kode Verifikasi",
                         textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontFamily: AppFonts.fontBold,
-                          fontWeight: FontWeight.bold,
+                        style: AppTextStyles.textBold(
+                          size: 20,
                           color: AppColors.dark,
                         ),
                       ),

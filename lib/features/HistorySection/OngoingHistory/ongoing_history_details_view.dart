@@ -106,14 +106,14 @@ class _OngoingHistoryDetailsViewState extends State<OngoingHistoryDetailsView> {
     final screenHeight = MediaQuery.of(context).size.height;
 
     if (orderCount == 1) {
-      topPositionProcessing = screenHeight > 900 ? 275 : 165;
+      topPositionProcessing = screenHeight > 900 ? 265 : 150;
     } else if (orderCount == 2) {
       topPositionProcessing = screenHeight > 900 ? 190 : 110;
     } else {
       topPositionProcessing = screenHeight > 900 ? 140 : 80;
     }
 
-    topPositionDelivering = screenHeight > 900 ? 535 : 435;
+    topPositionDelivering = screenHeight > 900 ? 525 : 430;
 
     // Show loading while marker is being loaded
     if (widget.status != 'diproses' && customStartMarker == null) {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../styles/colors.dart';
-import '../../styles/fonts.dart';
+import '../../styles/texts.dart';
 import '../../utils/is_business_open.dart';
 
 class ListTitle extends StatelessWidget {
@@ -31,11 +31,9 @@ class ListTitle extends StatelessWidget {
       ),
       child: Text(
         title,
-        style: TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.w700,
-          fontFamily: AppFonts.fontBold,
-          color: AppColors.soapstone
+        style: AppTextStyles.textBold(
+          size: 20,
+          color: AppColors.soapstone,
         ),
       ),
     );

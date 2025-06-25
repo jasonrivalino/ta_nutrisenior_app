@@ -4,7 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../shared/styles/colors.dart';
-import '../../../../shared/styles/fonts.dart';
+import '../../../../shared/styles/texts.dart';
 import '../../../../shared/widgets/appbar.dart';
 import '../../../../shared/widgets/confirm_dialog.dart';
 import '../../../../shared/widgets/warning_button.dart';
@@ -49,12 +49,10 @@ class _CancelOrderViewState extends State<CancelOrderView> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
+                        Text(
                           "Alasan Pembatalan Pesanan?",
-                          style: TextStyle(
-                            fontSize: 28,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: AppFonts.fontBold,
+                          style: AppTextStyles.textBold(
+                            size: 28,
                             color: AppColors.dark,
                           ),
                           textAlign: TextAlign.center,
@@ -70,7 +68,12 @@ class _CancelOrderViewState extends State<CancelOrderView> {
                                 otherReasonText = '';
                               });
                             },
-                            title: Text(reason['reason']),
+                            title: Text(reason['reason'],
+                              style: AppTextStyles.textMedium(
+                                size: 16,
+                                color: AppColors.dark,
+                              ),
+                            ),
                             activeColor: AppColors.dark,
                             contentPadding: EdgeInsets.zero,
                             visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
@@ -84,7 +87,12 @@ class _CancelOrderViewState extends State<CancelOrderView> {
                               selectedReasonId = value;
                             });
                           },
-                          title: const Text("Lainnya"),
+                          title: Text("Lainnya",
+                            style: AppTextStyles.textMedium(
+                              size: 16,
+                              color: AppColors.dark,
+                            ),
+                          ),
                           activeColor: AppColors.dark,
                           contentPadding: EdgeInsets.zero,
                           visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
@@ -104,7 +112,10 @@ class _CancelOrderViewState extends State<CancelOrderView> {
                                 contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                                 border: UnderlineInputBorder(),
                               ),
-                              style: const TextStyle(fontSize: 14),
+                              style: AppTextStyles.textMedium(
+                                size: 14,
+                                color: AppColors.dark,
+                              ),
                             ),
                           ),
                         SizedBox(height: MediaQuery.of(context).size.height * 0.03),

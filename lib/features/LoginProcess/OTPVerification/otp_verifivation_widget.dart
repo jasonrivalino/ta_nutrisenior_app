@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../../../config/constants.dart';
 
 import '../../../shared/styles/colors.dart';
-import '../../../shared/styles/fonts.dart';
+import '../../../shared/styles/texts.dart';
 import '../../../shared/utils/otp_notification.dart';
 import '../../../shared/utils/validate_otp.dart';
 
@@ -69,10 +69,9 @@ class OTPVerificationInputState extends State<OTPVerificationInput> {
                         textAlign: TextAlign.center,
                         maxLength: 1,
                         showCursor: false,
-                        style: const TextStyle(
-                          fontSize: 20,
+                        style: AppTextStyles.textBold(
+                          size: 20,
                           color: AppColors.dark,
-                          fontWeight: FontWeight.bold,
                         ),
                         decoration: InputDecoration(
                           counterText: '',
@@ -107,18 +106,17 @@ class OTPVerificationInputState extends State<OTPVerificationInput> {
                 RichText(
                   text: TextSpan(
                     text: 'Tidak mendapat kode, ',
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontFamily: AppFonts.fontBold,
-                      fontWeight: FontWeight.bold,
+                    style: AppTextStyles.textBold(
+                      size: 16,
                       color: AppColors.dark,
                     ),
                     children: [
                       TextSpan(
                         text: 'kirim ulang',
-                        style: const TextStyle(
-                          decoration: TextDecoration.underline,
+                        style: AppTextStyles.textBold(
+                          size: 16,
                           color: AppColors.blueDress,
+                          decoration: TextDecoration.underline,
                         ),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () async {
@@ -137,9 +135,9 @@ class OTPVerificationInputState extends State<OTPVerificationInput> {
                     padding: const EdgeInsets.only(top: 12),
                     child: Text(
                       _errorText!,
-                      style: const TextStyle(
+                      style: AppTextStyles.textMedium(
+                        size: 14,
                         color: AppColors.persianRed,
-                        fontSize: 14,
                       ),
                     ),
                   ),

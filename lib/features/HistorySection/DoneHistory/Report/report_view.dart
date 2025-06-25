@@ -4,7 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../shared/styles/colors.dart';
-import '../../../../shared/styles/fonts.dart';
+import '../../../../shared/styles/texts.dart';
 import '../../../../shared/utils/handling_choose_image.dart';
 import '../../../../shared/widgets/appbar.dart';
 import '../../../../shared/widgets/confirm_dialog.dart';
@@ -110,10 +110,8 @@ class _ReportViewState extends State<ReportView> {
                       children: [
                         Text(
                           "Alasan Pelaporan",
-                          style: const TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: AppFonts.fontBold,
+                          style: AppTextStyles.textBold(
+                            size: 22,
                             color: AppColors.dark,
                           ),
                           textAlign: TextAlign.center,
@@ -134,7 +132,10 @@ class _ReportViewState extends State<ReportView> {
                               },
                               title: Text(
                                 reason['reason'],
-                                style: const TextStyle(fontSize: 14),
+                                style: AppTextStyles.textMedium(
+                                  size: 14,
+                                  color: AppColors.dark,
+                                ),
                               ),
                               activeColor: AppColors.dark,
                               contentPadding: EdgeInsets.zero,
@@ -152,7 +153,12 @@ class _ReportViewState extends State<ReportView> {
                                 selectedReasonId = value;
                               });
                             },
-                            title: const Text("Lainnya", style: TextStyle(fontSize: 14)),
+                            title: Text("Lainnya", 
+                              style: AppTextStyles.textMedium(
+                                size: 14,
+                                color: AppColors.dark,
+                              ),
+                            ),
                             activeColor: AppColors.dark,
                             contentPadding: EdgeInsets.zero,
                             visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
@@ -173,105 +179,111 @@ class _ReportViewState extends State<ReportView> {
                                 contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                                 border: UnderlineInputBorder(),
                               ),
-                              style: const TextStyle(fontSize: 14),
+                              style: AppTextStyles.textMedium(
+                                size: 14,
+                                color: AppColors.dark,
+                              ),
                             ),
                           ),
                         SizedBox(height: MediaQuery.of(context).size.height * 0.025),
-                        FeedbackInputCard(
-                          controller: _commentController,
-                          titleText: "Penjelasan",
-                          placeholderText:
-                              "Ceritakan detail kejadian yang Anda alami secara singkat...",
-                          selectedImages: _selectedImages,
-                          onChooseImage: _handleChooseImage,
-                          onRemoveImage: _removeImage,
-                        ),
-                        SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                        WarningButton(
-                          warningText: "Berikan Laporkan",
-                          onPressed: () async {
-                            if (selectedReasonId == null || (selectedReasonId == 999 && otherReasonText.trim().isEmpty)) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text("Pilih alasan pelaporan terlebih dahulu."),
-                                  backgroundColor: AppColors.persianRed,
-                                  behavior: SnackBarBehavior.floating,
-                                ),
-                              );
-                              return;
-                            }
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              FeedbackInputCard(
+                                controller: _commentController,
+                                titleText: "Penjelasan",
+                                placeholderText: "Ceritakan detail kejadian yang Anda alami secara singkat...",
+                                selectedImages: _selectedImages,
+                                onChooseImage: _handleChooseImage,
+                                onRemoveImage: _removeImage,
+                              ),
+                              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                              WarningButton(
+                                warningText: "Berikan Laporkan",
+                                onPressed: () async {
+                                  if (selectedReasonId == null || (selectedReasonId == 999 && otherReasonText.trim().isEmpty)) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text("Pilih alasan pelaporan terlebih dahulu."),
+                                        backgroundColor: AppColors.persianRed,
+                                        behavior: SnackBarBehavior.floating,
+                                      ),
+                                    );
+                                    return;
+                                  }
 
-                            if (_commentController.text.trim().isEmpty) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text("Penjelasan Laporan tidak boleh kosong."),
-                                  backgroundColor: AppColors.persianRed,
-                                  behavior: SnackBarBehavior.floating,
-                                ),
-                              );
-                              return;
-                            }
+                                  if (_commentController.text.trim().isEmpty) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text("Penjelasan Laporan tidak boleh kosong."),
+                                        backgroundColor: AppColors.persianRed,
+                                        behavior: SnackBarBehavior.floating,
+                                      ),
+                                    );
+                                    return;
+                                  }
 
-                            // Capture a stable context before any dialogs
-                            final rootContext = context;
+                                  final rootContext = context;
 
-                            showDialog(
-                              context: rootContext,
-                              builder: (BuildContext dialogContext) {
-                                return ConfirmDialog(
-                                  titleText: 'Apakah laporan sudah yakin benar?',
-                                  confirmText: 'Ya, berikan laporan',
-                                  cancelText: 'Tidak, ubah dulu',
-                                  onConfirm: () async {
-                                    final connectivityResult = await Connectivity().checkConnectivity();
-                                    if (connectivityResult.contains(ConnectivityResult.none)) {
-                                      Fluttertoast.showToast(
-                                        msg: 'Laporan gagal dikirimkan.\nSilahkan coba lagi.',
-                                        toastLength: Toast.LENGTH_SHORT,
-                                        gravity: ToastGravity.BOTTOM,
+                                  showDialog(
+                                    context: rootContext,
+                                    builder: (BuildContext dialogContext) {
+                                      return ConfirmDialog(
+                                        titleText: 'Apakah laporan sudah yakin benar?',
+                                        confirmText: 'Ya, berikan laporan',
+                                        cancelText: 'Tidak, ubah dulu',
+                                        onConfirm: () async {
+                                          final connectivityResult = await Connectivity().checkConnectivity();
+                                          if (connectivityResult.contains(ConnectivityResult.none)) {
+                                            Fluttertoast.showToast(
+                                              msg: 'Laporan gagal dikirimkan.\nSilahkan coba lagi.',
+                                              toastLength: Toast.LENGTH_SHORT,
+                                              gravity: ToastGravity.BOTTOM,
+                                            );
+                                            return;
+                                          }
+
+                                          showDialog(
+                                            context: rootContext,
+                                            barrierDismissible: false,
+                                            builder: (_) => const Center(child: CircularProgressIndicator()),
+                                          );
+
+                                          await Future.delayed(const Duration(seconds: 2));
+
+                                          final String reportReason = selectedReasonId == 999
+                                              ? otherReasonText.trim()
+                                              : _reportReasons.firstWhere((r) => r['id'] == selectedReasonId)['reason'];
+
+                                          final String reportDescription = _commentController.text.trim();
+
+                                          ReportFillController.addReport(
+                                            businessId: (!widget.isDriver && widget.businessId != null) ? widget.businessId : null,
+                                            driverId: (widget.isDriver && widget.driverId != null) ? widget.driverId : null,
+                                            reportReason: reportReason,
+                                            reportDescription: reportDescription,
+                                            reportImages: _selectedImages,
+                                          );
+
+                                          if (!mounted) return;
+                                          rootContext.pop();
+
+                                          rootContext.push(
+                                            '/history/done/details/:id/report/success',
+                                            extra: widget.id,
+                                          );
+                                        },
                                       );
-                                      return;
-                                    }
-
-                                    // Show loading dialog
-                                    showDialog(
-                                      context: rootContext,
-                                      barrierDismissible: false,
-                                      builder: (_) => const Center(child: CircularProgressIndicator()),
-                                    );
-
-                                    await Future.delayed(const Duration(seconds: 2));
-
-                                    // Determine report reason
-                                    final String reportReason = selectedReasonId == 999
-                                        ? otherReasonText.trim()
-                                        : _reportReasons.firstWhere((r) => r['id'] == selectedReasonId)['reason'];
-
-                                    final String reportDescription = _commentController.text.trim();
-
-                                    // Add report to table
-                                    ReportFillController.addReport(
-                                      businessId: (!widget.isDriver && widget.businessId != null) ? widget.businessId : null,
-                                      driverId: (widget.isDriver && widget.driverId != null) ? widget.driverId : null,
-                                      reportReason: reportReason,
-                                      reportDescription: reportDescription,
-                                      reportImages: _selectedImages, // tambahkan ini
-                                    );
-
-                                    if (!mounted) return;
-                                    rootContext.pop();
-
-                                    // Navigate to success screen
-                                    rootContext.push(
-                                      '/history/done/details/:id/report/success',
-                                      extra: widget.id,
-                                    );
-                                  },
-                                );
-                              },
-                            );
-                          },
+                                    },
+                                  );
+                                },
+                              ),
+                            ],
+                          ),
                         ),
+
                       ],
                     ),
                   ),

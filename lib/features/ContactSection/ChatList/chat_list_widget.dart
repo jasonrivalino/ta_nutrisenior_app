@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../shared/styles/colors.dart';
+import '../../../shared/styles/texts.dart';
 import '../../../shared/utils/handling_chat_send.dart';
 
 class ChatMessageTile extends StatefulWidget {
@@ -69,9 +70,8 @@ class _ChatMessageTileState extends State<ChatMessageTile> {
                     Flexible(
                       child: Text(
                         widget.driverName,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
+                        style: AppTextStyles.textBold(
+                          size: 20,
                           color: AppColors.dark,
                         ),
                         overflow: TextOverflow.ellipsis,
@@ -80,8 +80,8 @@ class _ChatMessageTileState extends State<ChatMessageTile> {
                     const SizedBox(width: 10),
                     Text(
                       widget.messageTime,
-                      style: const TextStyle(
-                        fontSize: 14,
+                      style: AppTextStyles.textMedium(
+                        size: 14,
                         color: AppColors.dark,
                       ),
                     ),
@@ -93,8 +93,8 @@ class _ChatMessageTileState extends State<ChatMessageTile> {
                     Expanded(
                       child: Text(
                         _displayMessage,
-                        style: const TextStyle(
-                          fontSize: 14,
+                        style: AppTextStyles.textMedium(
+                          size: 14,
                           color: AppColors.dark,
                         ),
                         maxLines: 2,
@@ -113,9 +113,9 @@ class _ChatMessageTileState extends State<ChatMessageTile> {
                         ),
                         child: Text(
                           widget.numberMessageReceived.toString(),
-                          style: const TextStyle(
+                          style: AppTextStyles.textMedium(
+                            size: 14,
                             color: AppColors.dark,
-                            fontSize: 14,
                           ),
                         ),
                       ),

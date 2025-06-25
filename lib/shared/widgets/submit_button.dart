@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../styles/colors.dart';
-import '../styles/fonts.dart';
+import '../styles/texts.dart';
 
 class SubmitButton extends StatelessWidget {
   final VoidCallback? onPressed;
@@ -23,12 +23,11 @@ class SubmitButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(30),
         ),
       ),
-      child: const Text(
+      child: Text(
         'Submit',
-        style: TextStyle(
-          fontFamily: AppFonts.fontBold,
-          fontWeight: FontWeight.bold,
-          fontSize: 18,
+        style: AppTextStyles.textBold(
+          size: 18,
+          color: AppColors.soapstone,
         ),
       ),
     );

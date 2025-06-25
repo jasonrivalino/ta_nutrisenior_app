@@ -6,7 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../../config/constants.dart';
 
 import '../../../shared/styles/colors.dart';
-import '../../../shared/styles/fonts.dart';
+import '../../../shared/styles/texts.dart';
 import '../../../shared/utils/formatted_time.dart';
 import '../../../shared/utils/fullscreen_image_view.dart';
 
@@ -47,11 +47,9 @@ class RatingFilterButton extends StatelessWidget {
             const SizedBox(width: 4),
             Text(
               label,
-              style: TextStyle(
-                fontSize: 14,
+              style: AppTextStyles.textBold(
+                size: 14,
                 color: isSelected ? AppColors.soapstone : AppColors.dark,
-                fontWeight: FontWeight.bold,
-                fontFamily: AppFonts.fontBold,
               ),
             ),
           ],
@@ -103,20 +101,16 @@ class BusinessRatingItem extends StatelessWidget {
                   children: [
                     Text(
                       rating['username'],
-                      style: const TextStyle(
-                        fontSize: 14,
+                      style: AppTextStyles.textBold(
+                        size: 14,
                         color: AppColors.dark,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: AppFonts.fontBold,
                       ),
                     ),
                     Text(
                       formatDate(rating['rating_date']),
-                      style: const TextStyle(
-                        fontSize: 12,
+                      style: AppTextStyles.textBold(
+                        size: 13,
                         color: AppColors.dark,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: AppFonts.fontBold,
                       ),
                     ),
                   ],
@@ -135,11 +129,9 @@ class BusinessRatingItem extends StatelessWidget {
                 ),
                 const SizedBox(height: 6),
                 Text(rating['rating_comment'],
-                  style: const TextStyle(
-                    fontSize: 14,
+                  style: AppTextStyles.textMedium(
+                    size: 14,
                     color: AppColors.dark,
-                    fontWeight: FontWeight.w500,
-                    fontFamily: AppFonts.fontMedium,
                   ),
                 ),
                 if ((rating['rating_images'] as List).isNotEmpty) ...[
@@ -187,7 +179,8 @@ class BusinessRatingItem extends StatelessWidget {
                                     builder: (_) => FullScreenImageView(
                                       imagePath: imagePath,
                                       senderName: rating['username'],
-                                      sendTime: formatDate(rating['rating_date']),
+                                      sendTime: formatDayTime(rating['rating_date']
+                                      ),
                                     ),
                                   ),
                                 );

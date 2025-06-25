@@ -4,7 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../shared/styles/colors.dart';
-import '../../../shared/styles/fonts.dart';
+import '../../../shared/styles/texts.dart';
 import '../../../shared/utils/is_business_open.dart';
 import '../../../shared/widgets/address_selection_overlay.dart';
 import '../../../shared/widgets/appbar.dart';
@@ -132,6 +132,7 @@ class _SearchViewState extends State<SearchView> {
                     isScrollControlled: true,
                     builder: (BuildContext context) {
                       return SortFilterOverlay(
+                        businessType: selectedIndex == 0 ? 'restaurant' : 'market',
                         selectedOption: _selectedSortOption,
                         onApply: (newOption) async {
                           final connectivityResult = await Connectivity().checkConnectivity();
@@ -196,11 +197,9 @@ class _SearchViewState extends State<SearchView> {
                               padding: const EdgeInsets.all(24.0),
                               child: Text(
                                 'Pencarian ${selectedIndex == 0 ? "Restoran" : "Pusat Belanja"} tidak ditemukan.',
-                                style: TextStyle(
+                                style: AppTextStyles.textMedium(
+                                  size: 16,
                                   color: AppColors.dark.withValues(alpha: 0.8),
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                  fontFamily: AppFonts.fontMedium,
                                 ),
                               ),
                             ),

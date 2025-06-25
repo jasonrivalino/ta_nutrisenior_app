@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../../config/constants.dart';
 
 import '../../styles/colors.dart';
-import '../../styles/fonts.dart';
+import '../../styles/texts.dart';
 import '../../utils/format_currency.dart';
 import '../../utils/is_business_open.dart';
 
@@ -242,13 +242,11 @@ class _CardBoxState extends State<CardBox> {
                             color: AppColors.persianRed,
                             borderRadius: BorderRadius.circular(6),
                           ),
-                          child: const Text(
+                          child: Text(
                             'TUTUP',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: AppFonts.fontBold,
+                            style: AppTextStyles.textBold(
+                              size: 13,
+                              color: AppColors.soapstone,
                             ),
                           ),
                         ),
@@ -271,11 +269,9 @@ class _CardBoxState extends State<CardBox> {
                               angle: -5 * (22 / 7) / 180,
                               child: Text(
                                 '${widget.discountNumber}%',
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 12,
+                                style: AppTextStyles.textBold(
+                                  size: 13,
                                   color: AppColors.dark,
-                                  fontFamily: AppFonts.fontBold,
                                 ),
                               ),
                             ),
@@ -332,10 +328,9 @@ class _CardBoxState extends State<CardBox> {
                                     const SizedBox(width: 10),
                                     Text(
                                       '${widget.count}',
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 14,
-                                        fontFamily: AppFonts.fontBold,
+                                      style: AppTextStyles.textBold(
+                                        size: 14,
+                                        color: AppColors.dark,
                                       ),
                                     ),
                                     const SizedBox(width: 10),
@@ -360,10 +355,9 @@ class _CardBoxState extends State<CardBox> {
                       if (widget.businessName != null) ...[
                         Text(
                           widget.businessName!,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontFamily: AppFonts.fontBold,
-                            fontSize: 18,
+                          style: AppTextStyles.textBold(
+                            size: 18,
+                            color: AppColors.dark,
                             height: screenHeight > 900 ? 1.35 : 1.2,
                           ),
                           maxLines: 2,
@@ -386,10 +380,9 @@ class _CardBoxState extends State<CardBox> {
                                     const SizedBox(width: 3),
                                     Text(
                                       '${widget.businessRate!.toStringAsFixed(1)}/5',
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.w500,
-                                        fontFamily: AppFonts.fontMedium,
-                                        fontSize: 14,
+                                      style: AppTextStyles.textMedium(
+                                        size: 14,
+                                        color: AppColors.dark,
                                       ),
                                     ),
                                   ],
@@ -410,10 +403,9 @@ class _CardBoxState extends State<CardBox> {
                                     const SizedBox(width: 2),
                                     Text(
                                       '${widget.businessLocation!.toStringAsFixed(2)} km',
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.w500,
-                                        fontFamily: AppFonts.fontMedium,
-                                        fontSize: 14,
+                                      style: AppTextStyles.textMedium(
+                                        size: 14,
+                                        color: AppColors.dark,
                                       ),
                                     ),
                                   ],
@@ -426,10 +418,9 @@ class _CardBoxState extends State<CardBox> {
                       else if (widget.productName != null) ...[
                         Text(
                           widget.productName!,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontFamily: AppFonts.fontBold,
-                            fontSize: 18,
+                          style: AppTextStyles.textBold(
+                            size: 18,
+                            color: AppColors.dark,
                             height: screenHeight > 900 ? 1.35 : 1.2,
                           ),
                           maxLines: 2,
@@ -447,32 +438,29 @@ class _CardBoxState extends State<CardBox> {
                                         formatCurrency(
                                           (widget.productPrice! * (100 - widget.discountNumber!) ~/ 100),
                                         ),
-                                        style: const TextStyle(
+                                        style: AppTextStyles.textBold(
+                                          size: 16,
                                           color: AppColors.dark,
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: AppFonts.fontBold,
+                                          height: screenHeight > 900 ? 1.35 : 1.2,
                                         ),
                                       ),
                                       const SizedBox(height: 2),
                                       Text(
                                         formatCurrency(widget.productPrice!),
-                                        style: const TextStyle(
+                                        style: AppTextStyles.textMedium(
+                                          size: 13,
                                           color: AppColors.darkGray,
-                                          fontSize: 13,
                                           decoration: TextDecoration.lineThrough,
-                                          fontFamily: AppFonts.fontMedium,
                                         ),
                                       ),
                                     ],
                                   )
                                 : Text(
                                     formatCurrency(widget.productPrice!),
-                                    style: const TextStyle(
+                                    style: AppTextStyles.textBold(
+                                      size: 16,
                                       color: AppColors.dark,
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: AppFonts.fontBold,
+                                      height: screenHeight > 900 ? 1.35 : 1.2,
                                     ),
                                   ),
                           ),

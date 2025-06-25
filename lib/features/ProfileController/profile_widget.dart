@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../config/constants.dart';
 
 import '../../shared/styles/colors.dart';
+import '../../shared/styles/texts.dart';
 import '../../shared/utils/handling_choose_image.dart';
 
 class ProfileCard extends StatefulWidget {
@@ -63,8 +64,20 @@ class _ProfileCardState extends State<ProfileCard> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(userName, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                Text(userEmail),
+                Text(
+                  userName, 
+                  style: AppTextStyles.textBold(
+                    size: 18,
+                    color: AppColors.dark,
+                  ),
+                ),
+                Text(
+                  userEmail,
+                  style: AppTextStyles.textMedium(
+                    size: 14,
+                    color: AppColors.dark,
+                  ),
+                ),
                 const SizedBox(height: 8),
                 GestureDetector(
                   onTap: () async {
@@ -73,9 +86,10 @@ class _ProfileCardState extends State<ProfileCard> {
                       setState(() => _image = selectedImage);
                     }
                   },
-                  child: const Text(
+                  child: Text(
                     'Edit Profil',
-                    style: TextStyle(
+                    style: AppTextStyles.textMedium(
+                      size: 14,
                       color: AppColors.blueDress,
                       decoration: TextDecoration.underline,
                     ),
@@ -121,10 +135,9 @@ class ProfileMenuList extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: const TextStyle(
-                  fontSize: 16,
+                style: AppTextStyles.textMedium(
+                  size: 16,
                   color: AppColors.dark,
-                  fontWeight: FontWeight.w500,
                 ),
               ),
               const Icon(Icons.arrow_forward_ios, size: 16, color: AppColors.dark),

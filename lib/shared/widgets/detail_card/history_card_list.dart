@@ -4,8 +4,9 @@ import 'package:intl/intl.dart';
 
 import '../../../config/constants.dart';
 
-import '../../styles/fonts.dart';
 import '../../styles/colors.dart';
+import '../../styles/texts.dart';
+import '../../utils/formatted_time.dart';
 
 class HistoryCardList extends StatelessWidget {
   final Map<String, dynamic> historyData;
@@ -23,8 +24,6 @@ class HistoryCardList extends StatelessWidget {
     final String businessImage = historyData['business_image'];
     final int totalPrice = historyData['total_price'];
     final String status = historyData['status'];
-
-    final dateFormatted = DateFormat('d MMM yyyy, HH:mm').format(orderDate);
 
     return Container(
       padding: const EdgeInsets.all(12),
@@ -48,22 +47,18 @@ class HistoryCardList extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      dateFormatted,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                        fontFamily: AppFonts.fontBold,
+                      formatFullDateTime(orderDate),
+                      style: AppTextStyles.textBold(
+                        size: 14,
                         color: AppColors.dark,
                       ),
                     ),
                     if (status != 'selesai')
                       Text(
                         status.toUpperCase(),
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
+                        style: AppTextStyles.textBold(
+                          size: 14,
                           color: AppColors.dark,
-                          fontSize: 14,
-                          fontFamily: AppFonts.fontBold,
                         ),
                       ),
                   ],
@@ -100,10 +95,8 @@ class HistoryCardList extends StatelessWidget {
                         children: [
                           Text(
                             businessName,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                              fontFamily: AppFonts.fontBold,
+                            style: AppTextStyles.textBold(
+                              size: 16,
                               color: AppColors.dark,
                               height: 1.2,
                             ),
@@ -120,10 +113,8 @@ class HistoryCardList extends StatelessWidget {
                                   symbol: 'Rp',
                                   decimalDigits: 0,
                                 ).format(totalPrice.toInt()),
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14,
-                                  fontFamily: AppFonts.fontBold,
+                                style: AppTextStyles.textBold(
+                                  size: 14,
                                   color: AppColors.dark,
                                 ),
                               ),
@@ -146,9 +137,9 @@ class HistoryCardList extends StatelessWidget {
                                             shape: RoundedRectangleBorder(
                                               borderRadius: BorderRadius.circular(8),
                                             ),
-                                            textStyle: const TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontFamily: AppFonts.fontBold,
+                                            textStyle: AppTextStyles.textBold(
+                                              size: 14,
+                                              color: AppColors.dark,
                                             ),
                                             elevation: 0,
                                             shadowColor: Colors.transparent,
@@ -188,9 +179,9 @@ class HistoryCardList extends StatelessWidget {
                                             shape: RoundedRectangleBorder(
                                               borderRadius: BorderRadius.circular(8),
                                             ),
-                                            textStyle: const TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontFamily: AppFonts.fontBold,
+                                            textStyle: AppTextStyles.textBold(
+                                              size: 14,
+                                              color: AppColors.soapstone,
                                             ),
                                             elevation: 0,
                                             shadowColor: Colors.transparent,
@@ -217,9 +208,9 @@ class HistoryCardList extends StatelessWidget {
                                           shape: RoundedRectangleBorder(
                                             borderRadius: BorderRadius.circular(8),
                                           ),
-                                          textStyle: const TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontFamily: AppFonts.fontBold,
+                                          textStyle: AppTextStyles.textBold(
+                                            size: 14,
+                                            color: AppColors.soapstone,
                                           ),
                                           elevation: 0,
                                           shadowColor: Colors.transparent,

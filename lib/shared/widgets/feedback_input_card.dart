@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 
 import '../styles/colors.dart';
-import '../styles/fonts.dart';
+import '../styles/texts.dart';
 
 class FeedbackInputCard extends StatelessWidget {
   final TextEditingController controller;
@@ -27,11 +27,11 @@ class FeedbackInputCard extends StatelessWidget {
     return Column(
       children: [
         // Comment Title
-        Text(titleText,
-            style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            fontFamily: AppFonts.fontBold,
+        Text(
+          titleText,
+          style: AppTextStyles.textBold(
+            size: 20,
+            color: AppColors.dark,
           ),
           textAlign: TextAlign.left,
         ),
@@ -48,11 +48,9 @@ class FeedbackInputCard extends StatelessWidget {
             border: Border.all(color: AppColors.dark, width: 1.5),
           ),
           child: TextField(
-            style: const TextStyle(
+            style: AppTextStyles.textMedium(
+              size: 14,
               color: AppColors.dark,
-              fontSize: 14,
-              fontFamily: AppFonts.fontMedium,
-              fontWeight: FontWeight.w500,
             ),
             controller: controller,
             maxLines: 5,
@@ -79,15 +77,13 @@ class FeedbackInputCard extends StatelessWidget {
           child: Row(
             children: [
               if (selectedImages.isEmpty)
-                const Padding(
+                Padding(
                   padding: EdgeInsets.only(right: 8),
                   child: Text(
                     "Masukkan Gambar Pendukung",
-                    style: TextStyle(
+                    style: AppTextStyles.textMedium(
+                      size: 14,
                       color: AppColors.darkGray,
-                      fontSize: 14,
-                      fontFamily: AppFonts.fontMedium,
-                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 )

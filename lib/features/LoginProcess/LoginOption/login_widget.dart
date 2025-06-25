@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../shared/styles/colors.dart';
-import '../../../shared/styles/fonts.dart';
+import '../../../shared/styles/texts.dart';
 
 class LoginButton extends StatelessWidget {
   final FaIcon? icon;
@@ -59,10 +59,9 @@ class LoginButton extends StatelessWidget {
           const SizedBox(width: 12), // Gap between icon and text
           Text(
             text,
-            style: const TextStyle(
-              fontFamily: AppFonts.fontBold,
-              fontWeight: FontWeight.w700,
-              fontSize: 18,
+            style: AppTextStyles.textBold(
+              size: 18,
+              color: AppColors.soapstone,
             ),
           ),
         ],

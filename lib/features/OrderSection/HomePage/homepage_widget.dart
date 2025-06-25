@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../shared/styles/colors.dart';
+import '../../../shared/styles/texts.dart';
 import '../../../shared/utils/carousel_card.dart';
 import '../../../shared/widgets/detail_card/card_box.dart';
 import '../../../shared/widgets/list_helper/lihat_lengkap_button.dart';
@@ -51,9 +52,9 @@ class _HomeTopBarSectionState extends State<HomeTopBarSection> {
                   'Hello, $userName',
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
+                  style: AppTextStyles.textBold(
+                    size: 28,
+                    color: AppColors.dark,
                   ),
                 ),
               ),
@@ -97,11 +98,11 @@ class _HomeTopBarSectionState extends State<HomeTopBarSection> {
                 border: Border.all(color: AppColors.dark),
                 borderRadius: BorderRadius.circular(16.0),
               ),
-              child: const Text(
+              child: Text(
                 'Cari pesanan pilihanmu...',
-                style: TextStyle(
+                style: AppTextStyles.textMedium(
+                  size: 16,
                   color: AppColors.dark,
-                  fontSize: 16.0,
                 ),
               ),
             ),

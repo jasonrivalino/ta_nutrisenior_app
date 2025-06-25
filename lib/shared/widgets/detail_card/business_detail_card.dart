@@ -4,7 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../../config/constants.dart';
 
 import '../../styles/colors.dart';
-import '../../styles/fonts.dart';
+import '../../styles/texts.dart';
 import '../../utils/formatted_time.dart';
 import '../../utils/is_business_open.dart';
 
@@ -127,24 +127,22 @@ class BusinessInfoCard extends StatelessWidget {
                               child: discountNumber != null
                                   ? Text(
                                       'Disc $discountNumber%',
-                                      style: const TextStyle(
+                                      style: AppTextStyles.textBold(
+                                        size: 12,
                                         color: AppColors.dark,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.bold,
                                       ),
                                     )
                                   : Row(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       mainAxisSize: MainAxisSize.min,
-                                      children: const [
+                                      children: [
                                         FaIcon(FontAwesomeIcons.personBiking, size: 12, color: AppColors.dark),
                                         SizedBox(width: 6),
                                         Text(
                                           'FREE',
-                                          style: TextStyle(
+                                          style: AppTextStyles.textBold(
+                                            size: 12,
                                             color: AppColors.dark,
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.bold,
                                           ),
                                         ),
                                       ],
@@ -166,9 +164,9 @@ class BusinessInfoCard extends StatelessWidget {
                                 businessName,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
+                                style: AppTextStyles.textBold(
+                                  size: 16,
+                                  color: AppColors.dark,
                                 ),
                               ),
                             ),
@@ -214,11 +212,9 @@ class BusinessInfoCard extends StatelessWidget {
                   textAlign: TextAlign.center,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
+                  style: AppTextStyles.textMedium(
+                    size: 14,
                     color: AppColors.dark,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    fontFamily: AppFonts.fontMedium,
                   ),
                 ),
               ),
@@ -239,11 +235,9 @@ class BusinessInfoCard extends StatelessWidget {
                         ? 'Buka 24 Jam'
                         : '$formattedOpen - $formattedClose',
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
+                    style: AppTextStyles.textMedium(
+                      size: 14,
                       color: AppColors.dark,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                      fontFamily: AppFonts.fontMedium,
                     ),
                   ),
                 ),
@@ -266,7 +260,13 @@ class BusinessInfoCard extends StatelessWidget {
         children: [
           icon,
           const SizedBox(width: 3),
-          Text(label, style: const TextStyle(color: AppColors.dark)),
+          Text(
+            label,
+            style: AppTextStyles.textMedium(
+              size: 14,
+              color: AppColors.dark,
+            ),
+          ),
         ],
       ),
     );

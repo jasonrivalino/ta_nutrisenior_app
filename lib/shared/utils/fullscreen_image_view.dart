@@ -3,9 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 
-import '../../../shared/styles/colors.dart';
-import '../../../shared/styles/fonts.dart';
-import '../../../shared/utils/formatted_time.dart';
+import '../styles/colors.dart';
+import '../styles/texts.dart';
+import '../utils/formatted_time.dart';
 
 class FullScreenImageView extends StatelessWidget {
   final String imagePath;
@@ -45,21 +45,17 @@ class FullScreenImageView extends StatelessWidget {
             children: [
               Text(
                 senderName,
-                style: const TextStyle(
-                  fontSize: 16,
+                style: AppTextStyles.textBold(
+                  size: 18,
                   color: AppColors.soapstone,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: AppFonts.fontBold,
                 ),
               ),
               if (sendTime != null)
                 Text(
                   formatFullDateTime(sendTime),
-                  style: const TextStyle(
-                    fontSize: 12,
+                  style: AppTextStyles.textMedium(
+                    size: 14,
                     color: AppColors.soapstone,
-                    fontWeight: FontWeight.w500,
-                    fontFamily: AppFonts.fontMedium,
                   ),
                 ),
             ],

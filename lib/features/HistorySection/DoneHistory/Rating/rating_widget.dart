@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../config/constants.dart';
 
 import '../../../../shared/styles/colors.dart';
-import '../../../../shared/styles/fonts.dart';
+import '../../../../shared/styles/texts.dart';
 
 class RatingCard extends StatelessWidget {
   final String ratingTarget;
@@ -48,10 +48,9 @@ class RatingCard extends StatelessWidget {
               Expanded(
                 child: Text(
                   ratingTarget,
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: AppFonts.fontBold,
+                  style: AppTextStyles.textBold(
+                    size: 18,
+                    color: AppColors.dark,
                   ),
                 ),
               ),
@@ -86,9 +85,9 @@ class RatingCard extends StatelessWidget {
                         selectedRating == value ? AppColors.orangyYellow : AppColors.soapstone,
                     child: Text(
                       "$value",
-                      style: TextStyle(
+                      style: AppTextStyles.textBold(
+                        size: 16,
                         color: AppColors.dark,
-                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),

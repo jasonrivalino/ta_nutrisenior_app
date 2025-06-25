@@ -4,8 +4,8 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../shared/styles/colors.dart';
-import '../../../shared/styles/fonts.dart';
+import '../styles/colors.dart';
+import '../styles/texts.dart';
 
 import '../../features/OrderSection/SearchingMenu/search_controller.dart';
 
@@ -99,11 +99,9 @@ class _AddressSelectionOverlayState extends State<AddressSelectionOverlay> {
                   children: [
                     Text(
                       'Pilih Alamat Detail',
-                      style: TextStyle(
+                      style: AppTextStyles.textBold(
+                        size: 20,
                         color: AppColors.dark,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: AppFonts.fontBold,
                       ),
                     ),
                     ElevatedButton.icon(
@@ -115,11 +113,9 @@ class _AddressSelectionOverlayState extends State<AddressSelectionOverlay> {
                       icon: const Icon(Icons.my_location, size: 18),
                       label: Text(
                         'Lokasi Sekarang',
-                        style: TextStyle(
+                        style: AppTextStyles.textMedium(
+                          size: 14,
                           color: AppColors.soapstone,
-                          fontSize: 14,
-                          fontFamily: AppFonts.fontMedium,
-                          fontWeight: FontWeight.w500,
                         ),
                       ),
                       style: ElevatedButton.styleFrom(
@@ -187,11 +183,9 @@ class _AddressSelectionOverlayState extends State<AddressSelectionOverlay> {
                   if (mainAddress.any((addr) => addr['isBookmarked'] == true)) ...[
                     Text(
                       'Alamat Disimpan',
-                      style: TextStyle(
+                      style: AppTextStyles.textBold(
+                        size: 18,
                         color: AppColors.dark,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: AppFonts.fontBold,
                       ),
                     ),
                     const SizedBox(height: 8),
@@ -203,11 +197,9 @@ class _AddressSelectionOverlayState extends State<AddressSelectionOverlay> {
                   if (recentAddresses.isNotEmpty) ...[
                     Text(
                       'Riwayat Alamat',
-                      style: TextStyle(
+                      style: AppTextStyles.textBold(
+                        size: 18,
                         color: AppColors.dark,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: AppFonts.fontBold,
                       ),
                     ),
                     const SizedBox(height: 8),
@@ -216,11 +208,9 @@ class _AddressSelectionOverlayState extends State<AddressSelectionOverlay> {
                 ] else ...[
                   Text(
                     'Pencarian Alamat',
-                    style: TextStyle(
-                      color: AppColors.dark,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: AppFonts.fontBold,
+                    style: AppTextStyles.textBold(
+                      size: 18,
+                      color: AppColors.dark
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -230,11 +220,9 @@ class _AddressSelectionOverlayState extends State<AddressSelectionOverlay> {
                       child: Center(
                         child: Text(
                           'Tidak ada hasil ditemukan.',
-                          style: TextStyle(
+                          style: AppTextStyles.textBold(
+                            size: 16,
                             color: AppColors.dark.withValues(alpha: 0.8),
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                            fontFamily: AppFonts.fontMedium,
                           ),
                         ),
                       ),
@@ -289,9 +277,12 @@ class _AddressSelectionOverlayState extends State<AddressSelectionOverlay> {
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),
-                child: const Text(
+                child: Text(
                   'Pilih Alamat',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  style: AppTextStyles.textBold(
+                    size: 16,
+                    color: AppColors.soapstone,
+                  ),
                 ),
               ),
             ),
@@ -331,14 +322,15 @@ class _AddressSelectionOverlayState extends State<AddressSelectionOverlay> {
         ),
         title: Text(
           addr['address_name'],
-          style: TextStyle(
+          style: AppTextStyles.textBold(
+            size: 16,
             color: AppColors.dark,
-            fontWeight: FontWeight.w600,
           ),
         ),
         subtitle: Text(
           addr['address_detail'],
-          style: TextStyle(
+          style: AppTextStyles.textMedium(
+            size: 14,
             color: AppColors.dark,
           ),
         ),

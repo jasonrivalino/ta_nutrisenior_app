@@ -5,7 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 
 import '../../../shared/styles/colors.dart';
-import '../../../shared/styles/fonts.dart';
+import '../../../shared/styles/texts.dart';
 import '../../../shared/utils/format_currency.dart';
 import '../../../shared/utils/formatted_time.dart';
 import '../../../shared/utils/fullscreen_image_view.dart';
@@ -39,21 +39,17 @@ class DoneOrderTimeDriverCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
+              Text(
                 "Waktu Pesan",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                  fontFamily: AppFonts.fontBold,
+                style: AppTextStyles.textBold(
+                  size: 18,
                   color: AppColors.dark,
                 ),
               ),
               Text(
                 DateFormat('d MMM y, HH:mm').format(orderDate),
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 16,
-                  fontFamily: AppFonts.fontMedium,
+                style: AppTextStyles.textMedium(
+                  size: 16,
                   color: AppColors.dark,
                 ),
               ),
@@ -65,21 +61,17 @@ class DoneOrderTimeDriverCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              Text(
                 "Pengemudi",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                  fontFamily: AppFonts.fontBold,
+                style: AppTextStyles.textBold(
+                  size: 18,
                   color: AppColors.dark,
                 ),
               ),
               Text(
                 driverName,
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 16,
-                  fontFamily: AppFonts.fontMedium,
+                style: AppTextStyles.textMedium(
+                  size: 16,
                   color: AppColors.dark,
                 ),
                 textAlign: TextAlign.right,
@@ -91,10 +83,8 @@ class DoneOrderTimeDriverCard extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 2),
               child: Text(
                 "Note: $driverNote",
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 14,
-                  fontFamily: AppFonts.fontMedium,
+                style: AppTextStyles.textMedium(
+                  size: 14,
                   color: AppColors.dark,
                 ),
                 textAlign: TextAlign.left,
@@ -138,22 +128,18 @@ class DoneOrderAddressCard extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     'Nama Restoran',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 14,
-                      fontFamily: AppFonts.fontMedium,
+                    style: AppTextStyles.textMedium(
+                      size: 14,
                       color: AppColors.dark,
                     ),
                   ),
                   Text(businessName,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                      fontFamily: AppFonts.fontBold,
+                    style: AppTextStyles.textBold(
+                      size: 18,
                       color: AppColors.dark,
                     ),
                   ),
@@ -171,22 +157,18 @@ class DoneOrderAddressCard extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     'Alamat Penerima',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 14,
-                      fontFamily: AppFonts.fontMedium,
+                    style: AppTextStyles.textMedium(
+                      size: 14,
                       color: AppColors.dark,
                     ),
                   ),
                   Text(addressReceiver,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                      fontFamily: AppFonts.fontBold,
+                    style: AppTextStyles.textBold(
+                      size: 18,
                       color: AppColors.dark,
                     ),
                   ),
@@ -229,11 +211,9 @@ class DoneOrderDetailsCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Detail Pesanan',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
-              fontFamily: AppFonts.fontBold,
+          Text('Detail Pesanan',
+            style: AppTextStyles.textBold(
+              size: 18,
               color: AppColors.dark,
             ),
           ),
@@ -257,10 +237,8 @@ class DoneOrderDetailsCard extends StatelessWidget {
                       children: [
                         Text(
                           '${item['qty_product']}x ',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                            fontFamily: AppFonts.fontBold,
+                          style: AppTextStyles.textBold(
+                            size: 16,
                             color: AppColors.dark,
                           ),
                         ),
@@ -270,10 +248,8 @@ class DoneOrderDetailsCard extends StatelessWidget {
                             item['product_name'],
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                              fontFamily: AppFonts.fontBold,
+                            style: AppTextStyles.textBold(
+                              size: 16,
                               color: AppColors.dark,
                             ),
                           ),
@@ -281,10 +257,8 @@ class DoneOrderDetailsCard extends StatelessWidget {
                         const SizedBox(width: 10),
                         Text(
                           formatCurrency(item['product_price'] * item['qty_product']),
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                            fontFamily: AppFonts.fontBold,
+                          style: AppTextStyles.textBold(
+                            size: 16,
                             color: AppColors.dark,
                           ),
                         ),
@@ -301,11 +275,9 @@ class DoneOrderDetailsCard extends StatelessWidget {
                           return Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text('+',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 14,
-                                  fontFamily: AppFonts.fontMedium,
+                              Text('+',
+                                style: AppTextStyles.textMedium(
+                                  size: 14,
                                   color: AppColors.dark,
                                 ),
                               ),
@@ -313,20 +285,16 @@ class DoneOrderDetailsCard extends StatelessWidget {
                               Expanded(
                                 child: Text(
                                   addOn['add_ons_name'],
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 14,
-                                    fontFamily: AppFonts.fontMedium,
+                                  style: AppTextStyles.textMedium(
+                                    size: 14,
                                     color: AppColors.dark,
                                   ),
                                 ),
                               ),
                               const SizedBox(width: 12),
                               Text(formatCurrency(addOn['total_price']),
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14,
-                                  fontFamily: AppFonts.fontBold,
+                                style: AppTextStyles.textBold(
+                                  size: 14,
                                   color: AppColors.dark,
                                 ),
                               ),
@@ -342,11 +310,10 @@ class DoneOrderDetailsCard extends StatelessWidget {
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          const Text(
+                          Text(
                             'Note:',
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontFamily: AppFonts.fontMedium,
+                            style: AppTextStyles.textRegular(
+                              size: 14,
                               color: AppColors.dark,
                             ),
                           ),
@@ -354,9 +321,8 @@ class DoneOrderDetailsCard extends StatelessWidget {
                           Expanded(
                             child: Text(
                               item['notes'],
-                              style: const TextStyle(
-                                fontSize: 14,
-                                fontFamily: AppFonts.fontMedium,
+                              style: AppTextStyles.textRegular(
+                                size: 14,
                                 color: AppColors.dark,
                               ),
                               maxLines: 2,
@@ -378,19 +344,15 @@ class DoneOrderDetailsCard extends StatelessWidget {
             children: [
               Text(
                 "Harga pelayanan",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                  fontFamily: AppFonts.fontBold,
+                style: AppTextStyles.textBold(
+                  size: 16,
                   color: AppColors.dark,
                 ),
               ),
               Text(
                 formatCurrency(serviceFee),
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                  fontFamily: AppFonts.fontBold,
+                style: AppTextStyles.textBold(
+                  size: 16,
                   color: AppColors.dark,
                 ),
               ),
@@ -403,19 +365,15 @@ class DoneOrderDetailsCard extends StatelessWidget {
             children: [
               Text(
                 "Harga pengiriman",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                  fontFamily: AppFonts.fontBold,
+                style: AppTextStyles.textBold(
+                  size: 16,
                   color: AppColors.dark,
                 ),
               ),
               Text(
                 deliveryFee == 0 ? "Gratis" : formatCurrency(deliveryFee),
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                  fontFamily: AppFonts.fontBold,
+                style: AppTextStyles.textBold(
+                  size: 16,
                   color: AppColors.dark,
                 ),
               ),
@@ -427,18 +385,14 @@ class DoneOrderDetailsCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text("Total Harga",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                  fontFamily: AppFonts.fontBold,
+                style: AppTextStyles.textBold(
+                  size: 18,
                   color: AppColors.dark,
                 ),
               ),
               Text(formatCurrency(totalPrice),
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                  fontFamily: AppFonts.fontBold,
+                style: AppTextStyles.textBold(
+                  size: 18,
                   color: AppColors.dark,
                 ),
               ),  
@@ -448,18 +402,14 @@ class DoneOrderDetailsCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text("Metode bayar",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                  fontFamily: AppFonts.fontBold,
+                style: AppTextStyles.textBold(
+                  size: 18,
                   color: AppColors.dark,
                 ),
               ),
               Text(paymentMethod,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                  fontFamily: AppFonts.fontBold,
+                style: AppTextStyles.textBold(
+                  size: 18,
                   color: AppColors.dark,
                 ),
               ),
@@ -567,30 +517,24 @@ class FeedbackInformationBox extends StatelessWidget {
         children: [
           Text(
             title,
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              fontFamily: AppFonts.fontBold,
+            style: AppTextStyles.textBold(
+              size: 18,
               color: AppColors.persianRed,
             ),
           ),
-          const SizedBox(height: 4),
+          const SizedBox(height: 2),
           Text(
             'Alasan: $reason',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              fontFamily: AppFonts.fontBold,
+            style: AppTextStyles.textBold(
+              size: 14,
               color: AppColors.persianRed,
             ),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 10),
           Text(
             description,
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w500,
-              fontFamily: AppFonts.fontMedium,
+            style: AppTextStyles.textMedium(
+              size: 14,
               color: AppColors.persianRed,
             ),
           ),
@@ -674,10 +618,8 @@ class FeedbackInformationBox extends StatelessWidget {
         children: [
           Text(
             'Rating untuk $label',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              fontFamily: AppFonts.fontBold,
+            style: AppTextStyles.textBold(
+              size: 16,
               color: AppColors.dark,
             ),
           ),
@@ -699,10 +641,8 @@ class FeedbackInformationBox extends StatelessWidget {
           const SizedBox(height: 6),
           Text(
             ratingComment,
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
-              fontFamily: AppFonts.fontBold,
+            style: AppTextStyles.textBold(
+              size: 14,
               color: AppColors.dark,
             ),
           ),
@@ -721,8 +661,7 @@ class FeedbackInformationBox extends StatelessWidget {
                         builder: (_) => FullScreenImageView(
                           imagePath: path,
                           senderName: 'Rating $label - $businessName',
-                          sendTime:
-                              '${formatDate(ratingDate)} ${ratingDate.hour.toString().padLeft(2, '0')}:${ratingDate.minute.toString().padLeft(2, '0')}',
+                          sendTime: formatFullDateTime(ratingDate),
                         ),
                       ),
                     );
@@ -762,10 +701,8 @@ class FeedbackInformationBox extends StatelessWidget {
           const SizedBox(height: 10),
           Text(
             '${formatDate(ratingDate)} ${ratingDate.hour.toString().padLeft(2, '0')}:${ratingDate.minute.toString().padLeft(2, '0')}',
-            style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.bold,
-              fontFamily: AppFonts.fontBold,
+            style: AppTextStyles.textMedium(
+              size: 13,
               color: AppColors.dark,
             ),
           ),
@@ -821,12 +758,10 @@ class GiveFeedbackBottomNavbar extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Text(
+          Text(
             "Yuk berikan penilaian!",
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              fontFamily: AppFonts.fontBold,
+            style: AppTextStyles.textBold(
+              size: 18,
               color: AppColors.dark,
             ),
           ),
@@ -849,12 +784,10 @@ class GiveFeedbackBottomNavbar extends StatelessWidget {
                     tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   ),
                   onPressed: onDriverPressed,
-                  child: const Text(
+                  child: Text(
                     "Pengemudi",
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: AppFonts.fontBold,
+                    style: AppTextStyles.textBold(
+                      size: 16,
                       color: AppColors.soapstone,
                     ),
                   ),
@@ -878,10 +811,8 @@ class GiveFeedbackBottomNavbar extends StatelessWidget {
                   onPressed: onBusinessPressed,
                   child: Text(
                     businessType == 'restaurant' ? "Restoran" : "Pusat Belanja",
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: AppFonts.fontBold,
+                    style: AppTextStyles.textBold(
+                      size: 16,
                       color: AppColors.soapstone,
                     ),
                   ),

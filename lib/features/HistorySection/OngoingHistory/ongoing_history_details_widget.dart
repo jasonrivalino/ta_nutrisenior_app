@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:ta_nutrisenior_app/shared/styles/texts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../config/constants.dart';
 
 import '../../../shared/styles/colors.dart';
-import '../../../shared/styles/fonts.dart';
 import '../../../shared/utils/format_currency.dart';
 
 // Class for estimated time card
@@ -50,11 +50,9 @@ class EstimatedTimeCard extends StatelessWidget {
               children: [
                 Text(
                   businessName,
-                  style: const TextStyle(
+                  style: AppTextStyles.textBold(
+                    size: 18,
                     color: AppColors.dark,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                    fontFamily: AppFonts.fontBold,
                   ),
                 ),
                 const SizedBox(height: 6),
@@ -67,11 +65,9 @@ class EstimatedTimeCard extends StatelessWidget {
                   ),
                   child: Text(
                     "Tiba dalam $etaText",
-                    style: const TextStyle(
+                    style: AppTextStyles.textMedium(
+                      size: 14,
                       color: AppColors.dark,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 14,
-                      fontFamily: AppFonts.fontMedium,
                     ),
                   ),
                 ),
@@ -126,22 +122,18 @@ class OrderStatusDetails extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: TextStyle(
+                  style: AppTextStyles.textBold(
+                    size: 20,
                     color: AppColors.woodland,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                    fontFamily: AppFonts.fontBold,
                   ),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 4),
                 Text(
                   description,
-                  style: TextStyle(
+                  style: AppTextStyles.textMedium(
+                    size: 16,
                     color: AppColors.dark,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 14,
-                    fontFamily: AppFonts.fontMedium,
                   ),
                   textAlign: TextAlign.center,
                 ),
@@ -184,15 +176,13 @@ class OrderListDetails extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Padding(
+            Padding(
               padding: EdgeInsets.fromLTRB(12, 10, 12, 0),
               child: Text(
                 "Daftar Pesanan",
-                style: TextStyle(
+                style: AppTextStyles.textBold(
+                  size: 20,
                   color: AppColors.dark,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                  fontFamily: AppFonts.fontBold,
                 ),
               ),
             ),
@@ -221,11 +211,9 @@ class OrderListDetails extends StatelessWidget {
                             ),
                             child: Text(
                               "${item['qty_product']} pcs",
-                              style: TextStyle(
+                              style: AppTextStyles.textMedium(
+                                size: 14,
                                 color: AppColors.dark,
-                                fontFamily: AppFonts.fontMedium,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 14,
                               ),
                             ),
                           ),
@@ -243,22 +231,18 @@ class OrderListDetails extends StatelessWidget {
                                         item['product_name'] ?? '',
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
+                                        style: AppTextStyles.textBold(
+                                          size: 16,
                                           color: AppColors.dark,
-                                          fontFamily: AppFonts.fontBold,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 16,
                                         ),
                                       ),
                                     ),
                                     const SizedBox(width: 8),
                                     Text(
                                       formatCurrency(item['product_price'] * item['qty_product']),
-                                      style: TextStyle(
+                                      style: AppTextStyles.textBold(
+                                        size: 16,
                                         color: AppColors.dark,
-                                        fontFamily: AppFonts.fontBold,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16,
                                       ),
                                     ),
                                   ],
@@ -271,11 +255,10 @@ class OrderListDetails extends StatelessWidget {
                                       padding: const EdgeInsets.only(top: 2, left: 2),
                                       child: Row(
                                         children: [
-                                          const Text(
+                                          Text(
                                             '+',
-                                            style: TextStyle(
-                                              fontSize: 14,
-                                              fontFamily: AppFonts.fontMedium,
+                                            style: AppTextStyles.textMedium(
+                                              size: 14,
                                               color: AppColors.dark,
                                             ),
                                           ),
@@ -283,21 +266,17 @@ class OrderListDetails extends StatelessWidget {
                                           Expanded(
                                             child: Text(
                                               addOn['add_ons_name'],
-                                              style: const TextStyle(
+                                              style: AppTextStyles.textMedium(
+                                                size: 14,
                                                 color: AppColors.dark,
-                                                fontFamily: AppFonts.fontMedium,
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 14,
                                               ),
                                             ),
                                           ),
                                           const SizedBox(width: 16),
                                           Text(
                                             formatCurrency(addOn['add_ons_price'] * item['qty_product']),
-                                            style: const TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 14,
-                                              fontFamily: AppFonts.fontBold,
+                                            style: AppTextStyles.textBold(
+                                              size: 14,
                                               color: AppColors.dark,
                                             ),
                                           ),
@@ -319,11 +298,10 @@ class OrderListDetails extends StatelessWidget {
                           child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            const Text(
+                            Text(
                               'Note:',
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontFamily: AppFonts.fontMedium,
+                              style: AppTextStyles.textRegular(
+                                size: 14,
                                 color: AppColors.dark,
                               ),
                             ),
@@ -331,9 +309,8 @@ class OrderListDetails extends StatelessWidget {
                             Expanded(
                               child: Text(
                                 item['notes'],
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                  fontFamily: AppFonts.fontMedium,
+                                style: AppTextStyles.textRegular(
+                                  size: 14,
                                   color: AppColors.dark,
                                 ),
                                 maxLines: 2,
@@ -360,18 +337,14 @@ class OrderListDetails extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text("Harga pelayanan",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                            fontFamily: AppFonts.fontBold,
+                          style: AppTextStyles.textBold(
+                            size: 16,
                             color: AppColors.dark,
                           ),
                         ),
                         Text(formatCurrency(serviceFee!),
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                            fontFamily: AppFonts.fontBold,
+                          style: AppTextStyles.textBold(
+                            size: 16,
                             color: AppColors.dark,
                           ),
                         ),
@@ -385,19 +358,15 @@ class OrderListDetails extends StatelessWidget {
                       children: [
                         Text(
                           "Harga pengiriman",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                            fontFamily: AppFonts.fontBold,
+                          style: AppTextStyles.textBold(
+                            size: 16,
                             color: AppColors.dark,
                           ),
                         ),
                         Text(
                           deliveryFee == 0 ? 'Gratis' : formatCurrency(deliveryFee!),
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                            fontFamily: AppFonts.fontBold,
+                          style: AppTextStyles.textBold(
+                            size: 16,
                             color: AppColors.dark,
                           ),
                         ),
@@ -418,18 +387,14 @@ class OrderListDetails extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                       Text("Total Harga",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                          fontFamily: AppFonts.fontBold,
+                        style: AppTextStyles.textBold(
+                          size: 16,
                           color: AppColors.dark,
                         ),
                       ),
                       Text(formatCurrency(totalPrice!),
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                          fontFamily: AppFonts.fontBold,
+                        style: AppTextStyles.textBold(
+                          size: 16,
                           color: AppColors.dark,
                         ),
                       ), 
@@ -494,14 +459,12 @@ class DeliverDriverCard extends StatelessWidget {
                   driverName!,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                    fontFamily: AppFonts.fontBold,
+                  style: AppTextStyles.textBold(
+                    size: 18,
                     color: AppColors.dark,
                   ),
                 ),
-                const SizedBox(height: 6),
+                const SizedBox(height: 4),
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
                   decoration: BoxDecoration(
@@ -516,11 +479,9 @@ class DeliverDriverCard extends StatelessWidget {
                       const SizedBox(width: 4),
                       Text(
                         "$driverRate/5",
-                        style: TextStyle(
+                        style: AppTextStyles.textMedium(
+                          size: 14,
                           color: AppColors.dark,
-                          fontFamily: AppFonts.fontMedium,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 14,
                         ),
                       ),
                     ],

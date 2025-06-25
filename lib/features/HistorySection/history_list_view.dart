@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../../shared/styles/colors.dart';
-import '../../../shared/widgets/appbar.dart';
-import '../../../shared/widgets/bottom_navbar.dart';
+import '../../shared/styles/colors.dart';
+import '../../shared/styles/texts.dart';
+import '../../shared/widgets/appbar.dart';
+import '../../shared/widgets/bottom_navbar.dart';
 import '../../shared/widgets/detail_card/history_card_list.dart';
 
 import 'history_controller.dart';
@@ -76,9 +77,8 @@ class _HistoryListViewState extends State<HistoryListView> {
                       children: [
                         Text(
                           'Histori',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
+                          style: AppTextStyles.textBold(
+                            size: 18,
                             color: AppColors.dark,
                           ),
                         ),
@@ -104,9 +104,8 @@ class _HistoryListViewState extends State<HistoryListView> {
                       children: [
                         Text(
                           'Dalam Proses',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
+                          style: AppTextStyles.textBold(
+                            size: 18,
                             color: AppColors.dark,
                           ),
                         ),

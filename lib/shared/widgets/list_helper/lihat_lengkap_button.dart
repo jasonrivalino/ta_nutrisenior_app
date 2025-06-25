@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../styles/colors.dart';
-import '../../styles/fonts.dart';
+import '../../styles/texts.dart';
 
 class LihatLengkapButton extends StatelessWidget {
   final String routeName;
@@ -27,14 +27,12 @@ class LihatLengkapButton extends StatelessWidget {
         shadowColor: Colors.transparent,
         tapTargetSize: MaterialTapTargetSize.shrinkWrap, // Removes extra vertical space
       ),
-      child: const Padding(
+      child: Padding(
         padding: EdgeInsets.symmetric(vertical: 2.0),
         child: Text(
           'Lihat Lengkap >',
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w700,
-            fontFamily: AppFonts.fontBold,
+          style: AppTextStyles.textBold(
+            size: 14,
             color: AppColors.soapstone,
           ),
         ),

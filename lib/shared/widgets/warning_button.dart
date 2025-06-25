@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../styles/colors.dart';
-import '../styles/fonts.dart';
+import '../styles/texts.dart';
 
 class WarningButton extends StatelessWidget {
   final String warningText;
@@ -27,10 +27,9 @@ class WarningButton extends StatelessWidget {
       ),
       child: Text(
         warningText,
-        style: TextStyle(
-          fontFamily: AppFonts.fontBold,
-          fontWeight: FontWeight.bold,
-          fontSize: 16,
+        style: AppTextStyles.textBold(
+          size: 16,
+          color: AppColors.soapstone,
         ),
       ),
     );
