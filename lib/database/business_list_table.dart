@@ -3,7 +3,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_id': 1,
     'business_name': 'Ristorante',
     'business_type': 'restaurant',
-    'business_image': 'https://drive.google.com/uc?export=download&id=1QB2WpFgdvv2xdVRhcuVfQI-4nDHKg1-3',
+    'business_image': 'assets/images/dummy/restaurant/ristorante.png',
     'business_rating': 4.5,
     'business_distance': 3.98,
     'business_address': 'Jl. Raya Mekarsari No. 128, RT 05 RW 09, Kelurahan Sukamaju, Bekasi, Jawa Barat 17113',

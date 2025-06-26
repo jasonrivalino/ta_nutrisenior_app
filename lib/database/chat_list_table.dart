@@ -31,7 +31,7 @@ final List<Map<String, dynamic>> chatListTable = [
     'chat_id': 5,
     'driver_id': 2,
     'is_user': false,
-    'message_sent': 'https://drive.google.com/uc?export=download&id=10kJMcOs4of4REsF_Uy1mR34GspHaiLJz',
+    'message_sent': 'assets/images/dummy/chat/delivery_arrived.png',
     'message_time': DateTime(2025, 3, 28, 11, 18),
   },
   {
@@ -80,7 +80,7 @@ final List<Map<String, dynamic>> chatListTable = [
     'chat_id': 12,
     'driver_id': 6,
     'is_user': true,
-    'message_sent': 'https://drive.google.com/uc?export=download&id=1v5Atq68A9taj6nKefUitO9gXPcOMdezl',
+    'message_sent': 'assets/images/dummy/chat/thankful_emoji.png',
     'message_time': DateTime(2025, 5, 12, 19, 06),
   },
   {

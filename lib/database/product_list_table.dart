@@ -143,14 +143,14 @@ final List<Map<String, dynamic>> productListTable = [
     'product_id': 21,
     'product_name': 'Feijoada Sehat Vegan',
     'product_description': 'Feijoada versi sehat tanpa daging, menggunakan kacang hitam, sayuran rebus, dan rempah tradisional Brasil.',
-    'product_image': 'assets/images/dummy/food/feijoadasehatvegan.png',
+    'product_image': 'assets/images/dummy/food/sabordosol/feijoadasehatvegan.png',
     'product_price': 38000,
   },
   {
     'product_id': 22,
     'product_name': 'Caipirinha Infused Detox',
     'product_description': 'Minuman dingin ala Caipirinha tanpa alkohol, infused dengan jeruk nipis, daun mint, dan madu murni.',
-    'product_image': 'assets/images/dummy/food/caipirinhainfuseddetox.png',
+    'product_image': 'assets/images/dummy/food/sabordosol/caipirinhainfuseddetox.png',
     'product_price': 16000,
   },
   {

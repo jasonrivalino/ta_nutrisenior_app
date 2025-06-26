@@ -72,7 +72,7 @@ Future<String> handleSendImageMessages({
     final prefs = await SharedPreferences.getInstance();
     final userName = prefs.getString('userName') ?? 'You';
     final senderName = isUser ? userName : driverName;
-    return '$senderName sent a photo';
+    return '$senderName mengirimkan gambar';
   }
   return messageText;
 }

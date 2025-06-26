@@ -44,7 +44,7 @@ final List<Map<String, dynamic>> recommendedProductListTable = [
     'product_id': 36,
   },
   {
-    'product_id': 37,
+    'product_id': 27,
   },
   {
     'product_id': 40,
@@ -70,5 +70,17 @@ final List<Map<String, dynamic>> recommendedProductListTable = [
   // Recommended for Sabor Do Sol
   {
     'product_id': 22,
+  },
+  {
+    'product_id': 54,
+  },
+  {
+    'product_id': 51,
+  },
+  {
+    'product_id': 60,
+  },
+  {
+    'product_id': 59,
   },
 ];
