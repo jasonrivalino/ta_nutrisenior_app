@@ -82,7 +82,7 @@ class BusinessRatingItem extends StatelessWidget {
                 height: 50,
                 errorBuilder: (context, error, stackTrace) {
                   return Image.asset(
-                    AppConstants.johndoeImage,
+                    AppConstants.blankProfileImage,
                     fit: BoxFit.cover,
                     width: 50,
                     height: 50,

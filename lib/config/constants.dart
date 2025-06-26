@@ -8,7 +8,7 @@ class AppConstants {
   static const String googleLogo = 'assets/images/media/google.png';
   static const String driverImagePlaceholder = 'assets/images/dummy/chat/driver.png';
   static const String motorcycleDeliveryIcon = 'assets/images/dummy/motorcycle_delivery.png';
-  static const String johndoeImage = 'assets/images/dummy/userreview/johndoe.png';
+  static const String blankProfileImage = 'assets/images/dummy/userreview/blankprofile.webp';
   // Error handling Image
   static const String errorDummyRestaurant = 'assets/images/dummy/errorhandling/dummyrestaurant.png';
   static const String errorDummyMarket = 'assets/images/dummy/errorhandling/dummymarket.png';

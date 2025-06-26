@@ -108,6 +108,7 @@ flutter:
     - assets/images/transparentAppLogo.png
     - assets/images/media/google.png
     - assets/images/dummy/userreview/johndoe.png
+    - assets/images/dummy/userreview/blankprofile.webp
     - assets/images/dummy/chat/driver.png
     - assets/images/dummy/motorcycle_delivery.png
 
