@@ -61,7 +61,7 @@ class _OTPVerificationViewState extends State<OTPVerificationView> {
                         final connectivityResult = await Connectivity().checkConnectivity();
                         if (connectivityResult.contains(ConnectivityResult.none)) {
                           Fluttertoast.showToast(
-                            msg: "Login tidak berhasil. \nSilahkan ulangi..",
+                            msg: "Login tidak berhasil. \nSilahkan ulangi...",
                             toastLength: Toast.LENGTH_SHORT,
                             gravity: ToastGravity.BOTTOM,
                           );

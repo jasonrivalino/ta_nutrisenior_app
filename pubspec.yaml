@@ -124,6 +124,16 @@ flutter:
     - assets/images/dummy/restaurant/sehatbang.png
     - assets/images/dummy/restaurant/sehatku.png
     - assets/images/dummy/restaurant/umamihana.png
+    - assets/images/dummy/restaurant/hijaurasa.webp
+    - assets/images/dummy/restaurant/ladangsehatresto.webp
+    - assets/images/dummy/restaurant/daun&dapur.webp
+    - assets/images/dummy/restaurant/sehatikitchen.jpg
+    - assets/images/dummy/restaurant/rasaalami.jpg
+    - assets/images/dummy/restaurant/fitbite.jpg
+    - assets/images/dummy/restaurant/naturabowl.jpg
+    - assets/images/dummy/restaurant/sayurloka.jpg
+    - assets/images/dummy/restaurant/zen&zest.jpg
+    - assets/images/dummy/restaurant/santapsegar.jpg
 
     # Asset market images
     - assets/images/dummy/market/famgro.png
@@ -137,6 +147,16 @@ flutter:
     - assets/images/dummy/market/supermarketajacabang.png
     - assets/images/dummy/market/vitagro.png
     - assets/images/dummy/market/zestmart.png
+    - assets/images/dummy/market/pasarsehatnusantara.jpg
+    - assets/images/dummy/market/segarmart.jpg
+    - assets/images/dummy/market/tokoorganikkita.jpg
+    - assets/images/dummy/market/freshmarketjaya.jpg
+    - assets/images/dummy/market/hijaumart.jpg
+    - assets/images/dummy/market/pasarorganikmaju.jpg
+    - assets/images/dummy/market/supersehatmart.jpg
+    - assets/images/dummy/market/bumisegarmart.jpg
+    - assets/images/dummy/market/organikkeluargamart.jpg
+    - assets/images/dummy/market/sumbersehatmarket.jpg
 
     # Asset product images
     # Ristorante products
