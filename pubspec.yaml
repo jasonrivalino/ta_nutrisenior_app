@@ -107,82 +107,12 @@ flutter:
     - assets/images/splashscreen/splashscreen.png
     - assets/images/transparentAppLogo.png
     - assets/images/media/google.png
-    - assets/images/dummy/userreview/johndoe.png
-    - assets/images/dummy/userreview/blankprofile.webp
     - assets/images/dummy/chat/driver.png
     - assets/images/dummy/motorcycle_delivery.png
 
-    # Asset restaurant images
-    - assets/images/dummy/restaurant/glowkitchen.png
-    - assets/images/dummy/restaurant/greenspoon.png
-    - assets/images/dummy/restaurant/lepapillonbleu.png
-    - assets/images/dummy/restaurant/linaelit.png
-    - assets/images/dummy/restaurant/rasanusantara.png
-    - assets/images/dummy/restaurant/redlantern.png
-    - assets/images/dummy/restaurant/ristorante.png
-    - assets/images/dummy/restaurant/ristorantecabang.png
-    - assets/images/dummy/restaurant/sabordosol.png
-    - assets/images/dummy/restaurant/sehatbang.png
-    - assets/images/dummy/restaurant/sehatku.png
-    - assets/images/dummy/restaurant/umamihana.png
-    - assets/images/dummy/restaurant/hijaurasa.webp
-    - assets/images/dummy/restaurant/ladangsehatresto.webp
-    - assets/images/dummy/restaurant/daun&dapur.webp
-    - assets/images/dummy/restaurant/sehatikitchen.jpg
-    - assets/images/dummy/restaurant/rasaalami.jpg
-    - assets/images/dummy/restaurant/fitbite.jpg
-    - assets/images/dummy/restaurant/naturabowl.jpg
-    - assets/images/dummy/restaurant/sayurloka.jpg
-    - assets/images/dummy/restaurant/zen&zest.jpg
-    - assets/images/dummy/restaurant/santapsegar.jpg
-
-    # Asset market images
-    - assets/images/dummy/market/famgro.png
-    - assets/images/dummy/market/fitmarket.png
-    - assets/images/dummy/market/harvestmart.png
-    - assets/images/dummy/market/healthycaremart.png
-    - assets/images/dummy/market/ladangsehat.png
-    - assets/images/dummy/market/pasarmurah.png
-    - assets/images/dummy/market/sehatmart.png
-    - assets/images/dummy/market/supermarketaja.png
-    - assets/images/dummy/market/supermarketajacabang.png
-    - assets/images/dummy/market/vitagro.png
-    - assets/images/dummy/market/zestmart.png
-    - assets/images/dummy/market/pasarsehatnusantara.jpg
-    - assets/images/dummy/market/segarmart.jpg
-    - assets/images/dummy/market/tokoorganikkita.jpg
-    - assets/images/dummy/market/freshmarketjaya.jpg
-    - assets/images/dummy/market/hijaumart.jpg
-    - assets/images/dummy/market/pasarorganikmaju.jpg
-    - assets/images/dummy/market/supersehatmart.jpg
-    - assets/images/dummy/market/bumisegarmart.jpg
-    - assets/images/dummy/market/organikkeluargamart.jpg
-    - assets/images/dummy/market/sumbersehatmarket.jpg
-
-    # Asset product images
-    # Ristorante products
-    - assets/images/dummy/food/insalatacaprese.png
-    - assets/images/dummy/food/zuppadiverdure.png
-    - assets/images/dummy/food/bruschettaintegrale.png
-    - assets/images/dummy/food/pastaintegralealpesto.png
-    - assets/images/dummy/food/grilledsalmonconlimone.png
-    - assets/images/dummy/food/risottoaifunghi.png
-    - assets/images/dummy/food/aquafrizzanteconlimone.png
-    - assets/images/dummy/food/smoothiefruttirossi.png
-    - assets/images/dummy/food/succodiaranciafresca.png
-    - assets/images/dummy/food/tehhijaudinginalaitalia.png
-
-    # Supermarket Aja products
-    - assets/images/dummy/ingredients/paketsayuranbuah.png
-    - assets/images/dummy/ingredients/garamdanmadu.png
-    - assets/images/dummy/ingredients/telurayamkampunglusinan.png
-    - assets/images/dummy/ingredients/beraspremium.png
-    - assets/images/dummy/ingredients/dagingsalmon.png
-    - assets/images/dummy/ingredients/bawangmerahkiloan.png
-    - assets/images/dummy/ingredients/manggaharummaniskiloan.png
-    - assets/images/dummy/ingredients/pisangambonsisir.png
-    - assets/images/dummy/ingredients/jeruksunkistkiloan.png
-    - assets/images/dummy/ingredients/wortelkiloan.png
+    # Asset rating profile pictures
+    - assets/images/dummy/userreview/johndoe.png
+    - assets/images/dummy/userreview/blankprofile.webp
 
     # Asset comment images
     - assets/images/dummy/comment/comment1.png
@@ -190,7 +120,6 @@ flutter:
     - assets/images/dummy/comment/comment3.png
     - assets/images/dummy/comment/comment4.png
     - assets/images/dummy/comment/comment5.png
-
     # Asset report images
     - assets/images/dummy/comment/report.png
 

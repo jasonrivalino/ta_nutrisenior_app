@@ -33,6 +33,41 @@ final List<Map<String, dynamic>> recommendedProductListTable = [
     'product_id': 17,
   },
 
+  // Recommended for Umami Hana Restaurant
+  {
+    'product_id': 28,
+  },
+  {
+    'product_id': 34,
+  },
+  {
+    'product_id': 36,
+  },
+  {
+    'product_id': 37,
+  },
+  {
+    'product_id': 40,
+  },
+
+  // Recommended for Pasar Murah
+  {
+    'product_id': 41,
+  },
+  {
+    'product_id': 43,
+  },
+  {
+    'product_id': 44,
+  },
+  {
+    'product_id': 47,
+  },
+  {
+    'product_id': 48,
+  },
+
+  // Recommended for Sabor Do Sol
   {
     'product_id': 22,
   },

@@ -3959,4 +3959,184 @@ final List<Map<String, dynamic>> otherUserRatingListTable = [
     'rating_number': 4,
     'rating_comment': 'Tempat strategis dan cocok buat yang ingin ganti gaya hidup sehat.'
   },
+  {
+    'rating_id': 441,
+    'business_id': 44,
+    'username': 'rasakuorganik',
+    'userimage': 'assets/images/dummy/userreview/rasakuorganik.png',
+    'rating_date': DateTime(2024, 7, 12, 13, 15),
+    'rating_number': 5,
+    'rating_comment': 'Rasa Organik benar-benar menyajikan cita rasa alami yang lezat dan sehat.'
+  },
+  {
+    'rating_id': 442,
+    'business_id': 44,
+    'username': 'healthyfeast',
+    'userimage': 'assets/images/dummy/userreview/healthyfeast.png',
+    'rating_date': DateTime(2024, 8, 20, 11, 40),
+    'rating_number': 4,
+    'rating_comment': 'Menu makanan sehat dengan tampilan modern, recommended!'
+  },
+  {
+    'rating_id': 443,
+    'business_id': 44,
+    'username': 'makannyaman',
+    'userimage': 'assets/images/dummy/userreview/makannyaman.png',
+    'rating_date': DateTime(2024, 9, 5, 12, 25),
+    'rating_number': 5,
+    'rating_comment': 'Interiornya cozy, makanannya enak, sehat, dan segar.'
+  },
+  {
+    'rating_id': 444,
+    'business_id': 44,
+    'username': 'rasapas',
+    'userimage': 'assets/images/dummy/userreview/rasapas.png',
+    'rating_date': DateTime(2025, 1, 7, 14, 50),
+    'rating_number': 4,
+    'rating_comment': 'Tempat makan sehat favoritku! Cocok buat vegan juga.'
+  },
+  {
+    'rating_id': 445,
+    'business_id': 44,
+    'username': 'naturaldelight',
+    'userimage': 'assets/images/dummy/userreview/naturaldelight.png',
+    'rating_date': DateTime(2024, 10, 15, 13, 00),
+    'rating_number': 5,
+    'rating_comment': 'Rasa Organik punya salad dan smoothies terbaik di kota!'
+  },
+  {
+    'rating_id': 446,
+    'business_id': 44,
+    'username': 'makanorganik',
+    'userimage': 'assets/images/dummy/userreview/makanorganik.png',
+    'rating_date': DateTime(2025, 2, 3, 12, 30),
+    'rating_number': 4,
+    'rating_comment': 'Cocok untuk orang yang ingin memulai hidup sehat tanpa mengorbankan rasa.'
+  },
+  {
+    'rating_id': 447,
+    'business_id': 44,
+    'username': 'rasasegar',
+    'userimage': 'assets/images/dummy/userreview/rasasegar.png',
+    'rating_date': DateTime(2024, 11, 18, 10, 45),
+    'rating_number': 5,
+    'rating_comment': 'Makanan di sini punya rasa segar alami dan porsinya pas.'
+  },
+  {
+    'rating_id': 448,
+    'business_id': 44,
+    'username': 'freshbite',
+    'userimage': 'assets/images/dummy/userreview/freshbite.png',
+    'rating_date': DateTime(2024, 12, 27, 13, 10),
+    'rating_number': 5,
+    'rating_comment': 'Selalu jadi tempat pilihan untuk lunch sehat bareng teman.'
+  },
+  {
+    'rating_id': 449,
+    'business_id': 44,
+    'username': 'cleanmenuid',
+    'userimage': 'assets/images/dummy/userreview/cleanmenuid.png',
+    'rating_date': DateTime(2025, 3, 10, 11, 20),
+    'rating_number': 4,
+    'rating_comment': 'Pelayanannya ramah dan menu organiknya lengkap banget.'
+  },
+  {
+    'rating_id': 450,
+    'business_id': 44,
+    'username': 'organikloverid',
+    'userimage': 'assets/images/dummy/userreview/organikloverid.png',
+    'rating_date': DateTime(2025, 4, 6, 14, 05),
+    'rating_number': 5,
+    'rating_comment': 'Tempat yang wajib dikunjungi pecinta makanan sehat dan alami!'
+  },
+  {
+    'rating_id': 451,
+    'business_id': 45,
+    'username': 'lestarisemangat',
+    'userimage': 'assets/images/dummy/userreview/lestarisemangat.png',
+    'rating_date': DateTime(2024, 6, 28, 10, 25),
+    'rating_number': 4,
+    'rating_comment': 'Pasar Hijau Lestari jadi tempat favorit untuk belanja sayur segar setiap minggu!'
+  },
+  {
+    'rating_id': 452,
+    'business_id': 45,
+    'username': 'hijausegar',
+    'userimage': 'assets/images/dummy/userreview/hijausegar.png',
+    'rating_date': DateTime(2024, 8, 5, 11, 40),
+    'rating_number': 5,
+    'rating_comment': 'Produk organiknya lengkap banget dan semuanya berkualitas.'
+  },
+  {
+    'rating_id': 453,
+    'business_id': 45,
+    'username': 'belanjalestari',
+    'userimage': 'assets/images/dummy/userreview/belanjalestari.png',
+    'rating_date': DateTime(2024, 10, 15, 13, 00),
+    'rating_number': 4,
+    'rating_comment': 'Pasarnya bersih dan nyaman, banyak pilihan makanan sehat.'
+  },
+  {
+    'rating_id': 454,
+    'business_id': 45,
+    'username': 'pasarsegarid',
+    'userimage': 'assets/images/dummy/userreview/pasarsegarid.png',
+    'rating_date': DateTime(2024, 11, 10, 12, 10),
+    'rating_number': 5,
+    'rating_comment': 'Suka banget konsep ramah lingkungannya. Banyak produk lokal juga!'
+  },
+  {
+    'rating_id': 455,
+    'business_id': 45,
+    'username': 'hijauku',
+    'userimage': 'assets/images/dummy/userreview/hijauku.png',
+    'rating_date': DateTime(2025, 1, 7, 10, 45),
+    'rating_number': 4,
+    'rating_comment': 'Tempat belanja sehat yang konsisten dengan produk berkualitas.'
+  },
+  {
+    'rating_id': 456,
+    'business_id': 45,
+    'username': 'sayursegarbanget',
+    'userimage': 'assets/images/dummy/userreview/sayursegarbanget.png',
+    'rating_date': DateTime(2025, 2, 12, 14, 15),
+    'rating_number': 5,
+    'rating_comment': 'Dari buah sampai sayur, semuanya selalu fresh dan organik.'
+  },
+  {
+    'rating_id': 457,
+    'business_id': 45,
+    'username': 'lesmart',
+    'userimage': 'assets/images/dummy/userreview/lesmart.png',
+    'rating_date': DateTime(2024, 9, 18, 13, 35),
+    'rating_number': 4,
+    'rating_comment': 'Pasar Hijau Lestari punya pilihan makanan sehat yang jarang ditemukan di tempat lain.'
+  },
+  {
+    'rating_id': 458,
+    'business_id': 45,
+    'username': 'alamiindonesia',
+    'userimage': 'assets/images/dummy/userreview/alamiindonesia.png',
+    'rating_date': DateTime(2025, 3, 3, 11, 30),
+    'rating_number': 5,
+    'rating_comment': 'Sangat membantu untuk yang ingin gaya hidup lebih sehat dan alami.'
+  },
+  {
+    'rating_id': 459,
+    'business_id': 45,
+    'username': 'pasarlokal',
+    'userimage': 'assets/images/dummy/userreview/pasarlokal.png',
+    'rating_date': DateTime(2024, 12, 21, 10, 50),
+    'rating_number': 4,
+    'rating_comment': 'Cocok buat belanja kebutuhan dapur sehat, stafnya juga ramah.'
+  },
+  {
+    'rating_id': 460,
+    'business_id': 45,
+    'username': 'greenlivingid',
+    'userimage': 'assets/images/dummy/userreview/greenlivingid.png',
+    'rating_date': DateTime(2025, 4, 5, 12, 20),
+    'rating_number': 5,
+    'rating_comment': 'Langganan bulanan! Pasar ini mendukung gaya hidup hijau dengan maksimal.'
+  },
 ];
