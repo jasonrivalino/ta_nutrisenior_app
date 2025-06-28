@@ -456,7 +456,7 @@ final List<Map<String, dynamic>> otherUserRatingListTable = [
     'userimage': 'assets/images/dummy/userreview/carlossabor.png',
     'rating_date': DateTime(2024, 7, 8, 18, 20),
     'rating_number': 5,
-    'rating_comment': 'Makanan khas Brazil di Sabor do Sol bener-bener bikin rindu kampung halaman!'
+    'rating_comment': 'Makanan khas Brazil di Verde Brasil bener-bener bikin rindu kampung halaman!'
   },
   {
     'rating_id': 52,
@@ -465,7 +465,7 @@ final List<Map<String, dynamic>> otherUserRatingListTable = [
     'userimage': 'assets/images/dummy/userreview/nadiasamba.png',
     'rating_date': DateTime(2024, 9, 14, 12, 15),
     'rating_number': 4,
-    'rating_comment': 'Suasana di Sabor do Sol sangat hangat, cocok untuk makan keluarga.'
+    'rating_comment': 'Suasana di Verde Brasil sangat hangat, cocok untuk makan keluarga.'
   },
   {
     'rating_id': 53,
@@ -474,7 +474,7 @@ final List<Map<String, dynamic>> otherUserRatingListTable = [
     'userimage': 'assets/images/dummy/userreview/rafaelpicanha.png',
     'rating_date': DateTime(2025, 1, 6, 13, 30),
     'rating_number': 3,
-    'rating_comment': 'Rasa makanan lumayan, tapi daging di Sabor do Sol agak terlalu matang.'
+    'rating_comment': 'Rasa makanan lumayan, tapi daging di Verde Brasil agak terlalu matang.'
   },
   {
     'rating_id': 54,
@@ -483,7 +483,7 @@ final List<Map<String, dynamic>> otherUserRatingListTable = [
     'userimage': 'assets/images/dummy/userreview/mariacafezinho.png',
     'rating_date': DateTime(2024, 10, 27, 11, 45),
     'rating_number': 4,
-    'rating_comment': 'Minuman khas Brazil di Sabor do Sol menyegarkan dan autentik!'
+    'rating_comment': 'Minuman khas Brazil di Verde Brasil menyegarkan dan autentik!'
   },
   {
     'rating_id': 55,
@@ -492,7 +492,7 @@ final List<Map<String, dynamic>> otherUserRatingListTable = [
     'userimage': 'assets/images/dummy/userreview/joaobrasil.png',
     'rating_date': DateTime(2025, 5, 2, 17, 0),
     'rating_number': 5,
-    'rating_comment': 'Picanha di Sabor do Sol terbaik! Dagingnya juicy dan bumbunya mantap.'
+    'rating_comment': 'Picanha di Verde Brasil terbaik! Dagingnya juicy dan bumbunya mantap.'
   },
   {
     'rating_id': 56,
@@ -501,7 +501,7 @@ final List<Map<String, dynamic>> otherUserRatingListTable = [
     'userimage': 'assets/images/dummy/userreview/luizafeijoada.png',
     'rating_date': DateTime(2024, 6, 19, 14, 20),
     'rating_number': 2,
-    'rating_comment': 'Feijoada di Sabor do Sol terlalu asin menurut saya.'
+    'rating_comment': 'Feijoada di Verde Brasil terlalu asin menurut saya.'
   },
   {
     'rating_id': 57,
@@ -510,7 +510,7 @@ final List<Map<String, dynamic>> otherUserRatingListTable = [
     'userimage': 'assets/images/dummy/userreview/tiagosol.png',
     'rating_date': DateTime(2024, 12, 3, 15, 10),
     'rating_number': 4,
-    'rating_comment': 'Dekorasi dan musik di Sabor do Sol bikin serasa di Rio de Janeiro.'
+    'rating_comment': 'Dekorasi dan musik di Verde Brasil bikin serasa di Rio de Janeiro.'
   },
   {
     'rating_id': 58,
@@ -519,7 +519,7 @@ final List<Map<String, dynamic>> otherUserRatingListTable = [
     'userimage': 'assets/images/dummy/userreview/clarabossa.png',
     'rating_date': DateTime(2025, 3, 9, 16, 50),
     'rating_number': 3,
-    'rating_comment': 'Sabor do Sol oke, tapi pelayanan kadang kurang cepat saat ramai.'
+    'rating_comment': 'Verde Brasil oke, tapi pelayanan kadang kurang cepat saat ramai.'
   },
   {
     'rating_id': 59,
@@ -528,7 +528,7 @@ final List<Map<String, dynamic>> otherUserRatingListTable = [
     'userimage': 'assets/images/dummy/userreview/danisabor.png',
     'rating_date': DateTime(2025, 6, 4, 19, 30),
     'rating_number': 5,
-    'rating_comment': 'Tempat makan favorit! Sabor do Sol selalu berhasil memuaskan lidah.'
+    'rating_comment': 'Tempat makan favorit! Verde Brasil selalu berhasil memuaskan lidah.'
   },
   {
     'rating_id': 60,
@@ -537,7 +537,7 @@ final List<Map<String, dynamic>> otherUserRatingListTable = [
     'userimage': 'assets/images/dummy/userreview/renatabites.png',
     'rating_date': DateTime(2024, 8, 25, 13, 0),
     'rating_number': 3,
-    'rating_comment': 'Makanan enak, tapi AC di Sabor do Sol kurang dingin saat siang.'
+    'rating_comment': 'Makanan enak, tapi AC di Verde Brasil kurang dingin saat siang.'
   },
   {
     'rating_id': 61,
@@ -996,7 +996,7 @@ final List<Map<String, dynamic>> otherUserRatingListTable = [
     'userimage': 'assets/images/dummy/userreview/indrajawa.png',
     'rating_date': DateTime(2024, 6, 30, 12, 45),
     'rating_number': 5,
-    'rating_comment': 'Rasa Nusantara benar-benar mewakili cita rasa tanah air. Rawon dan sate-nya mantap!'
+    'rating_comment': 'Dapur Sehat Nusantara benar-benar mewakili cita rasa tanah air. Rawon dan sate-nya mantap!'
   },
   {
     'rating_id': 112,
@@ -1005,7 +1005,7 @@ final List<Map<String, dynamic>> otherUserRatingListTable = [
     'userimage': 'assets/images/dummy/userreview/putrilombok.png',
     'rating_date': DateTime(2024, 8, 21, 13, 20),
     'rating_number': 4,
-    'rating_comment': 'Suka dengan pilihan sambal di Rasa Nusantara, pedasnya pas banget!'
+    'rating_comment': 'Suka dengan pilihan sambal di Dapur Sehat Nusantara, pedasnya pas banget!'
   },
   {
     'rating_id': 113,
@@ -1041,7 +1041,7 @@ final List<Map<String, dynamic>> otherUserRatingListTable = [
     'userimage': 'assets/images/dummy/userreview/dianacelebes.png',
     'rating_date': DateTime(2025, 2, 23, 15, 10),
     'rating_number': 5,
-    'rating_comment': 'Masakan Manado-nya juara! Rasa Nusantara emang juaranya kuliner daerah.'
+    'rating_comment': 'Masakan Manado-nya juara! Dapur Sehat Nusantara emang juaranya kuliner daerah.'
   },
   {
     'rating_id': 117,
@@ -1050,7 +1050,7 @@ final List<Map<String, dynamic>> otherUserRatingListTable = [
     'userimage': 'assets/images/dummy/userreview/rahminkalimantan.png',
     'rating_date': DateTime(2024, 11, 13, 12, 30),
     'rating_number': 4,
-    'rating_comment': 'Soto banjar dan nasi kuningnya bikin nagih, bener-bener Rasa Nusantara!'
+    'rating_comment': 'Soto banjar dan nasi kuningnya bikin nagih, bener-bener Dapur Sehat Nusantara!'
   },
   {
     'rating_id': 118,
@@ -1077,7 +1077,7 @@ final List<Map<String, dynamic>> otherUserRatingListTable = [
     'userimage': 'assets/images/dummy/userreview/alinfusion.png',
     'rating_date': DateTime(2025, 6, 9, 14, 50),
     'rating_number': 4,
-    'rating_comment': 'Cita rasa Nusantaranya kuat banget, cocok buat pecinta kuliner tradisional.'
+    'rating_comment': 'Cita Dapur Sehat Nusantaranya kuat banget, cocok buat pecinta kuliner tradisional.'
   },
     {
     'rating_id': 121,
@@ -1086,7 +1086,7 @@ final List<Map<String, dynamic>> otherUserRatingListTable = [
     'userimage': 'assets/images/dummy/userreview/luciapasta.png',
     'rating_date': DateTime(2024, 6, 27, 13, 30),
     'rating_number': 5,
-    'rating_comment': 'Ristorante Cabangan menyajikan pasta dengan rasa otentik, benar-benar Italia rasa Nusantara!'
+    'rating_comment': 'Verdura Italiana Centro menyajikan pasta dengan rasa otentik, benar-benar Italia Dapur Sehat Nusantara!'
   },
   {
     'rating_id': 122,
@@ -1113,7 +1113,7 @@ final List<Map<String, dynamic>> otherUserRatingListTable = [
     'userimage': 'assets/images/dummy/userreview/renzospicy.png',
     'rating_date': DateTime(2024, 10, 19, 15, 50),
     'rating_number': 2,
-    'rating_comment': 'Ekspektasi tinggi untuk Ristorante Cabangan, tapi saus tomatnya terlalu asam.'
+    'rating_comment': 'Ekspektasi tinggi untuk Verdura Italiana Centro, tapi saus tomatnya terlalu asam.'
   },
   {
     'rating_id': 125,
@@ -1131,7 +1131,7 @@ final List<Map<String, dynamic>> otherUserRatingListTable = [
     'userimage': 'assets/images/dummy/userreview/jonathanpizza.png',
     'rating_date': DateTime(2025, 1, 20, 13, 0),
     'rating_number': 5,
-    'rating_comment': 'Pizza dengan topping lokal ala Ristorante Cabangan wajib dicoba!'
+    'rating_comment': 'Pizza dengan topping lokal ala Verdura Italiana Centro wajib dicoba!'
   },
   {
     'rating_id': 127,
@@ -1149,7 +1149,7 @@ final List<Map<String, dynamic>> otherUserRatingListTable = [
     'userimage': 'assets/images/dummy/userreview/carolcabang.png',
     'rating_date': DateTime(2025, 3, 17, 16, 40),
     'rating_number': 4,
-    'rating_comment': 'Senang ada restoran Italia yang nyatu sama rasa lokal seperti Ristorante Cabangan.'
+    'rating_comment': 'Senang ada restoran Italia yang nyatu sama rasa lokal seperti Verdura Italiana Centro.'
   },
   {
     'rating_id': 129,
@@ -1158,7 +1158,7 @@ final List<Map<String, dynamic>> otherUserRatingListTable = [
     'userimage': 'assets/images/dummy/userreview/ninaalfredo.png',
     'rating_date': DateTime(2024, 7, 15, 14, 15),
     'rating_number': 5,
-    'rating_comment': 'Fettuccine Alfredo-nya creamy dan gurih banget, favoritku di Ristorante Cabangan.'
+    'rating_comment': 'Fettuccine Alfredo-nya creamy dan gurih banget, favoritku di Verdura Italiana Centro.'
   },
   {
     'rating_id': 130,
@@ -1167,7 +1167,7 @@ final List<Map<String, dynamic>> otherUserRatingListTable = [
     'userimage': 'assets/images/dummy/userreview/fabiancheese.png',
     'rating_date': DateTime(2025, 5, 9, 13, 20),
     'rating_number': 4,
-    'rating_comment': 'Keju dan bumbu khas Indonesia dihidangkan apik di Ristorante Cabangan. Layak dikunjungi!'
+    'rating_comment': 'Keju dan bumbu khas Indonesia dihidangkan apik di Verdura Italiana Centro. Layak dikunjungi!'
   },
   {
     'rating_id': 131,

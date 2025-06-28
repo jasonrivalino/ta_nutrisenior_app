@@ -55,16 +55,19 @@ class BusinessOrderingMenuController {
         })
         .toList();
 
-    // 5. Ambil daftar produk rekomendasi
-    final recommendedOrder = recommendedProductListTable
-        .map((entry) => entry['product_id'])
+    // 5. Ambil daftar produk rekomendasi hanya untuk businessId ini
+    final businessRecommendedEntries = recommendedProductListTable
+        .where((entry) => entry['business_id'] == businessId)
         .toList();
+
+    final recommendedOrder = businessRecommendedEntries.map((e) => e['product_id']).toList();
     final recommendedProductIds = recommendedOrder.toSet();
 
     final recommendedProducts = allProducts
         .where((product) => recommendedProductIds.contains(product['product_id']))
         .toList();
 
+    // Urutkan sesuai urutan yang didefinisikan
     recommendedProducts.sort((a, b) {
       return recommendedOrder.indexOf(a['product_id']) -
           recommendedOrder.indexOf(b['product_id']);

@@ -111,18 +111,17 @@ flutter:
     - assets/images/dummy/motorcycle_delivery.png
 
     # Asset restaurant images
+    - assets/images/dummy/restaurant/verduraitaliana.webp
+    - assets/images/dummy/restaurant/aozorasehatkitchen.jpg
+    - assets/images/dummy/restaurant/verdebrasil.png
     - assets/images/dummy/restaurant/glowkitchen.png
     - assets/images/dummy/restaurant/greenspoon.png
     - assets/images/dummy/restaurant/lepapillonbleu.png
     - assets/images/dummy/restaurant/linaelit.png
     - assets/images/dummy/restaurant/rasanusantara.png
-    - assets/images/dummy/restaurant/redlantern.png
-    - assets/images/dummy/restaurant/ristorante.png
-    - assets/images/dummy/restaurant/ristorantecabang.png
-    - assets/images/dummy/restaurant/sabordosol.png
+    - assets/images/dummy/restaurant/verduraitalianacentro.webp
     - assets/images/dummy/restaurant/sehatbang.png
     - assets/images/dummy/restaurant/sehatku.png
-    - assets/images/dummy/restaurant/umamihana.png
     - assets/images/dummy/restaurant/hijaurasa.webp
     - assets/images/dummy/restaurant/ladangsehatresto.webp
     - assets/images/dummy/restaurant/daun&dapur.webp
@@ -136,6 +135,7 @@ flutter:
     - assets/images/dummy/restaurant/rasaorganik.jpg
 
     # Asset market images
+    - assets/images/dummy/market/supermarketharmoni.webp
     - assets/images/dummy/market/famgro.png
     - assets/images/dummy/market/fitmarket.png
     - assets/images/dummy/market/harvestmart.png
@@ -143,8 +143,7 @@ flutter:
     - assets/images/dummy/market/ladangsehat.png
     - assets/images/dummy/market/pasarmurah.png
     - assets/images/dummy/market/sehatmart.png
-    - assets/images/dummy/market/supermarketaja.png
-    - assets/images/dummy/market/supermarketajacabang.png
+    - assets/images/dummy/market/supermarketharmonitunas.webp
     - assets/images/dummy/market/vitagro.png
     - assets/images/dummy/market/zestmart.png
     - assets/images/dummy/market/pasarsehatnusantara.jpg
@@ -160,41 +159,43 @@ flutter:
     - assets/images/dummy/market/pasarhijaulestari.jpg
 
     # Asset product images
-    # Ristorante products
-    - assets/images/dummy/food/ristorante/insalatacaprese.png
-    - assets/images/dummy/food/ristorante/zuppadiverdure.png
-    - assets/images/dummy/food/ristorante/bruschettaintegrale.png
-    - assets/images/dummy/food/ristorante/pastaintegralealpesto.png
-    - assets/images/dummy/food/ristorante/grilledsalmonconlimone.png
-    - assets/images/dummy/food/ristorante/risottoaifunghi.png
-    - assets/images/dummy/food/ristorante/aquafrizzanteconlimone.png
-    - assets/images/dummy/food/ristorante/smoothiefruttirossi.png
-    - assets/images/dummy/food/ristorante/succodiaranciafresca.png
-    - assets/images/dummy/food/ristorante/tehhijaudinginalaitalia.png
-    - assets/images/dummy/food/ristorante/pizzasayurgandum.jpg
-    - assets/images/dummy/food/ristorante/spaghettizucchinipesto.jpg
-    # Supermarket Aja products
-    - assets/images/dummy/ingredients/supermarketaja/paketsayuranbuah.png
-    - assets/images/dummy/ingredients/supermarketaja/garamdanmadu.png
-    - assets/images/dummy/ingredients/supermarketaja/telurayamkampunglusinan.png
-    - assets/images/dummy/ingredients/supermarketaja/beraspremium.png
-    - assets/images/dummy/ingredients/supermarketaja/dagingsalmon.png
-    - assets/images/dummy/ingredients/supermarketaja/bawangmerahkiloan.png
-    - assets/images/dummy/ingredients/supermarketaja/manggaharummaniskiloan.png
-    - assets/images/dummy/ingredients/supermarketaja/pisangambonsisir.png
-    - assets/images/dummy/ingredients/supermarketaja/jeruksunkistkiloan.png
-    - assets/images/dummy/ingredients/supermarketaja/wortelkiloan.png
-    # Umami Hana Restaurant products
-    - assets/images/dummy/food/umamihana/chickenkatsu.jpg
-    - assets/images/dummy/food/umamihana/salmonsushiroll.jpg
-    - assets/images/dummy/food/umamihana/salmondonburi.jpg
-    - assets/images/dummy/food/umamihana/tofumisosoup.jpg
-    - assets/images/dummy/food/umamihana/edamamerebus.jpg
-    - assets/images/dummy/food/umamihana/yasaiitame.jpg
-    - assets/images/dummy/food/umamihana/onigirituna.jpg
-    - assets/images/dummy/food/umamihana/sobasalad.jpg
-    - assets/images/dummy/food/umamihana/chawanmushi.jpg
-    - assets/images/dummy/food/umamihana/matchaazukibowl.jpg
+    # Verdura Italiana products
+    - assets/images/dummy/food/verduraitaliana/insalatacaprese.png
+    - assets/images/dummy/food/verduraitaliana/zuppadiverdure.png
+    - assets/images/dummy/food/verduraitaliana/bruschettaintegrale.png
+    - assets/images/dummy/food/verduraitaliana/pastaintegralealpesto.png
+    - assets/images/dummy/food/verduraitaliana/grilledsalmonconlimone.png
+    - assets/images/dummy/food/verduraitaliana/risottoaifunghi.png
+    - assets/images/dummy/food/verduraitaliana/aquafrizzanteconlimone.png
+    - assets/images/dummy/food/verduraitaliana/smoothiefruttirossi.png
+    - assets/images/dummy/food/verduraitaliana/succodiaranciafresca.png
+    - assets/images/dummy/food/verduraitaliana/tehhijaudinginalaitalia.png
+    - assets/images/dummy/food/verduraitaliana/pizzasayurgandum.jpg
+    - assets/images/dummy/food/verduraitaliana/spaghettizucchinipesto.jpg
+    # Supermarket Harmoni products
+    - assets/images/dummy/ingredients/supermarketharmoni/paketsayuranbuah.png
+    - assets/images/dummy/ingredients/supermarketharmoni/garamdanmadu.png
+    - assets/images/dummy/ingredients/supermarketharmoni/telurayamkampunglusinan.png
+    - assets/images/dummy/ingredients/supermarketharmoni/beraspremium.png
+    - assets/images/dummy/ingredients/supermarketharmoni/dagingsalmon.png
+    - assets/images/dummy/ingredients/supermarketharmoni/bawangmerahkiloan.png
+    - assets/images/dummy/ingredients/supermarketharmoni/manggaharummaniskiloan.png
+    - assets/images/dummy/ingredients/supermarketharmoni/pisangambonsisir.png
+    - assets/images/dummy/ingredients/supermarketharmoni/jeruksunkistkiloan.png
+    - assets/images/dummy/ingredients/supermarketharmoni/wortelkiloan.png
+    - assets/images/dummy/ingredients/supermarketharmoni/oatmealorganik.png
+    - assets/images/dummy/ingredients/supermarketharmoni/kacangalmondpanggang.png
+    # Aozora Sehat Kitchen products
+    - assets/images/dummy/food/aozorasehatkitchen/chickenkatsu.jpg
+    - assets/images/dummy/food/aozorasehatkitchen/salmonsushiroll.jpg
+    - assets/images/dummy/food/aozorasehatkitchen/salmondonburi.jpg
+    - assets/images/dummy/food/aozorasehatkitchen/tofumisosoup.jpg
+    - assets/images/dummy/food/aozorasehatkitchen/edamamerebus.jpg
+    - assets/images/dummy/food/aozorasehatkitchen/yasaiitame.jpg
+    - assets/images/dummy/food/aozorasehatkitchen/onigirituna.jpg
+    - assets/images/dummy/food/aozorasehatkitchen/sobasalad.jpg
+    - assets/images/dummy/food/aozorasehatkitchen/chawanmushi.jpg
+    - assets/images/dummy/food/aozorasehatkitchen/matchaazukibowl.jpg
     # Pasar Murah products
     - assets/images/dummy/ingredients/pasarmurah/tomatsegar500g.jpg
     - assets/images/dummy/ingredients/pasarmurah/bayamhijauikat.jpg
@@ -206,19 +207,92 @@ flutter:
     - assets/images/dummy/ingredients/pasarmurah/bawangmerah250g.png
     - assets/images/dummy/ingredients/pasarmurah/minyakgoreng1l.png
     - assets/images/dummy/ingredients/pasarmurah/garamdapur500g.png
-    # Sabor do Sol products
-    - assets/images/dummy/food/sabordosol/feijoadasehatvegan.png
-    - assets/images/dummy/food/sabordosol/caipirinhainfuseddetox.png
-    - assets/images/dummy/food/sabordosol/acaibowltradicional.png
-    - assets/images/dummy/food/sabordosol/quinoacomlegumes.png
-    - assets/images/dummy/food/sabordosol/saladatropical.png
-    - assets/images/dummy/food/sabordosol/moquecadelegumes.png
-    - assets/images/dummy/food/sabordosol/feijaopretofit.png
-    - assets/images/dummy/food/sabordosol/paodequeijointegral.png
-    - assets/images/dummy/food/sabordosol/tapiocacomcoco.png
-    - assets/images/dummy/food/sabordosol/grilledtilapiabrasil.png
-    - assets/images/dummy/food/sabordosol/smoothiemaracuja.png
-    - assets/images/dummy/food/sabordosol/sopadeaboboralight.png
+    # Verde Brasil products
+    - assets/images/dummy/food/verdebrasil/feijoadasehatvegan.png
+    - assets/images/dummy/food/verdebrasil/caipirinhainfuseddetox.png
+    - assets/images/dummy/food/verdebrasil/acaibowltradicional.png
+    - assets/images/dummy/food/verdebrasil/quinoacomlegumes.png
+    - assets/images/dummy/food/verdebrasil/saladatropical.png
+    - assets/images/dummy/food/verdebrasil/moquecadelegumes.png
+    - assets/images/dummy/food/verdebrasil/feijaopretofit.png
+    - assets/images/dummy/food/verdebrasil/paodequeijointegral.png
+    - assets/images/dummy/food/verdebrasil/tapiocacomcoco.png
+    - assets/images/dummy/food/verdebrasil/grilledtilapiabrasil.png
+    - assets/images/dummy/food/verdebrasil/smoothiemaracuja.png
+    - assets/images/dummy/food/verdebrasil/sopadeaboboralight.png
+    # Glow Kitchen products
+    - assets/images/dummy/food/glowkitchen/saladquinoapelangi.png
+    - assets/images/dummy/food/glowkitchen/smoothiehijaudetox.png
+    - assets/images/dummy/food/glowkitchen/wraptempepanggang.png
+    - assets/images/dummy/food/glowkitchen/nasimerahbuddhabowl.png
+    - assets/images/dummy/food/glowkitchen/jusbeetlemonzing.png
+    - assets/images/dummy/food/glowkitchen/tofucurrybowl.png
+    - assets/images/dummy/food/glowkitchen/oatmealkurmapisang.png
+    - assets/images/dummy/food/glowkitchen/infusedwaterjerukmint.png
+    - assets/images/dummy/food/glowkitchen/avocadocacaopudding.png
+    - assets/images/dummy/food/glowkitchen/tehherbalhangatglow.png
+    # Sehat Bang products
+    - assets/images/dummy/food/sehatbang/fruitrainbowbowl.png
+    - assets/images/dummy/food/sehatbang/tropicalsmoothieblend.png
+    - assets/images/dummy/food/sehatbang/mangochiaparfait.png
+    - assets/images/dummy/food/sehatbang/berryburstjuice.png
+    - assets/images/dummy/food/sehatbang/frozenbananapops.png
+    - assets/images/dummy/food/sehatbang/dragonfruitsmoothiebowl.png
+    - assets/images/dummy/food/sehatbang/citrusfruitsalad.png
+    - assets/images/dummy/food/sehatbang/watermelonmintrefresher.png
+    - assets/images/dummy/food/sehatbang/appleyogurtcrunch.png
+    - assets/images/dummy/food/sehatbang/kiwipineapplesplash.png
+    # HarvestMart Supermarket products
+    - assets/images/dummy/ingredients/harvestmart/sayursegarpack.png
+    - assets/images/dummy/ingredients/harvestmart/bayamsegar1ikat.png
+    - assets/images/dummy/ingredients/harvestmart/bayamorganik.png
+    - assets/images/dummy/ingredients/harvestmart/kalesegar.png
+    - assets/images/dummy/ingredients/harvestmart/seladaromaine.png
+    - assets/images/dummy/ingredients/harvestmart/pakcoyhijau.png
+    - assets/images/dummy/ingredients/harvestmart/sawihijaulokal.png
+    - assets/images/dummy/ingredients/harvestmart/mentimunorganik.png
+    - assets/images/dummy/ingredients/harvestmart/jussayurhijau.png
+    - assets/images/dummy/ingredients/harvestmart/smoothiedetoxhijau.png
+    - assets/images/dummy/ingredients/harvestmart/lettucebutterhead.png
+    - assets/images/dummy/ingredients/harvestmart/brokolisegar.png
+    # Fit Market products
+    - assets/images/dummy/ingredients/fitmarket/oatmealinstantorganik.png
+    - assets/images/dummy/ingredients/fitmarket/granolamadualmond.png
+    - assets/images/dummy/ingredients/fitmarket/chiaseedsuperfood.png
+    - assets/images/dummy/ingredients/fitmarket/quinoaputihpremium.png
+    - assets/images/dummy/ingredients/fitmarket/mueslibuahkering.png
+    - assets/images/dummy/ingredients/fitmarket/tepungalmondorganik.png
+    - assets/images/dummy/ingredients/fitmarket/bijibungamatahari.png
+    - assets/images/dummy/ingredients/fitmarket/proteinbarcokelat.png
+    - assets/images/dummy/ingredients/fitmarket/kacangalmondpanggang.png
+    - assets/images/dummy/ingredients/fitmarket/serbukmatchajepang.png
+    # ZestMart products
+    - assets/images/dummy/ingredients/zestmart/saladbowlsegar.png
+    - assets/images/dummy/ingredients/zestmart/buahpotongmixpack.png
+    - assets/images/dummy/ingredients/zestmart/edamamerebus.png
+    - assets/images/dummy/ingredients/zestmart/snackrumputlautpanggang.png
+    - assets/images/dummy/ingredients/zestmart/yogurtgreekplain.png
+    - assets/images/dummy/ingredients/zestmart/rotigandumutuh.png
+    - assets/images/dummy/ingredients/zestmart/minumankefirfermentasi.png
+    - assets/images/dummy/ingredients/zestmart/wrapsayurdanayam.png
+    - assets/images/dummy/ingredients/zestmart/supkrimbrokoli.png
+    - assets/images/dummy/ingredients/zestmart/smoothiebowlberry.png
+    # Dapur Sehat Nusantara products
+    - assets/images/dummy/food/dapursehatnusantara/urapsayursehat.png
+    - assets/images/dummy/food/dapursehatnusantara/gadogadovegan.png
+    - assets/images/dummy/food/dapursehatnusantara/peceldaunkelor.png
+    - assets/images/dummy/food/dapursehatnusantara/tumisjamurrempah.png
+    - assets/images/dummy/food/dapursehatnusantara/supjagungbening.png
+    - assets/images/dummy/food/dapursehatnusantara/nasimerahayamserundeng.png
+    - assets/images/dummy/food/dapursehatnusantara/sayurasemsegar.png
+    - assets/images/dummy/food/dapursehatnusantara/tehpandanrempah.png
+    - assets/images/dummy/food/dapursehatnusantara/jamukunyitasamdingin.png
+    - assets/images/dummy/food/dapursehatnusantara/pudingsantangulamerah.png
+
+
+
+
+
 
     # Asset rating profile pictures
     - assets/images/dummy/userreview/johndoe.png

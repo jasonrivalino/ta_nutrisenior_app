@@ -68,25 +68,36 @@ class HistoryCardList extends StatelessWidget {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(6),
-                      child: Image.asset(
-                        businessImage,
-                        width: 70,
-                        height: 70,
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) {
-                          String fallbackImage = AppConstants.errorDummyRestaurant;
-                          if (historyData['business_type'] == 'market' && businessImage.isNotEmpty) {
-                            fallbackImage = AppConstants.errorDummyMarket;
-                          }
-                          return Image.asset(
-                            fallbackImage,
-                            width: 70,
-                            height: 70,
-                            fit: BoxFit.cover,
-                          );
-                        },
+                    Container(
+                      width: 70,
+                      height: 70,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: AppColors.darkGray,
+                          width: 1,
+                        ),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(6),
+                        child: Image.asset(
+                          businessImage,
+                          width: 70,
+                          height: 70,
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) {
+                            String fallbackImage = AppConstants.errorDummyRestaurant;
+                            if (historyData['business_type'] == 'market' && businessImage.isNotEmpty) {
+                              fallbackImage = AppConstants.errorDummyMarket;
+                            }
+                            return Image.asset(
+                              fallbackImage,
+                              width: 70,
+                              height: 70,
+                              fit: BoxFit.cover,
+                            );
+                          },
+                        ),
                       ),
                     ),
                     const SizedBox(width: 12),
