@@ -158,27 +158,29 @@ class _DetailOrderingViewState extends State<DetailOrderingView> {
           ),
         ],
       ),
-      bottomNavigationBar: SetQuantityBottomNavbar(
-        businessType: widget.businessType,
-        baseProductPrice: widget.productPrice,
-        addOnsPrice: totalAddOnsPrice,
-        discountNumber: widget.discountNumber,
-        quantity: quantity,
-        onQuantityChanged: (newQty) {
-          setState(() => quantity = newQty);
-        },
-        onAddPressed: () {
-          final notes = _noteController.text;
+      bottomNavigationBar: SafeArea(
+        child: SetQuantityBottomNavbar(
+          businessType: widget.businessType,
+          baseProductPrice: widget.productPrice,
+          addOnsPrice: totalAddOnsPrice,
+          discountNumber: widget.discountNumber,
+          quantity: quantity,
+          onQuantityChanged: (newQty) {
+            setState(() => quantity = newQty);
+          },
+          onAddPressed: () {
+            final notes = _noteController.text;
 
-          context.pop({
-            'product_id': widget.productId,
-            'qty_product': quantity,
-            'notes': notes,
-            'add_ons': {
-              widget.productId.toString(): selectedAddOnIds,
-            },
-          });
-        },
+            context.pop({
+              'product_id': widget.productId,
+              'qty_product': quantity,
+              'notes': notes,
+              'add_ons': {
+                widget.productId.toString(): selectedAddOnIds,
+              },
+            });
+          },
+        ),
       ),
     );
   }

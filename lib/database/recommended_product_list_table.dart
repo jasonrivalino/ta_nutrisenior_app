@@ -262,4 +262,69 @@ final List<Map<String, dynamic>> recommendedProductListTable = [
     'business_id': 12,
     'product_id': 24,
   },
+  // Recommended for Lina Elit Healthy Resto
+  {
+    'business_id': 13,
+    'product_id': 122,
+  },
+  {
+    'business_id': 13,
+    'product_id': 128,
+  },
+  {
+    'business_id': 13,
+    'product_id': 124,
+  },
+  {
+    'business_id': 13,
+    'product_id': 125,
+  },
+  {
+    'business_id': 13,
+    'product_id': 123,
+  },
+
+  // Recommended for Green Spoon
+  {
+    'business_id': 14,
+    'product_id': 135,
+  },
+  {
+    'business_id': 14,
+    'product_id': 140,
+  },
+  {
+    'business_id': 14,
+    'product_id': 139,
+  },
+  {
+    'business_id': 14,
+    'product_id': 137,
+  },
+  {
+    'business_id': 14,
+    'product_id': 133,
+  },
+
+  // Cuisine Pure
+  {
+    'business_id': 15,
+    'product_id': 144,
+  },
+  {
+    'business_id': 15,
+    'product_id': 149,
+  },
+  {
+    'business_id': 15,
+    'product_id': 141,
+  },
+  {
+    'business_id': 15,
+    'product_id': 146,
+  },
+  {
+    'business_id': 15,
+    'product_id': 142,
+  },
 ];

@@ -115,12 +115,12 @@ flutter:
     - assets/images/dummy/restaurant/aozorasehatkitchen.jpg
     - assets/images/dummy/restaurant/verdebrasil.png
     - assets/images/dummy/restaurant/glowkitchen.png
-    - assets/images/dummy/restaurant/greenspoon.png
-    - assets/images/dummy/restaurant/lepapillonbleu.png
-    - assets/images/dummy/restaurant/linaelit.png
-    - assets/images/dummy/restaurant/rasanusantara.png
-    - assets/images/dummy/restaurant/verduraitalianacentro.webp
     - assets/images/dummy/restaurant/sehatbang.png
+    - assets/images/dummy/restaurant/dapursehatnusantara.jpg
+    - assets/images/dummy/restaurant/linaelit.png
+    - assets/images/dummy/restaurant/verduraitalianacentro.webp
+    - assets/images/dummy/restaurant/greenspoon.png
+    - assets/images/dummy/restaurant/cuisinepure.jpg
     - assets/images/dummy/restaurant/sehatku.png
     - assets/images/dummy/restaurant/hijaurasa.webp
     - assets/images/dummy/restaurant/ladangsehatresto.webp
@@ -136,16 +136,16 @@ flutter:
 
     # Asset market images
     - assets/images/dummy/market/supermarketharmoni.webp
-    - assets/images/dummy/market/famgro.png
-    - assets/images/dummy/market/fitmarket.png
     - assets/images/dummy/market/harvestmart.png
+    - assets/images/dummy/market/fitmarket.png
+    - assets/images/dummy/market/zestmart.png
+    - assets/images/dummy/market/famgro.png
     - assets/images/dummy/market/healthycaremart.png
     - assets/images/dummy/market/ladangsehat.png
     - assets/images/dummy/market/pasarmurah.png
     - assets/images/dummy/market/sehatmart.png
     - assets/images/dummy/market/supermarketharmonitunas.webp
     - assets/images/dummy/market/vitagro.png
-    - assets/images/dummy/market/zestmart.png
     - assets/images/dummy/market/pasarsehatnusantara.jpg
     - assets/images/dummy/market/segarmart.jpg
     - assets/images/dummy/market/tokoorganikkita.jpg
@@ -288,6 +288,39 @@ flutter:
     - assets/images/dummy/food/dapursehatnusantara/tehpandanrempah.png
     - assets/images/dummy/food/dapursehatnusantara/jamukunyitasamdingin.png
     - assets/images/dummy/food/dapursehatnusantara/pudingsantangulamerah.png
+    # Lina Elit Healthy Resto Products
+    - assets/images/dummy/food/linaelithealthyresto/greenharmonysalad.png
+    - assets/images/dummy/food/linaelithealthyresto/supbrokolisehat.png
+    - assets/images/dummy/food/linaelithealthyresto/matchachiasmoothie.png
+    - assets/images/dummy/food/linaelithealthyresto/tumispackoybawangputih.png
+    - assets/images/dummy/food/linaelithealthyresto/nasihijaudaunsuji.png
+    - assets/images/dummy/food/linaelithealthyresto/pestopastavegan.png
+    - assets/images/dummy/food/linaelithealthyresto/infusedwaterketimunmint.png
+    - assets/images/dummy/food/linaelithealthyresto/smoothiebowlspirulina.png
+    - assets/images/dummy/food/linaelithealthyresto/tehhijaulemonbasil.png
+    - assets/images/dummy/food/linaelithealthyresto/pudingalpukatcoklatmint.png
+    # Green Spoon products
+    - assets/images/dummy/food/greenspoon/avocadokalebowl.png
+    - assets/images/dummy/food/greenspoon/greendetoxsmoothie.png
+    - assets/images/dummy/food/greenspoon/edamamemintsoup.png
+    - assets/images/dummy/food/greenspoon/zucchininoodlebowl.png
+    - assets/images/dummy/food/greenspoon/greenricetofuplate.png
+    - assets/images/dummy/food/greenspoon/cucumberbasilrefresher.png
+    - assets/images/dummy/food/greenspoon/broccolitempestir.png
+    - assets/images/dummy/food/greenspoon/greenhummusplatter.png
+    - assets/images/dummy/food/greenspoon/spirulinachiadrink.png
+    - assets/images/dummy/food/greenspoon/mintymatchadessert.png
+    # Cuisine Pure products
+    - assets/images/dummy/food/cuisinepure/saladevertedetox.png
+    - assets/images/dummy/food/cuisinepure/veloutedebrocolileger.png
+    - assets/images/dummy/food/cuisinepure/rizcompletauxherbes.png
+    - assets/images/dummy/food/cuisinepure/quicheveganauxepinards.png
+    - assets/images/dummy/food/cuisinepure/wrapdelaitueprovencal.png
+    - assets/images/dummy/food/cuisinepure/bouillondelegumesfume.png
+    - assets/images/dummy/food/cuisinepure/tartefinepommeverte.png
+    - assets/images/dummy/food/cuisinepure/smoothievertalamenthe.png
+    - assets/images/dummy/food/cuisinepure/infusionauromarinetcitron.png
+    - assets/images/dummy/food/cuisinepure/puddingdechiaaumatcha.png
 
 
 

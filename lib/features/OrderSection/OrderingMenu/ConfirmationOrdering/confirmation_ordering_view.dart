@@ -299,105 +299,107 @@ class _OrderConfirmationViewState extends State<OrderConfirmationView> {
             ],
           ),
         ),
-        bottomNavigationBar: OrderBottomNavbar(
-          totalPrice: calculateFinalOrderTotal(
-            _selectedProducts,
-            widget.serviceFee,
-            widget.isFreeShipment,
-            _businessDistance,
-            getDeliveryFee,
-          ),
-          buttonText: "Lakukan Pemesanan",
-          onOrderPressed: () async {
-            // If no selected products
-            if (_selectedProducts.isEmpty) {
-              fToast.showToast(
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(25.0),
-                    color: AppColors.dark,
-                  ),
-                  child: Text(
-                    "Tidak dapat melakukan pemesanan, \nsilahkan tambahkan ${widget.businessType == "restaurant" ? "makanan" : "belanjaan"} terlebih dahulu",
-                    style: AppTextStyles.textBold(
-                      size: 14,
-                      color: AppColors.soapstone,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                gravity: ToastGravity.BOTTOM,
-                toastDuration: const Duration(seconds: 5),
-              );
-              return;
-            }
-
-            final connectivityResult = await Connectivity().checkConnectivity();
-            if (connectivityResult.contains(ConnectivityResult.none)) {
-              Fluttertoast.showToast(
-                msg: 'Pemesanan gagal dilakukan.\nSilahkan coba lagi.',
-                toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.BOTTOM,
-              );
-              return;
-            }
-
-            final int updatedTotalPrice = calculateFinalOrderTotal(
+        bottomNavigationBar: SafeArea(
+          child: OrderBottomNavbar(
+            totalPrice: calculateFinalOrderTotal(
               _selectedProducts,
               widget.serviceFee,
               widget.isFreeShipment,
               _businessDistance,
               getDeliveryFee,
-            );
+            ),
+            buttonText: "Lakukan Pemesanan",
+            onOrderPressed: () async {
+              // If no selected products
+              if (_selectedProducts.isEmpty) {
+                fToast.showToast(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(25.0),
+                      color: AppColors.dark,
+                    ),
+                    child: Text(
+                      "Tidak dapat melakukan pemesanan, \nsilahkan tambahkan ${widget.businessType == "restaurant" ? "makanan" : "belanjaan"} terlebih dahulu",
+                      style: AppTextStyles.textBold(
+                        size: 14,
+                        color: AppColors.soapstone,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  gravity: ToastGravity.BOTTOM,
+                  toastDuration: const Duration(seconds: 5),
+                );
+                return;
+              }
 
-            print("=== Order Confirmation Debug Info ===");
-            print("Selected Products:");
-            for (var product in _selectedProducts) {
-              print(
-                "Product ID: ${product['product_id']}, Name: ${product['product_name']}, "
-                "Price: ${product['product_price']}, Quantity: ${product['qty_product']}, "
-                "Notes: ${product['notes'] ?? '-'}, Add-Ons: ${product['add_ons'] ?? '-'}",
+              final connectivityResult = await Connectivity().checkConnectivity();
+              if (connectivityResult.contains(ConnectivityResult.none)) {
+                Fluttertoast.showToast(
+                  msg: 'Pemesanan gagal dilakukan.\nSilahkan coba lagi.',
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.BOTTOM,
+                );
+                return;
+              }
+
+              final int updatedTotalPrice = calculateFinalOrderTotal(
+                _selectedProducts,
+                widget.serviceFee,
+                widget.isFreeShipment,
+                _businessDistance,
+                getDeliveryFee,
               );
-            }
-            print("Service Fee: ${widget.serviceFee}");
-            print("Delivery Fee: $_deliveryFee");
-            print("Total Price: $updatedTotalPrice");
-            print("Address Delivery: ${_selectedAddress['address_detail']}");
-            print("Driver Note: $driverNote");
-            print("Payment Method: $_selectedPaymentMethod");
 
-            final int historyId = OrderConfirmationController.addOrder(
-              businessId: widget.businessId,
-              selectedProducts: _selectedProducts,
-              estimatedDelivery: widget.businessEstimatedDelivery,
-              deliveryFee: _deliveryFee,
-              paymentMethod: _selectedPaymentMethod,
-              addressDetail: _selectedAddress['address_detail'],
-              driverNote: driverNote,
-            );
+              print("=== Order Confirmation Debug Info ===");
+              print("Selected Products:");
+              for (var product in _selectedProducts) {
+                print(
+                  "Product ID: ${product['product_id']}, Name: ${product['product_name']}, "
+                  "Price: ${product['product_price']}, Quantity: ${product['qty_product']}, "
+                  "Notes: ${product['notes'] ?? '-'}, Add-Ons: ${product['add_ons'] ?? '-'}",
+                );
+              }
+              print("Service Fee: ${widget.serviceFee}");
+              print("Delivery Fee: $_deliveryFee");
+              print("Total Price: $updatedTotalPrice");
+              print("Address Delivery: ${_selectedAddress['address_detail']}");
+              print("Driver Note: $driverNote");
+              print("Payment Method: $_selectedPaymentMethod");
 
-            RecipientAddressController.updateBusinessDistances(1);
-            RecipientAddressController.lastSelectedAddressId = null;
-            RecipientAddressController.lastBusinessDistance = null;
-            RecipientAddressController.lastDeliveryFee = null;
+              final int historyId = OrderConfirmationController.addOrder(
+                businessId: widget.businessId,
+                selectedProducts: _selectedProducts,
+                estimatedDelivery: widget.businessEstimatedDelivery,
+                deliveryFee: _deliveryFee,
+                paymentMethod: _selectedPaymentMethod,
+                addressDetail: _selectedAddress['address_detail'],
+                driverNote: driverNote,
+              );
 
-            context.push(
-              '/history/processing/$historyId',
-              extra: {
-                'history_id': historyId,
-                'business_name': widget.businessName,
-                'business_type': widget.businessType,
-                'business_image': widget.businessImage,
-                'estimated_arrival_time': widget.businessEstimatedDelivery,
-                'order_list': _selectedProducts,
-                'service_fee': widget.serviceFee,
-                'delivery_fee': _deliveryFee,
-                'total_price': updatedTotalPrice,
-                'status': 'diproses',
-              },
-            );
-          },
+              RecipientAddressController.updateBusinessDistances(1);
+              RecipientAddressController.lastSelectedAddressId = null;
+              RecipientAddressController.lastBusinessDistance = null;
+              RecipientAddressController.lastDeliveryFee = null;
+
+              context.push(
+                '/history/processing/$historyId',
+                extra: {
+                  'history_id': historyId,
+                  'business_name': widget.businessName,
+                  'business_type': widget.businessType,
+                  'business_image': widget.businessImage,
+                  'estimated_arrival_time': widget.businessEstimatedDelivery,
+                  'order_list': _selectedProducts,
+                  'service_fee': widget.serviceFee,
+                  'delivery_fee': _deliveryFee,
+                  'total_price': updatedTotalPrice,
+                  'status': 'diproses',
+                },
+              );
+            },
+          ),
         ),
       ),
     );

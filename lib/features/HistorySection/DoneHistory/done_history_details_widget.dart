@@ -745,7 +745,7 @@ class GiveFeedbackBottomNavbar extends StatelessWidget {
     }
 
     return Container(
-      padding: const EdgeInsets.fromLTRB(12, 16, 12, 24),
+      padding: const EdgeInsets.fromLTRB(12, 15, 12, 20),
       decoration: BoxDecoration(
         color: AppColors.ecruWhite,
         boxShadow: [

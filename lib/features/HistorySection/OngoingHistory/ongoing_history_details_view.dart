@@ -253,7 +253,8 @@ class _OngoingHistoryDetailsViewState extends State<OngoingHistoryDetailsView> {
           },
         ),
         bottomNavigationBar: widget.status == 'diproses'
-            ? Container(
+          ? SafeArea(
+              child: Container(
                 padding: const EdgeInsets.fromLTRB(16, 15, 16, 20),
                 decoration: BoxDecoration(
                   color: AppColors.soapstone,
@@ -261,7 +262,7 @@ class _OngoingHistoryDetailsViewState extends State<OngoingHistoryDetailsView> {
                     BoxShadow(
                       color: AppColors.dark.withValues(alpha: 0.15),
                       blurRadius: 10,
-                      offset: Offset(0, -2),
+                      offset: const Offset(0, -2),
                     ),
                   ],
                 ),
@@ -275,15 +276,17 @@ class _OngoingHistoryDetailsViewState extends State<OngoingHistoryDetailsView> {
                     );
                   },
                   backgroundColor: AppColors.persianRed,
-                  child: Text("Batalkan Pemesanan",
+                  child: Text(
+                    "Batalkan Pemesanan",
                     style: AppTextStyles.textBold(
                       size: 16,
                       color: AppColors.soapstone,
                     ),
                   ),
                 ),
-              )
-            : null,
+              ),
+            )
+          : null,
       ),
     );
   }

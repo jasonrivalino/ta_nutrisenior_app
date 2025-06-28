@@ -119,28 +119,30 @@ class DoneHistoryDetailsView extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: showBottomNavbar
-        ? GiveFeedbackBottomNavbar(
-            businessType: businessType,
-            ratings: ratings,
-            driverReport: driverReport,
-            businessReport: businessReport,
-            onDriverPressed: () {
-              context.push('/history/done/details/:id/rating', extra: {
-                'history_id': historyId,
-                'business_id': businessId,
-                'driver_id': driverId,
-                'driver_name': driverName,
-              });
-            },
-            onBusinessPressed: () {
-              context.push('/history/done/details/:id/rating', extra: {
-                'history_id': historyId,
-                'business_id': businessId,
-                'business_name': businessName,
-                'business_type': businessType,
-                'business_image': businessImage,
-              });
-            },
+        ? SafeArea(
+            child: GiveFeedbackBottomNavbar(
+              businessType: businessType,
+              ratings: ratings,
+              driverReport: driverReport,
+              businessReport: businessReport,
+              onDriverPressed: () {
+                context.push('/history/done/details/:id/rating', extra: {
+                  'history_id': historyId,
+                  'business_id': businessId,
+                  'driver_id': driverId,
+                  'driver_name': driverName,
+                });
+              },
+              onBusinessPressed: () {
+                context.push('/history/done/details/:id/rating', extra: {
+                  'history_id': historyId,
+                  'business_id': businessId,
+                  'business_name': businessName,
+                  'business_type': businessType,
+                  'business_image': businessImage,
+                });
+              },
+            ),
           )
         : null,
     );
