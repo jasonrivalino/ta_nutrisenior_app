@@ -327,4 +327,172 @@ final List<Map<String, dynamic>> recommendedProductListTable = [
     'business_id': 15,
     'product_id': 142,
   },
+  // Recommended for Sehatku
+  {
+    'business_id': 16,
+    'product_id': 159,
+  },
+  {
+    'business_id': 16,
+    'product_id': 151,
+  },
+  {
+    'business_id': 16,
+    'product_id': 152,
+  },
+  {
+    'business_id': 16,
+    'product_id': 155,
+  },
+  {
+    'business_id': 16,
+    'product_id': 158,
+  },
+  // Recommended for Ladang Sehat
+  {
+    'business_id': 17,
+    'product_id': 164,
+  },
+  {
+    'business_id': 17,
+    'product_id': 168,
+  },
+  {
+    'business_id': 17,
+    'product_id': 167,
+  },
+  {
+    'business_id': 17,
+    'product_id': 161,
+  },
+  {
+    'business_id': 17,
+    'product_id': 163,
+  },
+  // Recommended for Pasar Famgro
+  {
+    'business_id': 18,
+    'product_id': 173,
+  },
+  {
+    'business_id': 18,
+    'product_id': 174,
+  },
+  {
+    'business_id': 18,
+    'product_id': 31,
+  },
+  {
+    'business_id': 18,
+    'product_id': 178,
+  },
+  {
+    'business_id': 18,
+    'product_id': 32,
+  },
+  // Recommended for Sehat Mart
+  {
+    'business_id': 19,
+    'product_id': 182,
+  },
+  {
+    'business_id': 19,
+    'product_id': 187,
+  },
+  {
+    'business_id': 19,
+    'product_id': 186,
+  },
+  {
+    'business_id': 19,
+    'product_id': 185,
+  },
+  {
+    'business_id': 19,
+    'product_id': 181,
+  },
+  // Recommended for HealthyCareMart
+  {
+    'business_id': 20,
+    'product_id': 191,
+  },
+  {
+    'business_id': 20,
+    'product_id': 192,
+  },
+  {
+    'business_id': 20,
+    'product_id': 195,
+  },
+  {
+    'business_id': 20,
+    'product_id': 198,
+  },
+  {
+    'business_id': 20,
+    'product_id': 199,
+  },
+  // Recommended for VitaGro
+  {
+    'business_id': 21,
+    'product_id': 205,
+  },
+  {
+    'business_id': 21,
+    'product_id': 203,
+  },
+  {
+    'business_id': 21,
+    'product_id': 210,
+  },
+  {
+    'business_id': 21,
+    'product_id': 208,
+  },
+  {
+    'business_id': 21,
+    'product_id': 207,
+  },
+  // Recommended for Supermarket Harmoni Tunas
+  {
+    'business_id': 22,
+    'product_id': 2,
+  },
+  {
+    'business_id': 22,
+    'product_id': 3,
+  },
+  {
+    'business_id': 22,
+    'product_id': 5,
+  },
+  {
+    'business_id': 22,
+    'product_id': 12,
+  },
+  {
+    'business_id': 22,
+    'product_id': 9,
+  },
+  // Recommended for Verdura Italiana - Kenanga
+  {
+    'business_id': 23,
+    'product_id': 11,
+  },
+  {
+    'business_id': 23,
+    'product_id': 10,
+  },
+  {
+    'business_id': 23,
+    'product_id': 2,
+  },
+  {
+    'business_id': 23,
+    'product_id': 8,
+  },
+  {
+    'business_id': 23,
+    'product_id': 7,
+  },
 ];

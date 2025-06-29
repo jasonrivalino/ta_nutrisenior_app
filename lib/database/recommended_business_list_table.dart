@@ -1,29 +1,21 @@
 final List<Map<String, dynamic>> recommendedBusinessListTable = [
   // Recommended Today List
   {
-    'business_id': '1',
-    'recommend_category': 'today',
-  },
-  {
     'business_id': '2',
     'recommend_category': 'today',
   },
-  // {
-  //   'business_id': '3',
-  //   'recommend_category': 'today',
-  // },
-  // {
-  //   'business_id': '4',
-  //   'recommend_category': 'today',
-  // },
-  // {
-  //   'business_id': '24',
-  //   'recommend_category': 'today',
-  // },
-  // {
-  //   'business_id': '36',
-  //   'recommend_category': 'today',
-  // },
+  {
+    'business_id': '13',
+    'recommend_category': 'today',
+  },
+  {
+    'business_id': '18',
+    'recommend_category': 'today',
+  },
+  {
+    'business_id': '24',
+    'recommend_category': 'today',
+  },
 
   // Recommended Restaurant List
   {

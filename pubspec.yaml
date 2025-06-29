@@ -111,28 +111,29 @@ flutter:
     - assets/images/dummy/motorcycle_delivery.png
 
     # Asset restaurant images
-    - assets/images/dummy/restaurant/verduraitaliana.webp
+    - assets/images/dummy/restaurant/verduraitaliana.png
     - assets/images/dummy/restaurant/aozorasehatkitchen.jpg
     - assets/images/dummy/restaurant/verdebrasil.png
     - assets/images/dummy/restaurant/glowkitchen.png
     - assets/images/dummy/restaurant/sehatbang.png
     - assets/images/dummy/restaurant/dapursehatnusantara.jpg
     - assets/images/dummy/restaurant/linaelit.png
-    - assets/images/dummy/restaurant/verduraitalianacentro.webp
+    - assets/images/dummy/restaurant/verduraitalianacentro.png
     - assets/images/dummy/restaurant/greenspoon.png
     - assets/images/dummy/restaurant/cuisinepure.jpg
     - assets/images/dummy/restaurant/sehatku.png
-    - assets/images/dummy/restaurant/hijaurasa.webp
-    - assets/images/dummy/restaurant/ladangsehatresto.webp
-    - assets/images/dummy/restaurant/daun&dapur.webp
-    - assets/images/dummy/restaurant/sehatikitchen.jpg
-    - assets/images/dummy/restaurant/rasaalami.jpg
+    - assets/images/dummy/restaurant/verduraitalianakenanga.png
+    - assets/images/dummy/restaurant/hijaurasa.jpg
+    - assets/images/dummy/restaurant/ladangsehatresto.jpg
+    - assets/images/dummy/restaurant/daun&dapur.jpg
+    - assets/images/dummy/restaurant/sehatikitchen.png
+    - assets/images/dummy/restaurant/rasaalami.png
     - assets/images/dummy/restaurant/fitbite.jpg
     - assets/images/dummy/restaurant/naturabowl.jpg
-    - assets/images/dummy/restaurant/sayurloka.jpg
+    - assets/images/dummy/restaurant/sayurloka.png
     - assets/images/dummy/restaurant/zen&zest.jpg
-    - assets/images/dummy/restaurant/santapsegar.jpg
-    - assets/images/dummy/restaurant/rasaorganik.jpg
+    - assets/images/dummy/restaurant/santapsegar.png
+    - assets/images/dummy/restaurant/rasaorganik.png
 
     # Asset market images
     - assets/images/dummy/market/supermarketharmoni.webp
@@ -144,18 +145,18 @@ flutter:
     - assets/images/dummy/market/ladangsehat.png
     - assets/images/dummy/market/pasarmurah.png
     - assets/images/dummy/market/sehatmart.png
-    - assets/images/dummy/market/supermarketharmonitunas.webp
+    - assets/images/dummy/market/supermarketharmonitunas.jpg
     - assets/images/dummy/market/vitagro.png
     - assets/images/dummy/market/pasarsehatnusantara.jpg
-    - assets/images/dummy/market/segarmart.jpg
-    - assets/images/dummy/market/tokoorganikkita.jpg
-    - assets/images/dummy/market/freshmarketjaya.jpg
-    - assets/images/dummy/market/hijaumart.jpg
-    - assets/images/dummy/market/pasarorganikmaju.jpg
-    - assets/images/dummy/market/supersehatmart.jpg
-    - assets/images/dummy/market/bumisegarmart.jpg
-    - assets/images/dummy/market/organikkeluargamart.jpg
-    - assets/images/dummy/market/sumbersehatmarket.jpg
+    - assets/images/dummy/market/segarmart.png
+    - assets/images/dummy/market/tokoorganikkita.png
+    - assets/images/dummy/market/freshmarketjaya.png
+    - assets/images/dummy/market/hijaumart.png
+    - assets/images/dummy/market/pasarorganikmaju.png
+    - assets/images/dummy/market/supersehatmart.png
+    - assets/images/dummy/market/bumisegarmart.png
+    - assets/images/dummy/market/organikkeluargamart.png
+    - assets/images/dummy/market/sumbersehatmarket.png
     - assets/images/dummy/market/pasarhijaulestari.jpg
 
     # Asset product images
@@ -321,6 +322,80 @@ flutter:
     - assets/images/dummy/food/cuisinepure/smoothievertalamenthe.png
     - assets/images/dummy/food/cuisinepure/infusionauromarinetcitron.png
     - assets/images/dummy/food/cuisinepure/puddingdechiaaumatcha.png
+    # Sehatku products
+    - assets/images/dummy/food/sehatku/biskuitgandumrendahgula.png
+    - assets/images/dummy/food/sehatku/pudingchiatanpagula.png
+    - assets/images/dummy/food/sehatku/smoothiepisangoat.png
+    - assets/images/dummy/food/sehatku/kacangrebusrempah.png
+    - assets/images/dummy/food/sehatku/jusapelmurnitanpagula.png
+    - assets/images/dummy/food/sehatku/keripiklabupanggang.png
+    - assets/images/dummy/food/sehatku/infusedwaterlemonmint.png
+    - assets/images/dummy/food/sehatku/saladbuahlembut.png
+    - assets/images/dummy/food/sehatku/tehherbalrosella.png
+    - assets/images/dummy/food/sehatku/kuetahukukus.png
+    # Ladang Sehat Products
+    - assets/images/dummy/ingredients/ladangsehat/wortelorganik.png
+    - assets/images/dummy/ingredients/ladangsehat/paprikamerah.png
+    - assets/images/dummy/ingredients/ladangsehat/terongungulokal.png
+    - assets/images/dummy/ingredients/ladangsehat/jagungmanis.png
+    - assets/images/dummy/ingredients/ladangsehat/labukuning.png
+    - assets/images/dummy/ingredients/ladangsehat/kacangpanjang.png
+    - assets/images/dummy/ingredients/ladangsehat/tomatceri.png
+    - assets/images/dummy/ingredients/ladangsehat/brokolisegar.png
+    - assets/images/dummy/ingredients/ladangsehat/zucchinihijau.png
+    - assets/images/dummy/ingredients/ladangsehat/bitmerah.png
+    # Pasar Famgro Products
+    - assets/images/dummy/ingredients/pasarfamgro/kunyitbubuk250g.png
+    - assets/images/dummy/ingredients/pasarfamgro/jahekeringiris200g.png
+    - assets/images/dummy/ingredients/pasarfamgro/kunyitsegar.png
+    - assets/images/dummy/ingredients/pasarfamgro/lengkuaslokal.png
+    - assets/images/dummy/ingredients/pasarfamgro/jahemerah.png
+    - assets/images/dummy/ingredients/pasarfamgro/seraiwangi.png
+    - assets/images/dummy/ingredients/pasarfamgro/bawangmerahbrebes.png
+    - assets/images/dummy/ingredients/pasarfamgro/bawangputihkating.png
+    - assets/images/dummy/ingredients/pasarfamgro/kencursegar.png
+    - assets/images/dummy/ingredients/pasarfamgro/daunsalam.png
+    - assets/images/dummy/ingredients/pasarfamgro/kemirikupas.png
+    - assets/images/dummy/ingredients/pasarfamgro/caberawitmerah.png
+    # Sehat Mart products
+    - assets/images/dummy/ingredients/sehatmart/daunbasilsegar.png
+    - assets/images/dummy/ingredients/sehatmart/daunrosemary.png
+    - assets/images/dummy/ingredients/sehatmart/daunthyme.png
+    - assets/images/dummy/ingredients/sehatmart/daunmint.png
+    - assets/images/dummy/ingredients/sehatmart/parsleykeriting.png
+    - assets/images/dummy/ingredients/sehatmart/daunoregano.png
+    - assets/images/dummy/ingredients/sehatmart/chivessegar.png
+    - assets/images/dummy/ingredients/sehatmart/sagedaunsegar.png
+    - assets/images/dummy/ingredients/sehatmart/tarragonsegar.png
+    - assets/images/dummy/ingredients/sehatmart/lavenderkuliner.png
+    # HealthyCareMart products
+    - assets/images/dummy/ingredients/healthycaremart/apelfuji.png
+    - assets/images/dummy/ingredients/healthycaremart/pisangambon.png
+    - assets/images/dummy/ingredients/healthycaremart/anggurmerahseedless.png
+    - assets/images/dummy/ingredients/healthycaremart/pepayacalifornia.png
+    - assets/images/dummy/ingredients/healthycaremart/jerukbaby.png
+    - assets/images/dummy/ingredients/healthycaremart/stroberilokal.png
+    - assets/images/dummy/ingredients/healthycaremart/alpukatmentega.png
+    - assets/images/dummy/ingredients/healthycaremart/blueberryimport.png
+    - assets/images/dummy/ingredients/healthycaremart/manggaharummanis.png
+    - assets/images/dummy/ingredients/healthycaremart/semangkamerah.png
+    # VitaGro products
+    - assets/images/dummy/ingredients/vitagro/kalehijau.png
+    - assets/images/dummy/ingredients/vitagro/asparagusimport.png
+    - assets/images/dummy/ingredients/vitagro/avokadhass.png
+    - assets/images/dummy/ingredients/vitagro/lettuceromaine.png
+    - assets/images/dummy/ingredients/vitagro/jeruknavel.png
+    - assets/images/dummy/ingredients/vitagro/kiwigold.png
+    - assets/images/dummy/ingredients/vitagro/zucchinikuning.png
+    - assets/images/dummy/ingredients/vitagro/bellpepperoranye.png
+    - assets/images/dummy/ingredients/vitagro/chicorymerah.png
+    - assets/images/dummy/ingredients/vitagro/raspberrysegar.png
+
+
+
+
+
+
 
 
 

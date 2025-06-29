@@ -19,9 +19,9 @@ final List<Map<String, dynamic>> businessPromoListTable = [
   // Market Discount promo
   {'business_id': 17, 'discount_number': 20, 'is_free_shipment': false},
   {'business_id': 18, 'discount_number': 25, 'is_free_shipment': false},
-  {'business_id': 41, 'discount_number': 10, 'is_free_shipment': false},
   {'business_id': 19, 'discount_number': 20, 'is_free_shipment': false},
   {'business_id': 4, 'discount_number': 30, 'is_free_shipment': false},
+  {'business_id': 41, 'discount_number': 10, 'is_free_shipment': false},
   {'business_id': 20, 'discount_number': 5, 'is_free_shipment': false},
 
   // Market Free Shipment promo
