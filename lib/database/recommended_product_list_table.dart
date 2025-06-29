@@ -495,4 +495,214 @@ final List<Map<String, dynamic>> recommendedProductListTable = [
     'business_id': 23,
     'product_id': 7,
   },
+  // Recommended for Zen & Zest
+  {
+    'business_id': 24,
+    'product_id': 218,
+  },
+  {
+    'business_id': 24,
+    'product_id': 217,
+  },
+  {
+    'business_id': 24,
+    'product_id': 220,
+  },
+  {
+    'business_id': 24,
+    'product_id': 216,
+  },
+  {
+    'business_id': 24,
+    'product_id': 211,
+  },
+  // Recommended for Ladang Sehat Resto
+  {
+    'business_id': 25,
+    'product_id': 229,
+  },
+  {
+    'business_id': 25,
+    'product_id': 227,
+  },
+  {
+    'business_id': 25,
+    'product_id': 226,
+  },
+  {
+    'business_id': 25,
+    'product_id': 222,
+  },
+  {
+    'business_id': 25,
+    'product_id': 230,
+  },
+  // Recommended for Daun & Dapur
+  {
+    'business_id': 26,
+    'product_id': 234,
+  },
+  {
+    'business_id': 26,
+    'product_id': 231,
+  },
+  {
+    'business_id': 26,
+    'product_id': 240,
+  },
+  {
+    'business_id': 26,
+    'product_id': 238,
+  },
+  {
+    'business_id': 26,
+    'product_id': 233,
+  },
+  // Recommended for Hijau Rasa
+  {
+    'business_id': 27,
+    'product_id': 244,
+  },
+  {
+    'business_id': 27,
+    'product_id': 248,
+  },
+  {
+    'business_id': 27,
+    'product_id': 247,
+  },
+  {
+    'business_id': 27,
+    'product_id': 245,
+  },
+  {
+    'business_id': 27,
+    'product_id': 242,
+  },
+  // Recommended for Sehati Kitchen
+  {
+    'business_id': 28,
+    'product_id': 260,
+  },
+  {
+    'business_id': 28,
+    'product_id': 256,
+  },
+  {
+    'business_id': 28,
+    'product_id': 259,
+  },
+  {
+    'business_id': 28,
+    'product_id': 258,
+  },
+  {
+    'business_id': 28,
+    'product_id': 254,
+  },
+  // Recommended for Rasa Alami
+  {
+    'business_id': 29,
+    'product_id': 262,
+  },
+  {
+    'business_id': 29,
+    'product_id': 263,
+  },
+  {
+    'business_id': 29,
+    'product_id': 266,
+  },
+  {
+    'business_id': 29,
+    'product_id': 268,
+  },
+  {
+    'business_id': 29,
+    'product_id': 270,
+  },
+  // Recommended for FitBite
+  {
+    'business_id': 30,
+    'product_id': 278,
+  },
+  {
+    'business_id': 30,
+    'product_id': 272,
+  },
+  {
+    'business_id': 30,
+    'product_id': 274,
+  },
+  {
+    'business_id': 30,
+    'product_id': 280,
+  },
+  {
+    'business_id': 30,
+    'product_id': 279,
+  },
+  // Recommended for Natura Bowl
+  {
+    'business_id': 31,
+    'product_id': 283,
+  },
+  {
+    'business_id': 31,
+    'product_id': 289,
+  },
+  {
+    'business_id': 31,
+    'product_id': 284,
+  },
+  {
+    'business_id': 31,
+    'product_id': 290,
+  },
+  {
+    'business_id': 31,
+    'product_id': 281,
+  },
+  // Recommended for SayurLoka
+  {
+    'business_id': 32,
+    'product_id': 292,
+  },
+  {
+    'business_id': 32,
+    'product_id': 295,
+  },
+  {
+    'business_id': 32,
+    'product_id': 300,
+  },
+  {
+    'business_id': 32,
+    'product_id': 298,
+  },
+  {
+    'business_id': 32,
+    'product_id': 299,
+  },
+  // Recommended for Santap Segar
+  {
+    'business_id': 33,
+    'product_id': 305,
+  },
+  {
+    'business_id': 33,
+    'product_id': 307,
+  },
+  {
+    'business_id': 33,
+    'product_id': 310,
+  },
+  {
+    'business_id': 33,
+    'product_id': 309,
+  },
+  {
+    'business_id': 33,
+    'product_id': 303,
+  },
 ];

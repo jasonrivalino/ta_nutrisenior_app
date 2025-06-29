@@ -390,6 +390,123 @@ flutter:
     - assets/images/dummy/ingredients/vitagro/bellpepperoranye.png
     - assets/images/dummy/ingredients/vitagro/chicorymerah.png
     - assets/images/dummy/ingredients/vitagro/raspberrysegar.png
+    # Zen & Zest products
+    - assets/images/dummy/food/zen&zest/avocadoblisstoast.png
+    - assets/images/dummy/food/zen&zest/greenvitalitybowl.png
+    - assets/images/dummy/food/zen&zest/matchazenlatte.png
+    - assets/images/dummy/food/zen&zest/lemongrassdetoxwater.png
+    - assets/images/dummy/food/zen&zest/tempehrainbowwrap.png
+    - assets/images/dummy/food/zen&zest/herbalnasirempah.png
+    - assets/images/dummy/food/zen&zest/chiaberrypudding.png
+    - assets/images/dummy/food/zen&zest/zestyquinoasalad.png
+    - assets/images/dummy/food/zen&zest/turmericcoconutelixir.png
+    - assets/images/dummy/food/zen&zest/greenglowjuice.png
+    # Ladang Sehat Resto products
+    - assets/images/dummy/food/ladangsehatresto/tempehfarm.png
+    - assets/images/dummy/food/ladangsehatresto/supsayurorganik.png
+    - assets/images/dummy/food/ladangsehatresto/tahupanggang.png
+    - assets/images/dummy/food/ladangsehatresto/tehseraiherbal.png
+    - assets/images/dummy/food/ladangsehatresto/buburlabumillet.png
+    - assets/images/dummy/food/ladangsehatresto/singkonggoreng.png
+    - assets/images/dummy/food/ladangsehatresto/juskelapaasam.png
+    - assets/images/dummy/food/ladangsehatresto/semurkacangmerah.png
+    - assets/images/dummy/food/ladangsehatresto/pancakepisangoat.png
+    - assets/images/dummy/food/ladangsehatresto/smoothiekelorhijau.png
+    # Daun & Dapur products
+    - assets/images/dummy/food/daun&dapur/saladdauntropis.png  
+    - assets/images/dummy/food/daun&dapur/suphijaulembah.png  
+    - assets/images/dummy/food/daun&dapur/nasirempahdaun.png  
+    - assets/images/dummy/food/daun&dapur/smoothiedaunsegar.png  
+    - assets/images/dummy/food/daun&dapur/wrapseladatempe.png  
+    - assets/images/dummy/food/daun&dapur/tehdaunrimbun.png  
+    - assets/images/dummy/food/daun&dapur/bakwanbayamkukus.png  
+    - assets/images/dummy/food/daun&dapur/pudingmatchapandan.png  
+    - assets/images/dummy/food/daun&dapur/jusmentimunlemon.png  
+    - assets/images/dummy/food/daun&dapur/nasigulunghijau.png
+    # Hijau Rasa products
+    - assets/images/dummy/food/hijaurasa/smoothiealpukatmadu.png  
+    - assets/images/dummy/food/hijaurasa/eskiwimint.png  
+    - assets/images/dummy/food/hijaurasa/saladanggurhijau.png  
+    - assets/images/dummy/food/hijaurasa/pudingmelonmatcha.png  
+    - assets/images/dummy/food/hijaurasa/saritimunapelhijau.png  
+    - assets/images/dummy/food/hijaurasa/parfaitpepayahijau.png  
+    - assets/images/dummy/food/hijaurasa/eslolikiwibayam.png  
+    - assets/images/dummy/food/hijaurasa/minumanspirulinalemon.png  
+    - assets/images/dummy/food/hijaurasa/sorbetanggurhijau.png  
+    - assets/images/dummy/food/hijaurasa/mocktaildaunmintjerukbalihijau.png  
+    # Sehati Kitchen products
+    - assets/images/dummy/food/sehatikitchen/jusapelhijaudanseledri.png  
+    - assets/images/dummy/food/sehatikitchen/pudingalpukatlembut.png  
+    - assets/images/dummy/food/sehatikitchen/smoothiemelonoat.png  
+    - assets/images/dummy/food/sehatikitchen/saladanggurhijauyogurt.png  
+    - assets/images/dummy/food/sehatikitchen/suplabuhijautofu.png  
+    - assets/images/dummy/food/sehatikitchen/jellykiwilemonbalm.png  
+    - assets/images/dummy/food/sehatikitchen/esloliapelhijauchia.png  
+    - assets/images/dummy/food/sehatikitchen/parfaitalpukatkacang.png  
+    - assets/images/dummy/food/sehatikitchen/tehhijaubuahzaitun.png  
+    - assets/images/dummy/food/sehatikitchen/mocktailmelonminthangat.png  
+    # Rasa Alami products
+    - assets/images/dummy/food/rasaalami/urapsayurrempah.png  
+    - assets/images/dummy/food/rasaalami/nasimerahpecel.png  
+    - assets/images/dummy/food/rasaalami/pepestahudaunkemangi.png  
+    - assets/images/dummy/food/rasaalami/sayurasemtropis.png  
+    - assets/images/dummy/food/rasaalami/supjagungjamur.png  
+    - assets/images/dummy/food/rasaalami/lodehlabusiam.png  
+    - assets/images/dummy/food/rasaalami/tumissingkongbawangputih.png  
+    - assets/images/dummy/food/rasaalami/nasijagungsambaltomat.png  
+    - assets/images/dummy/food/rasaalami/perkedeltahuwortel.png  
+    - assets/images/dummy/food/rasaalami/wedangkunyitasam.png
+    # FitBite products
+    - assets/images/dummy/food/fitbite/smoothiepisangoat.png
+    - assets/images/dummy/food/fitbite/yogurtstroberirendahlemah.png  
+    - assets/images/dummy/food/fitbite/smoothiemanggakunyit.png  
+    - assets/images/dummy/food/fitbite/yogurtblueberrychia.png  
+    - assets/images/dummy/food/fitbite/smoothiealpukatkurma.png  
+    - assets/images/dummy/food/fitbite/yogurtmelonmint.png  
+    - assets/images/dummy/food/fitbite/smoothieapelseledri.png  
+    - assets/images/dummy/food/fitbite/yogurtkurmakacang.png  
+    - assets/images/dummy/food/fitbite/smoothienaguaputih.png  
+    - assets/images/dummy/food/fitbite/yogurtpepayajahe.png
+    # Natura Bowl products
+    - assets/images/dummy/food/naturabowl/tropicalmangobowl.png  
+    - assets/images/dummy/food/naturabowl/berryenergizerbowl.png  
+    - assets/images/dummy/food/naturabowl/greenavocadobowl.png  
+    - assets/images/dummy/food/naturabowl/dragonfruitblissbowl.png  
+    - assets/images/dummy/food/naturabowl/chocobananabowl.png  
+    - assets/images/dummy/food/naturabowl/papayasunrisebowl.png  
+    - assets/images/dummy/food/naturabowl/kiwifreshbowl.png  
+    - assets/images/dummy/food/naturabowl/peanutdatebowl.png  
+    - assets/images/dummy/food/naturabowl/melonmintbowl.png  
+    - assets/images/dummy/food/naturabowl/bluematchabowl.png
+    # Sayur Loka products
+    - assets/images/dummy/food/sayurloka/tumiskangkungsehat.png  
+    - assets/images/dummy/food/sayurloka/sayurbeningbayam.png  
+    - assets/images/dummy/food/sayurloka/tumisdaunkatuk.png  
+    - assets/images/dummy/food/sayurloka/cahsawihijau.png  
+    - assets/images/dummy/food/sayurloka/lalapandaunkenikir.png  
+    - assets/images/dummy/food/sayurloka/rebusandaunpepaya.png  
+    - assets/images/dummy/food/sayurloka/osenggenjer.png  
+    - assets/images/dummy/food/sayurloka/sayurrebuskomplit.png  
+    - assets/images/dummy/food/sayurloka/tumispokcoybawangputih.png  
+    - assets/images/dummy/food/sayurloka/urapsayuranhijau.png  
+    # Santap Segar products
+    - assets/images/dummy/food/santapsegar/rujakbuahsegar.png  
+    - assets/images/dummy/food/santapsegar/saladbuahjalanan.png  
+    - assets/images/dummy/food/santapsegar/satebuahtropis.png  
+    - assets/images/dummy/food/santapsegar/esbuahtradisional.png  
+    - assets/images/dummy/food/santapsegar/kuelapisbuahnaga.png  
+    - assets/images/dummy/food/santapsegar/stikbuahbeku.png  
+    - assets/images/dummy/food/santapsegar/crepespisangkurma.png  
+    - assets/images/dummy/food/santapsegar/smoothiecupjalanan.png  
+    - assets/images/dummy/food/santapsegar/keripikpisanghijau.png  
+    - assets/images/dummy/food/santapsegar/bolabuahoat.png  
+
+
+
+
+
+
+
 
 
 

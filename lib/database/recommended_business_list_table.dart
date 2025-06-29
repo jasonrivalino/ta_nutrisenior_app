@@ -13,7 +13,7 @@ final List<Map<String, dynamic>> recommendedBusinessListTable = [
     'recommend_category': 'today',
   },
   {
-    'business_id': '24',
+    'business_id': '27',
     'recommend_category': 'today',
   },
 
@@ -31,7 +31,7 @@ final List<Map<String, dynamic>> recommendedBusinessListTable = [
     'recommend_category': 'restaurant',
   },
   {
-    'business_id': '28',
+    'business_id': '29',
     'recommend_category': 'restaurant',
   },
   {
