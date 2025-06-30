@@ -219,6 +219,7 @@ class _OngoingHistoryDetailsViewState extends State<OngoingHistoryDetailsView> {
                                   ),
                                 ),
                               ),
+                              const SizedBox(height: 30),
                             ]
                           : [
                               Padding(

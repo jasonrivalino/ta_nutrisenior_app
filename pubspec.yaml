@@ -499,24 +499,139 @@ flutter:
     - assets/images/dummy/food/santapsegar/crepespisangkurma.png  
     - assets/images/dummy/food/santapsegar/smoothiecupjalanan.png  
     - assets/images/dummy/food/santapsegar/keripikpisanghijau.png  
-    - assets/images/dummy/food/santapsegar/bolabuahoat.png  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    - assets/images/dummy/food/santapsegar/bolabuahoat.png
+    # Pasar Sehat Nusantara products
+    - assets/images/dummy/ingredients/pasarsehatnusantara/bumburendangorganik.png  
+    - assets/images/dummy/ingredients/pasarsehatnusantara/bumbuoporsehat.png  
+    - assets/images/dummy/ingredients/pasarsehatnusantara/bumbusotolemongrass.png  
+    - assets/images/dummy/ingredients/pasarsehatnusantara/bumbusayurasemalami.png  
+    - assets/images/dummy/ingredients/pasarsehatnusantara/bumbugulaitanpasantan.png  
+    - assets/images/dummy/ingredients/pasarsehatnusantara/bumbuayambakarrempah.png  
+    - assets/images/dummy/ingredients/pasarsehatnusantara/bumbupepesdaunkemangi.png  
+    - assets/images/dummy/ingredients/pasarsehatnusantara/bumbutongsengalami.png  
+    - assets/images/dummy/ingredients/pasarsehatnusantara/bumbusambalterasisehat.png  
+    - assets/images/dummy/ingredients/pasarsehatnusantara/bumbukaritanpaminyak.png  
+    # Segar Mart products
+    - assets/images/dummy/ingredients/segarmart/bayamorganik.png  
+    - assets/images/dummy/ingredients/segarmart/wortelsegar.png  
+    - assets/images/dummy/ingredients/segarmart/kacangpanjang.png  
+    - assets/images/dummy/ingredients/segarmart/brokolihijau.png  
+    - assets/images/dummy/ingredients/segarmart/tomatmerahmuda.png  
+    - assets/images/dummy/ingredients/segarmart/pisangambon.png  
+    - assets/images/dummy/ingredients/segarmart/apelfujisegar.png  
+    - assets/images/dummy/ingredients/segarmart/pepayacalifornia.png  
+    - assets/images/dummy/ingredients/segarmart/jerukpontianak.png  
+    - assets/images/dummy/ingredients/segarmart/semangkatanpabiji.png  
+    # Toko Organik Kita products
+    - assets/images/dummy/ingredients/tokoorganikkita/berasmerahorganik.png  
+    - assets/images/dummy/ingredients/tokoorganikkita/gulaarenbubuk.png  
+    - assets/images/dummy/ingredients/tokoorganikkita/minyakzaitunextravirgin.png  
+    - assets/images/dummy/ingredients/tokoorganikkita/oatmealorganik.png  
+    - assets/images/dummy/ingredients/tokoorganikkita/kacangkedelaihitam.png  
+    - assets/images/dummy/ingredients/tokoorganikkita/tepungmocaf.png  
+    - assets/images/dummy/ingredients/tokoorganikkita/kismistanpagula.png  
+    - assets/images/dummy/ingredients/tokoorganikkita/susualmondorganik.png  
+    - assets/images/dummy/ingredients/tokoorganikkita/bubukkunyitmurni.png  
+    - assets/images/dummy/ingredients/tokoorganikkita/chiaseedorganik.png  
+    # Fresh Market Jaya products
+    - assets/images/dummy/ingredients/freshmarketjaya/dagingayamkampungsegar.png  
+    - assets/images/dummy/ingredients/freshmarketjaya/teluromega3.png  
+    - assets/images/dummy/ingredients/freshmarketjaya/ikankembunglautsegar.png  
+    - assets/images/dummy/ingredients/freshmarketjaya/udangwindupremium.png  
+    - assets/images/dummy/ingredients/freshmarketjaya/tempeorganikbungkusdaun.png  
+    - assets/images/dummy/ingredients/freshmarketjaya/tahuputihsegar.png  
+    - assets/images/dummy/ingredients/freshmarketjaya/sayursawihijaudingin.png  
+    - assets/images/dummy/ingredients/freshmarketjaya/jamurkupingsegar.png  
+    - assets/images/dummy/ingredients/freshmarketjaya/bayamhijausegar.png  
+    - assets/images/dummy/ingredients/freshmarketjaya/buahnagamerahdingin.png  
+    # Hijau Mart products
+    - assets/images/dummy/ingredients/hijaumart/pakcoysegar.png  
+    - assets/images/dummy/ingredients/hijaumart/mentimunorganik.png  
+    - assets/images/dummy/ingredients/hijaumart/daunsingkongmuda.png  
+    - assets/images/dummy/ingredients/hijaumart/kacangpolongsegar.png  
+    - assets/images/dummy/ingredients/hijaumart/seladahijaukeriting.png  
+    - assets/images/dummy/ingredients/hijaumart/apelhijaumalang.png  
+    - assets/images/dummy/ingredients/hijaumart/jeruknipissegar.png  
+    - assets/images/dummy/ingredients/hijaumart/anggurhijauseedless.png  
+    - assets/images/dummy/ingredients/hijaumart/parehijaumuda.png  
+    - assets/images/dummy/ingredients/hijaumart/labusiamorganik.png  
+    # Pasar Organik Maju products
+    - assets/images/dummy/ingredients/pasarorganikmaju/berashitamorganik.png  
+    - assets/images/dummy/ingredients/pasarorganikmaju/gulakelapamurni.png  
+    - assets/images/dummy/ingredients/pasarorganikmaju/kacangmerahorganik.png  
+    - assets/images/dummy/ingredients/pasarorganikmaju/tepungberascoklat.png  
+    - assets/images/dummy/ingredients/pasarorganikmaju/maduhutanorganik.png  
+    - assets/images/dummy/ingredients/pasarorganikmaju/minyakkelapadara.png  
+    - assets/images/dummy/ingredients/pasarorganikmaju/daunkelorsegar.png  
+    - assets/images/dummy/ingredients/pasarorganikmaju/bijiwijenorganik.png  
+    - assets/images/dummy/ingredients/pasarorganikmaju/kelapaparutsegar.png  
+    - assets/images/dummy/ingredients/pasarorganikmaju/jahemerahgiling.png  
+    # Super Sehat Mart products
+    - assets/images/dummy/ingredients/supersehatmart/keripikkaleorganik.png  
+    - assets/images/dummy/ingredients/supersehatmart/granolabaralmond.png  
+    - assets/images/dummy/ingredients/supersehatmart/kacangpanggangpedas.png  
+    - assets/images/dummy/ingredients/supersehatmart/buahkeringmixtropis.png  
+    - assets/images/dummy/ingredients/supersehatmart/popcorntanpamentega.png  
+    - assets/images/dummy/ingredients/supersehatmart/crispytempechips.png  
+    - assets/images/dummy/ingredients/supersehatmart/energyballkurmaoat.png  
+    - assets/images/dummy/ingredients/supersehatmart/biskuitgandumutuh.png  
+    - assets/images/dummy/ingredients/supersehatmart/kerupukbayamsehat.png  
+    - assets/images/dummy/ingredients/supersehatmart/coklathitam70.png  
+    # Bumi Segar Mart products
+    - assets/images/dummy/ingredients/bumisegarmart/ubiungukupas.png  
+    - assets/images/dummy/ingredients/bumisegarmart/singkongorganik.png  
+    - assets/images/dummy/ingredients/bumisegarmart/talasbogorbersih.png  
+    - assets/images/dummy/ingredients/bumisegarmart/kentangkuning.png  
+    - assets/images/dummy/ingredients/bumisegarmart/gembilisegar.png  
+    - assets/images/dummy/ingredients/bumisegarmart/ubimaducilembu.png  
+    - assets/images/dummy/ingredients/bumisegarmart/garutputih.png  
+    - assets/images/dummy/ingredients/bumisegarmart/uwiungu.png  
+    - assets/images/dummy/ingredients/bumisegarmart/kentangmini.png  
+    - assets/images/dummy/ingredients/bumisegarmart/ubijalarputih.png
+    # Organik Keluarga Mart products
+    - assets/images/dummy/ingredients/organikkeluargamart/sachetgranolapisang.png  
+    - assets/images/dummy/ingredients/organikkeluargamart/kacangalmondpanggang.png  
+    - assets/images/dummy/ingredients/organikkeluargamart/mixbuahkeringsachet.png  
+    - assets/images/dummy/ingredients/organikkeluargamart/biskuitquinoamini.png  
+    - assets/images/dummy/ingredients/organikkeluargamart/crispykalesachet.png  
+    - assets/images/dummy/ingredients/organikkeluargamart/keripikubiungumini.png  
+    - assets/images/dummy/ingredients/organikkeluargamart/energybitescoklatkurma.png  
+    - assets/images/dummy/ingredients/organikkeluargamart/popcornrendahgaram.png  
+    - assets/images/dummy/ingredients/organikkeluargamart/kerupukbayammini.png  
+    - assets/images/dummy/ingredients/organikkeluargamart/cokelatkurmasachet.png  
+    # Sumber Sehat Market products
+    - assets/images/dummy/ingredients/sumbersehatmarket/serealmultigrainsehat.png  
+    - assets/images/dummy/ingredients/sumbersehatmarket/yogurtprobiotikrendahlemak.png  
+    - assets/images/dummy/ingredients/sumbersehatmarket/susualmondtanpagula.png  
+    - assets/images/dummy/ingredients/sumbersehatmarket/nasimerahinstan.png  
+    - assets/images/dummy/ingredients/sumbersehatmarket/tahukukusorganik.png  
+    - assets/images/dummy/ingredients/sumbersehatmarket/tempekedelainongmo.png  
+    - assets/images/dummy/ingredients/sumbersehatmarket/chiapuddinginstan.png  
+    - assets/images/dummy/ingredients/sumbersehatmarket/keripikwortelpanggang.png  
+    - assets/images/dummy/ingredients/sumbersehatmarket/supsayursiappanas.png  
+    - assets/images/dummy/ingredients/sumbersehatmarket/barenergikurmaoat.png  
+    # Rasa Organik products
+    - assets/images/dummy/food/rasaorganik/avocadolentilsalad.png  
+    - assets/images/dummy/food/rasaorganik/toasttelurbrokoli.png  
+    - assets/images/dummy/food/rasaorganik/smoothiebowlberrybanana.png  
+    - assets/images/dummy/food/rasaorganik/lemoninfuseddetoxwater.png  
+    - assets/images/dummy/food/rasaorganik/tehherbalhangat.png  
+    - assets/images/dummy/food/rasaorganik/oatmealbuahsegar.png  
+    - assets/images/dummy/food/rasaorganik/saladquinoapelangi.png  
+    - assets/images/dummy/food/rasaorganik/rotipanggangalpukat.png  
+    - assets/images/dummy/food/rasaorganik/chiapuddingbuahnaga.png  
+    - assets/images/dummy/food/rasaorganik/supsayurorganik.png  
+    # Pasar Hijau Lestari products
+    - assets/images/dummy/ingredients/pasarhijaulestari/caberawithijausegar.png  
+    - assets/images/dummy/ingredients/pasarhijaulestari/kacangtanahkupas.png  
+    - assets/images/dummy/ingredients/pasarhijaulestari/daunsingkongikat.png  
+    - assets/images/dummy/ingredients/pasarhijaulestari/kelapaparutbasah.png  
+    - assets/images/dummy/ingredients/pasarhijaulestari/temukuncisegar.png  
+    - assets/images/dummy/ingredients/pasarhijaulestari/gulamerahbatok.png  
+    - assets/images/dummy/ingredients/pasarhijaulestari/singkongkupas.png  
+    - assets/images/dummy/ingredients/pasarhijaulestari/jagungpipilankering.png  
+    - assets/images/dummy/ingredients/pasarhijaulestari/tepungberasgilingkampung.png  
+    - assets/images/dummy/ingredients/pasarhijaulestari/bawangmerahkeringlokal.png  
 
 
     # Asset rating profile pictures

@@ -194,12 +194,32 @@ class _ProductAddOnsSelectionBoxState extends State<ProductAddOnsSelectionBox> {
                       ),
                       const SizedBox(width: 12),
                       Expanded(
-                        child: Text(
-                          '$name (${formatCurrency(price)})',
-                          style: AppTextStyles.textMedium(
-                            size: 14,
-                            color: AppColors.dark,
-                          ),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              child: Text(
+                                name,
+                                style: AppTextStyles.textMedium(
+                                  size: 14,
+                                  color: AppColors.dark,
+                                ),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            Align(
+                              alignment: Alignment.center,
+                              child: Text(
+                                formatCurrency(price),
+                                style: AppTextStyles.textMedium(
+                                  size: 14,
+                                  color: AppColors.dark,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ],

@@ -291,15 +291,15 @@ final List<Map<String, dynamic>> recommendedProductListTable = [
   },
   {
     'business_id': 14,
+    'product_id': 137,
+  },
+  {
+    'business_id': 14,
     'product_id': 140,
   },
   {
     'business_id': 14,
     'product_id': 139,
-  },
-  {
-    'business_id': 14,
-    'product_id': 137,
   },
   {
     'business_id': 14,
@@ -704,5 +704,257 @@ final List<Map<String, dynamic>> recommendedProductListTable = [
   {
     'business_id': 33,
     'product_id': 303,
+  },
+  // Recommended for Pasar Sehat Nusantara
+  {
+    'business_id': 34,
+    'product_id': 318,
+  },
+  {
+    'business_id': 34,
+    'product_id': 319,
+  },
+  {
+    'business_id': 34,
+    'product_id': 315,
+  },
+  {
+    'business_id': 34,
+    'product_id': 312,
+  },
+  {
+    'business_id': 34,
+    'product_id': 314,
+  },
+  // Recommended for Segar Mart
+  {
+    'business_id': 35,
+    'product_id': 326,
+  },
+  {
+    'business_id': 35,
+    'product_id': 321,
+  },
+  {
+    'business_id': 35,
+    'product_id': 329,
+  },
+  {
+    'business_id': 35,
+    'product_id': 323,
+  },
+  {
+    'business_id': 35,
+    'product_id': 327,
+  },
+  // Recommended for Toko Organik Kita
+  {
+    'business_id': 36,
+    'product_id': 334,
+  },
+  {
+    'business_id': 36,
+    'product_id': 337,
+  },
+  {
+    'business_id': 36,
+    'product_id': 339,
+  },
+  {
+    'business_id': 36,
+    'product_id': 340,
+  },
+  {
+    'business_id': 36,
+    'product_id': 336,
+  },
+  // Recommended for Fresh Market Jaya
+  {
+    'business_id': 37,
+    'product_id': 343,
+  },
+  {
+    'business_id': 37,
+    'product_id': 350,
+  },
+  {
+    'business_id': 37,
+    'product_id': 347,
+  },
+  {
+    'business_id': 37,
+    'product_id': 342,
+  },
+  {
+    'business_id': 37,
+    'product_id': 349,
+  },
+  // Recommended for Hijau Mart
+  {
+    'business_id': 38,
+    'product_id': 359,
+  },
+  {
+    'business_id': 38,
+    'product_id': 358,
+  },
+  {
+    'business_id': 38,
+    'product_id': 356,
+  },
+  {
+    'business_id': 38,
+    'product_id': 352,
+  },
+  {
+    'business_id': 38,
+    'product_id': 351,
+  },
+  // Recommended for Pasar Organik Maju
+  {
+    'business_id': 39,
+    'product_id': 367,
+  },
+  {
+    'business_id': 39,
+    'product_id': 363,
+  },
+  {
+    'business_id': 39,
+    'product_id': 362,
+  },
+  {
+    'business_id': 39,
+    'product_id': 370,
+  },
+  {
+    'business_id': 39,
+    'product_id': 366,
+  },
+  // Recommended for Super Sehat Mart
+  {
+    'business_id': 40,
+    'product_id': 374,
+  },
+  {
+    'business_id': 40,
+    'product_id': 371,
+  },
+  {
+    'business_id': 40,
+    'product_id': 378,
+  },
+  {
+    'business_id': 40,
+    'product_id': 380,
+  },
+  {
+    'business_id': 40,
+    'product_id': 379,
+  },
+  // Recommended for Bumi Segar Mart 
+  {
+    'business_id': 41,
+    'product_id': 384,
+  },
+  {
+    'business_id': 41,
+    'product_id': 381,
+  },
+  {
+    'business_id': 41,
+    'product_id': 382,
+  },
+  {
+    'business_id': 41,
+    'product_id': 390,
+  },
+  {
+    'business_id': 41,
+    'product_id': 385,
+  },
+  // Recommended for Organik Keluarga Mart
+  {
+    'business_id': 42,
+    'product_id': 395,
+  },
+  {
+    'business_id': 42,
+    'product_id': 397,
+  },
+  {
+    'business_id': 42,
+    'product_id': 400,
+  },
+  {
+    'business_id': 42,
+    'product_id': 396,
+  },
+  {
+    'business_id': 42,
+    'product_id': 392,
+  },
+  // Recommended for Sumber Sehat Market
+  {
+    'business_id': 43,
+    'product_id': 402,
+  },
+  {
+    'business_id': 43,
+    'product_id': 403,
+  },
+  {
+    'business_id': 43,
+    'product_id': 409,
+  },
+  {
+    'business_id': 43,
+    'product_id': 410,
+  },
+  {
+    'business_id': 43,
+    'product_id': 404,
+  },
+  // Recommended for Rasa Organik
+  {
+    'business_id': 44,
+    'product_id': 413,
+  },
+  {
+    'business_id': 44,
+    'product_id': 412,
+  },
+  {
+    'business_id': 44,
+    'product_id': 419,
+  },
+  {
+    'business_id': 44,
+    'product_id': 420,
+  },
+  {
+    'business_id': 44,
+    'product_id': 418,
+  },
+  // Recommended for Pasar Hijau Lestari
+  {
+    'business_id': 45,
+    'product_id': 426,
+  },
+  {
+    'business_id': 45,
+    'product_id': 427,
+  },
+  {
+    'business_id': 45,
+    'product_id': 430,
+  },
+  {
+    'business_id': 45,
+    'product_id': 423,
+  },
+  {
+    'business_id': 45,
+    'product_id': 421,
   },
 ];
