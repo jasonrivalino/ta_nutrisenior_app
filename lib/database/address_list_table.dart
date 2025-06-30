@@ -2,7 +2,7 @@ final List<Map<String, dynamic>> addressListTable = [
   {
     'address_id': 1,
     'address_name': 'Rumah Wisma Teduh',
-    'address_detail': 'Jl. Lorem Ipsum 1 No. 2',
+    'address_detail': 'Jl. Teduh No. 1',
     'isBookmarked': true,
   },
   {

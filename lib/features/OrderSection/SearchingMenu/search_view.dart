@@ -88,21 +88,24 @@ class _SearchViewState extends State<SearchView> {
                       maxChildSize: 0.95,
                       expand: false,
                       builder: (context, scrollController) {
-                        return Container(
-                          decoration: const BoxDecoration(
-                            color: AppColors.berylGreen,
-                            borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-                          ),
-                          child: AddressSelectionOverlay(
-                            controller: _searchAddressController,
-                            onChanged: (value) {
-                              setState(() {
-                                _searchAddressController.text = value;
-                              });
-                            },
-                            onAddressSelected: (newAddress) {
-                              setState(() => _selectedAddress = newAddress);
-                            },
+                        return SafeArea(
+                          top: false, // optional: allow it to reach top edge if needed
+                          child: Container(
+                            decoration: const BoxDecoration(
+                              color: AppColors.berylGreen,
+                              borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                            ),
+                            child: AddressSelectionOverlay(
+                              controller: _searchAddressController,
+                              onChanged: (value) {
+                                setState(() {
+                                  _searchAddressController.text = value;
+                                });
+                              },
+                              onAddressSelected: (newAddress) {
+                                setState(() => _selectedAddress = newAddress);
+                              },
+                            ),
                           ),
                         );
                       },
@@ -131,25 +134,27 @@ class _SearchViewState extends State<SearchView> {
                     backgroundColor: Colors.transparent,
                     isScrollControlled: true,
                     builder: (BuildContext context) {
-                      return SortFilterOverlay(
-                        businessType: selectedIndex == 0 ? 'restaurant' : 'market',
-                        selectedOption: _selectedSortOption,
-                        onApply: (newOption) async {
-                          final connectivityResult = await Connectivity().checkConnectivity();
-                          if (connectivityResult.contains(ConnectivityResult.none)) {
-                            Fluttertoast.showToast(
-                              msg: 'Pengurutan gagal dilakukan.\nSilahkan coba lagi.',
-                              toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.BOTTOM,
-                            );
-                            return false;
-                          }
+                      return SafeArea(
+                        child: SortFilterOverlay(
+                          businessType: selectedIndex == 0 ? 'restaurant' : 'market',
+                          selectedOption: _selectedSortOption,
+                          onApply: (newOption) async {
+                            final connectivityResult = await Connectivity().checkConnectivity();
+                            if (connectivityResult.contains(ConnectivityResult.none)) {
+                              Fluttertoast.showToast(
+                                msg: 'Pengurutan gagal dilakukan.\nSilahkan coba lagi.',
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.BOTTOM,
+                              );
+                              return false;
+                            }
 
-                          setState(() {
-                            _selectedSortOption = newOption;
-                          });
-                          return true;
-                        },
+                            setState(() {
+                              _selectedSortOption = newOption;
+                            });
+                            return true;
+                          },
+                        ),
                       );
                     },
                   );

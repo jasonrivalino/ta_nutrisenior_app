@@ -632,54 +632,57 @@ class _PaymentMethodBoxState extends State<PaymentMethodBox> {
                     builder: (BuildContext context) {
                       return StatefulBuilder(
                         builder: (context, modalSetState) {
-                          return Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.only(bottom: 4),
-                                  child: Text(
-                                    "Pilih Metode Pembayaran:",
-                                    style: AppTextStyles.textBold(
-                                      size: 20,
-                                      color: AppColors.dark,
-                                    ),
-                                  ),
-                                ),
-                                ...paymentOptions.map((option) {
-                                  return Padding(
-                                    padding: const EdgeInsets.symmetric(vertical: 1),
-                                    child: RadioListTile<String>(
-                                      dense: true,
-                                      contentPadding: EdgeInsets.zero,
-                                      value: option['label'],
-                                      groupValue: selectedMethod,
-                                      onChanged: (value) {
-                                        modalSetState(() {});
-                                        setState(() {
-                                          selectedMethod = value!;
-                                        });
-                                        widget.onMethodSelected(value!); // notify parent
-                                        Navigator.pop(context);
-                                      },
-                                      title: Row(
-                                        children: [
-                                          Icon(option['icon'], size: 24),
-                                          const SizedBox(width: 10),
-                                          Text(option['label'],
-                                            style: AppTextStyles.textMedium(
-                                              size: 16,
-                                              color: AppColors.dark,
-                                            ),
-                                          ),
-                                        ],
+                          return SafeArea(
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(16, 16, 16, 12),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom: 4),
+                                    child: Text(
+                                      "Pilih Metode Pembayaran:",
+                                      style: AppTextStyles.textBold(
+                                        size: 20,
+                                        color: AppColors.dark,
                                       ),
                                     ),
-                                  );
-                                }),
-                              ],
+                                  ),
+                                  ...paymentOptions.map((option) {
+                                    return Padding(
+                                      padding: const EdgeInsets.symmetric(vertical: 1),
+                                      child: RadioListTile<String>(
+                                        dense: true,
+                                        contentPadding: EdgeInsets.zero,
+                                        value: option['label'],
+                                        groupValue: selectedMethod,
+                                        onChanged: (value) {
+                                          modalSetState(() {});
+                                          setState(() {
+                                            selectedMethod = value!;
+                                          });
+                                          widget.onMethodSelected(value!); // notify parent
+                                          Navigator.pop(context);
+                                        },
+                                        title: Row(
+                                          children: [
+                                            Icon(option['icon'], size: 24),
+                                            const SizedBox(width: 10),
+                                            Text(
+                                              option['label'],
+                                              style: AppTextStyles.textMedium(
+                                                size: 16,
+                                                color: AppColors.dark,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  }),
+                                ],
+                              ),
                             ),
                           );
                         },
@@ -695,6 +698,7 @@ class _PaymentMethodBoxState extends State<PaymentMethodBox> {
                   ),
                 ),
               ),
+
             ],
           ),
           const Divider(color: AppColors.dark, thickness: 1),

@@ -162,39 +162,38 @@ class _OrderConfirmationViewState extends State<OrderConfirmationView> {
                       maxChildSize: 0.95,
                       expand: false,
                       builder: (context, scrollController) {
-                        return Container(
-                          decoration: const BoxDecoration(
-                            color: AppColors.berylGreen,
-                            borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-                          ),
-                          child: AddressSelectionOverlay(
-                            controller: _searchAddressController,
-                            onChanged: (value) {
-                              setState(() {
-                                _searchAddressController.text = value;
-                              });
-                            },
-                            onAddressSelected: (newAddress) {
-                              final newAddressId = newAddress['address_id'];
+                        return SafeArea(
+                          top: false, // Only care about bottom
+                          child: Container(
+                            decoration: const BoxDecoration(
+                              color: AppColors.berylGreen,
+                              borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                            ),
+                            child: AddressSelectionOverlay(
+                              controller: _searchAddressController,
+                              onChanged: (value) {
+                                setState(() {
+                                  _searchAddressController.text = value;
+                                });
+                              },
+                              onAddressSelected: (newAddress) {
+                                final newAddressId = newAddress['address_id'];
 
-                              // Update business list distances globally
-                              RecipientAddressController.updateBusinessDistances(newAddressId);
+                                RecipientAddressController.updateBusinessDistances(newAddressId);
+                                final newDistance = UpdateBusinessDistanceController.getBusinessDistanceById(widget.businessId);
+                                final newDeliveryFee = getDeliveryFee(widget.isFreeShipment, newDistance);
 
-                              // Get updated distance for current business
-                              final newDistance = UpdateBusinessDistanceController.getBusinessDistanceById(widget.businessId);
-                              final newDeliveryFee = getDeliveryFee(widget.isFreeShipment, newDistance);
+                                setState(() {
+                                  _selectedAddress = newAddress;
+                                  _businessDistance = newDistance;
+                                  _deliveryFee = newDeliveryFee;
+                                });
 
-                              setState(() {
-                                _selectedAddress = newAddress;
-                                _businessDistance = newDistance;
-                                _deliveryFee = newDeliveryFee;
-                              });
-
-                              // Persist new state
-                              RecipientAddressController.lastSelectedAddressId = newAddressId;
-                              RecipientAddressController.lastBusinessDistance = newDistance;
-                              RecipientAddressController.lastDeliveryFee = newDeliveryFee;
-                            },
+                                RecipientAddressController.lastSelectedAddressId = newAddressId;
+                                RecipientAddressController.lastBusinessDistance = newDistance;
+                                RecipientAddressController.lastDeliveryFee = newDeliveryFee;
+                              },
+                            ),
                           ),
                         );
                       },
@@ -210,14 +209,16 @@ class _OrderConfirmationViewState extends State<OrderConfirmationView> {
                     ),
                     isScrollControlled: true,
                     builder: (BuildContext context) {
-                      return DriverNoteOverlay(
-                        initialNote: driverNote,
-                        onNoteSubmitted: (newNote) {
-                          setState(() {
-                            driverNote = newNote;
-                          });
-                          print("Note Pengantar: $driverNote");
-                        },
+                      return SafeArea(
+                        child: DriverNoteOverlay(
+                          initialNote: driverNote,
+                          onNoteSubmitted: (newNote) {
+                            setState(() {
+                              driverNote = newNote;
+                            });
+                            print("Note Pengantar: $driverNote");
+                          },
+                        ),
                       );
                     },
                   );
