@@ -79,7 +79,7 @@ class DoneOrderTimeDriverCard extends StatelessWidget {
               ),
             ],
           ),
-          if (driverNote != null && driverNote!.trim().isNotEmpty)
+          if (driverNote != null && driverNote!.trim().isNotEmpty && driverNote != "-")
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 2),
               child: Text(
@@ -221,7 +221,7 @@ class DoneOrderDetailsCard extends StatelessWidget {
 
           const Divider(),
           
-          ...orderList.map<Widget>((item) {
+          ...orderList.map((item) {
             final addOns = (item['add_ons_details'] as List?) ?? [];
 
             return Padding(
@@ -293,7 +293,8 @@ class DoneOrderDetailsCard extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(width: 12),
-                              Text(formatCurrency(addOn['total_price']),
+                              Text(
+                                formatCurrency(addOn['add_ons_price'] * item['qty_product']),
                                 style: AppTextStyles.textBold(
                                   size: 14,
                                   color: AppColors.dark,

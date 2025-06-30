@@ -32,7 +32,7 @@ class UpdateBusinessDistanceController {
 }
 
 class OrderConfirmationController {
-  static int addOrder({
+  static Map<String, dynamic> addOrder({
     required int businessId,
     required List<Map<String, dynamic>> selectedProducts,
     required String estimatedDelivery,
@@ -45,7 +45,6 @@ class OrderConfirmationController {
         ? historyOrderListTable.last['history_id'] + 1
         : 1;
 
-    // Exclude drivers in the report list
     final List<int> reportedDriverIds = reportListTable
         .where((report) => report['driver_id'] != null)
         .map((report) => report['driver_id'] as int)
@@ -61,6 +60,9 @@ class OrderConfirmationController {
 
     final randomDriver = availableDrivers[random.nextInt(availableDrivers.length)];
 
+    final List<String> possibleStatuses = ['diproses', 'selesai'];
+    final String randomStatus = possibleStatuses[random.nextInt(possibleStatuses.length)];
+
     historyOrderListTable.add({
       'history_id': newHistoryId,
       'business_id': businessId,
@@ -71,7 +73,7 @@ class OrderConfirmationController {
       'estimated_arrival_time': estimatedDelivery,
       'delivery_fee': deliveryFee,
       'payment_method': paymentMethod,
-      'status': 'diproses',
+      'status': randomStatus,
     });
 
     for (var product in selectedProducts) {
@@ -111,7 +113,14 @@ class OrderConfirmationController {
       });
     }
 
-    print('✅ Order has been added successfully with history_id: $newHistoryId');
-    return newHistoryId;
+    print('Order added with status: $randomStatus and history_id: $newHistoryId');
+
+    // Include all needed driver details in return
+    return {
+      'history_id': newHistoryId,
+      'status': randomStatus,
+      'driver_id': randomDriver['driver_id'],
+      'driver_name': randomDriver['driver_name'],
+    };
   }
 }

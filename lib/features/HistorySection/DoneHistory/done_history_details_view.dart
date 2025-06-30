@@ -77,74 +77,84 @@ class DoneHistoryDetailsView extends StatelessWidget {
 
     final showBottomNavbar = !(hasDriverRating && hasBusinessRating);
 
-    return Scaffold(
-      backgroundColor: AppColors.soapstone,
-      appBar: CustomAppBar(
-        title: 'Detail Pembelian',
-        showBackButton: true,
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            DoneOrderTimeDriverCard(
-              orderDate: orderDate,
-              driverName: driverName,
-              driverNote: driverNote,
-            ),
-            const SizedBox(height: 16),
-            DoneOrderAddressCard(
-              businessName: businessName,
-              addressReceiver: addressReceiver,
-            ),
-            const SizedBox(height: 16),
-            DoneOrderDetailsCard(
-              orderList: orderList,
-              serviceFee: serviceFee,
-              deliveryFee: deliveryFee,
-              totalPrice: totalPrice.toInt(),
-              paymentMethod: paymentMethod,
-            ),
-            const SizedBox(height: 16),
-            FeedbackInformationBox(
-              historyId: historyId,
-              businessName: businessName,
-              businessType: businessType,
-              ratings: ratings,
-              driverReport: driverReport,
-              businessReport: businessReport,
-            ),
-          ],
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) async {
+        if (didPop) {
+          return;
+        }
+        context.go('/historyDone');
+      },
+      child: Scaffold(
+        backgroundColor: AppColors.soapstone,
+        appBar: CustomAppBar(
+          title: 'Detail Pembelian',
+          showBackButton: true,
+          onBack: () => context.go('/historyDone'),
         ),
+        body: SingleChildScrollView(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              DoneOrderTimeDriverCard(
+                orderDate: orderDate,
+                driverName: driverName,
+                driverNote: driverNote,
+              ),
+              const SizedBox(height: 16),
+              DoneOrderAddressCard(
+                businessName: businessName,
+                addressReceiver: addressReceiver,
+              ),
+              const SizedBox(height: 16),
+              DoneOrderDetailsCard(
+                orderList: orderList,
+                serviceFee: serviceFee,
+                deliveryFee: deliveryFee,
+                totalPrice: totalPrice.toInt(),
+                paymentMethod: paymentMethod,
+              ),
+              const SizedBox(height: 16),
+              FeedbackInformationBox(
+                historyId: historyId,
+                businessName: businessName,
+                businessType: businessType,
+                ratings: ratings,
+                driverReport: driverReport,
+                businessReport: businessReport,
+              ),
+            ],
+          ),
+        ),
+        bottomNavigationBar: showBottomNavbar
+            ? SafeArea(
+                child: GiveFeedbackBottomNavbar(
+                  businessType: businessType,
+                  ratings: ratings,
+                  driverReport: driverReport,
+                  businessReport: businessReport,
+                  onDriverPressed: () {
+                    context.push('/history/done/details/:id/rating', extra: {
+                      'history_id': historyId,
+                      'business_id': businessId,
+                      'driver_id': driverId,
+                      'driver_name': driverName,
+                    });
+                  },
+                  onBusinessPressed: () {
+                    context.push('/history/done/details/:id/rating', extra: {
+                      'history_id': historyId,
+                      'business_id': businessId,
+                      'business_name': businessName,
+                      'business_type': businessType,
+                      'business_image': businessImage,
+                    });
+                  },
+                ),
+              )
+            : null,
       ),
-      bottomNavigationBar: showBottomNavbar
-        ? SafeArea(
-            child: GiveFeedbackBottomNavbar(
-              businessType: businessType,
-              ratings: ratings,
-              driverReport: driverReport,
-              businessReport: businessReport,
-              onDriverPressed: () {
-                context.push('/history/done/details/:id/rating', extra: {
-                  'history_id': historyId,
-                  'business_id': businessId,
-                  'driver_id': driverId,
-                  'driver_name': driverName,
-                });
-              },
-              onBusinessPressed: () {
-                context.push('/history/done/details/:id/rating', extra: {
-                  'history_id': historyId,
-                  'business_id': businessId,
-                  'business_name': businessName,
-                  'business_type': businessType,
-                  'business_image': businessImage,
-                });
-              },
-            ),
-          )
-        : null,
     );
   }
 }

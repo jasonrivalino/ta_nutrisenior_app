@@ -368,7 +368,7 @@ class _OrderConfirmationViewState extends State<OrderConfirmationView> {
               print("Driver Note: $driverNote");
               print("Payment Method: $_selectedPaymentMethod");
 
-              final int historyId = OrderConfirmationController.addOrder(
+              final result = OrderConfirmationController.addOrder(
                 businessId: widget.businessId,
                 selectedProducts: _selectedProducts,
                 estimatedDelivery: widget.businessEstimatedDelivery,
@@ -378,26 +378,59 @@ class _OrderConfirmationViewState extends State<OrderConfirmationView> {
                 driverNote: driverNote,
               );
 
+              final historyId = result['history_id'];
+              final status = result['status'];
+              final driverId = result['driver_id'];
+              final driverName = result['driver_name'];
+
               RecipientAddressController.updateBusinessDistances(1);
               RecipientAddressController.lastSelectedAddressId = null;
               RecipientAddressController.lastBusinessDistance = null;
               RecipientAddressController.lastDeliveryFee = null;
 
-              context.push(
-                '/history/processing/$historyId',
-                extra: {
+              if (status == 'diproses') {
+                context.push(
+                  '/history/processing/$historyId',
+                  extra: {
+                    'history_id': historyId,
+                    'business_name': widget.businessName,
+                    'business_type': widget.businessType,
+                    'business_image': widget.businessImage,
+                    'estimated_arrival_time': widget.businessEstimatedDelivery,
+                    'order_list': _selectedProducts,
+                    'service_fee': widget.serviceFee,
+                    'delivery_fee': _deliveryFee,
+                    'total_price': updatedTotalPrice,
+                    'status': 'diproses',
+                  },
+                );
+              } else {
+                final orderDate = DateTime.now();
+                final historyData = {
                   'history_id': historyId,
+                  'business_id': widget.businessId,
+                  'driver_id': driverId,
+                  'driver_name': driverName,
+                  'driver_note': driverNote,
                   'business_name': widget.businessName,
-                  'business_type': widget.businessType,
                   'business_image': widget.businessImage,
-                  'estimated_arrival_time': widget.businessEstimatedDelivery,
+                  'business_type': widget.businessType,
+                  'address_receiver': _selectedAddress['address_detail'],
                   'order_list': _selectedProducts,
                   'service_fee': widget.serviceFee,
                   'delivery_fee': _deliveryFee,
-                  'total_price': updatedTotalPrice,
-                  'status': 'diproses',
-                },
-              );
+                  'payment_method': _selectedPaymentMethod,
+                };
+
+                context.push(
+                  '/history/done/details/$historyId',
+                  extra: {
+                    ...historyData,
+                    'order_date': orderDate,
+                    'total_price': updatedTotalPrice,
+                  },
+                );
+              }
             },
           ),
         ),
