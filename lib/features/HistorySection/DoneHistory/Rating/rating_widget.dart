@@ -12,12 +12,12 @@ class RatingCard extends StatelessWidget {
   final Function(int) onRatingSelected;
 
   const RatingCard({
-    Key? key,
+    super.key,
     required this.ratingTarget,
     this.businessImage,
     required this.selectedRating,
     required this.onRatingSelected,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

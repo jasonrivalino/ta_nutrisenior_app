@@ -100,11 +100,13 @@ class DoneOrderTimeDriverCard extends StatelessWidget {
 // Class to display restaurant name and receiver address in a card format
 class DoneOrderAddressCard extends StatelessWidget {
   final String businessName;
+  final String businessType;
   final String addressReceiver;
 
   const DoneOrderAddressCard({
     super.key,
     required this.businessName,
+    required this.businessType,
     required this.addressReceiver,
   });
 
@@ -130,7 +132,7 @@ class DoneOrderAddressCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Nama Restoran',
+                    'Nama ${businessType == 'restaurant' ? 'Restoran' : 'Pusat Belanja'}',
                     style: AppTextStyles.textMedium(
                       size: 14,
                       color: AppColors.dark,

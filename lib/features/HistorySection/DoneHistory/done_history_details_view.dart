@@ -105,6 +105,7 @@ class DoneHistoryDetailsView extends StatelessWidget {
               const SizedBox(height: 16),
               DoneOrderAddressCard(
                 businessName: businessName,
+                businessType: businessType,
                 addressReceiver: addressReceiver,
               ),
               const SizedBox(height: 16),
