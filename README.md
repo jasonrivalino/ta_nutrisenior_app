@@ -30,19 +30,19 @@ Proyek ini dikembangkan sebagai bagian dari pengerjaan Tugas Akhir guna memenuhi
 
 ## Daftar Fitur Aplikasi
 |  ID   | Nama Fitur                                                                                                  |
-|:-----:|:-----------------------------------------------------------------------------------------------------------|
-| F-01 | Fitur untuk registrasi dan login masuk ke dalam akun pengguna.                                              |
-| F-02 | Fitur pemberian informasi rekomendasi restoran ataupun pusat belanja kepada pengguna.                     |
-| F-03 | Fitur pencarian restoran ataupun pusat belanja yang diinginkan dengan search bar ataupun sort filter.    |
-| F-04 | Fitur untuk pemilihan makanan ataupun belanjaan yang diinginkan pada restoran atau pusat belanja.         |
-| F-05 | Fitur untuk melakukan pemesanan terhadap makanan ataupun belanjaan yang diinginkan.                       |
-| F-06 | Fitur untuk melakukan pengecekan terhadap status informasi keberadaan dari pengiriman pesanan.            |
-| F-07 | Fitur untuk melakukan pemberian rating dan komentar setelah melakukan pemesanan.                          |
-| F-08 | Fitur untuk melakukan pengecekan terhadap rating dan komentar dari berbagai restoran, pusat belanja, ataupun makanan yang dijual. |
-| F-09 | Fitur untuk melakukan pengecekan terhadap riwayat daftar pembelian yang telah dilakukan sebelumnya.        |
-| F-10 | Fitur untuk menandai dan mengecek berbagai restoran, pusat belanja, ataupun makanan yang sering dibeli sebagai favorit. |
-| F-11 | Fitur pemberian informasi terkait dengan daftar promo ataupun diskon pada restoran.                        |
-| F-12 | Fitur pelaporan restoran ataupun pusat belanja pada pusat layanan aplikasi.                                |
+|:-----:|:------------------------------------------------------------------------------------------------------------|
+| F-01 | Fitur untuk registrasi dan login masuk ke dalam akun pengguna.                                               |
+| F-02 | Fitur pemberian informasi rekomendasi restoran ataupun pusat belanja kepada pengguna.                        |
+| F-03 | Fitur pencarian restoran ataupun pusat belanja yang diinginkan dengan search bar ataupun sort filter.        |
+| F-04 | Fitur untuk pemilihan makanan ataupun belanjaan yang diinginkan pada restoran atau pusat belanja.            |
+| F-05 | Fitur untuk melakukan pemesanan terhadap makanan ataupun belanjaan yang diinginkan.                          |
+| F-06 | Fitur untuk melakukan pengecekan terhadap status informasi keberadaan dari pengiriman pesanan.               |
+| F-07 | Fitur untuk melakukan pemberian rating dan komentar setelah melakukan pemesanan.                             |
+| F-08 | Fitur untuk melakukan pengecekan terhadap rating dan komentar dari berbagai restoran dan pusat belanja.      |
+| F-09 | Fitur untuk melakukan pengecekan terhadap riwayat daftar pembelian yang telah dilakukan sebelumnya.          |
+| F-10 | Fitur untuk menandai dan mengecek berbagai restoran dan pusat belanja sebagai favorit.                       |
+| F-11 | Fitur pemberian informasi terkait dengan daftar promo ataupun diskon pada restoran ataupun pusat belanja.    |
+| F-12 | Fitur pelaporan restoran ataupun pusat belanja pada pusat layanan aplikasi.                                  |
 
 ## Struktur Direktori File dan Class
 ```
