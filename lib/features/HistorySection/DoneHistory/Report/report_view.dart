@@ -173,11 +173,18 @@ class _ReportViewState extends State<ReportView> {
                                   otherReasonText = value;
                                 });
                               },
-                              decoration: const InputDecoration(
+                              cursorColor: AppColors.dark,
+                              decoration: InputDecoration(
                                 hintText: "Tuliskan alasan lainnya...",
                                 isDense: true,
-                                contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                                border: UnderlineInputBorder(),
+                                contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                                border: const UnderlineInputBorder(),
+                                enabledBorder: const UnderlineInputBorder(
+                                  borderSide: BorderSide(color: AppColors.dark),
+                                ),
+                                focusedBorder: const UnderlineInputBorder(
+                                  borderSide: BorderSide(color: AppColors.dark, width: 1.5),
+                                ),
                               ),
                               style: AppTextStyles.textMedium(
                                 size: 14,

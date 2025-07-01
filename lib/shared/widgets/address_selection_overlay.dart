@@ -121,6 +121,7 @@ class _AddressSelectionOverlayState extends State<AddressSelectionOverlay> {
                 // Search Bar
                 TextField(
                   controller: widget.controller,
+                  cursorColor: AppColors.dark,
                   onChanged: (value) async {
                     final connectivityResult = await Connectivity().checkConnectivity();
                     if (connectivityResult.contains(ConnectivityResult.none)) {

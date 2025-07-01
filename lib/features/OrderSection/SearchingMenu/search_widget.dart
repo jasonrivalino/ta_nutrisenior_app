@@ -80,12 +80,26 @@ class SearchBarWithFilter extends StatelessWidget {
           Expanded(
             child: TextField(
               controller: controller,
+              cursorColor: AppColors.dark,
               decoration: InputDecoration(
                 hintText: 'Cari pesanan pilihanmu...',
                 contentPadding: const EdgeInsets.symmetric(horizontal: 12),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(16),
+                  borderSide: BorderSide(color: AppColors.dark),
                 ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(16),
+                  borderSide: BorderSide(color: AppColors.dark),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(16),
+                  borderSide: BorderSide(color: AppColors.dark, width: 1.5),
+                ),
+              ),
+              style: AppTextStyles.textMedium(
+                size: 16,
+                color: AppColors.dark, // Warna teks yang diketik
               ),
               onChanged: onChanged,
             ),

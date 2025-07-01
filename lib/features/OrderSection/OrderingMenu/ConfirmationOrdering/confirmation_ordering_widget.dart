@@ -177,6 +177,7 @@ class _DriverNoteOverlayState extends State<DriverNoteOverlay> {
           TextField(
             controller: _controller,
             maxLines: 4,
+            cursorColor: AppColors.dark,
             style: AppTextStyles.textMedium(
               size: 14,
               color: AppColors.dark,
@@ -185,8 +186,19 @@ class _DriverNoteOverlayState extends State<DriverNoteOverlay> {
               filled: true,
               fillColor: AppColors.soapstone,
               hintText: "Tulis note di sini...",
-              border: const OutlineInputBorder(),
               contentPadding: const EdgeInsets.all(12),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+                borderSide: BorderSide(color: AppColors.dark),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+                borderSide: BorderSide(color: AppColors.dark),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+                borderSide: BorderSide(color: AppColors.dark, width: 1.5),
+              ),
             ),
           ),
           const SizedBox(height: 12),

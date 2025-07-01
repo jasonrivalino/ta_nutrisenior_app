@@ -48,14 +48,19 @@ class FeedbackInputCard extends StatelessWidget {
             border: Border.all(color: AppColors.dark, width: 1.5),
           ),
           child: TextField(
-            style: AppTextStyles.textMedium(
-              size: 14,
-              color: AppColors.dark,
-            ),
             controller: controller,
             maxLines: 5,
+            cursorColor: AppColors.dark, // Warna garis ketik (cursor)
+            style: AppTextStyles.textMedium(
+              size: 14,
+              color: AppColors.dark, // Warna teks yang diketik
+            ),
             decoration: InputDecoration.collapsed(
               hintText: placeholderText,
+              hintStyle: AppTextStyles.textMedium(
+                size: 14,
+                color: AppColors.darkGray, // Warna hint text (placeholder)
+              ),
             ),
           ),
         ),

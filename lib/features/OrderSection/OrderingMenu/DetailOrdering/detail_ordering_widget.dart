@@ -275,16 +275,26 @@ class ProductNoteInputBox extends StatelessWidget {
               size: 14,
               color: AppColors.dark,
             ),
+            cursorColor: AppColors.dark,
             controller: noteController,
             maxLines: 5,
             decoration: InputDecoration(
               hintText: businessType == 'restaurant'
                   ? 'Tambahkan pesan makanan'
                   : 'Tambahkan pesan belanjaan',
+              contentPadding: const EdgeInsets.all(12),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
+                borderSide: BorderSide(color: AppColors.dark),
               ),
-              contentPadding: const EdgeInsets.all(12),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+                borderSide: BorderSide(color: AppColors.dark),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+                borderSide: BorderSide(color: AppColors.dark, width: 1.5),
+              ),
             ),
           ),
         ],

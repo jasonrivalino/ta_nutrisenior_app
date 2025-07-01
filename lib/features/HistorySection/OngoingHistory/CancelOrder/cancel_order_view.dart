@@ -106,11 +106,18 @@ class _CancelOrderViewState extends State<CancelOrderView> {
                                   otherReasonText = value;
                                 });
                               },
+                              cursorColor: AppColors.dark,
                               decoration: const InputDecoration(
                                 hintText: "Lainnya",
                                 isDense: true,
                                 contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                                 border: UnderlineInputBorder(),
+                                enabledBorder: const UnderlineInputBorder(
+                                  borderSide: BorderSide(color: AppColors.dark),
+                                ),
+                                focusedBorder: const UnderlineInputBorder(
+                                  borderSide: BorderSide(color: AppColors.dark, width: 1.5),
+                                ),
                               ),
                               style: AppTextStyles.textMedium(
                                 size: 14,

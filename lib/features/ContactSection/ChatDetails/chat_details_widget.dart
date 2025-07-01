@@ -147,16 +147,26 @@ class BottomChatWidget extends StatelessWidget {
                       Expanded(
                         child: TextField(
                           controller: controller,
+                          cursorColor: AppColors.dark,
                           decoration: InputDecoration(
-                            hintText: "Ketik chat...",
+                            hintText: "Ketik pesan...",
                             hintStyle: AppTextStyles.textBold(
                               size: 16,
                               color: AppColors.darkGray,
                             ),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(25)),
-                            ),
                             contentPadding: EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
+                              borderSide: BorderSide(color: AppColors.dark),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
+                              borderSide: BorderSide(color: AppColors.dark),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
+                              borderSide: BorderSide(color: AppColors.dark, width: 1.5),
+                            ),
                           ),
                         ),
                       ),
