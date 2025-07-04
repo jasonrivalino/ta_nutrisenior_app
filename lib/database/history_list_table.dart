@@ -32,9 +32,9 @@ final List<Map<String, dynamic>> historyListTable = [
   {'history_id': 8, 'product_id': 16, 'qty_product': 1, 'notes': ''},
   {'history_id': 8, 'product_id': 20, 'qty_product': 1, 'notes': 'pilih wortelnya yang bagus'},
 
-  // history_id: 9, business_id: 1
-  {'history_id': 9, 'product_id': 7, 'qty_product': 2, 'notes': ''},
-  {'history_id': 9, 'product_id': 8, 'qty_product': 1, 'notes': ''},
+  // history_id: 9, business_id: 25
+  {'history_id': 9, 'product_id': 222, 'qty_product': 1, 'notes': 'jangan terlalu asin'},
+  {'history_id': 9, 'product_id': 229, 'qty_product': 1, 'notes': ''},
 
   // history_id: 10, business_id: 1
   {'history_id': 10, 'product_id': 1, 'qty_product': 1, 'notes': ''},
@@ -45,4 +45,16 @@ final List<Map<String, dynamic>> historyListTable = [
 
   // history_id: 12, business_id: 1
   {'history_id': 12, 'product_id': 2, 'qty_product': 2, 'notes': 'yang enak'},
+
+  // history_id: 13, business_id: 25
+  {'history_id': 13, 'product_id': 222, 'qty_product': 1, 'notes': 'jangan terlalu asin'},
+  {'history_id': 13, 'product_id': 229, 'qty_product': 1, 'notes': ''},
+
+  // history_id: 14, business_id: 25
+  {'history_id': 14, 'product_id': 222, 'qty_product': 1, 'notes': 'jangan terlalu asin'},
+  {'history_id': 14, 'product_id': 229, 'qty_product': 1, 'notes': ''},
+
+  // history_id: 15, business_id: 21
+  {'history_id': 15, 'product_id': 201, 'qty_product': 1, 'notes': ''},
+  {'history_id': 15, 'product_id': 204, 'qty_product': 1, 'notes': 'yang segar'},
 ];

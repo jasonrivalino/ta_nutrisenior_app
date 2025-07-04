@@ -586,7 +586,7 @@ class _PaymentMethodBoxState extends State<PaymentMethodBox> {
       'icon': Icons.payments_outlined,
     },
     {
-      'label': 'Virtual Account Transfer',
+      'label': 'Virtual Account',
       'icon': Icons.account_balance_wallet_outlined,
     },
     {

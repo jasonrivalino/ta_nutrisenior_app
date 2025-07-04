@@ -93,7 +93,12 @@ class DoneHistoryDetailsView extends StatelessWidget {
           onBack: () => context.go('/historyDone'),
         ),
         body: SingleChildScrollView(
-          padding: const EdgeInsets.all(16),
+          padding: EdgeInsets.fromLTRB(
+            16,
+            16,
+            16,
+            showBottomNavbar ? 16 : 50,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

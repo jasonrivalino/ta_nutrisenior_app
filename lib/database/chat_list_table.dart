@@ -125,4 +125,11 @@ final List<Map<String, dynamic>> chatListTable = [
     'message_sent': 'Sama-sama! Selamat menikmati makanannya!',
     'message_time': DateTime.now().subtract(const Duration(minutes: 2)),
   },
+  {
+    'chat_id': 19,
+    'driver_id': 8,
+    'is_user': true,
+    'message_sent': 'taruh saja depan kamar',
+    'message_time': DateTime(2025, 7, 3, 16, 47),
+  }
 ];

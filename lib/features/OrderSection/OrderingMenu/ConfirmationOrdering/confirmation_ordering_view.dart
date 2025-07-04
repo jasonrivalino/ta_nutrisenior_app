@@ -314,23 +314,26 @@ class _OrderConfirmationViewState extends State<OrderConfirmationView> {
               // If no selected products
               if (_selectedProducts.isEmpty) {
                 fToast.showToast(
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(25.0),
-                      color: AppColors.dark,
-                    ),
-                    child: Text(
-                      "Tidak dapat melakukan pemesanan, \nsilahkan tambahkan ${widget.businessType == "restaurant" ? "makanan" : "belanjaan"} terlebih dahulu",
-                      style: AppTextStyles.textBold(
-                        size: 14,
-                        color: AppColors.soapstone,
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 40.0), // <-- Add bottom space here
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(25.0),
+                        color: AppColors.dark,
                       ),
-                      textAlign: TextAlign.center,
+                      child: Text(
+                        "Gagal melakukan pemesanan, silahkan tambahkan ${widget.businessType == "restaurant" ? "makanan" : "belanjaan"} terlebih dahulu",
+                        style: AppTextStyles.textBold(
+                          size: 14,
+                          color: AppColors.soapstone,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                   ),
                   gravity: ToastGravity.BOTTOM,
-                  toastDuration: const Duration(seconds: 5),
+                  toastDuration: const Duration(seconds: 3),
                 );
                 return;
               }
