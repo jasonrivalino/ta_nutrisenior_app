@@ -18,6 +18,7 @@ class ChatDetailView extends StatefulWidget {
   final int driverId;
   final String driverName;
   final String driverImage;
+  final String driverPhoneNumber;
   final List<Map<String, dynamic>> chatDetailsData;
   final bool isReported;
 
@@ -25,6 +26,7 @@ class ChatDetailView extends StatefulWidget {
     super.key,
     required this.driverId,
     required this.driverName,
+    required this.driverPhoneNumber,
     required this.driverImage,
     required this.chatDetailsData,
     this.isReported = false,
@@ -88,20 +90,16 @@ class _ChatDetailViewState extends State<ChatDetailView> {
   }
 
   void _handleSendMessage() {
-    // Cek apakah ada pesan yang masih 'sending'
     final hasPendingMessage = _messages.any((message) =>
         message['isMe'] == true && message['status'] == 'sending');
 
     if (hasPendingMessage) {
-      // Jangan kirim lagi jika masih ada pesan 'sending'
       return;
     }
 
-    final previousLength = _messages.length;
-
-    _sendMessageController.sendMessage(
+    // Get new messages
+    final newMessages = _sendMessageController.sendMessage(
       controller: _messageController,
-      messages: _messages,
       selectedImages: _selectedImages,
       onClearImages: () {
         setState(() {
@@ -110,7 +108,12 @@ class _ChatDetailViewState extends State<ChatDetailView> {
       },
     );
 
-    final newMessagesCount = _messages.length - previousLength;
+    // Insert them in correct order (image(s) first, text last)
+    setState(() {
+      _messages.insertAll(0, newMessages.reversed.toList());
+    });
+
+    final newMessagesCount = newMessages.length;
 
     updateMessageStatus(
       messages: _messages,
@@ -145,7 +148,11 @@ class _ChatDetailViewState extends State<ChatDetailView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.ecruWhite,
-      appBar: ChatAppBar(title: widget.driverName, image: widget.driverImage),
+      appBar: ChatAppBar(
+        title: widget.driverName, 
+        image: widget.driverImage, 
+        driverPhoneNumber: widget.driverPhoneNumber
+      ),
       body: Column(
         children: [
           Expanded(

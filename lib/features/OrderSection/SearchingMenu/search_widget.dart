@@ -36,7 +36,7 @@ class OrderLocationSelection extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Lokasi',
+                  'Lokasi Penerima',
                   style: AppTextStyles.textMedium(
                     size: 14,
                     color: AppColors.dark,
@@ -44,7 +44,7 @@ class OrderLocationSelection extends StatelessWidget {
                 ),
                 const SizedBox(height: 1),
                 Text(
-                  selectedAddress['address_name'] ?? 'Pilih Lokasi',
+                  selectedAddress['address_name'] ?? 'Pilih Alamat Pengantaran',
                   style: AppTextStyles.textBold(
                     size: 16,
                     color: AppColors.dark,

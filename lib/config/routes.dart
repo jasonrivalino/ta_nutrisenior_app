@@ -354,6 +354,7 @@ final GoRouter router = GoRouter(
           driverId: data?['driver_id'],
           driverName: data?['driver_name'],
           driverImage: data?['driver_image'],
+          driverPhoneNumber: data?['driver_phone_number'] ?? '',
           chatDetailsData: chatData,
           isReported: data?['is_reported'] ?? false,
         );

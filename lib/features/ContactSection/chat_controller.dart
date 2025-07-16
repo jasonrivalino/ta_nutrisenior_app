@@ -97,9 +97,8 @@ class SendMessageController {
 
   SendMessageController({required this.driverId});
 
-  void sendMessage({
+  List<Map<String, dynamic>> sendMessage({
     required TextEditingController controller,
-    required List<Map<String, dynamic>> messages,
     required List<XFile> selectedImages,
     required VoidCallback onClearImages,
   }) {
@@ -109,41 +108,50 @@ class SendMessageController {
         ? chatListTable.map((e) => e['chat_id'] as int).reduce((a, b) => a > b ? a : b)
         : 0;
 
+    final List<Map<String, dynamic>> newMessageList = [];
+    DateTime currentTime = now;
+
+    for (var image in selectedImages) {
+      currentTime = currentTime.add(const Duration(milliseconds: 1));
+      final chatEntry = {
+        'chat_id': ++latestId,
+        'driver_id': driverId,
+        'is_user': true,
+        'message_sent': image.path,
+        'message_time': currentTime,
+      };
+      chatListTable.add(chatEntry);
+
+      newMessageList.add({
+        'image': image,
+        'isMe': true,
+        'time': currentTime,
+        'status': 'sending',
+      });
+    }
+
     if (text.isNotEmpty) {
+      currentTime = currentTime.add(const Duration(milliseconds: 1));
       final chatEntry = {
         'chat_id': ++latestId,
         'driver_id': driverId,
         'is_user': true,
         'message_sent': text,
-        'message_time': now,
+        'message_time': currentTime,
       };
       chatListTable.add(chatEntry);
-      messages.insert(0, {
+
+      newMessageList.add({
         'text': text,
         'isMe': true,
-        'time': now,
-        'status': 'sending',
-      });
-    }
-
-    for (var image in selectedImages) {
-      final chatEntry = {
-        'chat_id': ++latestId,
-        'driver_id': driverId,
-        'is_user': true,
-        'message_sent': image.path, // saving image path as message
-        'message_time': now,
-      };
-      chatListTable.add(chatEntry);
-      messages.insert(0, {
-        'image': image,
-        'isMe': true,
-        'time': now,
+        'time': currentTime,
         'status': 'sending',
       });
     }
 
     controller.clear();
     onClearImages();
+
+    return newMessageList;
   }
 }

@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../shared/styles/colors.dart';
 import '../../../shared/styles/texts.dart';
@@ -10,15 +12,17 @@ import '../../../shared/styles/texts.dart';
 class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final String image;
+  final String driverPhoneNumber;
 
   const ChatAppBar({
     super.key,
     required this.title,
     required this.image,
+    required this.driverPhoneNumber,
   });
 
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight + 6); // Extra height for vertical padding
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight + 6);
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +55,44 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
           ],
         ),
       ),
+      actions: [
+        Padding(
+          padding: const EdgeInsets.only(right: 12),
+          child: Material(
+            color: AppColors.woodland,
+            borderRadius: BorderRadius.circular(30),
+            child: InkWell(
+              borderRadius: BorderRadius.circular(30),
+              onTap: () async {
+                final status = await Permission.phone.request();
+
+                if (status.isGranted) {
+                  final Uri callUri = Uri(scheme: 'tel', path: driverPhoneNumber);
+                  if (await canLaunchUrl(callUri)) {
+                    await launchUrl(callUri, mode: LaunchMode.externalApplication);
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Tidak dapat membuka aplikasi telepon')),
+                    );
+                  }
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Izin telepon ditolak')),
+                  );
+                }
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(8),
+                child: Icon(
+                  Icons.phone,
+                  size: 25,
+                  color: AppColors.soapstone,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

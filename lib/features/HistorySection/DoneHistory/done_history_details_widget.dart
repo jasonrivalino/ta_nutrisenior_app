@@ -161,7 +161,7 @@ class DoneOrderAddressCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Alamat Penerima',
+                    'Lokasi Penerima',
                     style: AppTextStyles.textMedium(
                       size: 14,
                       color: AppColors.dark,
