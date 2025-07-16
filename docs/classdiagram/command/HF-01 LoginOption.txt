@@ -1,0 +1,76 @@
+@startuml
+set namespaceSeparator ::
+left to right direction
+
+skinparam classAttributeIconSize 0
+
+' ================== SPLASH SCREEN ==================
+package "Splash" {
+  class SplashScreen {
+    +Widget build()
+    --
+    navigate to LoginView
+  }
+}
+
+' ================== LOGIN VIEW ==================
+package "Login::login_view" {
+  class LoginView {
+    +State<LoginView> createState()
+  }
+
+  class _LoginViewState {
+    +Widget build()
+  }
+}
+
+' ================== LOGIN WIDGET ==================
+package "Login::login_widget" {
+    class LoginButton {
+      +FaIcon? icon
+      +String? imagePath
+      +String text
+      +void Function()? onPressed
+      +Widget build()
+  }
+}
+
+' ================== SHARED UTIL CLASS ==================
+package "shared::utils_class" {
+  class GoogleAuthService {
+    {static} +GoogleSignIn googleSignIn
+    {static} +dynamic signOutGoogle()
+  }
+}
+
+' ================== SHARED WIDGETS ==================
+package "shared::widgets" {
+  class ElevatedButtonWidget {
+    +Widget child
+    +Color backgroundColor
+    +Color foregroundColor
+    +BorderSide? borderSide
+    +TextStyle? textStyle
+    +Size? minimumSize
+    +double elevation
+    +double borderRadius
+    +EdgeInsetsGeometry? padding
+    +MaterialTapTargetSize? tapTargetSize
+    +VoidCallback? onPressed
+    +Widget build()
+    {static} +bottomButton()
+    {static} +iconButton()
+    {static} +warningButton()
+    {static} +submitFormButton()
+  }
+}
+
+' ================== RELATIONSHIPS ==================
+SplashScreen --> LoginView : <<navigate>>
+
+LoginView --> _LoginViewState : createState()
+_LoginViewState --> LoginButton : <<uses>>
+LoginButton --> ElevatedButtonWidget : <<uses>>
+ElevatedButtonWidget ..> GoogleAuthService : <<on pressed>>
+
+@enduml

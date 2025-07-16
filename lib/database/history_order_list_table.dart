@@ -1,4 +1,4 @@
-final today = DateTime.now();
+final today = DateTime.now().subtract(const Duration(days: 1));
 
 List<Map<String, dynamic>> historyOrderListTable = [
   {

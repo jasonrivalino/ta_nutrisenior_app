@@ -1,0 +1,95 @@
+@startuml
+set namespaceSeparator ::
+
+skinparam classAttributeIconSize 0
+
+' Paket dan file source
+package "ChatList::chat_list_view" {
+  
+  class ChatListView {
+    +List<Map<String, dynamic>> chatListData
+    +NumberMessageReceivedController controller
+    +Widget build()
+  }
+}
+
+package "ChatList::chat_list_widget" {
+  class ChatMessageTile {
+    +String driverImage
+    +String driverName
+    +bool isUser
+    +String messageText
+    +String messageTime
+    +int? numberMessageReceived
+    +void Function()? onTap
+    +State<ChatMessageTile> createState()
+  }
+
+  class _ChatMessageTileState {
+    -String _displayMessage
+    +void initState()
+    -dynamic _loadDisplayMessage()
+    +Widget build()
+  }
+
+  class _loadDisplayMessage << (M,orchid) method >> {
+  }
+
+  _ChatMessageTileState ..> _loadDisplayMessage : contains
+}
+
+package "ChatList::chat_list_controller" {
+  class ChatListController {
+    {static} +List<Map<String, dynamic>> fetchChatListData()
+  }
+
+  class NumberMessageReceivedController {
+    +void clearNumberMessageReceived()
+  }
+}
+
+package "shared::widgets" {
+  class CustomAppBar {
+    +String title
+    +bool showBackButton
+    +List<Map<String, dynamic>>? customParam1
+    +String? customParam2
+    +void Function()? onBack
+    +Size preferredSize
+    +Widget build()
+  }
+
+  class BottomNavBar {
+    +int currentIndex
+    -void _onItemTapped()
+    +Widget build()
+  }
+}
+
+package "shared::utils_functionals" {
+  class formatTime << (R,skyblue) procedure_return >> {
+    +Dynamic time
+    --
+    return: String
+  }
+
+  class handleSendImageMessages << (R,skyblue) procedure_return >> {
+    +String messageText
+    +bool isUser
+    +String driverName
+    --
+    return: Future<String>
+  }
+}
+
+' Relasi antar kelas
+ChatListView --> ChatMessageTile : <<uses>>
+ChatListView --> ChatListController : <<controller>>
+ChatListView --> NumberMessageReceivedController : <<controller>>
+ChatListView --> CustomAppBar : <<uses>>
+ChatListView --> BottomNavBar : <<uses>>
+ChatMessageTile --> _ChatMessageTileState : createState()
+_ChatMessageTileState --> formatTime : <<util>>
+_loadDisplayMessage --> handleSendImageMessages : <<util>>
+
+@enduml

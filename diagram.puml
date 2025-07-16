@@ -1,0 +1,241 @@
+' @startuml
+' set namespaceSeparator ::
+' skinparam classAttributeIconSize 0
+' left to right direction
+
+' ================== CONTROLLERS ==================
+' package "ConfirmationOrdering::confirmation_ordering_controller" {
+'   class AddressRecipientChooseController {
+'     {static} +Map<String, dynamic>? getAddressById()
+'   }
+
+  ' class UpdateBusinessDistanceController {
+  '   {static} +Map<String, dynamic>? getBusinessById()
+  '   {static} +double getBusinessDistanceById()
+  ' }
+
+'   class OrderConfirmationController {
+'     {static} +Map<String, dynamic> addOrder()
+'   }
+
+'   class RecipientAddressController {
+'     {static} +List<int> mainAddressSearches
+'     {static} -List<Map<String, dynamic>>? _originalBusinessListTable
+'     {static} +int? lastSelectedAddressId
+'     {static} +double? lastBusinessDistance
+'     {static} +int? lastDeliveryFee
+'     {static} +void updateBusinessDistances()
+'   }
+' }
+
+' ================== VIEWS ==================
+' package "ConfirmationOrdering::confirmation_ordering_view" {
+'   class OrderConfirmationView {
+'     +List<Map<String, dynamic>> selectedProducts
+'     +int serviceFee
+'     +int businessId
+'     +String businessName
+'     +String businessType
+'     +String businessImage
+'     +double businessDistance
+'     +String businessEstimatedDelivery
+'     +int? discountNumber
+'     +bool isFreeShipment
+'     +int totalPrice
+'     +int selectedAddressId
+'     +String? savedDriverNote
+'     {static} +OrderConfirmationView fromExtra()
+'     +State<OrderConfirmationView> createState()
+'   }
+
+'   class _OrderConfirmationViewState {
+'     -List<Map<String, dynamic>> _selectedProducts
+'     +String driverNote
+'     -String _selectedPaymentMethod
+'     -Map<String, dynamic> _selectedAddress
+'     -TextEditingController _searchAddressController
+'     -double _businessDistance
+'     -int _deliveryFee
+'     +FToast fToast
+'     +void initState()
+'     +Widget build()
+'   }
+
+'   OrderConfirmationView --> _OrderConfirmationViewState : createState()
+' }
+
+' ================== WIDGETS ==================
+' package "ConfirmationOrdering::confirmation_ordering_widget" {
+  ' class RecipientLocationBox {
+  '   +void Function() onAddressClick
+  '   +void Function() onNotesClick
+  '   +String note
+  '   +String addressName
+  '   +String addressDetail
+  '   +Widget build()
+  ' }
+
+  ' class DriverNoteOverlay {
+  '   +String initialNote
+  '   +void Function(String) onNoteSubmitted
+  '   +State<DriverNoteOverlay> createState()
+  ' }
+
+  ' class _DriverNoteOverlayState {
+  '   -TextEditingController _controller
+  '   +void initState()
+  '   +void dispose()
+  '   +Widget build()
+  ' }
+
+  ' class OrderDetailListBox {
+  '   +List<Map<String, dynamic>> selectedProducts
+  '   +int serviceFee
+  '   +int deliveryFee
+  '   +int? discountNumber
+  '   +int businessId
+  '   +String businessType
+  '   +void Function(String, int) onCountChanged
+  '   +void Function(String, String)? onNotesChanged
+  '   +void Function(String, List<int>)? onAddOnsChanged
+  '   +Widget build()
+  ' }
+
+  ' class AddMoreOrderButtonBox {
+  '   +void Function() onAddMorePressed
+  '   +Widget build()
+  ' }
+
+  ' class PaymentMethodBox {
+  '   +String selectedMethod
+  '   +dynamic Function(String) onMethodSelected
+  '   +State<PaymentMethodBox> createState()
+  ' }
+
+  ' class _PaymentMethodBoxState {
+  '   +String selectedMethod
+  '   +List<Map<String, dynamic>> paymentOptions
+  '   +void initState()
+  '   +Widget build()
+  ' }
+
+  ' DriverNoteOverlay --> _DriverNoteOverlayState : createState()
+  ' PaymentMethodBox --> _PaymentMethodBoxState : createState()
+}
+
+' package "shared::utils_functionals" {
+'   class formatCurrency << (R,skyblue) procedure_return >> {
+'     +int value
+'     --
+'     return: String
+'   }
+
+'   class calculateFinalOrderTotal << (R,skyblue) procedure_return >> {
+'     +List<Map<String, dynamic>> selectedProducts
+'     +int serviceFee
+'     +bool isFreeShipment
+'     +double businessDistance
+'     +int Function(bool, double) deliveryFeeCalculator
+'     --
+'     return: int
+'   }
+
+'   class getDeliveryFee << (R,skyblue) procedure_return >> {
+'     +bool isFreeShipment
+'     +double businessDistance
+'     --
+'     return: int
+'   }
+' }
+
+' ================== SHARED WIDGETS ==================
+' package "shared::widgets" {
+  ' class AddressSelectionOverlay {
+  '   +dynamic Function(Map<String, dynamic>) onAddressSelected
+  '   +TextEditingController controller
+  '   +dynamic Function(String)? onChanged
+  '   +State<AddressSelectionOverlay> createState()
+  ' }
+
+  ' class _AddressSelectionOverlayState {
+  '   +List<int> recentAddressSearches
+  '   +List<Map<String, dynamic>> mainAddress
+  '   +List<Map<String, dynamic>> recentAddresses
+  '   +List<Map<String, dynamic>> allAddresses
+  '   +String searchQuery
+  '   +Map<String, dynamic>? selectedAddress
+  '   +void initState()
+  '   -void _toggleBookmark()
+  '   +Widget build()
+  '   -Widget _buildAddressTile()
+  ' }
+
+  ' class CustomAppBar {
+  '   +String title
+  '   +bool showBackButton
+  '   +List<Map<String, dynamic>>? customParam1
+  '   +String? customParam2
+  '   +void Function()? onBack
+  '   +Size preferredSize
+  '   +Widget build()
+  ' }
+
+  ' class ElevatedButtonWidget {
+  '   +Widget child
+  '   +Color backgroundColor
+  '   +Color foregroundColor
+  '   +BorderSide? borderSide
+  '   +TextStyle? textStyle
+  '   +Size? minimumSize
+  '   +double elevation
+  '   +double borderRadius
+  '   +EdgeInsetsGeometry? padding
+  '   +MaterialTapTargetSize? tapTargetSize
+  '   +void Function()? onPressed
+  '   +Widget build()
+  ' }
+
+  ' class OrderBottomNavbar {
+  '   +int totalPrice
+  '   +String buttonText
+  '   +void Function() onOrderPressed
+  '   +Widget build()
+  ' }
+
+  ' AddressSelectionOverlay --> _AddressSelectionOverlayState : createState()
+' }
+
+' ================== RELATIONSHIPS ==================
+' _OrderConfirmationViewState --> RecipientAddressController : <<controller>>
+' ElevatedButtonWidget --> RecipientAddressController : <<on submit>>
+' OrderBottomNavbar --> RecipientAddressController : <<controller>>
+
+' _OrderConfirmationViewState --> getDeliveryFee : <<util>>
+' UpdateBusinessDistanceController --> getDeliveryFee : <<util>>
+' OrderBottomNavbar --> getDeliveryFee : <<util>>
+
+' OrderDetailListBox --> formatCurrency : <<util>>
+
+' OrderBottomNavbar --> calculateFinalOrderTotal : <<util>>
+
+' _OrderConfirmationViewState --> AddressRecipientChooseController : <<controller>>
+' ElevatedButtonWidget --> UpdateBusinessDistanceController : <<on submit>>
+' ElevatedButtonWidget --> OrderConfirmationController : <<on submit>>
+
+' _OrderConfirmationViewState --> CustomAppBar : <<uses>>
+
+' _OrderConfirmationViewState --> RecipientLocationBox : <<uses>>
+' RecipientLocationBox ..> AddressSelectionOverlay : <<uses>>
+' _AddressSelectionOverlayState --> ElevatedButtonWidget : <<uses>>
+' RecipientLocationBox ..> DriverNoteOverlay : <<uses>>
+' _DriverNoteOverlayState --> ElevatedButtonWidget : <<uses>>
+
+' _OrderConfirmationViewState --> OrderDetailListBox : <<uses>>
+' _OrderConfirmationViewState --> AddMoreOrderButtonBox : <<uses>>
+
+' _OrderConfirmationViewState --> PaymentMethodBox : <<uses>>
+
+' _OrderConfirmationViewState --> OrderBottomNavbar : <<uses>>
+' OrderBottomNavbar --> ElevatedButtonWidget : <<uses>>
+
+' @enduml

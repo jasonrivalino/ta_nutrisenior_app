@@ -1,0 +1,129 @@
+@startuml
+set namespaceSeparator ::
+
+skinparam classAttributeIconSize 0
+
+' ================== REPORT ==================
+package "Report" {
+  
+  ' ---- report_view ----
+  package "report_view" {
+    class ReportView {
+      +int id
+      +bool isDriver
+      +int? driverId
+      +int? businessId
+      +String? businessType
+      +State<ReportView> createState()
+    }
+
+    class _ReportViewState {
+      +int selectedRating
+      +int? selectedReasonId
+      +String otherReasonText
+      -TextEditingController _commentController
+      -List<String> _selectedImages
+      -List<Map<String, dynamic>> _reportReasons
+      -void _handleChooseImage()
+      -void _removeImage()
+      +Widget build()
+      --
+      "onSubmit" triggers ConfirmDialog
+    }
+  }
+
+  ' ---- report_success_view ----
+  package "report_success_view" as ReportSuccessPkg {
+    class ReportSuccess {
+      +int id
+      +State<ReportSuccess> createState()
+    }
+
+    class _ReportSuccessState {
+      +void initState()
+      +Widget build()
+    }
+  }
+
+  ' ---- report_controller ----
+  package "report_controller" {
+    class ReportFillController {
+      {static} +int addReport()
+    }
+  }
+}
+
+' ================== SHARED UTILS FUNCTIONALS ==================
+package "shared::utils_functionals" {
+  class handleChooseImage << (R,skyblue) procedure_return >> {
+    +BuildContext context
+    +int currentImageCount
+    --
+    return: Future<XFile?>
+  }
+}
+
+' ================== SHARED WIDGETS ==================
+package "shared::widgets" {
+  class CustomAppBar {
+    +String title
+    +bool showBackButton
+    +List<Map<String, dynamic>>? customParam1
+    +String? customParam2
+    +void Function()? onBack
+    +Size preferredSize
+    +Widget build()
+  }
+
+  class ElevatedButtonWidget {
+    +Widget child
+    +Color backgroundColor
+    +Color foregroundColor
+    +BorderSide? borderSide
+    +TextStyle? textStyle
+    +Size? minimumSize
+    +double elevation
+    +double borderRadius
+    +EdgeInsetsGeometry? padding
+    +MaterialTapTargetSize? tapTargetSize
+    +VoidCallback? onPressed
+    +Widget build()
+    {static} +bottomButton()
+    {static} +iconButton()
+    {static} +warningButton()
+    {static} +submitFormButton()
+  }
+
+  class FeedbackInputCard {
+    +TextEditingController controller
+    +String titleText
+    +String placeholderText
+    +List<String> selectedImages
+    +void Function() onChooseImage
+    +dynamic Function(int) onRemoveImage
+    +Widget build()
+  }
+
+  class ConfirmDialog {
+    +String titleText
+    +String confirmText
+    +String cancelText
+    +dynamic Function() onConfirm
+    +Widget build()
+  }
+}
+
+' ================== RELATIONSHIPS ==================
+ReportView --> _ReportViewState : createState()
+ReportSuccess --> _ReportSuccessState : createState()
+
+_ReportViewState --> CustomAppBar : <<uses>>
+_ReportViewState --> FeedbackInputCard : <<uses>>
+FeedbackInputCard --> handleChooseImage : <<util>>
+
+_ReportViewState --> ElevatedButtonWidget : <<uses>>
+_ReportViewState --> ConfirmDialog : <<on submit>>
+ConfirmDialog --> ReportFillController : <<on confirm>>
+ConfirmDialog --> ReportSuccessPkg : <<navigate on confirm>>
+
+@enduml

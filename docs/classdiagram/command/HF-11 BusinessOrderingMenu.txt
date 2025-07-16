@@ -1,0 +1,250 @@
+@startuml
+set namespaceSeparator ::
+left to right direction
+skinparam classAttributeIconSize 0
+
+' =============== CONTROLLER =================
+package "OrderingMenu::business_ordering_menu_controller" {
+  class BusinessOrderingMenuController {
+    {static} +dynamic fetchProducts()
+    {static} +Map<String, dynamic> getPromoByBusinessId()
+    {static} +int? getDiscountNumber()
+    {static} +bool getIsFreeShipment()
+  }
+}
+
+' =============== VIEW =================
+package "OrderingMenu::business_ordering_menu_view" {
+  class BusinessOrderingMenuView {
+    +int businessId
+    +String businessName
+    +String businessType
+    +String businessImage
+    +double businessRating
+    +double businessDistance
+    +String businessAddress
+    +DateTime businessOpenHour
+    +DateTime businessCloseHour
+    +String businessEstimatedDelivery
+    +int? discountNumber
+    +bool isFreeShipment
+    +int serviceFee
+    +int? productId
+    +int? qtyProduct
+    +String? notes
+    +int? selectedAddressId
+    {static} +BusinessOrderingMenuView fromExtra()
+    +State<BusinessOrderingMenuView> createState()
+  }
+
+  class _BusinessOrderingMenuViewState {
+    +bool isFavorite
+    +bool isLoading
+    +List<Map<String, dynamic>> recommendedProducts
+    +List<Map<String, dynamic>> allProducts
+    +Map<String, int> selectedProductCounts
+    +Map<String, String> selectedProductNotes
+    +Map<String, List<int>> selectedAddOnIds
+    +int? discountNumber
+    +String savedDriverNote
+    +bool isFreeShipment
+    +List<Map<String, dynamic>> allAddOnsList
+    +int totalSelectedPrice
+    +bool hasSelectedProducts
+    +void initState()
+    -dynamic _loadProducts()
+    +Widget build()
+  }
+
+  BusinessOrderingMenuView --> _BusinessOrderingMenuViewState : createState()
+  _BusinessOrderingMenuViewState --> BusinessOrderingMenuController : <<controller>>
+}
+
+' =============== WIDGET =================
+package "OrderingMenu::business_ordering_menu_widget" {
+  class BusinessHeaderBar {
+    +void Function() onFavoritesClick
+    +void Function() onRatingClick
+    +bool isFavorite
+    +Widget build()
+  }
+
+  class RecommendedProductSection {
+    +String title
+    +double heightCard
+    +int businessId
+    +String businessType
+    +DateTime businessOpenHour
+    +DateTime businessCloseHour
+    +int? discountNumber
+    +List<Map<String, dynamic>> products
+    +Map<String, int> selectedCounts
+    +Map<String, String> selectedNotes
+    +Map<String, List<int>> selectedAddOnIdsMap
+    +dynamic Function(String, int) onCountChanged
+    +dynamic Function(String, String)? onNotesChanged
+    +dynamic Function(String, List<int>)? onAddOnsChanged
+    +Widget build()
+  }
+
+  class ProductListSection {
+    +String? title
+    +int businessId
+    +String businessType
+    +DateTime businessOpenHour
+    +DateTime businessCloseHour
+    +int? discountNumber
+    +List<Map<String, dynamic>> products
+    +Map<String, int> selectedCounts
+    +Map<String, String> selectedNotes
+    +Map<String, List<int>> selectedAddOnIdsMap
+    +dynamic Function(String, int) onCountChanged
+    +dynamic Function(String, String)? onNotesChanged
+    +dynamic Function(String, List<int>)? onAddOnsChanged
+    +Widget build()
+  }
+
+  _BusinessOrderingMenuViewState --> BusinessHeaderBar : <<uses>>
+  _BusinessOrderingMenuViewState --> RecommendedProductSection : <<uses>>
+  _BusinessOrderingMenuViewState --> ProductListSection : <<uses>>
+}
+
+package "shared::utils_functionals" {
+  class formatCurrency << (R,skyblue) procedure_return >> {
+    +int value
+    --
+    return: String
+  }
+
+  class isBusinessOpen << (R,skyblue) procedure_return >> {
+    +DateTime? openHour
+    +DateTime? closeHour
+    --
+    return: bool
+  }
+
+  class formatTime << (R,skyblue) procedure_return >> {
+    +Dynamic time
+    --
+    return: String
+  }
+}
+
+' =============== SHARED WIDGETS =================
+package "shared::widgets::other_widgets" {
+  class BusinessInfoCard {
+    +String businessImage
+    +String businessName
+    +String businessType
+    +String businessAddress
+    +String? businessEstimatedDelivery
+    +double businessRating
+    +double? businessDistance
+    +DateTime? businessOpenHour
+    +DateTime? businessCloseHour
+    +int? discountNumber
+    +bool? isFreeShipment
+    +Widget build()
+    -Widget _infoBadge()
+  }
+
+  class ListTitle {
+    +String title
+    +DateTime? businessOpenHour
+    +DateTime? businessCloseHour
+    +Widget build()
+  }
+}
+
+package "shared::widgets::recommend_menu_card_box_widgets" {
+  class CardBox {
+    +int? businessId
+    +String? businessImage
+    +String? businessName
+    +String businessType
+    +double? businessRate
+    +double? businessLocation
+    +DateTime businessOpenHour
+    +DateTime businessCloseHour
+    +int? productId
+    +String? productImage
+    +String? productName
+    +int? productPrice
+    +String? productDescription
+    +int? discountNumber
+    +int count
+    +String notes
+    +Map<String, List<int>> addOnsSelection
+    +void Function(int)? onCountChanged
+    +void Function(String)? onNotesChanged
+    +void Function(Map<String, List<int>>)? onAddOnsChanged
+    +void Function() onTap
+    +State<CardBox> createState()
+  }
+
+  class _CardBoxState {
+    -bool _isPressed
+    -void _setPressed()
+    -void _incrementCount()
+    -void _decrementCount()
+    +Widget build()
+  }
+
+  CardBox --> _CardBoxState : createState()
+}
+
+package "shared::widgets::list_menu_card_list_widgets" {
+  class CardList {
+    +int? businessId
+    +String? businessImage
+    +String? businessName
+    +String businessType
+    +double? businessRate
+    +double? businessLocation
+    +int? productId
+    +bool? isOpen
+    +String? productImage
+    +String? productName
+    +int? productPrice
+    +String? productDescription
+    +int? discountNumber
+    +bool? isFreeShipment
+    +int? count
+    +String? notes
+    +Map<String, List<int>> addOnsSelection
+    +void Function(int)? onCountChanged
+    +void Function(String)? onNotesChanged
+    +void Function(Map<String, List<int>>)? onAddOnsChanged
+    +void Function() onTap
+    +State<CardList> createState()
+  }
+
+  class _CardListState {
+    -void _incrementCount()
+    -void _decrementCount()
+    +Widget build()
+  }
+
+  CardList --> _CardListState : createState()
+}
+
+' =============== RELATIONSHIPS =================
+_BusinessOrderingMenuViewState --> isBusinessOpen : <<util>>
+
+_BusinessOrderingMenuViewState --> BusinessInfoCard : <<uses>>
+BusinessInfoCard --> isBusinessOpen : <<util>>
+BusinessInfoCard --> formatTime : <<util>>
+
+RecommendedProductSection --> ListTitle : <<uses>>
+RecommendedProductSection --> CardBox : <<uses>>
+_CardBoxState --> formatCurrency : <<util>>
+_CardBoxState --> isBusinessOpen : <<util>>
+
+ProductListSection --> ListTitle : <<uses>>
+ProductListSection --> CardList : <<uses>>
+_CardListState --> formatCurrency : <<util>>
+_CardListState --> isBusinessOpen : <<util>>
+
+ListTitle --> isBusinessOpen : <<util>>
+
+@enduml

@@ -1,0 +1,162 @@
+@startuml
+set namespaceSeparator ::
+left to right direction
+
+skinparam classAttributeIconSize 0
+
+' ================== CONTROLLER ==================
+package "DetailOrdering::detail_ordering_controller" {
+  class AddOnsController {
+    {static} +List<Map<String, dynamic>> getAddOnsForProduct()
+  }
+}
+
+' ================== VIEW ==================
+package "DetailOrdering::detail_ordering_view" {
+  class DetailOrderingView {
+    +int businessId
+    +String businessType
+    +int? discountNumber
+    +int productId
+    +String productImage
+    +String productName
+    +int productPrice
+    +String productDescription
+    +int qtyProduct
+    +String? notes
+    +Map<String, List<int>>? selectedAddOnIdsMap
+    +State<DetailOrderingView> createState()
+  }
+
+  class _DetailOrderingViewState {
+    +int quantity
+    -TextEditingController _noteController
+    +List<Map<String, dynamic>> addOnsList
+    +List<int> selectedAddOnIds
+    +void initState()
+    +void dispose()
+    +Widget build()
+  }
+
+  DetailOrderingView --> _DetailOrderingViewState : createState()
+  _DetailOrderingViewState --> AddOnsController : <<controller>>
+}
+
+' ================== WIDGET ==================
+package "DetailOrdering::detail_ordering_widget" {
+  class ProductDetailInfoBox {
+    +String productName
+    +int productPrice
+    +String productDescription
+    +int? discountNumber
+    +Widget build()
+  }
+
+  class ProductAddOnsSelectionBox {
+    +List<Map<String, dynamic>> addOns
+    +void Function(List<int>) onAddOnsChanged
+    +List<int>? initiallySelectedAddOnIds
+    +State<ProductAddOnsSelectionBox> createState()
+  }
+
+  class _ProductAddOnsSelectionBoxState {
+    -Set<int> _selectedAddOnIds
+    +void initState()
+    +Widget build()
+  }
+
+  class ProductNoteInputBox {
+    +String businessType
+    +TextEditingController noteController
+    +Widget build()
+  }
+
+  class SetQuantityBottomNavbar {
+    +String businessType
+    +int baseProductPrice
+    +int addOnsPrice
+    +int? discountNumber
+    +int quantity
+    +void Function(int) onQuantityChanged
+    +void Function() onAddPressed
+    +Widget build()
+  }
+
+  ProductAddOnsSelectionBox --> _ProductAddOnsSelectionBoxState : createState()
+}
+
+' ================== SHARED FUNCTION ==================
+package "shared::utils_functionals" {
+  class formatCurrency << (R,skyblue) procedure_return >> {
+    +int value
+    --
+    return: String
+  }
+
+  class calculateTotalAddOnsPrice << (R,skyblue) procedure_return >> {
+    +List<Map<String, dynamic>> addOns
+    +List<int> selectedAddOnIds
+    --
+    return: int
+  }
+
+  class getProductPrice << (R,skyblue) procedure_return >> {
+    +int baseProductPrice
+    +int addOnsPrice
+    +int quantity
+    +int? discountNumber
+    --
+    return: int
+  }
+}
+
+' ================== SHARED WIDGETS ==================
+package "shared::widgets" {
+  class CustomAppBar {
+    +String title
+    +bool showBackButton
+    +List<Map<String, dynamic>>? customParam1
+    +String? customParam2
+    +void Function()? onBack
+    +Size preferredSize
+    +Widget build()
+  }
+
+  class ElevatedButtonWidget {
+    +Widget child
+    +Color backgroundColor
+    +Color foregroundColor
+    +BorderSide? borderSide
+    +TextStyle? textStyle
+    +Size? minimumSize
+    +double elevation
+    +double borderRadius
+    +EdgeInsetsGeometry? padding
+    +MaterialTapTargetSize? tapTargetSize
+    +VoidCallback? onPressed
+    +Widget build()
+    {static} +bottomButton()
+    {static} +iconButton()
+    {static} +warningButton()
+    {static} +submitFormButton()
+  }
+}
+
+' ================== RELATIONSHIPS ==================
+_DetailOrderingViewState --> CustomAppBar : <<uses>>
+
+_DetailOrderingViewState --> ProductDetailInfoBox : <<uses>>
+ProductDetailInfoBox --> formatCurrency : <<util>>
+
+_DetailOrderingViewState ..> ProductAddOnsSelectionBox : <<uses>>
+ProductAddOnsSelectionBox --> formatCurrency : <<util>>
+
+_DetailOrderingViewState --> ProductNoteInputBox : <<uses>>
+
+_DetailOrderingViewState --> SetQuantityBottomNavbar : <<uses>>
+SetQuantityBottomNavbar --> ElevatedButtonWidget : <<uses>>
+ElevatedButtonWidget --> formatCurrency : <<util>>
+ElevatedButtonWidget --> calculateTotalAddOnsPrice : <<util>>
+ElevatedButtonWidget --> getProductPrice : <<util>>
+
+@enduml

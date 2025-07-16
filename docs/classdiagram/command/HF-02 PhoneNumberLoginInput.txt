@@ -1,0 +1,64 @@
+@startuml
+set namespaceSeparator ::
+
+skinparam classAttributeIconSize 0
+
+' ================== PHONE NUMBER LOGIN VIEW ==================
+package "PhoneNumberLoginInput::phone_number_login_view" {
+  class PhoneNumberLoginView {
+    +State<PhoneNumberLoginView> createState()
+  }
+
+  class _PhoneNumberLoginViewState {
+    -GlobalKey<FormState> _formKey
+    +Widget build()
+  }
+}
+
+' ================== PHONE NUMBER LOGIN WIDGET ==================
+package "PhoneNumberLoginInput::phone_number_login_widget" {
+  class PhoneNumberInput {
+    +String hintText
+    +String? Function(String?)? validator
+    +Widget build()
+  }
+}
+
+' ================== SHARED WIDGETS ==================
+package "shared::widgets" {
+  class ElevatedButtonWidget {
+    +Widget child
+    +Color backgroundColor
+    +Color foregroundColor
+    +BorderSide? borderSide
+    +TextStyle? textStyle
+    +Size? minimumSize
+    +double elevation
+    +double borderRadius
+    +EdgeInsetsGeometry? padding
+    +MaterialTapTargetSize? tapTargetSize
+    +VoidCallback? onPressed
+    +Widget build()
+    {static} +bottomButton()
+    {static} +iconButton()
+    {static} +warningButton()
+    {static} +submitFormButton()
+  }
+}
+
+' ================== SHARED UTILS ==================
+package "shared::utils_class" {
+  class OTPNotificationService {
+    {static} -FlutterLocalNotificationsPlugin _notifications
+    {static} +dynamic init()
+    {static} +dynamic showNotification()
+  }
+}
+
+' ================== RELATIONSHIPS ==================
+PhoneNumberLoginView --> _PhoneNumberLoginViewState : createState()
+_PhoneNumberLoginViewState --> PhoneNumberInput : <<uses>>
+_PhoneNumberLoginViewState --> ElevatedButtonWidget : <<uses>>
+ElevatedButtonWidget --> OTPNotificationService : <<on submit>>
+
+@enduml

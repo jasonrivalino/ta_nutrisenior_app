@@ -1,0 +1,122 @@
+@startuml
+set namespaceSeparator ::
+
+skinparam classAttributeIconSize 0
+
+' ================== VIEW ==================
+package "OngoingHistory::ongoing_history_details_view" {
+  class OngoingHistoryDetailsView {
+    +int historyId
+    +String businessName
+    +String businessType
+    +String businessImage
+    +int? driverId
+    +String? driverName
+    +String? driverImage
+    +double? driverRating
+    +String? driverPhoneNumber
+    +String? addressReceiver
+    +String estimatedArrivalTime
+    +List<Map<String, dynamic>>? orderList
+    +int? serviceFee
+    +int? deliveryFee
+    +int? totalPrice
+    +String status
+    +State<OngoingHistoryDetailsView> createState()
+  }
+
+  class _OngoingHistoryDetailsViewState {
+    +BitmapDescriptor? customStartMarker
+    +void initState()
+    -dynamic _loadCustomMarker()
+    +Widget build()
+  }
+}
+
+' ================== WIDGETS ==================
+package "OngoingHistory::ongoing_history_details_widget" {
+  class EstimatedTimeCard {
+    +String businessName
+    +String businessImage
+    +String etaText
+    +double topPosition
+    +Widget build()
+  }
+
+  class OrderStatusDetails {
+    +String businessType
+    +String status
+    +Widget build()
+  }
+
+  class OrderListDetails {
+    +List<Map<String, dynamic>>? orderList
+    +int? serviceFee
+    +int? deliveryFee
+    +int? totalPrice
+    +Widget build()
+  }
+
+  class DeliverDriverCard {
+    +int? driverId
+    +String? driverName
+    +String? driverImage
+    +double? driverRate
+    +String? driverPhoneNumber
+    +Widget build()
+  }
+}
+
+' ================== SHARED UTILS ==================
+package "shared::utils_functionals" {
+  class formatCurrency << (R,skyblue) procedure_return >> {
+    +int value
+    --
+    return: String
+  }
+}
+
+' ================== SHARED WIDGETS ==================
+package "shared::widgets" {
+  class CustomAppBar {
+    +String title
+    +bool showBackButton
+    +List<Map<String, dynamic>>? customParam1
+    +String? customParam2
+    +void Function()? onBack
+    +Size preferredSize
+    +Widget build()
+  }
+
+  class ElevatedButtonWidget {
+    +Widget child
+    +Color backgroundColor
+    +Color foregroundColor
+    +BorderSide? borderSide
+    +TextStyle? textStyle
+    +Size? minimumSize
+    +double elevation
+    +double borderRadius
+    +EdgeInsetsGeometry? padding
+    +MaterialTapTargetSize? tapTargetSize
+    +VoidCallback? onPressed
+    +Widget build()
+    {static} +bottomButton()
+    {static} +iconButton()
+    {static} +warningButton()
+    {static} +submitFormButton()
+  }
+}
+
+' ================== RELATIONS ==================
+OngoingHistoryDetailsView --> _OngoingHistoryDetailsViewState : createState()
+
+_OngoingHistoryDetailsViewState --> CustomAppBar : <<uses>>
+_OngoingHistoryDetailsViewState --> ElevatedButtonWidget : <<uses>>
+_OngoingHistoryDetailsViewState --> EstimatedTimeCard : <<uses>>
+_OngoingHistoryDetailsViewState --> OrderStatusDetails : <<uses>>
+_OngoingHistoryDetailsViewState ..> OrderListDetails : <<uses>>
+OrderListDetails --> formatCurrency : <<util>>
+_OngoingHistoryDetailsViewState ..> DeliverDriverCard : <<uses>>
+
+@enduml

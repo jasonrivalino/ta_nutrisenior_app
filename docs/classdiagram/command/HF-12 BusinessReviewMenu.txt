@@ -1,0 +1,124 @@
+@startuml
+set namespaceSeparator ::
+left to right direction
+skinparam classAttributeIconSize 0
+
+' ================== CONTROLLER ==================
+package "BusinessReviewMenu::review_business_controller" {
+  class ReviewBusinessController {
+    +int businessId
+    +List<Map<String, dynamic>> fetchAllRatings()
+    +List<Map<String, dynamic>> fetchFilteredRatings()
+  }
+}
+
+' ================== VIEW ==================
+package "BusinessReviewMenu::review_business_view" {
+  class ReviewBusinessView {
+    +int businessId
+    +String businessName
+    +String businessType
+    +String businessImage
+    +double businessRating
+    +String businessAddress
+    +State<ReviewBusinessView> createState()
+  }
+
+  class _ReviewBusinessViewState {
+    +ReviewBusinessController controller
+    +int? selectedRating
+    +void initState()
+    +Widget build()
+  }
+}
+
+' ================== WIDGETS ==================
+package "BusinessReviewMenu::review_business_widget" {
+  class RatingFilterButton {
+    +String label
+    +bool isSelected
+    +void Function() onTap
+    +Widget build()
+  }
+
+  class BusinessRatingItem {
+    +Map<String, dynamic> rating
+    +Widget build()
+  }
+}
+
+' ================== SHARED UTILS ==================
+package "shared::utils_class" {
+  class FullScreenImageView {
+    +String imagePath
+    +String senderName
+    +dynamic sendTime
+    +build()
+  }
+}
+
+package "shared::utils_functionals" {
+  class formatTime << (R,skyblue) procedure_return >> {
+    +Dynamic time
+    --
+    return: String
+  }
+
+  class formatDayTime << (R,skyblue) procedure_return >> {
+    +Dynamic time
+    --
+    return: String
+  }
+
+  class formatFullDateTime << (R,skyblue) procedure_return >> {
+    +Dynamic time
+    --
+    return: String
+  }
+}
+
+' ================== SHARED WIDGETS ==================
+package "shared::widgets" {
+  class CustomAppBar {
+    +String title
+    +bool showBackButton
+    +List<Map<String, dynamic>>? customParam1
+    +String? customParam2
+    +void Function()? onBack
+    +Size preferredSize
+    +Widget build()
+  }
+
+  class BusinessInfoCard {
+    +String businessImage
+    +String businessName
+    +String businessType
+    +String businessAddress
+    +String? businessEstimatedDelivery
+    +double businessRating
+    +double? businessDistance
+    +DateTime? businessOpenHour
+    +DateTime? businessCloseHour
+    +int? discountNumber
+    +bool? isFreeShipment
+    +Widget build()
+    -Widget _infoBadge()
+  }
+}
+
+' ================== RELATIONSHIPS ==================
+ReviewBusinessView --> _ReviewBusinessViewState : createState()
+_ReviewBusinessViewState --> ReviewBusinessController : <<controller>>
+_ReviewBusinessViewState --> CustomAppBar : <<uses>>
+_ReviewBusinessViewState --> BusinessInfoCard : <<uses>>
+BusinessInfoCard --> formatTime : <<util>>
+
+_ReviewBusinessViewState --> RatingFilterButton : <<uses>>
+RatingFilterButton ..> ReviewBusinessController : <<controller>>
+
+_ReviewBusinessViewState --> BusinessRatingItem : <<uses>>
+BusinessRatingItem ..> FullScreenImageView : <<uses>>
+FullScreenImageView --> formatDayTime : <<util>>
+formatDayTime --> formatFullDateTime : <<util>>
+
+@enduml

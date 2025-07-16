@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:ta_nutrisenior_app/shared/styles/texts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../config/constants.dart';
 
 import '../../../shared/styles/colors.dart';
+import '../../../shared/styles/texts.dart';
 import '../../../shared/utils/format_currency.dart';
 
 // Class for estimated time card

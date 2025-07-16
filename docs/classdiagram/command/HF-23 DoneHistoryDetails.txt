@@ -1,0 +1,167 @@
+@startuml
+set namespaceSeparator ::
+
+skinparam classAttributeIconSize 0
+
+' ================== VIEW ==================
+package "DoneHistory::done_history_details_view" {
+  class DoneHistoryDetailsView {
+    +int historyId
+    +int businessId
+    +DateTime orderDate
+    +int driverId
+    +String driverName
+    +String? driverNote
+    +String businessName
+    +String businessImage
+    +String businessType
+    +String addressReceiver
+    +List<dynamic> orderList
+    +int serviceFee
+    +int deliveryFee
+    +num totalPrice
+    +String paymentMethod
+    {static} +DoneHistoryDetailsView fromExtra()
+    +Widget build()
+  }
+}
+
+' ================== WIDGET ==================
+package "DoneHistory::done_history_details_widget" {
+  class DoneOrderTimeDriverCard {
+    +DateTime orderDate
+    +String driverName
+    +String? driverNote
+    +Widget build()
+  }
+
+  class DoneOrderAddressCard {
+    +String businessName
+    +String businessType
+    +String addressReceiver
+    +Widget build()
+  }
+
+  class DoneOrderDetailsCard {
+    +List<dynamic> orderList
+    +int serviceFee
+    +int deliveryFee
+    +int totalPrice
+    +String paymentMethod
+    +Widget build()
+  }
+
+  class FeedbackInformationBox {
+    +int historyId
+    +String businessName
+    +String? businessType
+    +List<Map<String, dynamic>> ratings
+    +Map<String, dynamic>? driverReport
+    +Map<String, dynamic>? businessReport
+    +Widget build()
+    -Widget _buildReportBox()
+    -Widget _buildRatingBox()
+  }
+
+  class GiveFeedbackBottomNavbar {
+    +String businessType
+    +List<Map<String, dynamic>> ratings
+    +void Function() onDriverPressed
+    +void Function() onBusinessPressed
+    +Map<String, dynamic>? driverReport
+    +Map<String, dynamic>? businessReport
+    +Widget build()
+  }
+}
+
+' ================== CONTROLLER ==================
+package "DoneHistory::done_history_rating_controller" {
+  class HistoryRatingController {
+    {static} +List<Map<String, dynamic>> fetchRatingsByHistoryId()
+    {static} -List<String> _findAllMatchingImages()
+    {static} +List<Map<String, dynamic>> fetchOrderedRatings()
+  }
+
+  class HistoryReportController {
+    {static} +Map<String, dynamic>? getDriverReport()
+    {static} +Map<String, dynamic>? getBusinessReport()
+  }
+}
+
+package "shared::utils_class" {
+  class FullScreenImageView {
+    +String imagePath
+    +String senderName
+    +dynamic sendTime
+    +build()
+  }
+}
+
+package "shared::utils_functionals" {
+  class formatCurrency << (R,skyblue) procedure_return >> {
+    +int value
+    --
+    return: String
+  }
+
+  class formatDate << (R,skyblue) procedure_return >> {
+    +Dynamic time
+    --
+    return: String
+  }
+
+  class formatFullDateTime << (R,skyblue) procedure_return >> {
+    +Dynamic time
+    --
+    return: String
+  }
+}
+
+package "shared::widgets" {
+  class CustomAppBar {
+    +String title
+    +bool showBackButton
+    +List<Map<String, dynamic>>? customParam1
+    +String? customParam2
+    +void Function()? onBack
+    +Size preferredSize
+    +Widget build()
+  }
+
+  class ElevatedButtonWidget {
+    +Widget child
+    +Color backgroundColor
+    +Color foregroundColor
+    +BorderSide? borderSide
+    +TextStyle? textStyle
+    +Size? minimumSize
+    +double elevation
+    +double borderRadius
+    +EdgeInsetsGeometry? padding
+    +MaterialTapTargetSize? tapTargetSize
+    +VoidCallback? onPressed
+    +Widget build()
+    {static} +bottomButton()
+    {static} +iconButton()
+    {static} +warningButton()
+    {static} +submitFormButton()
+  }
+}
+
+' ================== RELATIONSHIPS ==================
+DoneHistoryDetailsView --> CustomAppBar : <<uses>>
+DoneHistoryDetailsView --> DoneOrderTimeDriverCard : <<uses>>
+DoneHistoryDetailsView --> DoneOrderAddressCard : <<uses>>
+DoneHistoryDetailsView --> DoneOrderDetailsCard : <<uses>>
+DoneOrderDetailsCard -> formatCurrency : <<util>>
+DoneHistoryDetailsView ..> FeedbackInformationBox : <<uses>>
+FeedbackInformationBox ..> FullScreenImageView : <<uses>>
+FullScreenImageView --> formatFullDateTime : <<util>>
+FeedbackInformationBox --> formatDate : <<util>>
+DoneHistoryDetailsView ..> GiveFeedbackBottomNavbar : <<uses>>
+GiveFeedbackBottomNavbar --> ElevatedButtonWidget : <<uses>>
+
+DoneHistoryDetailsView --> HistoryRatingController : <<controller>>
+DoneHistoryDetailsView --> HistoryReportController : <<controller>>
+
+@enduml

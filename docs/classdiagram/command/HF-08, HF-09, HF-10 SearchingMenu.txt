@@ -1,0 +1,234 @@
+@startuml
+set namespaceSeparator ::
+left to right direction
+
+skinparam classAttributeIconSize 0
+
+' ================== SEARCH CONTROLLER ==================
+package "Search::search_controller" {
+  class RecentSearchController {
+    {static} -int _maxRecent
+    {static} -List<int> _recentRestaurantSearches
+    {static} -List<int> _recentMarketSearches
+    {static} +List<int> getRecentSearches()
+    {static} +void addToRecent()
+  }
+
+  class SearchPageController {
+    {static} -List<Map<String, dynamic>> _joinedBusinessData
+    {static} +List<Map<String, dynamic>> getRecentSearchBusinesses()
+    {static} -List<Map<String, dynamic>> _getSortedData()
+    {static} +List<Map<String, dynamic>> restaurantList()
+    {static} +List<Map<String, dynamic>> marketList()
+  }
+
+  class AddressListController {
+    {static} +List<Map<String, dynamic>> getAddressesCondition()
+    {static} +List<Map<String, dynamic>> getMainAddress()
+    {static} +List<Map<String, dynamic>> getAllAddresses()
+  }
+
+  class RecipientAddressController {
+    {static} +List<int> mainAddressSearches
+    {static} -List<Map<String, dynamic>>? _originalBusinessListTable
+    {static} +int? lastSelectedAddressId
+    {static} +double? lastBusinessDistance
+    {static} +int? lastDeliveryFee
+    {static} +void updateBusinessDistances()
+  }
+}
+
+' ================== SEARCH VIEW ==================
+package "Search::search_view" {
+  class SearchView {
+    +State<SearchView> createState()
+  }
+
+  class _SearchViewState {
+    -TextEditingController _searchBusinessController
+    -TextEditingController _searchAddressController
+    +int selectedIndex
+    -String _searchQuery
+    -int _selectedSortOption
+    +List<int> defaultAddress
+    -Map<String, dynamic> _selectedAddress
+    +void initState()
+    +Widget build()
+  }
+}
+
+' ================== SEARCH WIDGET ==================
+package "Search::search_widget" {
+  class OrderLocationSelection {
+    +Map<String, dynamic> selectedAddress
+    +dynamic Function(Map<String, dynamic>) onAddressChanged
+    +void Function() onTap
+    +Widget build()
+  }
+
+  class SearchBarWithFilter {
+    +TextEditingController controller
+    +dynamic Function(String)? onChanged
+    +void Function()? onFilterPressed
+    +Widget build()
+  }
+
+  class BusinessSelectionSearch {
+    +int selectedIndex
+    +dynamic Function(int) onTabSelected
+    +Widget build()
+  }
+
+  class RecentSearchList {
+    +List<Map<String, dynamic>> items
+    +dynamic Function(Map<String, dynamic>) onItemTapped
+    +Widget build()
+  }
+}
+
+package "Search::search_widget::OverlayMenu::address_selection_overlay" {
+  class AddressSelectionOverlay {
+    +dynamic Function(Map<String, dynamic>) onAddressSelected
+    +TextEditingController controller
+    +dynamic Function(String)? onChanged
+    +State<AddressSelectionOverlay> createState()
+  }
+
+  class _AddressSelectionOverlayState {
+    +List<int> recentAddressSearches
+    +List<Map<String, dynamic>> mainAddress
+    +List<Map<String, dynamic>> recentAddresses
+    +List<Map<String, dynamic>> allAddresses
+    +String searchQuery
+    +Map<String, dynamic>? selectedAddress
+    +void initState()
+    -void _toggleBookmark()
+    +Widget build()
+    -Widget _buildAddressTile()
+  }
+  AddressSelectionOverlay --> _AddressSelectionOverlayState : createState()
+}
+
+package "Search::search_widget::OverlayMenu::sort_filter_overlay" {
+  class SortFilterOverlay {
+    +String businessType
+    +int selectedOption
+    +dynamic Function(int) onApply
+    +State<SortFilterOverlay> createState()
+  }
+
+  class _SortFilterOverlayState {
+    -int _selectedOption
+    +void initState()
+    +Widget build()
+    -Widget _buildRadio()
+  }
+
+  SortFilterOverlay --> _SortFilterOverlayState : createState()
+}
+
+' ================== SHARED FUNCTION ==================
+package "Search::shared::utils_functionals" {
+  class isBusinessOpen << (R,skyblue) procedure_return >> {
+    +DateTime? openHour
+    +DateTime? closeHour
+    --
+    return: bool
+  }
+}
+
+' ================== SHARED WIDGET ==================
+package "Search::shared::widgets" {
+  class CustomAppBar {
+    +String title
+    +bool showBackButton
+    +List<Map<String, dynamic>>? customParam1
+    +String? customParam2
+    +void Function()? onBack
+    +Size preferredSize
+    +Widget build()
+  }
+}
+
+package "Search::shared::search_card_list_widgets" {
+  class CardList {
+    +int? businessId
+    +String? businessImage
+    +String? businessName
+    +String businessType
+    +double? businessRate
+    +double? businessLocation
+    +int? productId
+    +bool? isOpen
+    +String? productImage
+    +String? productName
+    +int? productPrice
+    +String? productDescription
+    +int? discountNumber
+    +bool? isFreeShipment
+    +int? count
+    +String? notes
+    +Map<String, List<int>> addOnsSelection
+    +void Function(int)? onCountChanged
+    +void Function(String)? onNotesChanged
+    +void Function(Map<String, List<int>>)? onAddOnsChanged
+    +void Function() onTap
+    +State<CardList> createState()
+  }
+
+  class _CardListState {
+    -void _incrementCount()
+    -void _decrementCount()
+    +Widget build()
+  }
+}
+
+package "Search::search_widget::OverlayMenu::shared::widgets" {
+    class ElevatedButtonWidget {
+    +Widget child
+    +Color backgroundColor
+    +Color foregroundColor
+    +BorderSide? borderSide
+    +TextStyle? textStyle
+    +Size? minimumSize
+    +double elevation
+    +double borderRadius
+    +EdgeInsetsGeometry? padding
+    +MaterialTapTargetSize? tapTargetSize
+    +VoidCallback? onPressed
+    +Widget build()
+    {static} +bottomButton()
+    {static} +iconButton()
+    {static} +warningButton()
+    {static} +submitFormButton()
+  }
+}
+
+' ================== RELATIONSHIPS ==================
+SearchView --> _SearchViewState : createState()
+
+_SearchViewState --> RecentSearchController : <<controller>>
+_SearchViewState --> SearchPageController : <<controller>>
+_SearchViewState --> AddressListController : <<controller>>
+_SearchViewState --> RecipientAddressController : <<controller>>
+
+_SearchViewState --> CustomAppBar : <<uses>>
+_SearchViewState --> OrderLocationSelection : <<uses>>
+OrderLocationSelection --> AddressSelectionOverlay : <<on pressed>>
+_AddressSelectionOverlayState --> AddressListController : <<controller>>
+_AddressSelectionOverlayState --> RecipientAddressController : <<controller>>
+_AddressSelectionOverlayState --> ElevatedButtonWidget : <<uses>>
+
+
+_SearchViewState --> SearchBarWithFilter : <<uses>>
+SearchBarWithFilter --> SortFilterOverlay : <<on filter pressed>>
+_SortFilterOverlayState --> ElevatedButtonWidget : <<uses>>
+
+_SearchViewState --> BusinessSelectionSearch : <<uses>>
+_SearchViewState ..> RecentSearchList : <<uses>>
+
+_SearchViewState ..> CardList : <<uses>>
+CardList --> _CardListState : createState()
+_CardListState --> isBusinessOpen : <<util>>
+
+@enduml

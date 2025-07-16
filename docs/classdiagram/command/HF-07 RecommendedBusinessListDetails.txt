@@ -1,0 +1,129 @@
+@startuml
+set namespaceSeparator ::
+left to right direction
+
+skinparam classAttributeIconSize 0
+
+' ================== PROMO VIEW ==================
+package "RecommendedBusinessDetailsList::recommended_business_details_view" {
+  class BusinessListView {
+    +int initialIndex
+    +String restoRoute
+    +String marketRoute
+    +String? appBarTitle
+    +String? promoTitle
+    +int bottomNavIndex
+    +List<Map<String, dynamic>> businessesData
+    +Widget build()
+  }
+}
+
+package "RecommendedBusinessDetailsList::recommended_business_details_widget" {
+  class BusinessListItem {
+    +String? title
+    +List<Map<String, dynamic>> businesses
+    +Widget build()
+  }
+}
+
+' ================== PROMO CONTROLLER ==================
+package "RecommendedBusinessDetailsList::recommended_business_details_controller" {
+  class HomePageController {
+    {static} -List<Map<String, dynamic>> _businessListTable
+    {static} +List<Map<String, dynamic>> recommendedToday
+    {static} +List<Map<String, dynamic>> recommendedRestaurant
+    {static} +List<Map<String, dynamic>> recommendedMarket
+    {static} -List<Map<String, dynamic>> _getRecommendedBusinessesByCategory()
+  }
+}
+
+' ================== SHARED FUNCTION ==================
+package "shared::utils_functionals" {
+  class isBusinessOpen << (R,skyblue) procedure_return >> {
+    +DateTime? openHour
+    +DateTime? closeHour
+    --
+    return: bool
+  }
+}
+
+' ================== SHARED WIDGETS ==================
+package "shared::widgets" {
+  class CustomAppBar {
+    +String title
+    +bool showBackButton
+    +List<Map<String, dynamic>>? customParam1
+    +String? customParam2
+    +void Function()? onBack
+    +Size preferredSize
+    +Widget build()
+  }
+
+  class BottomNavBar {
+    +int currentIndex
+    -void _onItemTapped()
+    +Widget build()
+  }
+
+  class RestoMarketSelectionToggle {
+    +int initialIndex
+    +String restoRoute
+    +String marketRoute
+    +_SelectionToggleState createState()
+  }
+
+  class _SelectionToggleState {
+    +int selectedIndex
+    +void initState()
+    -void _onSelect()
+    +Widget build()
+  }
+
+  RestoMarketSelectionToggle --> _SelectionToggleState : createState()
+}
+
+package "shared::recommended_card_list_widgets" {
+  class CardList {
+    +int? businessId
+    +String? businessImage
+    +String? businessName
+    +String businessType
+    +double? businessRate
+    +double? businessLocation
+    +int? productId
+    +bool? isOpen
+    +String? productImage
+    +String? productName
+    +int? productPrice
+    +String? productDescription
+    +int? discountNumber
+    +bool? isFreeShipment
+    +int? count
+    +String? notes
+    +Map<String, List<int>> addOnsSelection
+    +void Function(int)? onCountChanged
+    +void Function(String)? onNotesChanged
+    +void Function(Map<String, List<int>>)? onAddOnsChanged
+    +void Function() onTap
+    +State<CardList> createState()
+  }
+
+  class _CardListState {
+    -void _incrementCount()
+    -void _decrementCount()
+    +Widget build()
+  }
+}
+
+' ================== RELATIONSHIPS ==================
+BusinessListView --> HomePageController : <<controller>>
+BusinessListView --> CustomAppBar : <<uses>>
+BusinessListView --> RestoMarketSelectionToggle : <<uses>>
+BusinessListView --> BusinessListItem : <<uses>>
+BusinessListView --> BottomNavBar : <<uses>>
+
+BusinessListItem --> CardList : <<uses>>
+CardList --> _CardListState : createState()
+_CardListState --> isBusinessOpen : <<util>>
+
+@enduml

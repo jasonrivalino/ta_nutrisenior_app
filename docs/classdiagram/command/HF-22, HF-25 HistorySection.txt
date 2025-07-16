@@ -1,0 +1,106 @@
+@startuml
+set namespaceSeparator ::
+
+skinparam classAttributeIconSize 0
+
+' ================== HISTORY VIEW ==================
+package "History::history_list_view" {
+  class HistoryListView {
+    +int routeIndex
+    +State<HistoryListView> createState()
+  }
+
+  class _HistoryListViewState {
+    +bool showDone
+    +List<Map<String, dynamic>> allHistoryList
+    -bool _isFetched
+    +void didChangeDependencies()
+    -void _fetchHistoryData()
+    +Widget build()
+  }
+}
+
+' ================== HISTORY CONTROLLER ==================
+package "History::history_controller" {
+  class HistoryController {
+    {static} +List<Map<String, dynamic>> fetchHistoryList()
+  }
+}
+
+package "shared::utils_functionals" {
+  class formatCurrency << (R,skyblue) procedure_return >> {
+    +int value
+    --
+    return: String
+  }
+
+  class formatFullDateTime << (R,skyblue) procedure_return >> {
+    +Dynamic time
+    --
+    return: String
+  }
+
+  class getDeliveryFee << (R,skyblue) procedure_return >> {
+    +bool isFreeShipment
+    +double businessDistance
+    --
+    return: int
+  }
+}
+
+' ================== SHARED WIDGETS ==================
+package "shared::widgets" {
+  class CustomAppBar {
+    +String title
+    +bool showBackButton
+    +List<Map<String, dynamic>>? customParam1
+    +String? customParam2
+    +void Function()? onBack
+    +Size preferredSize
+    +Widget build()
+  }
+
+  class BottomNavBar {
+    +int currentIndex
+    -void _onItemTapped()
+    +Widget build()
+  }
+
+  class HistoryCardList {
+    +Map<String, dynamic> historyData
+    +Widget build()
+  }
+
+  class ElevatedButtonWidget {
+    +Widget child
+    +Color backgroundColor
+    +Color foregroundColor
+    +BorderSide? borderSide
+    +TextStyle? textStyle
+    +Size? minimumSize
+    +double elevation
+    +double borderRadius
+    +EdgeInsetsGeometry? padding
+    +MaterialTapTargetSize? tapTargetSize
+    +VoidCallback? onPressed
+    +Widget build()
+    {static} +bottomButton()
+    {static} +iconButton()
+    {static} +warningButton()
+    {static} +submitFormButton()
+  }
+}
+
+' ================== RELATIONSHIPS ==================
+HistoryListView --> _HistoryListViewState : createState()
+
+_HistoryListViewState --> CustomAppBar : <<uses>>
+_HistoryListViewState --> HistoryController : <<controller>>
+_HistoryListViewState ..> HistoryCardList : <<uses>>
+HistoryCardList --> ElevatedButtonWidget : <<uses>>
+HistoryCardList --> formatCurrency : <<util>>
+HistoryCardList --> formatFullDateTime : <<util>>
+HistoryController --> getDeliveryFee : <<util>>
+_HistoryListViewState --> BottomNavBar : <<uses>>
+
+@enduml

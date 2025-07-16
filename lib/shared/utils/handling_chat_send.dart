@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../styles/colors.dart';
@@ -24,38 +23,6 @@ class MessageStatusIcon extends StatelessWidget {
       return const Icon(Icons.done_all, size: 14, color: AppColors.soapstone);
     }
   }
-}
-
-/// Function to handle sending messages and images
-void handleSendTextMessages({
-  required TextEditingController controller,
-  required List<Map<String, dynamic>> messages,
-  required List<XFile> selectedImages,
-  required VoidCallback onClearImages,
-}) {
-  final text = controller.text.trim();
-  final DateTime now = DateTime.now(); // simpan objek DateTime
-
-  if (text.isNotEmpty) {
-    messages.insert(0, {
-      'text': text,
-      'isMe': true,
-      'time': now,
-      'status': 'sending',
-    });
-  }
-
-  for (var image in selectedImages) {
-    messages.insert(0, {
-      'image': image,
-      'isMe': true,
-      'time': now,
-      'status': 'sending',
-    });
-  }
-
-  controller.clear();
-  onClearImages();
 }
 
 Future<String> handleSendImageMessages({

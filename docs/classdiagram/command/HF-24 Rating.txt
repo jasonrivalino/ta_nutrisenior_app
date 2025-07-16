@@ -1,0 +1,117 @@
+@startuml
+set namespaceSeparator ::
+
+skinparam classAttributeIconSize 0
+
+' ================== RATING VIEW ==================
+package "Rating::rating_view" {
+  class RatingView {
+    +int historyId
+    +int businessId
+    +int? driverId
+    +String? driverName
+    +String? businessName
+    +String? businessType
+    +String? businessImage
+    {static} +RatingView fromExtra()
+    +State<RatingView> createState()
+  }
+
+  class _RatingViewState {
+    +int selectedRating
+    -TextEditingController _commentController
+    -List<String> _selectedImages
+    -void _handleChooseImage()
+    -void _removeImage()
+    +Widget build()
+  }
+}
+
+' ================== RATING WIDGET ==================
+package "Rating::rating_widget" {
+  class RatingCard {
+    +String ratingTarget
+    +String? businessImage
+    +int selectedRating
+    +dynamic Function(int) onRatingSelected
+    +Widget build()
+  }
+}
+
+' ================== RATING CONTROLLER ==================
+package "Rating::rating_controller" {
+  class DriverRatingController {
+    +void addDriverRating()
+  }
+
+  class BusinessRatingController {
+    +void addBusinessRating()
+  }
+}
+
+' ================== SHARED FUNCTION ==================
+package "shared::utils_functionals" {
+  class handleChooseImage << (R,skyblue) procedure_return >> {
+    +BuildContext context
+    +int currentImageCount
+    --
+    return: Future<XFile?>
+  }
+}
+
+' ================== SHARED WIDGETS ==================
+package "shared::widgets" {
+  class CustomAppBar {
+    +String title
+    +bool showBackButton
+    +List<Map<String, dynamic>>? customParam1
+    +String? customParam2
+    +void Function()? onBack
+    +Size preferredSize
+    +Widget build()
+  }
+
+  class ElevatedButtonWidget {
+    +Widget child
+    +Color backgroundColor
+    +Color foregroundColor
+    +BorderSide? borderSide
+    +TextStyle? textStyle
+    +Size? minimumSize
+    +double elevation
+    +double borderRadius
+    +EdgeInsetsGeometry? padding
+    +MaterialTapTargetSize? tapTargetSize
+    +VoidCallback? onPressed
+    +Widget build()
+    {static} +bottomButton()
+    {static} +iconButton()
+    {static} +warningButton()
+    {static} +submitFormButton()
+  }
+
+  class FeedbackInputCard {
+    +TextEditingController controller
+    +String titleText
+    +String placeholderText
+    +List<String> selectedImages
+    +void Function() onChooseImage
+    +dynamic Function(int) onRemoveImage
+    +Widget build()
+  }
+}
+
+' ================== RELATIONSHIPS ==================
+RatingView --> _RatingViewState : createState()
+
+_RatingViewState --> CustomAppBar : <<uses>>
+_RatingViewState --> RatingCard : <<uses>>
+_RatingViewState --> FeedbackInputCard : <<uses>>
+FeedbackInputCard --> handleChooseImage : <<util>>
+_RatingViewState --> ElevatedButtonWidget : <<uses>>
+
+' Changed: controller triggered on submit
+ElevatedButtonWidget --> DriverRatingController : <<on submit>>
+ElevatedButtonWidget --> BusinessRatingController : <<on submit>>
+
+@enduml

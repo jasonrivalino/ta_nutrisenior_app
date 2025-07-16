@@ -1,0 +1,111 @@
+@startuml
+set namespaceSeparator ::
+
+skinparam classAttributeIconSize 0
+
+package "ChatDetails::chat_details_view" {
+  
+  class ChatDetailView {
+    +int driverId
+    +String driverName
+    +String driverImage
+    +List<Map<String, dynamic>> chatDetailsData
+    +bool isReported
+    +State<ChatDetailView> createState()
+  }
+
+  class _ChatDetailViewState {
+    -TextEditingController _messageController
+    -ScrollController _scrollController
+    -List<XFile> _selectedImages
+    -List<Map<String, dynamic>> _messages
+    -SendMessageController _sendMessageController
+    +void initState()
+    -void _scrollToBottom()
+    -void _handleSendMessage()
+    -void _handleChooseImage()
+    -void _removeImage()
+    +Widget build()
+  }
+
+  ChatDetailView --> _ChatDetailViewState : createState()
+}
+
+package "shared::utils_class" {
+  class FullScreenImageView {
+    +String imagePath
+    +String senderName
+    +dynamic sendTime
+    +build()
+  }
+
+  class MessageStatusIcon {
+    +String? status
+    +build()
+  }
+}
+
+package "shared::utils_functionals" {
+  class formatTime << (R,skyblue) procedure_return >> {
+    +Dynamic time
+    --
+    return: String
+  }
+
+  class formatFullDateTime << (R,skyblue) procedure_return >> {
+    +Dynamic time
+    --
+    return: String
+  }
+
+  class handleChooseImage << (R,skyblue) procedure_return >> {
+    +BuildContext context
+    +int currentImageCount
+    --
+    return: Future<XFile?>
+  }
+
+  class updateMessageStatus << (F,orchid) function_void >> {
+    +List<Map<String, dynamic>> messages
+    +int newMessagesCount
+    +VoidCallback onUpdate
+    +State state
+  }
+}
+
+package "ChatDetails::chat_details_widget" {
+  class BottomChatWidget {
+    +TextEditingController controller
+    +void Function() onChooseImage
+    +List<XFile> selectedImages
+    +void Function(int) onRemoveImage
+    +void Function() onSendMessage
+    +bool isReported
+    +Widget build()
+  }
+
+  class ChatAppBar {
+    +String title
+    +String image
+    +Size preferredSize
+    +build()
+  }
+}
+
+package "ChatDetails::chat_controllers" {
+  class SendMessageController {
+    +int driverId
+    +void sendMessage()
+  }
+}
+
+_ChatDetailViewState --> BottomChatWidget : <<uses>>
+_ChatDetailViewState --> ChatAppBar : <<uses>>
+_ChatDetailViewState --> SendMessageController : <<controller>>
+_ChatDetailViewState ..> FullScreenImageView : <<uses>>
+_ChatDetailViewState --> MessageStatusIcon : <<uses>>
+BottomChatWidget --> handleChooseImage : <<util>>
+BottomChatWidget --> updateMessageStatus : <<util>>
+_ChatDetailViewState --> formatTime : <<util>>
+FullScreenImageView --> formatFullDateTime : <<util>>
+@enduml

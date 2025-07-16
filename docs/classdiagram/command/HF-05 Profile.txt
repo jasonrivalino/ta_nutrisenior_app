@@ -1,0 +1,102 @@
+@startuml
+set namespaceSeparator 
+left to right direction
+
+skinparam classAttributeIconSize 0
+
+' ================== PROFILE VIEW ==================
+package Profileprofile_view {
+  class ProfileView {
+    +Widget build()
+  }
+}
+
+package Profileprofile_widget {
+  class ProfileCard {
+    +StateProfileCard createState()
+  }
+
+  class _ProfileCardState {
+    -File _image
+    +String userName
+    +String userEmail
+    +void initState()
+    -dynamic _loadUserProfile()
+    +Widget build()
+  }
+
+  class ProfileMenuList {
+    +String title
+    +void Function() navigate
+    +Widget build()
+  }
+
+  ProfileCard -- _ProfileCardState  createState()
+}
+
+' ================== SHARED FUNCTION ==================
+package sharedutils_functionals {
+  class profileImageChoose  (R,skyblue) procedure_return  {
+    --
+    return FutureFile
+  }
+}
+
+' ================== SHARED WIDGETS ==================
+package sharedwidgets {
+  class CustomAppBar {
+    +String title
+    +bool showBackButton
+    +ListMapString, dynamic customParam1
+    +String customParam2
+    +void Function() onBack
+    +Size preferredSize
+    +Widget build()
+  }
+
+  class ElevatedButtonWidget {
+    +Widget child
+    +Color backgroundColor
+    +Color foregroundColor
+    +BorderSide borderSide
+    +TextStyle textStyle
+    +Size minimumSize
+    +double elevation
+    +double borderRadius
+    +EdgeInsetsGeometry padding
+    +MaterialTapTargetSize tapTargetSize
+    +VoidCallback onPressed
+    +Widget build()
+    {static} +bottomButton()
+    {static} +iconButton()
+    {static} +warningButton()
+    {static} +submitFormButton()
+  }
+
+  class ConfirmDialog {
+    +String titleText
+    +String confirmText
+    +String cancelText
+    +dynamic Function() onConfirm
+    +Widget build()
+  }
+}
+
+' ================== SHARED UTIL CLASS ==================
+package sharedutils_class {
+  class GoogleAuthService {
+    {static} +GoogleSignIn googleSignIn
+    {static} +dynamic signOutGoogle()
+  }
+}
+
+' ================== RELATIONSHIPS ==================
+ProfileView -- ProfileCard  uses
+ProfileView -- ProfileMenuList  uses
+ProfileView -- CustomAppBar  uses
+ProfileView -- ElevatedButtonWidget  uses
+_ProfileCardState .. profileImageChoose  util
+ElevatedButtonWidget -- ConfirmDialog  on pressed
+ConfirmDialog -- GoogleAuthService  on confirm
+
+@enduml

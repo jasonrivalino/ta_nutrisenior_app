@@ -1,0 +1,177 @@
+@startuml
+set namespaceSeparator ::
+left to right direction
+skinparam classAttributeIconSize 0
+
+' ================== CONTROLLER ==================
+package "HomePage::homepage_controller" {
+  class HomePageController {
+    {static} -List<Map<String, dynamic>> _businessListTable
+    {static} +List<Map<String, dynamic>> recommendedToday
+    {static} +List<Map<String, dynamic>> recommendedRestaurant
+    {static} +List<Map<String, dynamic>> recommendedMarket
+    {static} -List<Map<String, dynamic>> _getRecommendedBusinessesByCategory()
+  }
+}
+
+' ================== VIEW ==================
+package "HomePage::homepage_view" {
+  class HomePageView {
+    +Widget build()
+  }
+}
+
+' ================== HOMEPAGE WIDGETS ==================
+package "HomePage::homepage_widget" {
+  class HomeTopBarSection {
+    +State<HomeTopBarSection> createState()
+  }
+
+  class _HomeTopBarSectionState {
+    +String userName
+    +void initState()
+    -dynamic _loadUserName()
+    +Widget build()
+  }
+
+  class RecommendedTodayCarousel {
+    +List<Map<String, dynamic>> businesses
+    +double heightCard
+    +State<RecommendedTodayCarousel> createState()
+  }
+
+  class _RecommendedTodayCarouselState {
+    -PageController _pageController
+    -Timer _timer
+    +int currentIndex
+    +void initState()
+    +void dispose()
+    +Widget build()
+  }
+
+  class RecommendedHomeSection {
+    +String category
+    +String title
+    +double heightCard
+    +String? routeDetail
+    +List<Map<String, dynamic>> businesses
+    +Widget build()
+  }
+}
+
+' ================== SHARED FUNCTION ==================
+package "shared::utils_functionals" {
+  class isBusinessOpen << (R,skyblue) procedure_return >> {
+    +DateTime? openHour
+    +DateTime? closeHour
+    --
+    return: bool
+  }
+
+  class getLoopedBusiness << (R,skyblue) procedure_return >> {
+    +List<Map<String, dynamic>> businesses
+    --
+    return: List<Map<String, dynamic>>
+  }
+
+  class handlePageChanged << (F,orchid) function_void >> {
+    +int index
+    +int realLength
+    +PageController controller
+    +void Function(int) setCurrentIndex
+    +TickerProvider tickerProvider
+  }
+}
+
+' ================== SHARED WIDGETS ==================
+package "shared::homepage_card_box_widgets" {
+  class ListTitle {
+    +String title
+    +DateTime? businessOpenHour
+    +DateTime? businessCloseHour
+    +Widget build()
+  }
+
+  class ElevatedButtonWidget {
+    +Widget child
+    +Color backgroundColor
+    +Color foregroundColor
+    +BorderSide? borderSide
+    +TextStyle? textStyle
+    +Size? minimumSize
+    +double elevation
+    +double borderRadius
+    +EdgeInsetsGeometry? padding
+    +MaterialTapTargetSize? tapTargetSize
+    +VoidCallback? onPressed
+    +Widget build()
+    {static} +bottomButton()
+    {static} +iconButton()
+    {static} +warningButton()
+    {static} +submitFormButton()
+  }
+
+  class CardBox {
+    +int? businessId
+    +String? businessImage
+    +String? businessName
+    +String businessType
+    +double? businessRate
+    +double? businessLocation
+    +DateTime businessOpenHour
+    +DateTime businessCloseHour
+    +int? productId
+    +String? productImage
+    +String? productName
+    +int? productPrice
+    +String? productDescription
+    +int? discountNumber
+    +int count
+    +String notes
+    +Map<String, List<int>> addOnsSelection
+    +void Function(int)? onCountChanged
+    +void Function(String)? onNotesChanged
+    +void Function(Map<String, List<int>>)? onAddOnsChanged
+    +void Function() onTap
+    +State<CardBox> createState()
+  }
+
+  class _CardBoxState {
+    -bool _isPressed
+    -void _setPressed()
+    -void _incrementCount()
+    -void _decrementCount()
+    +Widget build()
+  }
+}
+
+package "shared::widgets" {
+  class BottomNavBar {
+    +int currentIndex
+    -void _onItemTapped()
+    +Widget build()
+  }
+}
+
+' ================== RELATIONSHIPS ==================
+HomePageView --> HomePageController : <<controller>>
+
+HomePageView --> HomeTopBarSection : <<uses>>
+HomeTopBarSection --> _HomeTopBarSectionState : createState()
+
+HomePageView --> RecommendedTodayCarousel : <<uses>>
+RecommendedTodayCarousel --> _RecommendedTodayCarouselState : createState()
+_RecommendedTodayCarouselState --> CardBox : <<uses>>
+_RecommendedTodayCarouselState --> getLoopedBusiness : <<util>>
+_RecommendedTodayCarouselState --> handlePageChanged : <<util>>
+
+HomePageView --> RecommendedHomeSection : <<uses>>
+RecommendedHomeSection --> ListTitle : <<uses>>
+RecommendedHomeSection --> ElevatedButtonWidget : <<uses>>
+RecommendedHomeSection --> CardBox : <<uses>>
+CardBox --> _CardBoxState : createState()
+_CardBoxState --> isBusinessOpen : <<util>>
+
+HomePageView --> BottomNavBar : <<uses>>
+
+@enduml

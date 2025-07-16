@@ -1,0 +1,83 @@
+@startuml
+set namespaceSeparator ::
+
+skinparam classAttributeIconSize 0
+
+' ================== CANCEL ORDER VIEW ==================
+package "CancelOrder::cancel_order_view" {
+  class CancelOrderView {
+    +int historyId
+    +State<CancelOrderView> createState()
+  }
+
+  class _CancelOrderViewState {
+    +int? selectedReasonId
+    +String otherReasonText
+    +Widget build()
+  }
+
+  class cancelOrderReason << (D, #FFAAAA) >> {
+    +List<Map<String, dynamic>> cancelOrderReason
+  }
+}
+
+' ================== CANCEL ORDER CONTROLLER ==================
+package "CancelOrder::cancel_order_controller" {
+  class CancelledOrderController {
+    +int historyId
+    +void cancelOrder()
+  }
+}
+
+' ================== SHARED WIDGETS ==================
+package "shared::widgets" {
+  class CustomAppBar {
+    +String title
+    +bool showBackButton
+    +List<Map<String, dynamic>>? customParam1
+    +String? customParam2
+    +void Function()? onBack
+    +Size preferredSize
+    +Widget build()
+  }
+
+  class ElevatedButtonWidget {
+    +Widget child
+    +Color backgroundColor
+    +Color foregroundColor
+    +BorderSide? borderSide
+    +TextStyle? textStyle
+    +Size? minimumSize
+    +double elevation
+    +double borderRadius
+    +EdgeInsetsGeometry? padding
+    +MaterialTapTargetSize? tapTargetSize
+    +VoidCallback? onPressed
+    +Widget build()
+    {static} +bottomButton()
+    {static} +iconButton()
+    {static} +warningButton()
+    {static} +submitFormButton()
+  }
+
+  class ConfirmDialog {
+    +String titleText
+    +String confirmText
+    +String cancelText
+    +dynamic Function() onConfirm
+    +Widget build()
+  }
+}
+
+' ================== RELATIONSHIPS ==================
+CancelOrderView --> _CancelOrderViewState : createState()
+
+_CancelOrderViewState --> CustomAppBar : <<uses>>
+_CancelOrderViewState --> cancelOrderReason : <<data>>
+_CancelOrderViewState --> ElevatedButtonWidget : <<uses>>
+_CancelOrderViewState --> ConfirmDialog : <<on Submit>>
+
+' Important change: Controller called via onConfirm
+ConfirmDialog --> CancelledOrderController : <<on Confirm>>
+
+@enduml

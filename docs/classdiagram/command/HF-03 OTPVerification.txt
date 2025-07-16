@@ -1,0 +1,88 @@
+@startuml
+set namespaceSeparator ::
+left to right direction
+
+skinparam classAttributeIconSize 0
+
+' ================== OTP VERIFICATION VIEW ==================
+package "Login::otp_verification_view" {
+  class OTPVerificationView {
+    +State<OTPVerificationView> createState()
+  }
+
+  class _OTPVerificationViewState {
+    -GlobalKey<OTPVerificationInputState> _otpWidgetKey
+    +Widget build()
+  }
+}
+
+' ================== OTP VERIFICATION WIDGET ==================
+package "Login::otp_verification_widget" {
+  class OTPVerificationInput {
+    +GlobalKey<FormState>? formKey
+    +State<OTPVerificationInput> createState()
+  }
+
+  class OTPVerificationInputState {
+    -List<FocusNode> _focusNodes
+    -List<TextEditingController> _controllers
+    -String? _errorText
+    +String? errorText
+    +void validateAndSetState()
+    +void dispose()
+    +Widget build()
+  }
+}
+
+' ================== SHARED WIDGETS ==================
+package "shared::widgets" {
+  class ElevatedButtonWidget {
+    +Widget child
+    +Color backgroundColor
+    +Color foregroundColor
+    +BorderSide? borderSide
+    +TextStyle? textStyle
+    +Size? minimumSize
+    +double elevation
+    +double borderRadius
+    +EdgeInsetsGeometry? padding
+    +MaterialTapTargetSize? tapTargetSize
+    +VoidCallback? onPressed
+    +Widget build()
+    {static} +bottomButton()
+    {static} +iconButton()
+    {static} +warningButton()
+    {static} +submitFormButton()
+  }
+}
+
+' ================== SHARED UTILS ==================
+package "shared::utils_class" {
+  class OTPNotificationService {
+    {static} -FlutterLocalNotificationsPlugin _notifications
+    {static} +dynamic init()
+    {static} +dynamic showNotification()
+  }
+}
+
+' ================== SHARED UTILS FUNCTIONALS ==================
+package "shared::utils_functionals" {
+  class validateOTP << (R,skyblue) procedure_return >> {
+    +List<TextEditingController> controllers
+    +String correctCode
+    --
+    return: String?
+  }
+}
+
+' ================== RELATIONSHIPS ==================
+OTPVerificationView --> _OTPVerificationViewState : createState()
+_OTPVerificationViewState --> OTPVerificationInput : <<uses>>
+
+OTPVerificationInput --> OTPVerificationInputState : createState()
+OTPVerificationInputState ..> OTPNotificationService : <<on pressed>>
+
+_OTPVerificationViewState --> ElevatedButtonWidget : <<uses>>
+ElevatedButtonWidget --> validateOTP : <<util>>
+
+@enduml
