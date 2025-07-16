@@ -45,6 +45,7 @@ class ChatListView extends StatelessWidget {
                     'driver_id': chat['driver_id'],
                     'driver_name': chat['driver_name'],
                     'driver_image': chat['driver_image'],
+                    'driver_phone_number': chat['driver_phone_number'],
                     'is_reported': chat['is_reported'] ?? false,
                   });
             },

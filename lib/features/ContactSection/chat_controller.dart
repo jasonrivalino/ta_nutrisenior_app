@@ -57,6 +57,7 @@ class ChatListController {
           'driver_id': driverId,
           'driver_image': driver['driver_image'],
           'driver_name': driver['driver_name'],
+          'driver_phone_number': driver['driver_phone_number'],
           'is_user': chat['is_user'],
           'message_sent': chat['message_sent'],
           'message_time': formattedTime,

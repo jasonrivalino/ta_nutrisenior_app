@@ -57,7 +57,7 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       actions: [
         Padding(
-          padding: const EdgeInsets.only(right: 12),
+          padding: const EdgeInsets.only(right: 16),
           child: Material(
             color: AppColors.woodland,
             borderRadius: BorderRadius.circular(30),
@@ -65,6 +65,7 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
               borderRadius: BorderRadius.circular(30),
               onTap: () async {
                 final status = await Permission.phone.request();
+                print('Driver phone number: $driverPhoneNumber');
 
                 if (status.isGranted) {
                   final Uri callUri = Uri(scheme: 'tel', path: driverPhoneNumber);
