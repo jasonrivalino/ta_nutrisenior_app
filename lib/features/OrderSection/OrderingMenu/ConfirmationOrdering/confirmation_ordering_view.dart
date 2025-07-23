@@ -155,7 +155,7 @@ class _OrderConfirmationViewState extends State<OrderConfirmationView> {
                   showModalBottomSheet(
                     context: context,
                     isScrollControlled: true,
-                    backgroundColor: Colors.transparent,
+                    backgroundColor: AppColors.ecruWhite,
                     builder: (_) => DraggableScrollableSheet(
                       initialChildSize: 0.81,
                       minChildSize: 0.5,
@@ -166,7 +166,7 @@ class _OrderConfirmationViewState extends State<OrderConfirmationView> {
                           top: false, // Only care about bottom
                           child: Container(
                             decoration: const BoxDecoration(
-                              color: AppColors.berylGreen,
+                              color: AppColors.ecruWhite,
                               borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
                             ),
                             child: AddressSelectionOverlay(

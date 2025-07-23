@@ -81,7 +81,7 @@ class _SearchViewState extends State<SearchView> {
                   showModalBottomSheet(
                     context: context,
                     isScrollControlled: true,
-                    backgroundColor: Colors.transparent,
+                    backgroundColor: AppColors.ecruWhite,
                     builder: (_) => DraggableScrollableSheet(
                       initialChildSize: 0.81,
                       minChildSize: 0.5,
@@ -92,7 +92,7 @@ class _SearchViewState extends State<SearchView> {
                           top: false, // optional: allow it to reach top edge if needed
                           child: Container(
                             decoration: const BoxDecoration(
-                              color: AppColors.berylGreen,
+                              color: AppColors.ecruWhite,
                               borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
                             ),
                             child: AddressSelectionOverlay(
@@ -131,7 +131,7 @@ class _SearchViewState extends State<SearchView> {
                 onFilterPressed: () async {
                   await showModalBottomSheet(
                     context: context,
-                    backgroundColor: Colors.transparent,
+                    backgroundColor: AppColors.ecruWhite,
                     isScrollControlled: true,
                     builder: (BuildContext context) {
                       return SafeArea(

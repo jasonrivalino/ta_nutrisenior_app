@@ -31,7 +31,7 @@ Future<XFile?> handleChooseImage({
     backgroundColor: Colors.transparent,
     builder: (context) => Container(
       decoration: const BoxDecoration(
-        color: AppColors.soapstone, // Custom background color
+        color: AppColors.soapstone,
         borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
       ),
       child: SafeArea(

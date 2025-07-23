@@ -637,7 +637,7 @@ class _PaymentMethodBoxState extends State<PaymentMethodBox> {
                 onTap: () {
                   showModalBottomSheet(
                     context: context,
-                    backgroundColor: AppColors.berylGreen,
+                    backgroundColor: AppColors.ecruWhite,
                     shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
                     ),

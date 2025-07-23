@@ -223,7 +223,7 @@ class _AddressSelectionOverlayState extends State<AddressSelectionOverlay> {
         if (selectedAddress != null)
           Container(
             decoration: BoxDecoration(
-              color: AppColors.berylGreen,
+              color: AppColors.ecruWhite,
               boxShadow: [
                 BoxShadow(
                   color: AppColors.dark.withValues(alpha: 0.15),
@@ -272,7 +272,7 @@ class _AddressSelectionOverlayState extends State<AddressSelectionOverlay> {
 
     return Container(
       decoration: BoxDecoration(
-        color: isSelected ? AppColors.frogGreen : AppColors.berylGreen,
+        color: isSelected ? AppColors.frogGreen : AppColors.ecruWhite,
         borderRadius: BorderRadius.circular(12),
         boxShadow: isSelected
             ? [

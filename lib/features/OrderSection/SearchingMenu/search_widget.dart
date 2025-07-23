@@ -265,7 +265,7 @@ class _SortFilterOverlayState extends State<SortFilterOverlay> {
     return Container(
       padding: const EdgeInsets.fromLTRB(16, 15, 16, 20),
       decoration: const BoxDecoration(
-        color: AppColors.berylGreen,
+        color: AppColors.ecruWhite,
         borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
       ),
       child: Column(
