@@ -49,7 +49,7 @@ class _AddressSelectionOverlayState extends State<AddressSelectionOverlay> {
     if (connectivityResult.contains(ConnectivityResult.none)) {
       Fluttertoast.showToast(
         msg: "Perubahan penyimpanan alamat gagal. Silahkan coba lagi.",
-        toastLength: Toast.LENGTH_SHORT,
+        toastLength: Toast.LENGTH_LONG,
         gravity: ToastGravity.BOTTOM,
       );
       return;
@@ -73,7 +73,7 @@ class _AddressSelectionOverlayState extends State<AddressSelectionOverlay> {
       msg: address['isBookmarked'] == true
           ? 'Alamat berhasil disimpan'
           : 'Alamat berhasil dihapus',
-      toastLength: Toast.LENGTH_SHORT,
+      toastLength: Toast.LENGTH_LONG,
       gravity: ToastGravity.BOTTOM,
     );
   }
@@ -127,7 +127,7 @@ class _AddressSelectionOverlayState extends State<AddressSelectionOverlay> {
                     if (connectivityResult.contains(ConnectivityResult.none)) {
                       Fluttertoast.showToast(
                         msg: "Pencarian gagal dilakukan.\nSilahkan coba lagi.",
-                        toastLength: Toast.LENGTH_SHORT,
+                        toastLength: Toast.LENGTH_LONG,
                         gravity: ToastGravity.BOTTOM,
                       );
                       setState(() {
@@ -241,7 +241,7 @@ class _AddressSelectionOverlayState extends State<AddressSelectionOverlay> {
                   if (connectivityResult.contains(ConnectivityResult.none)) {
                     Fluttertoast.showToast(
                       msg: "Alamat gagal dipilih.\nSilahkan coba lagi.",
-                      toastLength: Toast.LENGTH_SHORT,
+                      toastLength: Toast.LENGTH_LONG,
                       gravity: ToastGravity.BOTTOM,
                     );
                     return;

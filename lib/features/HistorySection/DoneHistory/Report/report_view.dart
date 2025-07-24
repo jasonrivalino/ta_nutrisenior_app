@@ -217,6 +217,7 @@ class _ReportViewState extends State<ReportView> {
                                         content: Text("Pilih alasan pelaporan terlebih dahulu."),
                                         backgroundColor: AppColors.persianRed,
                                         behavior: SnackBarBehavior.floating,
+                                        duration: Duration(seconds: 6),
                                       ),
                                     );
                                     return;
@@ -228,6 +229,7 @@ class _ReportViewState extends State<ReportView> {
                                         content: Text("Penjelasan Laporan tidak boleh kosong."),
                                         backgroundColor: AppColors.persianRed,
                                         behavior: SnackBarBehavior.floating,
+                                        duration: Duration(seconds: 6),
                                       ),
                                     );
                                     return;
@@ -247,7 +249,7 @@ class _ReportViewState extends State<ReportView> {
                                           if (connectivityResult.contains(ConnectivityResult.none)) {
                                             Fluttertoast.showToast(
                                               msg: 'Laporan gagal dikirimkan.\nSilahkan coba lagi.',
-                                              toastLength: Toast.LENGTH_SHORT,
+                                              toastLength: Toast.LENGTH_LONG,
                                               gravity: ToastGravity.BOTTOM,
                                             );
                                             return;

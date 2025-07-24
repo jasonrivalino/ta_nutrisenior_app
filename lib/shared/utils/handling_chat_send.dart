@@ -87,7 +87,7 @@ void updateMessageStatus({
         if (messages.length > i && messages[i]['status'] == 'sending') {
           Fluttertoast.showToast(
             msg: "Gagal mengirim pesan. \nSilakan coba lagi.",
-            toastLength: Toast.LENGTH_SHORT,
+            toastLength: Toast.LENGTH_LONG,
             gravity: ToastGravity.BOTTOM,
           );
         }

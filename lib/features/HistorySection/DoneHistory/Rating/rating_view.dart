@@ -166,6 +166,7 @@ class _RatingViewState extends State<RatingView> {
                         content: Text("Rating tidak boleh kosong."),
                         backgroundColor: AppColors.persianRed,
                         behavior: SnackBarBehavior.floating,
+                        duration: Duration(seconds: 6),
                       ),
                     );
                     return;
@@ -177,6 +178,7 @@ class _RatingViewState extends State<RatingView> {
                         content: Text("Komentar tidak boleh kosong."),
                         backgroundColor: AppColors.persianRed,
                         behavior: SnackBarBehavior.floating,
+                        duration: Duration(seconds: 6),
                       ),
                     );
                     return;
@@ -186,7 +188,7 @@ class _RatingViewState extends State<RatingView> {
                   if (connectivityResult.contains(ConnectivityResult.none)) {
                     Fluttertoast.showToast(
                       msg: "Gagal memberikan rating.\nSilahkan coba lagi.",
-                      toastLength: Toast.LENGTH_SHORT,
+                      toastLength: Toast.LENGTH_LONG,
                       gravity: ToastGravity.BOTTOM,
                     );
                     return;
@@ -224,7 +226,7 @@ class _RatingViewState extends State<RatingView> {
 
                   Fluttertoast.showToast(
                     msg: "Rating berhasil diberikan!",
-                    toastLength: Toast.LENGTH_SHORT,
+                    toastLength: Toast.LENGTH_LONG,
                     gravity: ToastGravity.BOTTOM,
                   );
 

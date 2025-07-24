@@ -333,7 +333,7 @@ class _OrderConfirmationViewState extends State<OrderConfirmationView> {
                     ),
                   ),
                   gravity: ToastGravity.BOTTOM,
-                  toastDuration: const Duration(seconds: 3),
+                  toastDuration: const Duration(milliseconds: 3500),
                 );
                 return;
               }
@@ -342,7 +342,7 @@ class _OrderConfirmationViewState extends State<OrderConfirmationView> {
               if (connectivityResult.contains(ConnectivityResult.none)) {
                 Fluttertoast.showToast(
                   msg: 'Pemesanan gagal dilakukan.\nSilahkan coba lagi.',
-                  toastLength: Toast.LENGTH_SHORT,
+                  toastLength: Toast.LENGTH_LONG,
                   gravity: ToastGravity.BOTTOM,
                 );
                 return;

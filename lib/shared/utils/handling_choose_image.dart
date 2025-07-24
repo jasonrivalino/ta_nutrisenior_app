@@ -21,7 +21,10 @@ Future<XFile?> handleChooseImage({
 }) async {
   if (currentImageCount >= 3) {
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Maximum 3 images allowed')),
+      const SnackBar(
+        content: Text('Maksimal 3 gambar diperbolehkan'),
+        duration: Duration(seconds: 6),
+      ),
     );
     return null;
   }
@@ -72,7 +75,10 @@ Future<XFile?> handleChooseImage({
 
   if (!permission.isGranted) {
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Permission denied')),
+      const SnackBar(
+        content: Text('Izin ditolak'),
+        duration: Duration(seconds: 6),
+      ),
     );
     return null;
   }

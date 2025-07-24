@@ -42,7 +42,7 @@ class ProfileView extends StatelessWidget {
                       if (connectivityResult.contains(ConnectivityResult.none)) {
                         Fluttertoast.showToast(
                           msg: 'Logout tidak berhasil. \nSilakan coba lagi.',
-                          toastLength: Toast.LENGTH_SHORT,
+                          toastLength: Toast.LENGTH_LONG,
                           gravity: ToastGravity.BOTTOM,
                         );
                         return;
@@ -67,7 +67,7 @@ class ProfileView extends StatelessWidget {
 
                       Fluttertoast.showToast(
                         msg: 'Logout berhasil.',
-                        toastLength: Toast.LENGTH_SHORT,
+                        toastLength: Toast.LENGTH_LONG,
                         gravity: ToastGravity.BOTTOM,
                       );
                       rootContext.go('/login');

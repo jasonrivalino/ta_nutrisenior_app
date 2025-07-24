@@ -28,8 +28,11 @@ class _CancelOrderViewState extends State<CancelOrderView> {
   int? selectedReasonId;
   String otherReasonText = '';
 
+
   @override
   Widget build(BuildContext context) {
+    final deviceHeight = MediaQuery.of(context).size.height;
+    
     return Scaffold(
       backgroundColor: AppColors.ecruWhite,
       appBar: const CustomAppBar(
@@ -44,7 +47,11 @@ class _CancelOrderViewState extends State<CancelOrderView> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  SizedBox(height: constraints.maxHeight * 0.15), // kasih space atas
+                  SizedBox(
+                    height: deviceHeight > 900
+                        ? constraints.maxHeight * 0.18
+                        : constraints.maxHeight * 0.15,
+                  ),
                   Text(
                     "Alasan Pembatalan Pesanan?",
                     style: AppTextStyles.textBold(
@@ -136,6 +143,7 @@ class _CancelOrderViewState extends State<CancelOrderView> {
                               content: Text("Pilih alasan pembatalan pesanan terlebih dahulu."),
                               backgroundColor: AppColors.persianRed,
                               behavior: SnackBarBehavior.floating,
+                              duration: Duration(seconds: 6),
                             ),
                           );
                           return;
@@ -155,7 +163,7 @@ class _CancelOrderViewState extends State<CancelOrderView> {
                                 if (connectivityResult.contains(ConnectivityResult.none)) {
                                   Fluttertoast.showToast(
                                     msg: 'Pembatalan pesanan gagal. \nSilahkan coba lagi.',
-                                    toastLength: Toast.LENGTH_SHORT,
+                                    toastLength: Toast.LENGTH_LONG,
                                     gravity: ToastGravity.BOTTOM,
                                   );
                                   return;
@@ -175,7 +183,7 @@ class _CancelOrderViewState extends State<CancelOrderView> {
                                 rootContext.pop(); // Close loading
                                 Fluttertoast.showToast(
                                   msg: 'Pesanan berhasil dibatalkan.',
-                                  toastLength: Toast.LENGTH_SHORT,
+                                  toastLength: Toast.LENGTH_LONG,
                                   gravity: ToastGravity.BOTTOM,
                                 );
 

@@ -234,7 +234,7 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
                     if (connectivityResult.contains(ConnectivityResult.none)) {
                       Fluttertoast.showToast(
                         msg: "Gagal mengubah status favorit.\nSilahkan coba lagi.",
-                        toastLength: Toast.LENGTH_SHORT,
+                        toastLength: Toast.LENGTH_LONG,
                         gravity: ToastGravity.BOTTOM,
                       );
                       return;
@@ -253,7 +253,7 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
                           : widget.businessType == 'restaurant'
                               ? "Restoran dihapus dari daftar favorit!"
                               : "Pusat belanja dihapus dari daftar favorit!",
-                      toastLength: Toast.LENGTH_SHORT,
+                      toastLength: Toast.LENGTH_LONG,
                       gravity: ToastGravity.BOTTOM,
                     );
                   },
@@ -375,7 +375,7 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
                 if (selectedEntries.isEmpty) {
                   Fluttertoast.showToast(
                     msg: "Tidak ada produk yang dipilih.",
-                    toastLength: Toast.LENGTH_SHORT,
+                    toastLength: Toast.LENGTH_LONG,
                     gravity: ToastGravity.BOTTOM,
                   );
                   return;

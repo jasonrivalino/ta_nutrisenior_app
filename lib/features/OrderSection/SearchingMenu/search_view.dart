@@ -121,7 +121,7 @@ class _SearchViewState extends State<SearchView> {
                   if (connectivityResult.contains(ConnectivityResult.none)) {
                     Fluttertoast.showToast(
                       msg: 'Pencarian gagal dilakukan.\nSilahkan coba lagi.',
-                      toastLength: Toast.LENGTH_SHORT,
+                      toastLength: Toast.LENGTH_LONG,
                       gravity: ToastGravity.BOTTOM,
                     );
                     return;
@@ -143,7 +143,7 @@ class _SearchViewState extends State<SearchView> {
                             if (connectivityResult.contains(ConnectivityResult.none)) {
                               Fluttertoast.showToast(
                                 msg: 'Pengurutan gagal dilakukan.\nSilahkan coba lagi.',
-                                toastLength: Toast.LENGTH_SHORT,
+                                toastLength: Toast.LENGTH_LONG,
                                 gravity: ToastGravity.BOTTOM,
                               );
                               return false;
@@ -181,7 +181,7 @@ class _SearchViewState extends State<SearchView> {
                           if (connectivityResult.contains(ConnectivityResult.none)) {
                             Fluttertoast.showToast(
                               msg: 'Pencarian gagal dilakukan.\nSilahkan coba lagi.',
-                              toastLength: Toast.LENGTH_SHORT,
+                              toastLength: Toast.LENGTH_LONG,
                               gravity: ToastGravity.BOTTOM,
                             );
                             return;

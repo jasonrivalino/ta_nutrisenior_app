@@ -532,12 +532,18 @@ class DeliverDriverCard extends StatelessWidget {
                         await launchUrl(callUri, mode: LaunchMode.externalApplication); // Or LaunchMode.platformDefault
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Tidak dapat membuka aplikasi telepon')),
+                          const SnackBar(
+                            content: Text('Tidak dapat membuka aplikasi telepon'),
+                            duration: Duration(seconds: 6),
+                          ),
                         );
                       }
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Izin telepon ditolak')),
+                        const SnackBar(
+                          content: Text('Izin telepon ditolak'),
+                          duration: Duration(seconds: 6),
+                        ),
                       );
                     }
                   },
