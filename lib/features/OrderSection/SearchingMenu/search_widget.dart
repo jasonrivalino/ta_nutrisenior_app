@@ -104,13 +104,18 @@ class SearchBarWithFilter extends StatelessWidget {
               onChanged: onChanged,
             ),
           ),
-          const SizedBox(width: 8),
-          GestureDetector(
-            onTap: onFilterPressed,
-            child: const CircleAvatar(
-              backgroundColor: AppColors.woodland,
-              child: Icon(Icons.tune, color: AppColors.soapstone),
-            ),
+          const SizedBox(width: 6),
+          ElevatedButtonWidget(
+            onPressed: onFilterPressed,
+            backgroundColor: AppColors.woodland,
+            foregroundColor: AppColors.soapstone,
+            textStyle: AppTextStyles.textBold(size: 16, color: AppColors.soapstone),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+            minimumSize: const Size(0, 46), // tinggi tombol, lebar fleksibel
+            borderRadius: 12,
+            elevation: 0,
+            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            child: const Text("Urutkan"),
           ),
         ],
       ),
