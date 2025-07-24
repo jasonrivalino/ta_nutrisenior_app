@@ -58,7 +58,7 @@ class RatingCard extends StatelessWidget {
           ),
         ),
         Container(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
           decoration: BoxDecoration(
             color: AppColors.frogGreen,
             borderRadius: const BorderRadius.only(
@@ -72,25 +72,29 @@ class RatingCard extends StatelessWidget {
             ),
           ),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: List.generate(5, (index) {
               final value = index + 1;
+              final isSelected = value <= selectedRating;
+
               return GestureDetector(
                 onTap: () => onRatingSelected(value),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 4),
-                  child: CircleAvatar(
-                    radius: 22,
-                    backgroundColor:
-                        selectedRating == value ? AppColors.orangyYellow : AppColors.soapstone,
-                    child: Text(
-                      "$value",
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Icon(
+                      Icons.star_rounded,
+                      size: 62,
+                      color: isSelected ? AppColors.orangyYellow : AppColors.soapstone,
+                    ),
+                    Text(
+                      value.toString(),
                       style: AppTextStyles.textBold(
                         size: 16,
-                        color: AppColors.dark,
+                        color: isSelected ? AppColors.dark : AppColors.darkGray,
                       ),
                     ),
-                  ),
+                  ],
                 ),
               );
             }),
