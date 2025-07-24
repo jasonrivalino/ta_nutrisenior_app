@@ -31,6 +31,22 @@ class OTPVerificationInputState extends State<OTPVerificationInput> {
     });
   }
 
+  Color _getFillColor(int index) {
+    // If the current field is filled, use default background
+    if (_controllers[index].text.isNotEmpty) {
+      return AppColors.soapstone;
+    }
+
+    // If all previous fields are filled and current is empty, show gray
+    bool allPreviousFilled = List.generate(index, (i) => _controllers[i].text.isNotEmpty).every((filled) => filled);
+    if (allPreviousFilled) {
+      return AppColors.lightGray;
+    }
+
+    // Otherwise, default background
+    return AppColors.soapstone;
+  }
+
   @override
   void dispose() {
     for (final node in _focusNodes) {
@@ -76,7 +92,7 @@ class OTPVerificationInputState extends State<OTPVerificationInput> {
                         decoration: InputDecoration(
                           counterText: '',
                           filled: true,
-                          fillColor: AppColors.soapstone,
+                          fillColor: _getFillColor(index),
                           contentPadding: const EdgeInsets.all(12),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
@@ -92,11 +108,14 @@ class OTPVerificationInputState extends State<OTPVerificationInput> {
                           ),
                         ),
                         onChanged: (value) {
-                          if (value.isNotEmpty && index < 5) {
-                            _focusNodes[index + 1].requestFocus();
-                          } else if (value.isEmpty && index > 0) {
-                            _focusNodes[index - 1].requestFocus();
-                          }
+                          setState(() {
+                            if (value.isNotEmpty && index < 5) {
+                              _focusNodes[index + 1].requestFocus();
+                            } else if (value.isEmpty && index > 0) {
+                              _focusNodes[index - 1].requestFocus();
+                            }
+                            // This setState ensures the fill colors are recalculated
+                          });
                         },
                       ),
                     );
