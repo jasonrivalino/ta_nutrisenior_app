@@ -45,44 +45,51 @@ Future<String> handleSendImageMessages({
 }
 
 // Function to update message status
-void updateMessageStatus({
+void updateMessageStatusWithSeenChain({
   required List<Map<String, dynamic>> messages,
   required int newMessagesCount,
   required VoidCallback onUpdate,
   required State state,
 }) async {
-  // Function to handle the message status update flow
-  void proceedWithStatusUpdate() {
+  void updateStatusesSequentially() {
     for (int i = 0; i < newMessagesCount; i++) {
       final index = i;
 
-      Future.delayed(const Duration(seconds: 2), () {
-        if (state.mounted &&
-            messages.length > index &&
+      Future.delayed(Duration(seconds: 2 + (i * 2)), () {
+        if (!state.mounted) return;
+
+        if (messages.length > index &&
             messages[index]['status'] == 'sending') {
           messages[index]['status'] = 'sent';
           onUpdate();
         }
       });
 
-      Future.delayed(const Duration(seconds: 7), () {
-        if (state.mounted &&
-            messages.length > index &&
-            messages[index]['status'] == 'sent') {
-          messages[index]['status'] = 'delivered';
-          onUpdate();
+      Future.delayed(Duration(seconds: 6 + (i * 2)), () {
+        if (!state.mounted) return;
+
+        if (messages.length > index && messages[index]['status'] == 'sent') {
+          // karena new messages ditambahkan di awal (index 0),
+          // maka 'sebelumnya' secara waktu adalah index > current
+          final allAfterSeen = messages
+              .sublist(index + 1)
+              .where((m) => m['isMe'] == true)
+              .every((m) => m['status'] == 'seen');
+
+          if (allAfterSeen) {
+            messages[index]['status'] = 'seen';
+            onUpdate();
+          }
         }
       });
     }
   }
 
-  final initialConnectivity = await Connectivity().checkConnectivity();
+  final connectivity = await Connectivity().checkConnectivity();
 
-  if (initialConnectivity.contains(ConnectivityResult.none)) {
-    // Show error toast after a short delay
+  if (connectivity.contains(ConnectivityResult.none)) {
     Future.delayed(const Duration(seconds: 4), () {
       if (!state.mounted) return;
-
       for (int i = 0; i < newMessagesCount; i++) {
         if (messages.length > i && messages[i]['status'] == 'sending') {
           Fluttertoast.showToast(
@@ -94,17 +101,14 @@ void updateMessageStatus({
       }
     });
 
-    // Wait for connectivity restoration
-    StreamSubscription? subscription;
-    subscription = Connectivity().onConnectivityChanged.listen((result) {
+    StreamSubscription? sub;
+    sub = Connectivity().onConnectivityChanged.listen((result) {
       if (!result.contains(ConnectivityResult.none)) {
-        // Once online, proceed and cancel listener
-        subscription?.cancel();
-        proceedWithStatusUpdate();
+        sub?.cancel();
+        updateStatusesSequentially();
       }
     });
   } else {
-    // Already online: proceed directly
-    proceedWithStatusUpdate();
+    updateStatusesSequentially();
   }
 }

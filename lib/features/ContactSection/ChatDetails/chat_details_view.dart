@@ -90,14 +90,7 @@ class _ChatDetailViewState extends State<ChatDetailView> {
   }
 
   void _handleSendMessage() {
-    final hasPendingMessage = _messages.any((message) =>
-        message['isMe'] == true && message['status'] == 'sending');
-
-    if (hasPendingMessage) {
-      return;
-    }
-
-    // Get new messages
+    // Dapatkan pesan baru dari controller
     final newMessages = _sendMessageController.sendMessage(
       controller: _messageController,
       selectedImages: _selectedImages,
@@ -108,14 +101,15 @@ class _ChatDetailViewState extends State<ChatDetailView> {
       },
     );
 
-    // Insert them in correct order (image(s) first, text last)
+    // Masukkan ke daftar pesan (dalam urutan yang benar)
     setState(() {
-      _messages.insertAll(0, newMessages.reversed.toList());
+      _messages.insertAll(0, newMessages);
     });
 
     final newMessagesCount = newMessages.length;
 
-    updateMessageStatus(
+    // Update status satu per satu, dengan chain "seen" setelah sebelumnya
+    updateMessageStatusWithSeenChain(
       messages: _messages,
       newMessagesCount: newMessagesCount,
       onUpdate: () => setState(() {}),
