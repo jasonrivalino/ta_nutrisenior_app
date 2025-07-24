@@ -127,13 +127,16 @@ class BusinessRatingItem extends StatelessWidget {
                     );
                   }),
                 ),
-                const SizedBox(height: 6),
-                Text(rating['rating_comment'],
-                  style: AppTextStyles.textMedium(
-                    size: 14,
-                    color: AppColors.dark,
+                if (rating['rating_comment'] != null && rating['rating_comment'].isNotEmpty) ...[
+                  const SizedBox(height: 6),
+                  Text(
+                    rating['rating_comment'],
+                    style: AppTextStyles.textMedium(
+                      size: 14,
+                      color: AppColors.dark,
+                    ),
                   ),
-                ),
+                ],
                 if ((rating['rating_images'] as List).isNotEmpty) ...[
                   const SizedBox(height: 8),
                   Wrap(

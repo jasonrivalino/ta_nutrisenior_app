@@ -642,14 +642,16 @@ class FeedbackInformationBox extends StatelessWidget {
               );
             }),
           ),
-          const SizedBox(height: 6),
-          Text(
-            ratingComment,
-            style: AppTextStyles.textBold(
-              size: 14,
-              color: AppColors.dark,
+          if (ratingComment.isNotEmpty && ratingComment != '-') ...[
+            const SizedBox(height: 6),
+            Text(
+              ratingComment,
+              style: AppTextStyles.textBold(
+                size: 14,
+                color: AppColors.dark,
+              ),
             ),
-          ),
+          ],
           if (imagePaths != null && imagePaths.isNotEmpty) ...[
             const SizedBox(height: 6),
             Wrap(

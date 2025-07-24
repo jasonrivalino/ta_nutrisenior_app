@@ -103,13 +103,28 @@ class _RatingViewState extends State<RatingView> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-              Text(
-                isDriver ? "Beri Rating Pengemudi" : "Beri Rating ${isRestaurant ? 'Restoran' : 'Pusat Belanja'}",
-                style: AppTextStyles.textBold(
-                  size: 22,
-                  color: AppColors.dark,
-                ),
+              RichText(
                 textAlign: TextAlign.center,
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text: isDriver
+                          ? "Beri Rating Pengemudi"
+                          : "Beri Rating ${isRestaurant ? 'Restoran' : 'Pusat Belanja'}",
+                      style: AppTextStyles.textBold(
+                        size: 22,
+                        color: AppColors.dark,
+                      ),
+                    ),
+                    TextSpan(
+                      text: '  *',
+                      style: AppTextStyles.textBold(
+                        size: 16,
+                        color: AppColors.persianRed,
+                      ),
+                    ),
+                  ],
+                ),
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.03),
               RatingCard(
@@ -172,17 +187,17 @@ class _RatingViewState extends State<RatingView> {
                     return;
                   }
 
-                  if (_commentController.text.trim().isEmpty) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text("Komentar tidak boleh kosong."),
-                        backgroundColor: AppColors.persianRed,
-                        behavior: SnackBarBehavior.floating,
-                        duration: Duration(seconds: 6),
-                      ),
-                    );
-                    return;
-                  }
+                  // if (_commentController.text.trim().isEmpty) {
+                  //   ScaffoldMessenger.of(context).showSnackBar(
+                  //     const SnackBar(
+                  //       content: Text("Komentar tidak boleh kosong."),
+                  //       backgroundColor: AppColors.persianRed,
+                  //       behavior: SnackBarBehavior.floating,
+                  //       duration: Duration(seconds: 6),
+                  //     ),
+                  //   );
+                  //   return;
+                  // }
 
                   final connectivityResult = await Connectivity().checkConnectivity();
                   if (connectivityResult.contains(ConnectivityResult.none)) {
