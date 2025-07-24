@@ -84,13 +84,13 @@ class RatingCard extends StatelessWidget {
                   children: [
                     Icon(
                       Icons.star_rounded,
-                      size: 62,
+                      size: 55,
                       color: isSelected ? AppColors.orangyYellow : AppColors.soapstone,
                     ),
                     Text(
                       value.toString(),
                       style: AppTextStyles.textBold(
-                        size: 16,
+                        size: 14,
                         color: isSelected ? AppColors.dark : AppColors.darkGray,
                       ),
                     ),
