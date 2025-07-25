@@ -444,6 +444,7 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
                     'business_name': widget.businessName,
                     'business_type': widget.businessType,
                     'business_image': widget.businessImage,
+                    'business_address': widget.businessAddress,
                     'business_distance': widget.businessDistance,
                     'business_estimated_delivery': widget.businessEstimatedDelivery,
                     'discount_number': widget.discountNumber,

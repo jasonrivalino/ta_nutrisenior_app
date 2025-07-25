@@ -101,17 +101,23 @@ class DoneOrderTimeDriverCard extends StatelessWidget {
 class DoneOrderAddressCard extends StatelessWidget {
   final String businessName;
   final String businessType;
-  final String addressReceiver;
+  final String businessAddress;
+  final String addressName;
+  final String addressDetail;
 
   const DoneOrderAddressCard({
     super.key,
     required this.businessName,
     required this.businessType,
-    required this.addressReceiver,
+    required this.businessAddress,
+    required this.addressName,
+    required this.addressDetail,
   });
 
   @override
   Widget build(BuildContext context) {
+    final String parsedAddress = businessAddress.split(',').first.trim();
+    
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
@@ -122,57 +128,94 @@ class DoneOrderAddressCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Restaurant Name
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(Icons.restaurant, size: 25, color: AppColors.dark),
-              SizedBox(width: 12),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              Text(
+                'Nama ${businessType == 'restaurant' ? 'Restoran' : 'Pusat Belanja'}',
+                style: AppTextStyles.textBold(
+                  size: 18,
+                  color: AppColors.dark,
+                ),
+              ),
+              const SizedBox(height: 4),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text(
-                    'Nama ${businessType == 'restaurant' ? 'Restoran' : 'Pusat Belanja'}',
-                    style: AppTextStyles.textMedium(
-                      size: 14,
-                      color: AppColors.dark,
-                    ),
-                  ),
-                  Text(businessName,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: AppTextStyles.textBold(
-                      size: 18,
-                      color: AppColors.dark,
+                  Icon(Icons.restaurant, size: 25, color: AppColors.dark),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          businessName,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: AppTextStyles.textBold(
+                            size: 16,
+                            color: AppColors.dark,
+                          ),
+                        ),
+                        Text(
+                          parsedAddress,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: AppTextStyles.textMedium(
+                            size: 14,
+                            color: AppColors.dark,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
               ),
             ],
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 4),
+          const Divider(),
+          const SizedBox(height: 4),
           // Receiver Address
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(Icons.location_on, size: 25, color: AppColors.dark),
-              SizedBox(width: 12),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              Text(
+                'Lokasi Penerima',
+                style: AppTextStyles.textBold(
+                  size: 18,
+                  color: AppColors.dark,
+                ),
+              ),
+              const SizedBox(height: 4),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text(
-                    'Lokasi Penerima',
-                    style: AppTextStyles.textMedium(
-                      size: 14,
-                      color: AppColors.dark,
-                    ),
-                  ),
-                  Text(addressReceiver,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: AppTextStyles.textBold(
-                      size: 18,
-                      color: AppColors.dark,
+                  Icon(Icons.location_on, size: 25, color: AppColors.dark),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          addressName,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: AppTextStyles.textBold(
+                            size: 16,
+                            color: AppColors.dark,
+                          ),
+                        ),
+                        Text(
+                          addressDetail,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: AppTextStyles.textMedium(
+                            size: 14,
+                            color: AppColors.dark,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],

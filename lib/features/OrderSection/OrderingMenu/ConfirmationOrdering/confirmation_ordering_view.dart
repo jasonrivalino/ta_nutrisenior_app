@@ -22,6 +22,7 @@ class OrderConfirmationView extends StatefulWidget {
   final String businessName;
   final String businessType;
   final String businessImage;
+  final String businessAddress;
   final double businessDistance;
   final String businessEstimatedDelivery;
   final int? discountNumber;
@@ -37,6 +38,7 @@ class OrderConfirmationView extends StatefulWidget {
     required this.businessName,
     required this.businessType,
     required this.businessImage,
+    required this.businessAddress,
     required this.businessDistance,
     required this.businessEstimatedDelivery,
     this.discountNumber,
@@ -57,6 +59,7 @@ class OrderConfirmationView extends StatefulWidget {
       businessName: extra['business_name'] as String,
       businessType: extra['business_type'] as String,
       businessImage: extra['business_image'] as String,
+      businessAddress: extra['business_address'] as String,
       businessDistance: extra['business_distance'] as double,
       businessEstimatedDelivery: extra['business_estimated_delivery'] as String,
       discountNumber: extra['discount_number'] as int?,
@@ -374,11 +377,11 @@ class _OrderConfirmationViewState extends State<OrderConfirmationView> {
 
               final result = OrderConfirmationController.addOrder(
                 businessId: widget.businessId,
+                addressId: _selectedAddress['address_id'],
                 selectedProducts: _selectedProducts,
                 estimatedDelivery: widget.businessEstimatedDelivery,
                 deliveryFee: _deliveryFee,
                 paymentMethod: _selectedPaymentMethod,
-                addressDetail: _selectedAddress['address_detail'],
                 driverNote: driverNote,
               );
 
@@ -416,10 +419,12 @@ class _OrderConfirmationViewState extends State<OrderConfirmationView> {
                   'driver_id': driverId,
                   'driver_name': driverName,
                   'driver_note': driverNote,
+                  'address_name': _selectedAddress['address_name'],
+                  'address_detail': _selectedAddress['address_detail'],
                   'business_name': widget.businessName,
                   'business_image': widget.businessImage,
                   'business_type': widget.businessType,
-                  'address_receiver': _selectedAddress['address_detail'],
+                  'business_address': widget.businessAddress,
                   'order_list': _selectedProducts,
                   'service_fee': widget.serviceFee,
                   'delivery_fee': _deliveryFee,

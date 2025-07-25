@@ -1,4 +1,5 @@
 import '../../database/addons_list_table.dart';
+import '../../database/address_list_table.dart';
 import '../../database/business_list_table.dart';
 import '../../database/business_product_list_table.dart';
 import '../../database/business_promo_list_table.dart';
@@ -27,6 +28,14 @@ class HistoryController {
         (promo) => promo['business_id'] == historyItem['business_id'],
         orElse: () => {},
       );
+
+      final matchedAddress = addressListTable.firstWhere(
+        (address) => address['address_id'] == historyItem['address_id'],
+        orElse: () => {},
+      );
+
+      final String addressName = matchedAddress['address_name'] ?? 'Unknown Address';
+      final String addressDetail = matchedAddress['address_detail'] ?? '-';
 
       final int? discountPercent = matchedPromo['discount_number'] as int?;
       final bool isFreeShipment = matchedPromo['is_free_shipment'] as bool? ?? false;
@@ -125,6 +134,8 @@ class HistoryController {
         'delivery_fee': deliveryFee,
         'order_list': matchedOrders,
         'total_price': totalPrice,
+        'address_name': addressName,
+        'address_detail': addressDetail,
       };
     }).toList();
 

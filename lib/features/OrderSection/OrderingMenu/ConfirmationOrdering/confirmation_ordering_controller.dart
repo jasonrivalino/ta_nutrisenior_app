@@ -34,11 +34,11 @@ class UpdateBusinessDistanceController {
 class OrderConfirmationController {
   static Map<String, dynamic> addOrder({
     required int businessId,
+    required int addressId,
     required List<Map<String, dynamic>> selectedProducts,
     required String estimatedDelivery,
     required int deliveryFee,
     required String paymentMethod,
-    required String addressDetail,
     required String driverNote,
   }) {
     int newHistoryId = historyOrderListTable.isNotEmpty
@@ -66,10 +66,10 @@ class OrderConfirmationController {
     historyOrderListTable.add({
       'history_id': newHistoryId,
       'business_id': businessId,
+      'address_id': addressId,
       'driver_id': randomDriver['driver_id'],
       'driver_note': driverNote,
       'order_date': DateTime.now(),
-      'address_receiver': addressDetail,
       'estimated_arrival_time': estimatedDelivery,
       'delivery_fee': deliveryFee,
       'payment_method': paymentMethod,

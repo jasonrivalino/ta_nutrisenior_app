@@ -17,7 +17,9 @@ class DoneHistoryDetailsView extends StatelessWidget {
   final String businessName;
   final String businessImage;
   final String businessType;
-  final String addressReceiver;
+  final String businessAddress;
+  final String addressName;
+  final String addressDetail;
   final List<dynamic> orderList;
   final int serviceFee;
   final int deliveryFee;
@@ -36,7 +38,9 @@ class DoneHistoryDetailsView extends StatelessWidget {
     required this.businessName,
     required this.businessImage,
     required this.businessType,
-    required this.addressReceiver,
+    required this.businessAddress,
+    required this.addressName,
+    required this.addressDetail,
     required this.orderList,
     required this.serviceFee,
     required this.deliveryFee,
@@ -52,10 +56,12 @@ class DoneHistoryDetailsView extends StatelessWidget {
       businessName: extra['business_name'] as String,
       businessImage: extra['business_image'] as String,
       businessType: extra['business_type'] as String,
+      businessAddress: extra['business_address'] as String,
       driverId: extra['driver_id'] as int,
       driverName: extra['driver_name'] as String,
       driverNote: extra['driver_note'] as String?,
-      addressReceiver: extra['address_receiver'] as String,
+      addressName: extra['address_name'] as String,
+      addressDetail: extra['address_detail'] as String,
       orderList: extra['order_list'] as List<dynamic>,
       serviceFee: extra['service_fee'] as int,
       deliveryFee: extra['delivery_fee'] as int,
@@ -111,7 +117,9 @@ class DoneHistoryDetailsView extends StatelessWidget {
               DoneOrderAddressCard(
                 businessName: businessName,
                 businessType: businessType,
-                addressReceiver: addressReceiver,
+                businessAddress: businessAddress,
+                addressName: addressName,
+                addressDetail: addressDetail,
               ),
               const SizedBox(height: 16),
               DoneOrderDetailsCard(

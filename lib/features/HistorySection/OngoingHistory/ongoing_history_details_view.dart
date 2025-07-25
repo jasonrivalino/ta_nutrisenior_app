@@ -21,7 +21,6 @@ class OngoingHistoryDetailsView extends StatefulWidget {
   final String? driverImage;
   final double? driverRating;
   final String? driverPhoneNumber;
-  final String? addressReceiver;
   final String estimatedArrivalTime;
   final List<Map<String, dynamic>>? orderList;
   final int? serviceFee;
@@ -40,7 +39,6 @@ class OngoingHistoryDetailsView extends StatefulWidget {
     this.driverImage,
     this.driverRating,
     this.driverPhoneNumber,
-    this.addressReceiver,
     required this.estimatedArrivalTime,
     this.orderList,
     this.serviceFee,
@@ -62,7 +60,6 @@ class OngoingHistoryDetailsView extends StatefulWidget {
       driverImage: extra['driver_image'] as String?,
       driverRating: extra['driver_rating'] as double?,
       driverPhoneNumber: extra['driver_phone_number'] as String?,
-      addressReceiver: extra['address_receiver'] as String?,
       estimatedArrivalTime: extra['estimated_arrival_time'] ?? '',
       orderList: (extra['order_list'] is List)
         ? (extra['order_list'] as List)
