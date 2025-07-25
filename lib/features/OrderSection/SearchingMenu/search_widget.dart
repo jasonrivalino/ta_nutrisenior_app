@@ -125,6 +125,7 @@ class SearchBarWithFilter extends StatelessWidget {
 
 
 final List<String> tabs = ['Restoran', 'Pusat Belanja'];
+
 class BusinessSelectionSearch extends StatelessWidget {
   final int selectedIndex;
   final Function(int) onTabSelected;
@@ -137,26 +138,47 @@ class BusinessSelectionSearch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-        child: Row(
-          children: List.generate(tabs.length, (index) {
-          final isSelected = selectedIndex == index;
-            return GestureDetector(
-              onTap: () => onTabSelected(index),
-              child: Padding(
-                padding: const EdgeInsets.only(right: 18),
-                child: Text(
-                  tabs[index],
-                style: AppTextStyles.textBold(
-                  size: 18,
-                  color: AppColors.dark,
-                  decoration: isSelected ? TextDecoration.underline : TextDecoration.none,
-                ),
-              ),
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Opsi Bisnis:',
+            style: AppTextStyles.textBold(
+              size: 16,
+              color: AppColors.dark,
             ),
-          );
-        }),
+          ),
+          const SizedBox(height: 6), // spacing between text and tab row
+          Row(
+            children: List.generate(tabs.length, (index) {
+              final isSelected = selectedIndex == index;
+              return GestureDetector(
+                onTap: () => onTabSelected(index),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  margin: const EdgeInsets.only(right: 12),
+                  decoration: BoxDecoration(
+                    color: isSelected ? AppColors.ecruWhite : Colors.transparent,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(
+                      color: isSelected ? AppColors.woodland : AppColors.dark,
+                      width: isSelected ? 2.5 : 1,
+                    ),
+                  ),
+                  child: Text(
+                    tabs[index],
+                    style: AppTextStyles.textBold(
+                      size: 16,
+                      color: AppColors.dark,
+                    ),
+                  ),
+                ),
+              );
+            }),
+          ),
+        ],
       ),
     );
   }

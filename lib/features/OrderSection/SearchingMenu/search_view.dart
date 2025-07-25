@@ -160,17 +160,18 @@ class _SearchViewState extends State<SearchView> {
                   );
                 },
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 16),
               BusinessSelectionSearch(
                 selectedIndex: selectedIndex,
-                onTabSelected: (index) {
-                  setState(() {
-                    selectedIndex = index;
-                    _searchQuery = '';
-                    _searchBusinessController.clear();
-                  });
-                },
+                  onTabSelected: (index) {
+                    setState(() {
+                      selectedIndex = index;
+                      // Keep the current text; don't clear
+                      _searchQuery = _searchBusinessController.text;
+                    });
+                  },
               ),
+              SizedBox(height: 10),
               _searchQuery.isEmpty
                 ? Expanded(
                     child: SingleChildScrollView(
@@ -210,6 +211,7 @@ class _SearchViewState extends State<SearchView> {
                             ),
                           )
                         : Container(
+                            margin: const EdgeInsets.only(top: 6),
                             decoration: BoxDecoration(
                               border: Border.symmetric(
                                 horizontal: BorderSide(
