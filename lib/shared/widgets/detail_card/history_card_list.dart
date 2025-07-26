@@ -29,7 +29,7 @@ class HistoryCardList extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: AppColors.ecruWhite,
+        color: status == 'dibatalkan' ? AppColors.lightGray : AppColors.ecruWhite,
         border: Border.symmetric(
           horizontal: BorderSide(
             color: AppColors.darkGray,
@@ -51,7 +51,7 @@ class HistoryCardList extends StatelessWidget {
                       formatFullDateTime(orderDate),
                       style: AppTextStyles.textBold(
                         size: 14,
-                        color: AppColors.dark,
+                        color: status == 'dibatalkan' ? AppColors.darkGray : AppColors.dark,
                       ),
                     ),
                     if (status != 'selesai')
@@ -59,7 +59,7 @@ class HistoryCardList extends StatelessWidget {
                         status.toUpperCase(),
                         style: AppTextStyles.textBold(
                           size: 14,
-                          color: AppColors.dark,
+                          color: status == 'dibatalkan' ? AppColors.darkGray : AppColors.dark,
                         ),
                       ),
                   ],
@@ -78,26 +78,44 @@ class HistoryCardList extends StatelessWidget {
                         ),
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(6),
-                        child: Image.asset(
-                          businessImage,
-                          width: 70,
-                          height: 70,
-                          fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) {
-                            String fallbackImage = AppConstants.errorDummyRestaurant;
-                            if (historyData['business_type'] == 'market' && businessImage.isNotEmpty) {
-                              fallbackImage = AppConstants.errorDummyMarket;
-                            }
-                            return Image.asset(
-                              fallbackImage,
-                              width: 70,
-                              height: 70,
-                              fit: BoxFit.cover,
-                            );
-                          },
-                        ),
+                      child: Stack(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(6),
+                            child: ColorFiltered(
+                              colorFilter: status != 'dibatalkan'
+                                  ? const ColorFilter.mode(Colors.transparent, BlendMode.saturation)
+                                  : const ColorFilter.mode(AppColors.darkGray, BlendMode.saturation),
+                              child: Image.asset(
+                                businessImage,
+                                width: 70,
+                                height: 70,
+                                fit: BoxFit.cover,
+                                errorBuilder: (context, error, stackTrace) {
+                                  String fallbackImage = AppConstants.errorDummyRestaurant;
+                                  if (historyData['business_type'] == 'market' && businessImage.isNotEmpty) {
+                                    fallbackImage = AppConstants.errorDummyMarket;
+                                  }
+                                  return Image.asset(
+                                    fallbackImage,
+                                    width: 70,
+                                    height: 70,
+                                    fit: BoxFit.cover,
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                          if (status == 'dibatalkan')
+                            Positioned.fill(
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: AppColors.dark.withAlpha(120), // semi-transparent overlay
+                                  borderRadius: BorderRadius.circular(6),
+                                ),
+                              ),
+                            ),
+                        ],
                       ),
                     ),
                     const SizedBox(width: 12),
@@ -109,7 +127,7 @@ class HistoryCardList extends StatelessWidget {
                             businessName,
                             style: AppTextStyles.textBold(
                               size: 16,
-                              color: AppColors.dark,
+                              color: status == 'dibatalkan' ? AppColors.darkGray : AppColors.dark,
                               height: 1.2,
                             ),
                             maxLines: 1,
@@ -127,7 +145,7 @@ class HistoryCardList extends StatelessWidget {
                                 ).format(totalPrice.toInt()),
                                 style: AppTextStyles.textBold(
                                   size: 14,
-                                  color: AppColors.dark,
+                                  color: status == 'dibatalkan' ? AppColors.darkGray : AppColors.dark,
                                 ),
                               ),
                               const Spacer(),
@@ -203,7 +221,7 @@ class HistoryCardList extends StatelessWidget {
                                         ),
                                       ],
                                     )
-                                  else
+                                  else if (status == 'diproses' || status == 'dikirim')
                                     Align(
                                       alignment: Alignment.centerRight,
                                       child: ElevatedButtonWidget(

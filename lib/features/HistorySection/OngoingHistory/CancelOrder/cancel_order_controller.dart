@@ -10,15 +10,18 @@ class CancelledOrderController {
   CancelledOrderController({required this.historyId});
 
   void cancelOrder() {
-    // Remove from historyOrderListTable
-    historyOrderListTable.removeWhere((order) => order['history_id'] == historyId);
+    // Ubah status menjadi 'dibatalkan' di historyOrderListTable
+    for (var order in historyOrderListTable) {
+      if (order['history_id'] == historyId) {
+        order['status'] = 'dibatalkan';
+        debugPrint('[DEBUG] Status order dengan history_id=$historyId diubah menjadi dibatalkan.');
+      }
+    }
 
     // Remove from historyListTable
     historyListTable.removeWhere((item) => item['history_id'] == historyId);
 
     // Remove from historyAddOnsListTable
     historyAddOnsListTable.removeWhere((addOn) => addOn['history_id'] == historyId);
-
-    debugPrint('[DEBUG] Order with history_id=$historyId cancelled and removed from all related tables.');
   }
 }
