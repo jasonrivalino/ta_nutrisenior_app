@@ -78,7 +78,7 @@ class ElevatedButtonWidget extends StatelessWidget {
       onPressed: onPressed,
       backgroundColor: AppColors.woodland,
       foregroundColor: AppColors.soapstone,
-      textStyle: AppTextStyles.textMedium(size: 14, color: AppColors.soapstone),
+      textStyle: AppTextStyles.textBold(size: 16, color: AppColors.soapstone),
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
       minimumSize: const Size(0, 30),
       borderRadius: 6,

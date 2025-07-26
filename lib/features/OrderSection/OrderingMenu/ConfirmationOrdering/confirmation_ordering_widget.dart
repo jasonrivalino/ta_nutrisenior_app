@@ -89,8 +89,8 @@ class RecipientLocationBox extends StatelessWidget {
                 elevation: 0,
                 tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 child: Text("Pilih Alamat Detail",
-                  style: AppTextStyles.textMedium(
-                    size: 14,
+                  style: AppTextStyles.textBold(
+                    size: 16,
                     color: AppColors.soapstone,
                   ),
                 ),
@@ -108,8 +108,8 @@ class RecipientLocationBox extends StatelessWidget {
                 elevation: 0,
                 tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 child: Text("Tambahkan Note",
-                  style: AppTextStyles.textMedium(
-                    size: 14,
+                  style: AppTextStyles.textBold(
+                    size: 16,
                     color: AppColors.soapstone,
                   ),
                 ),
@@ -312,7 +312,7 @@ class OrderDetailListBox extends StatelessWidget {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        TextButton(
+                        ElevatedButtonWidget(
                           onPressed: () async {
                             final productId = product['product_id'];
                             final int productIdInt = productId is int ? productId : int.parse(productId.toString());
@@ -352,18 +352,15 @@ class OrderDetailListBox extends StatelessWidget {
                               }
                             }
                           },
-                          style: TextButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
-                            minimumSize: const Size(0, 24),
-                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                            foregroundColor: AppColors.dark,
-                          ),
+                          backgroundColor: AppColors.woodland,
+                          foregroundColor: AppColors.soapstone,
+                          textStyle: AppTextStyles.textBold(size: 16, color: AppColors.dark),
+                          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 7),
+                          minimumSize: const Size(0, 24),
+                          elevation: 0,
+                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                           child: Text(
-                            "Ubah",
-                            style: AppTextStyles.textMedium(
-                              size: 16,
-                              color: AppColors.dark,
-                            ),
+                            'Ubah',
                           ),
                         ),
                         const SizedBox(width: 8),
@@ -416,48 +413,52 @@ class OrderDetailListBox extends StatelessWidget {
                       Column(
                         children: List.generate(product['add_ons_details'].length, (index) {
                           final addOn = product['add_ons_details'][index];
-                          return Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              IconButton(
-                                onPressed: () {
-                                  final currentAddOnsDetails = List<Map<String, dynamic>>.from(product['add_ons_details']);
-                                  final removedAddOn = currentAddOnsDetails[index];
-                                  final removedAddOnId = removedAddOn['add_ons_id'];
+                          return SizedBox(
+                            height: 33,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const SizedBox(width: 3),
+                                IconButton(
+                                  onPressed: () {
+                                    final currentAddOnsDetails = List<Map<String, dynamic>>.from(product['add_ons_details']);
+                                    final removedAddOn = currentAddOnsDetails[index];
+                                    final removedAddOnId = removedAddOn['add_ons_id'];
 
-                                  final updatedAddOnIds = List<int>.from(product['add_ons']);
-                                  updatedAddOnIds.remove(removedAddOnId);
+                                    final updatedAddOnIds = List<int>.from(product['add_ons']);
+                                    updatedAddOnIds.remove(removedAddOnId);
 
-                                  if (onAddOnsChanged != null) {
-                                    onAddOnsChanged!(productIdStr, updatedAddOnIds);
-                                  }
-                                },
-                                icon: const Icon(Icons.remove_circle, size: 20, color: AppColors.persianRed),
-                                visualDensity: VisualDensity.compact,
-                                padding: EdgeInsets.zero,
-                                constraints: const BoxConstraints(),
-                              ),
-                              const SizedBox(width: 14),
-                              Expanded(
-                                child: Text(
-                                  '${addOn['add_ons_name']}',
-                                  style: AppTextStyles.textMedium(
+                                    if (onAddOnsChanged != null) {
+                                      onAddOnsChanged!(productIdStr, updatedAddOnIds);
+                                    }
+                                  },
+                                  icon: const Icon(Icons.remove_circle, size: 20, color: AppColors.persianRed),
+                                  visualDensity: VisualDensity.compact,
+                                  padding: EdgeInsets.zero,
+                                  constraints: const BoxConstraints(),
+                                ),
+                                const SizedBox(width: 14),
+                                Expanded(
+                                  child: Text(
+                                    '${addOn['add_ons_name']}',
+                                    style: AppTextStyles.textMedium(
+                                      size: 16,
+                                      color: AppColors.dark,
+                                    ),
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                                const SizedBox(width: 12),
+                                Text(
+                                  formatCurrency(addOn['add_ons_price'] * product['qty_product']),
+                                  style: AppTextStyles.textBold(
                                     size: 16,
                                     color: AppColors.dark,
                                   ),
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
-                              const SizedBox(width: 12),
-                              Text(
-                                formatCurrency(addOn['add_ons_price'] * product['qty_product']),
-                                style: AppTextStyles.textBold(
-                                  size: 16,
-                                  color: AppColors.dark,
-                                ),
-                              )
-                            ],
+                                )
+                              ],
+                            ),
                           );
                         }),
                       ),
@@ -633,8 +634,8 @@ class _PaymentMethodBoxState extends State<PaymentMethodBox> {
                   color: AppColors.dark,
                 ),
               ),
-              GestureDetector(
-                onTap: () {
+              ElevatedButtonWidget(
+                onPressed: () {
                   showModalBottomSheet(
                     context: context,
                     backgroundColor: AppColors.ecruWhite,
@@ -674,7 +675,7 @@ class _PaymentMethodBoxState extends State<PaymentMethodBox> {
                                           setState(() {
                                             selectedMethod = value!;
                                           });
-                                          widget.onMethodSelected(value!); // notify parent
+                                          widget.onMethodSelected(value!);
                                           Navigator.pop(context);
                                         },
                                         title: Row(
@@ -702,17 +703,26 @@ class _PaymentMethodBoxState extends State<PaymentMethodBox> {
                     },
                   );
                 },
+                backgroundColor: AppColors.woodland,
+                foregroundColor: AppColors.soapstone,
+                textStyle: AppTextStyles.textMedium(size: 14, color: AppColors.soapstone),
+                padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                minimumSize: const Size(0, 30),
+                borderRadius: 8,
+                borderSide: const BorderSide(color: AppColors.woodland),
+                elevation: 0,
+                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 child: Text(
                   "Lihat Semua",
                   style: AppTextStyles.textBold(
                     size: 16,
-                    color: AppColors.dark,
+                    color: AppColors.soapstone,
                   ),
                 ),
               ),
-
             ],
           ),
+          const SizedBox(height: 4),
           const Divider(color: AppColors.dark, thickness: 1),
           const SizedBox(height: 6),
           Row(
