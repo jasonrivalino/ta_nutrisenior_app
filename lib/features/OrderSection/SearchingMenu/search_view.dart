@@ -258,6 +258,7 @@ class _SearchViewState extends State<SearchView> {
                                         'business_address': business['business_address'],
                                         'business_open_hour': business['business_open_hour'],
                                         'business_close_hour': business['business_close_hour'],
+                                        'is_halal': business['is_halal'],
                                         'estimated_delivery': business['estimated_delivery'],
                                         'discount_number': business['discount_number'],
                                         'is_free_shipment': business['is_free_shipment'],

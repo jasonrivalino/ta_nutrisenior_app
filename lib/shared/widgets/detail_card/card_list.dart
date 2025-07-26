@@ -17,6 +17,7 @@ class CardList extends StatefulWidget {
   final double? businessLocation;
   final int? productId;
   final bool? isOpen;
+  final bool? isHalal;
   final String? productImage;
   final String? productName;
   final int? productPrice;
@@ -41,6 +42,7 @@ class CardList extends StatefulWidget {
     this.businessLocation,
     this.productId,
     this.isOpen = true,
+    this.isHalal,
     this.productImage,
     this.productName,
     this.productPrice,
@@ -161,315 +163,330 @@ class _CardListState extends State<CardList> {
               ),
             ),
           ),
-          child: Row(
+          child: Stack(
             children: [
-              // [Image and Badge Stack same as before]
-              Stack(
+              Row(
                 children: [
-                  Container(
-                    width: widget.businessName != null ? 85 : 65,
-                    height: widget.businessName != null ? 85 : 65,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: AppColors.darkGray,
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: ColorFiltered(
-                        colorFilter: isOpen
-                            ? const ColorFilter.mode(Colors.transparent, BlendMode.saturation)
-                            : const ColorFilter.mode(AppColors.darkGray, BlendMode.saturation),
-                        child: Image.asset(
-                          widget.businessImage ?? widget.productImage!,
-                          fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) {
-                            String fallbackImage = AppConstants.errorDummyRestaurant;
-
-                            if (widget.businessType == 'restaurant' && widget.businessImage != null) {
-                              fallbackImage = AppConstants.errorDummyRestaurant;
-                            } else if (widget.businessType == 'market' && widget.businessImage != null) {
-                              fallbackImage = AppConstants.errorDummyMarket;
-                            } else if (widget.businessType == 'restaurant' && widget.productImage != null) {
-                              fallbackImage = AppConstants.errorDummyFood;
-                            } else if (widget.businessType == 'market' && widget.productImage != null) {
-                              fallbackImage = AppConstants.errorDummyIngredient;
-                            }
-
-                            return Image.asset(
-                              fallbackImage,
-                              fit: BoxFit.cover,
-                            );
-                          },
-                        ),
-                      ),
-                    ),
-                  ),
-                  if (!isOpen && widget.businessImage != null)
-                    Positioned.fill(
-                      child: Container(
+                  // Image & badges
+                  Stack(
+                    children: [
+                      Container(
+                        width: widget.businessName != null ? 85 : 65,
+                        height: widget.businessName != null ? 85 : 65,
                         decoration: BoxDecoration(
-                          color: AppColors.dark.withAlpha(120),
+                          border: Border.all(
+                            color: AppColors.darkGray,
+                            width: 1,
+                          ),
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        alignment: Alignment.center,
-                        child: Text(
-                          'Tutup',
-                          style: AppTextStyles.textBold(
-                            size: 13,
-                            color: AppColors.soapstone,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: ColorFiltered(
+                            colorFilter: isOpen
+                                ? const ColorFilter.mode(Colors.transparent, BlendMode.saturation)
+                                : const ColorFilter.mode(AppColors.darkGray, BlendMode.saturation),
+                            child: Image.asset(
+                              widget.businessImage ?? widget.productImage!,
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) {
+                                String fallbackImage = AppConstants.errorDummyRestaurant;
+
+                                if (widget.businessType == 'restaurant' && widget.businessImage != null) {
+                                  fallbackImage = AppConstants.errorDummyRestaurant;
+                                } else if (widget.businessType == 'market' && widget.businessImage != null) {
+                                  fallbackImage = AppConstants.errorDummyMarket;
+                                } else if (widget.businessType == 'restaurant' && widget.productImage != null) {
+                                  fallbackImage = AppConstants.errorDummyFood;
+                                } else if (widget.businessType == 'market' && widget.productImage != null) {
+                                  fallbackImage = AppConstants.errorDummyIngredient;
+                                }
+
+                                return Image.asset(
+                                  fallbackImage,
+                                  fit: BoxFit.cover,
+                                );
+                              },
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  if ((widget.discountNumber != null || (widget.isFreeShipment ?? false)) && isOpen && widget.businessImage != null)
-                    Positioned(
-                      bottom: 0,
-                      child: Container(
-                        width: 85,
-                        padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
-                        decoration: BoxDecoration(
-                          color: AppColors.orangyYellow,
-                          border: Border.all(color: AppColors.darkGray, width: 1),
-                          borderRadius: const BorderRadius.only(
-                            bottomLeft: Radius.circular(8),
-                            bottomRight: Radius.circular(8),
+                      if (!isOpen && widget.businessImage != null)
+                        Positioned.fill(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: AppColors.dark.withAlpha(120),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            alignment: Alignment.center,
+                            child: Text(
+                              'Tutup',
+                              style: AppTextStyles.textBold(
+                                size: 13,
+                                color: AppColors.soapstone,
+                              ),
+                            ),
                           ),
                         ),
-                        alignment: Alignment.center,
-                        child: widget.discountNumber != null
-                            ? Text(
-                                'Diskon ${widget.discountNumber}%',
-                                style: AppTextStyles.textBold(
-                                  size: 13,
-                                  color: AppColors.dark,
-                                ),
-                              )
-                            : Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  FaIcon(FontAwesomeIcons.personBiking, size: 12, color: AppColors.dark),
-                                  SizedBox(width: 6),
-                                  Text(
-                                    'FREE',
+                      if ((widget.discountNumber != null || (widget.isFreeShipment ?? false)) &&
+                          isOpen &&
+                          widget.businessImage != null)
+                        Positioned(
+                          bottom: 0,
+                          child: Container(
+                            width: 85,
+                            padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                            decoration: BoxDecoration(
+                              color: AppColors.orangyYellow,
+                              border: Border.all(color: AppColors.darkGray, width: 1),
+                              borderRadius: const BorderRadius.only(
+                                bottomLeft: Radius.circular(8),
+                                bottomRight: Radius.circular(8),
+                              ),
+                            ),
+                            alignment: Alignment.center,
+                            child: widget.discountNumber != null
+                                ? Text(
+                                    'Diskon ${widget.discountNumber}%',
                                     style: AppTextStyles.textBold(
                                       size: 13,
                                       color: AppColors.dark,
                                     ),
+                                  )
+                                : Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      const FaIcon(FontAwesomeIcons.personBiking, size: 12, color: AppColors.dark),
+                                      const SizedBox(width: 6),
+                                      Text(
+                                        'FREE',
+                                        style: AppTextStyles.textBold(
+                                          size: 13,
+                                          color: AppColors.dark,
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ],
-                              ),
-                      ),
-                    ),
-                ],
-              ),
-              const SizedBox(width: 15),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    if (widget.businessName != null) ...[
-                      Text(
-                        widget.businessName!,
-                        style: AppTextStyles.textBold(
-                          size: 18,
-                          color: AppColors.dark,
-                          height: screenHeight > 900 ? 1.35 : 1.2,
+                          ),
                         ),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      const SizedBox(height: 10),
-                      Row(
-                        children: [
-                          if (widget.businessRate != null)
-                            Container(
-                              decoration: BoxDecoration(
-                                color: AppColors.soapstone,
-                                borderRadius: BorderRadius.circular(8),
-                                border: Border.all(color: AppColors.dark, width: 0.5),
-                              ),
-                              padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  const FaIcon(FontAwesomeIcons.solidStar, size: 12, color: AppColors.dark),
-                                  const SizedBox(width: 3),
-                                  Text(
-                                    '${widget.businessRate!.toStringAsFixed(1)}/5',
-                                    style: AppTextStyles.textMedium(
-                                      size: 14,
-                                      color: AppColors.dark,
-                                    ),
-                                  ),
-                                ],
-                              ),
+                    ],
+                  ),
+                  const SizedBox(width: 15),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        if (widget.businessName != null) ...[
+                          Text(
+                            widget.businessName!,
+                            style: AppTextStyles.textBold(
+                              size: 18,
+                              color: AppColors.dark,
+                              height: screenHeight > 900 ? 1.35 : 1.2,
                             ),
-                          const SizedBox(width: 8),
-                          if (widget.businessLocation != null)
-                            Container(
-                              decoration: BoxDecoration(
-                                color: AppColors.soapstone,
-                                borderRadius: BorderRadius.circular(8),
-                                border: Border.all(color: AppColors.dark, width: 0.5),
-                              ),
-                              padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  const Icon(Icons.location_on, size: 16, color: AppColors.dark),
-                                  const SizedBox(width: 3),
-                                  Text(
-                                    '${widget.businessLocation!.toStringAsFixed(2)} km',
-                                    style: AppTextStyles.textMedium(
-                                      size: 14,
-                                      color: AppColors.dark,
-                                    ),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          const SizedBox(height: 10),
+                          Row(
+                            children: [
+                              if (widget.businessRate != null)
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: AppColors.soapstone,
+                                    borderRadius: BorderRadius.circular(8),
+                                    border: Border.all(color: AppColors.dark, width: 0.5),
                                   ),
-                                ],
-                              ),
-                            ),
-                        ],
-                      ),
-                    ] else if (widget.productName != null) ...[
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  widget.productName!,
-                                  style: AppTextStyles.textBold(
-                                    size: 18,
-                                    color: AppColors.dark,
-                                    height: screenHeight > 900 ? 1.35 : 1.2,
+                                  padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      const FaIcon(FontAwesomeIcons.solidStar, size: 12, color: AppColors.dark),
+                                      const SizedBox(width: 3),
+                                      Text(
+                                        '${widget.businessRate!.toStringAsFixed(1)}/5',
+                                        style: AppTextStyles.textMedium(
+                                          size: 14,
+                                          color: AppColors.dark,
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
                                 ),
-                                const SizedBox(height: 10),
-                                if (widget.productPrice != null)
-                                  widget.discountNumber != null
-                                      ? Row(
-                                          children: [
-                                            Text(
-                                              // Harga setelah diskon
-                                              formatCurrency(
-                                                (widget.productPrice! * (100 - widget.discountNumber!) ~/ 100),
-                                              ),
+                              const SizedBox(width: 8),
+                              if (widget.businessLocation != null)
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: AppColors.soapstone,
+                                    borderRadius: BorderRadius.circular(8),
+                                    border: Border.all(color: AppColors.dark, width: 0.5),
+                                  ),
+                                  padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      const Icon(Icons.location_on, size: 16, color: AppColors.dark),
+                                      const SizedBox(width: 3),
+                                      Text(
+                                        '${widget.businessLocation!.toStringAsFixed(2)} km',
+                                        style: AppTextStyles.textMedium(
+                                          size: 14,
+                                          color: AppColors.dark,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                            ],
+                          ),
+                        ] else if (widget.productName != null) ...[
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      widget.productName!,
+                                      style: AppTextStyles.textBold(
+                                        size: 18,
+                                        color: AppColors.dark,
+                                        height: screenHeight > 900 ? 1.35 : 1.2,
+                                      ),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                    const SizedBox(height: 10),
+                                    if (widget.productPrice != null)
+                                      widget.discountNumber != null
+                                          ? Row(
+                                              children: [
+                                                Text(
+                                                  formatCurrency((widget.productPrice! *
+                                                          (100 - widget.discountNumber!) ~/
+                                                          100)),
+                                                  style: AppTextStyles.textBold(
+                                                    size: 16,
+                                                    color: AppColors.dark,
+                                                    height: screenHeight > 900 ? 1.35 : 1.2,
+                                                  ),
+                                                ),
+                                                const SizedBox(width: 6),
+                                                Text(
+                                                  formatCurrency(widget.productPrice!),
+                                                  style: AppTextStyles.textMedium(
+                                                    size: 13,
+                                                    color: AppColors.darkGray,
+                                                    decoration: TextDecoration.lineThrough,
+                                                  ),
+                                                ),
+                                              ],
+                                            )
+                                          : Text(
+                                              formatCurrency(widget.productPrice!),
                                               style: AppTextStyles.textBold(
                                                 size: 16,
                                                 color: AppColors.dark,
                                                 height: screenHeight > 900 ? 1.35 : 1.2,
                                               ),
                                             ),
-                                            const SizedBox(width: 6),
-                                            Text(
-                                              // Harga asli dicoret
-                                              formatCurrency(widget.productPrice!),
-                                              style: AppTextStyles.textMedium(
-                                                size: 13,
-                                                color: AppColors.darkGray,
-                                                decoration: TextDecoration.lineThrough,
-                                              ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(width: 12),
+                              widget.count == 0
+                                  ? Padding(
+                                      padding: const EdgeInsets.only(right: 10),
+                                      child: Container(
+                                        width: 35,
+                                        height: 35,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(color: AppColors.darkGray),
+                                          borderRadius: BorderRadius.circular(20),
+                                          color: AppColors.soapstone,
+                                        ),
+                                        child: InkWell(
+                                          onTap: isOpen ? _incrementCount : null,
+                                          borderRadius: BorderRadius.circular(20),
+                                          child: const Icon(
+                                            Icons.add,
+                                            size: 20,
+                                            color: AppColors.dark,
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  : Row(
+                                      children: [
+                                        Container(
+                                          width: 28,
+                                          height: 28,
+                                          decoration: BoxDecoration(
+                                            border: Border.all(color: AppColors.darkGray),
+                                            borderRadius: BorderRadius.circular(20),
+                                            color: AppColors.soapstone,
+                                          ),
+                                          child: InkWell(
+                                            onTap: isOpen ? _decrementCount : null,
+                                            borderRadius: BorderRadius.circular(6),
+                                            child: const Icon(
+                                              Icons.remove,
+                                              size: 16,
+                                              color: AppColors.dark,
                                             ),
-                                          ],
-                                        )
-                                      : Text(
-                                          // Harga normal jika tidak ada diskon
-                                          formatCurrency(widget.productPrice!),
+                                          ),
+                                        ),
+                                        const SizedBox(width: 8),
+                                        Text(
+                                          '${widget.count}',
                                           style: AppTextStyles.textBold(
                                             size: 16,
                                             color: AppColors.dark,
-                                            height: screenHeight > 900 ? 1.35 : 1.2,
                                           ),
                                         ),
-                              ],
-                            ),
+                                        const SizedBox(width: 8),
+                                        Container(
+                                          width: 28,
+                                          height: 28,
+                                          decoration: BoxDecoration(
+                                            border: Border.all(color: AppColors.darkGray),
+                                            borderRadius: BorderRadius.circular(20),
+                                            color: AppColors.soapstone,
+                                          ),
+                                          child: InkWell(
+                                            onTap: isOpen ? _incrementCount : null,
+                                            borderRadius: BorderRadius.circular(6),
+                                            child: const Icon(
+                                              Icons.add,
+                                              size: 16,
+                                              color: AppColors.dark,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                            ],
                           ),
-                          const SizedBox(width: 12),
-                          widget.count == 0
-                            ? Padding(
-                                padding: const EdgeInsets.only(right: 10), // adjust gap size as needed
-                                child: Container(
-                                  width: 35,
-                                  height: 35,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(color: AppColors.darkGray),
-                                    borderRadius: BorderRadius.circular(20),
-                                    color: AppColors.soapstone,
-                                  ),
-                                  child: InkWell(
-                                    onTap: isOpen ? _incrementCount : null,
-                                    borderRadius: BorderRadius.circular(20),
-                                    child: const Icon(
-                                      Icons.add,
-                                      size: 20,
-                                      color: AppColors.dark,
-                                    ),
-                                  ),
-                                ),
-                              )
-                            : Row(
-                                children: [
-                                  Container(
-                                    width: 28,
-                                    height: 28,
-                                    decoration: BoxDecoration(
-                                      border: Border.all(color: AppColors.darkGray),
-                                      borderRadius: BorderRadius.circular(20),
-                                      color: AppColors.soapstone,
-                                    ),
-                                    child: InkWell(
-                                      onTap: isOpen ? _decrementCount : null,
-                                      borderRadius: BorderRadius.circular(6),
-                                      child: const Icon(
-                                        Icons.remove,
-                                        size: 16,
-                                        color: AppColors.dark,
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(width: 8),
-                                  Text(
-                                    '${widget.count}',
-                                    style: AppTextStyles.textBold(
-                                      size: 16,
-                                      color: AppColors.dark,
-                                    ),
-                                  ),
-                                  const SizedBox(width: 8),
-                                  Container(
-                                    width: 28,
-                                    height: 28,
-                                    decoration: BoxDecoration(
-                                      border: Border.all(color: AppColors.darkGray),
-                                      borderRadius: BorderRadius.circular(20),
-                                      color: AppColors.soapstone,
-                                    ),
-                                    child: InkWell(
-                                      onTap: isOpen ? _incrementCount : null,
-                                      borderRadius: BorderRadius.circular(6),
-                                      child: const Icon(
-                                        Icons.add,
-                                        size: 16,
-                                        color: AppColors.dark,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
                         ],
-                      ),
-                    ],
-                  ],
-                ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
+
+              // ✅ Halal logo on top-right of card
+              if (widget.isHalal == true)
+                Positioned(
+                  top: 4,
+                  right: 4,
+                  child: Image.asset(
+                    AppConstants.halalLogo,
+                    width: 24,
+                    height: 24,
+                  ),
+                ),
             ],
           ),
         ),

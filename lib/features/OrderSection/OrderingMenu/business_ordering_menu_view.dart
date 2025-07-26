@@ -25,6 +25,7 @@ class BusinessOrderingMenuView extends StatefulWidget {
   final DateTime businessOpenHour;
   final DateTime businessCloseHour;
   final String businessEstimatedDelivery;
+  final bool isHalal;
   final int? discountNumber;
   final bool isFreeShipment;
   final int serviceFee;
@@ -45,6 +46,7 @@ class BusinessOrderingMenuView extends StatefulWidget {
     required this.businessOpenHour,
     required this.businessCloseHour,
     required this.businessEstimatedDelivery,
+    required this.isHalal,
     this.discountNumber,
     required this.isFreeShipment,
     required this.serviceFee,
@@ -68,6 +70,7 @@ class BusinessOrderingMenuView extends StatefulWidget {
       businessOpenHour: extra['business_open_hour'] as DateTime,
       businessCloseHour: extra['business_close_hour'] as DateTime,
       businessEstimatedDelivery: extra['estimated_delivery'] as String,
+      isHalal: extra['is_halal'] as bool? ?? false,
       discountNumber: extra['discount_number'] as int?,
       isFreeShipment: extra['is_free_shipment'] as bool,
       serviceFee: extra['service_fee'] as int,
@@ -228,6 +231,7 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
               children: [
                 const SizedBox(height: 20),
                 BusinessHeaderBar(
+                  isHalal: widget.isHalal,
                   isFavorite: isFavorite,
                   onFavoritesClick: () async {
                     final connectivityResult = await Connectivity().checkConnectivity();

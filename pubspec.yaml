@@ -110,6 +110,7 @@ flutter:
     - assets/images/media/google.png
     - assets/images/dummy/chat/driver.png
     - assets/images/dummy/motorcycle_delivery.png
+    - assets/images/media/halal.png
 
     # Asset restaurant images
     - assets/images/dummy/restaurant/verduraitaliana.png

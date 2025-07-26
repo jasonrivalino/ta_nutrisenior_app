@@ -53,6 +53,7 @@ class BusinessListItem extends StatelessWidget {
                   discountNumber: business['discount_number'],
                   isFreeShipment: business['is_free_shipment'],
                   isOpen: isOpen,
+                  isHalal: business['is_halal'],
                   onTap: () {
                     final route = '/business/detail/${business['business_id']}';
                     context.push(route, extra: business);

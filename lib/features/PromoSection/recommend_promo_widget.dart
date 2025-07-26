@@ -77,6 +77,7 @@ class RecommendedPromoCardList extends StatelessWidget {
                   businessOpenHour: business['business_open_hour'],
                   businessCloseHour: business['business_close_hour'],
                   discountNumber: business['discount_number'],
+                  isHalal: business['is_halal'],
                   onTap: () {
                     final route = '/business/detail/${business['business_id']}';
                     context.push(route, extra: business);

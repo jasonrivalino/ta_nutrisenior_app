@@ -198,6 +198,7 @@ class _RecommendedTodayCarouselState extends State<RecommendedTodayCarousel> wit
                 businessLocation: business['business_distance'],
                 businessOpenHour: business['business_open_hour'],
                 businessCloseHour: business['business_close_hour'],
+                isHalal: business['is_halal'],
                 onTap: () {
                   final route = '/business/detail/${business['business_id']}';
                   context.push(route, extra: business);
@@ -292,6 +293,7 @@ class RecommendedHomeSection extends StatelessWidget {
                         businessLocation: business['business_distance'],
                         businessOpenHour: business['business_open_hour'],
                         businessCloseHour: business['business_close_hour'],
+                        isHalal: business['is_halal'],
                         onTap: () {
                           final route = '/business/detail/${business['business_id']}';
                           context.push(route, extra: business);

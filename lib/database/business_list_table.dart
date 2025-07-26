@@ -11,6 +11,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_close_hour': DateTime(2025, 1, 1, 23, 59),
     'estimated_delivery': '30-45 menit',
     'service_fee': 8000,
+    'is_halal': true,
   },
   {
     'business_id': 2,
@@ -24,6 +25,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_close_hour': DateTime(2025, 1, 1, 21, 0),
     'estimated_delivery': '20-30 menit',
     'service_fee': 5000,
+    'is_halal': true,
   },
   {
     'business_id': 3,
@@ -37,6 +39,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_close_hour': DateTime(2025, 1, 1, 23, 0),
     'estimated_delivery': '25-35 menit',
     'service_fee': 6000,
+    'is_halal': false,
   },
   {
     'business_id': 4,
@@ -50,6 +53,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_close_hour': DateTime(2025, 1, 1, 18, 0),
     'estimated_delivery': '30-45 menit',
     'service_fee': 4000,
+    'is_halal': true,
   },
   {
     'business_id': 5,
@@ -63,6 +67,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_close_hour': DateTime(2025, 1, 1, 23, 0),
     'estimated_delivery': '40-60 menit',
     'service_fee': 7000,
+    'is_halal': false,
   },
   {
     'business_id': 6,
@@ -76,6 +81,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_close_hour': DateTime(2025, 1, 1, 21, 0),
     'estimated_delivery': '25-35 menit',
     'service_fee': 5000,
+    'is_halal': true,
   },
   {
     'business_id': 7,
@@ -89,6 +95,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_close_hour': DateTime(2025, 1, 1, 20, 0),
     'estimated_delivery': '30-45 menit',
     'service_fee': 6000,
+    'is_halal': true,
   },
   {
     'business_id': 8,
@@ -102,6 +109,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_close_hour': DateTime(2025, 1, 1, 22, 0),
     'estimated_delivery': '20-30 menit',
     'service_fee': 4500,
+    'is_halal': true,
   },
   {
     'business_id': 9,
@@ -115,6 +123,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_close_hour': DateTime(2025, 1, 1, 20, 0),
     'estimated_delivery': '25-35 menit',
     'service_fee': 5500,
+    'is_halal': true,
   },
   {
     'business_id': 10,
@@ -128,6 +137,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_close_hour': DateTime(2025, 1, 1, 21, 0),
     'estimated_delivery': '30-45 menit',
     'service_fee': 6000,
+    'is_halal': true,
   },
   {
     'business_id': 11,
@@ -141,6 +151,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_close_hour': DateTime(2025, 1, 1, 22, 0),
     'estimated_delivery': '25-35 menit',
     'service_fee': 5000,
+    'is_halal': true,
   },
   {
     'business_id': 12,
@@ -154,6 +165,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_close_hour': DateTime(2025, 1, 1, 23, 0),
     'estimated_delivery': '40-60 menit',
     'service_fee': 7000,
+    'is_halal': true,
   },
   {
     'business_id': 13,
@@ -167,6 +179,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_close_hour': DateTime(2025, 1, 1, 21, 0),
     'estimated_delivery': '25-35 menit',
     'service_fee': 6000,
+    'is_halal': true,
   },
   {
     'business_id': 14,
@@ -180,6 +193,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_close_hour': DateTime(2025, 1, 1, 20, 0),
     'estimated_delivery': '20-30 menit',
     'service_fee': 5000,
+    'is_halal': true,
   },
   {
     'business_id': 15,
@@ -193,6 +207,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_close_hour': DateTime(2025, 1, 1, 22, 0),
     'estimated_delivery': '25-35 menit',
     'service_fee': 5500,
+    'is_halal': false,
   },
   {
     'business_id': 16,
@@ -206,6 +221,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_close_hour': DateTime(2025, 1, 1, 21, 0),
     'estimated_delivery': '30-45 menit',
     'service_fee': 6000,
+    'is_halal': true,
   },
   {
     'business_id': 17,
@@ -219,6 +235,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_close_hour': DateTime(2025, 1, 1, 20, 0),
     'estimated_delivery': '30-45 menit',
     'service_fee': 5000,
+    'is_halal': true,
   },
   {
     'business_id': 18,
@@ -232,6 +249,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_close_hour': DateTime(2025, 1, 1, 21, 0),
     'estimated_delivery': '25-35 menit',
     'service_fee': 6000,
+    'is_halal': true,
   },
   {
     'business_id': 19,
@@ -245,6 +263,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_close_hour': DateTime(2025, 1, 1, 20, 0),
     'estimated_delivery': '20-30 menit',
     'service_fee': 5000,
+    'is_halal': true,
   },
   {
     'business_id': 20,
@@ -258,6 +277,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_close_hour': DateTime(2025, 1, 1, 22, 0),
     'estimated_delivery': '40-60 menit',
     'service_fee': 7000,
+    'is_halal': true,
   },
   {
     'business_id': 21,
@@ -271,6 +291,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_close_hour': DateTime(2025, 1, 1, 20, 0),
     'estimated_delivery': '25-35 menit',
     'service_fee': 6000,
+    'is_halal': true,
   },
   {
     'business_id': 22,
@@ -284,6 +305,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_close_hour': DateTime(2025, 1, 1, 22, 0),
     'estimated_delivery': '30-45 menit',
     'service_fee': 5000,
+    'is_halal': true,
   },
   {
     'business_id': 23,
@@ -297,6 +319,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_close_hour': DateTime(2025, 1, 1, 12, 0),
     'estimated_delivery': '30-45 menit',
     'service_fee': 6000,
+    'is_halal': false,
   },
   {
     'business_id': 24,
@@ -310,6 +333,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_close_hour': DateTime(2025, 1, 1, 19, 0),
     'estimated_delivery': '20-35 menit',
     'service_fee': 2000,
+    'is_halal': true,
   },
   {
     'business_id': 25,
@@ -323,6 +347,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_close_hour': DateTime(2025, 1, 1, 19, 30),
     'estimated_delivery': '15-25 menit',
     'service_fee': 4000,
+    'is_halal': true,
   },
   {
     'business_id': 26,
@@ -336,6 +361,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_close_hour': DateTime(2025, 1, 1, 21, 0),
     'estimated_delivery': '20-30 menit',
     'service_fee': 5000,
+    'is_halal': true,
   },
   {
     'business_id': 27,
@@ -349,6 +375,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_close_hour': DateTime(2025, 1, 1, 19, 0),
     'estimated_delivery': '10-20 menit',
     'service_fee': 3000,
+    'is_halal': true,
   },
   {
     'business_id': 28,
@@ -362,6 +389,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_close_hour': DateTime(2025, 1, 1, 22, 0),
     'estimated_delivery': '25-35 menit',
     'service_fee': 2000,
+    'is_halal': true,
   },
   {
     'business_id': 29,
@@ -375,6 +403,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_close_hour': DateTime(2025, 1, 1, 20, 30),
     'estimated_delivery': '30-45 menit',
     'service_fee': 6000,
+    'is_halal': false,
   },
   {
     'business_id': 30,
@@ -388,6 +417,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_close_hour': DateTime(2025, 1, 1, 22, 0),
     'estimated_delivery': '5-15 menit',
     'service_fee': 1000,
+    'is_halal': false,
   },
   {
     'business_id': 31,
@@ -401,6 +431,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_close_hour': DateTime(2025, 1, 1, 20, 30),
     'estimated_delivery': '10-25 menit',
     'service_fee': 3000,
+    'is_halal': false,
   },
   {
     'business_id': 32,
@@ -414,6 +445,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_close_hour': DateTime(2025, 1, 1, 19, 0),
     'estimated_delivery': '15-30 menit',
     'service_fee': 4000,
+    'is_halal': true,
   },
   {
     'business_id': 33,
@@ -427,6 +459,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_close_hour': DateTime(2025, 1, 1, 19, 0),
     'estimated_delivery': '10-20 menit',
     'service_fee': 5000,
+    'is_halal': true,
   },
   {
     'business_id': 34,
@@ -440,6 +473,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_close_hour': DateTime(2025, 1, 1, 20, 0),
     'estimated_delivery': '10-25 menit',
     'service_fee': 5000,
+    'is_halal': true,
   },
   {
     'business_id': 35,
@@ -453,6 +487,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_close_hour': DateTime(2025, 1, 1, 21, 0),
     'estimated_delivery': '20-35 menit',
     'service_fee': 6000,
+    'is_halal': true,
   },
   {
     'business_id': 36,
@@ -466,6 +501,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_close_hour': DateTime(2025, 1, 1, 22, 0),
     'estimated_delivery': '10-20 menit',
     'service_fee': 4000,
+    'is_halal': true,
   },
   {
     'business_id': 37,
@@ -479,6 +515,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_close_hour': DateTime(2025, 1, 1, 20, 30),
     'estimated_delivery': '15-30 menit',
     'service_fee': 7000,
+    'is_halal': true,
   },
   {
     'business_id': 38,
@@ -492,6 +529,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_close_hour': DateTime(2025, 1, 1, 21, 30),
     'estimated_delivery': '25-40 menit',
     'service_fee': 3000,
+    'is_halal': true,
   },
   {
     'business_id': 39,
@@ -505,6 +543,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_close_hour': DateTime(2025, 1, 1, 19, 45),
     'estimated_delivery': '5-15 menit',
     'service_fee': 8000,
+    'is_halal': true,
   },
   {
     'business_id': 40,
@@ -518,6 +557,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_close_hour': DateTime(2025, 1, 1, 22, 0),
     'estimated_delivery': '10-25 menit',
     'service_fee': 5000,
+    'is_halal': true,
   },
   {
     'business_id': 41,
@@ -531,6 +571,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_close_hour': DateTime(2025, 1, 1, 20, 0),
     'estimated_delivery': '20-35 menit',
     'service_fee': 6000,
+    'is_halal': true,
   },
   {
     'business_id': 42,
@@ -544,6 +585,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_close_hour': DateTime(2025, 1, 1, 21, 0),
     'estimated_delivery': '15-30 menit',
     'service_fee': 4000,
+    'is_halal': true,
   },
   {
     'business_id': 43,
@@ -557,6 +599,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_close_hour': DateTime(2025, 1, 1, 21, 45),
     'estimated_delivery': '10-20 menit',
     'service_fee': 7000,
+    'is_halal': true,
   },
   {
     'business_id': 44,
@@ -570,6 +613,7 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_close_hour': DateTime(2025, 1, 1, 20, 0),
     'estimated_delivery': '15-25 menit',
     'service_fee': 4000,
+    'is_halal': true,
   },
   {
     'business_id': 45,
@@ -583,5 +627,6 @@ final List<Map<String, dynamic>> businessListTable = [
     'business_close_hour': DateTime(2025, 1, 1, 20, 30),
     'estimated_delivery': '15-25 menit',
     'service_fee': 6000,
+    'is_halal': true,
   },
 ];

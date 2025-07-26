@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../config/constants.dart';
 import '../../../shared/styles/colors.dart';
 import '../../../shared/styles/texts.dart';
 import '../../../shared/utils/is_business_open.dart';
@@ -13,12 +14,14 @@ class BusinessHeaderBar extends StatelessWidget {
   final VoidCallback onFavoritesClick;
   final VoidCallback onRatingClick;
   final bool isFavorite;
+  final bool isHalal;
 
   const BusinessHeaderBar({
     super.key,
     required this.onFavoritesClick,
     required this.onRatingClick,
     required this.isFavorite,
+    required this.isHalal,
   });
 
   @override
@@ -37,6 +40,15 @@ class BusinessHeaderBar extends StatelessWidget {
           ),
           Row(
             children: [
+              if (isHalal)
+                Padding(
+                  padding: const EdgeInsets.only(right: 8),
+                  child: Image.asset(
+                    AppConstants.halalLogo,
+                    width: 40,
+                    height: 40,
+                  ),
+                ),
               CircleAvatar(
                 backgroundColor: AppColors.soapstone,
                 child: IconButton(
@@ -51,7 +63,11 @@ class BusinessHeaderBar extends StatelessWidget {
               CircleAvatar(
                 backgroundColor: AppColors.soapstone,
                 child: IconButton(
-                  icon: const FaIcon(FontAwesomeIcons.solidStar, size: 16, color: AppColors.amber),
+                  icon: const FaIcon(
+                    FontAwesomeIcons.solidStar,
+                    size: 16,
+                    color: AppColors.amber,
+                  ),
                   onPressed: onRatingClick,
                 ),
               ),

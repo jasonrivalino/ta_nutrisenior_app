@@ -18,6 +18,7 @@ class CardBox extends StatefulWidget {
   final double? businessLocation;
   final DateTime businessOpenHour;
   final DateTime businessCloseHour;
+  final bool? isHalal;
   final int? productId;
   final String? productImage;
   final String? productName;
@@ -42,6 +43,7 @@ class CardBox extends StatefulWidget {
     this.businessLocation,
     required this.businessOpenHour,
     required this.businessCloseHour,
+    this.isHalal,
     this.productId,
     this.productImage,
     this.productName,
@@ -231,6 +233,18 @@ class _CardBoxState extends State<CardBox> {
                         );
                       },
                     ),
+
+                    // Add this block to display halal logo
+                    if (widget.isHalal == true)
+                      Positioned(
+                        top: 8,
+                        right: 8,
+                        child: Image.asset(
+                          AppConstants.halalLogo,
+                          width: 24,
+                          height: 24,
+                        ),
+                      ),
 
                     if (!isOpen && widget.businessImage != null)
                       Positioned(
