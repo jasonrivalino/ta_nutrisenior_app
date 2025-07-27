@@ -164,12 +164,12 @@ class _SearchViewState extends State<SearchView> {
               BusinessSelectionSearch(
                 selectedIndex: selectedIndex,
                   onTabSelected: (index) {
-                    setState(() {
-                      selectedIndex = index;
-                      // Keep the current text; don't clear
-                      _searchQuery = _searchBusinessController.text;
-                    });
-                  },
+                  setState(() {
+                    selectedIndex = index;
+                    _searchQuery = '';
+                    _searchBusinessController.clear();
+                  });
+                },
               ),
               SizedBox(height: 10),
               _searchQuery.isEmpty
@@ -236,6 +236,7 @@ class _SearchViewState extends State<SearchView> {
                                   businessRate: business['business_rating'],
                                   businessLocation: business['business_distance'],
                                   discountNumber: business['discount_number'],
+                                  isHalal: business['is_halal'],
                                   isFreeShipment: business['is_free_shipment'],
                                   isOpen: isOpen,
                                   onTap: () {

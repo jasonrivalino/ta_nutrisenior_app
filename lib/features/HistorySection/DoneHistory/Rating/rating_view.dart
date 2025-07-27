@@ -146,33 +146,7 @@ class _RatingViewState extends State<RatingView> {
                 onChooseImage: _handleChooseImage,
                 onRemoveImage: _removeImage,
               ),
-              SizedBox(height: 16),
-              GestureDetector(
-                onTap: () {
-                  context.push('/history/done/details/:id/report', extra: {
-                    'id': widget.historyId,
-                    'driver_id': widget.driverId,
-                    'is_driver': isDriver,
-                    'business_id': widget.businessId,
-                    'business_type': widget.businessType,
-                  });
-                },
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(Icons.report, color: AppColors.persianRed, size: 16),
-                    SizedBox(width: 6),
-                    Text(
-                      isDriver ? "Laporkan Pengemudi" : "Laporkan ${isRestaurant ? 'Restoran' : 'Pusat Belanja'}",
-                      style: AppTextStyles.textMedium(
-                        size: 14,
-                        color: AppColors.persianRed,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 24),
+              SizedBox(height: 32),
               ElevatedButtonWidget.submitFormButton(
                 onPressed: () async {
                   if (selectedRating == 0) {
@@ -247,6 +221,45 @@ class _RatingViewState extends State<RatingView> {
 
                   context.go('/historyDone');
                 },
+              ),
+              SizedBox(height: 30),
+              Align(
+                alignment: Alignment.center,
+                child: ElevatedButtonWidget(
+                  onPressed: () {
+                    context.push('/history/done/details/:id/report', extra: {
+                      'id': widget.historyId,
+                      'driver_id': widget.driverId,
+                      'is_driver': isDriver,
+                      'business_id': widget.businessId,
+                      'business_type': widget.businessType,
+                    });
+                  },
+                  backgroundColor: AppColors.persianRed,
+                  foregroundColor: AppColors.soapstone,
+                  textStyle: AppTextStyles.textMedium(size: 14, color: AppColors.soapstone),
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+                  minimumSize: const Size(0, 30), // allows shrink to fit
+                  borderRadius: 6,
+                  elevation: 0,
+                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min, // ensures content-sized width
+                    children: [
+                      const Icon(Icons.report, color: AppColors.soapstone, size: 16),
+                      const SizedBox(width: 6),
+                      Text(
+                        isDriver
+                            ? "Laporkan Pengemudi"
+                            : "Laporkan ${isRestaurant ? 'Restoran' : 'Pusat Belanja'}",
+                        style: AppTextStyles.textMedium(
+                          size: 14,
+                          color: AppColors.soapstone,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ],
           ),

@@ -239,17 +239,27 @@ class _CardBoxState extends State<CardBox> {
                       Positioned(
                         top: 8,
                         right: 8,
-                        child: Image.asset(
-                          AppConstants.halalLogo,
-                          width: 24,
-                          height: 24,
+                        child: ColorFiltered(
+                          colorFilter: isOpen
+                              ? const ColorFilter.mode(Colors.transparent, BlendMode.saturation)
+                              : const ColorFilter.matrix([
+                                  0.2126, 0.7152, 0.0722, 0, 0,
+                                  0.2126, 0.7152, 0.0722, 0, 0,
+                                  0.2126, 0.7152, 0.0722, 0, 0,
+                                  0,      0,      0,      1, 0,
+                                ]),
+                          child: Image.asset(
+                            AppConstants.halalLogo,
+                            width: 24,
+                            height: 24,
+                          ),
                         ),
                       ),
 
                     if (!isOpen && widget.businessImage != null)
                       Positioned(
                         top: 8,
-                        right: 8,
+                        left: 8,
                         child: Container(
                           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                           decoration: BoxDecoration(
