@@ -170,6 +170,7 @@ class RecommendedProductSection extends StatelessWidget {
                     productName: product['product_name'],
                     productPrice: product['product_price'],
                     productDescription: product['product_description'],
+                    isEmpty: product['is_empty'] ?? false,
                     count: currentCount,
                     notes: currentNotes,
                     addOnsSelection: selectedAddOnIdsMap,
@@ -188,7 +189,7 @@ class RecommendedProductSection extends StatelessWidget {
                     },
                     onTap: () async {
                       // Add handling if business is closed
-                      if (!isBusinessOpen(businessOpenHour, businessCloseHour)) {
+                      if (!isBusinessOpen(businessOpenHour, businessCloseHour) || product['is_empty'] == true) {
                         return;
                       }
 
@@ -328,6 +329,7 @@ class ProductListSection extends StatelessWidget {
                   productName: product['product_name'],
                   productPrice: product['product_price'],
                   productDescription: product['product_description'],
+                  isEmpty: product['is_empty'] ?? false,
                   count: currentCount,
                   notes: currentNotes,
                   addOnsSelection: selectedAddOnIdsMap,
@@ -346,7 +348,7 @@ class ProductListSection extends StatelessWidget {
                   },
                   onTap: () async {
                     // Add handling if business is closed
-                    if (!isBusinessOpen(businessOpenHour, businessCloseHour)) {
+                    if (!isBusinessOpen(businessOpenHour, businessCloseHour) || product['is_empty'] == true) {
                       return;
                     }
 

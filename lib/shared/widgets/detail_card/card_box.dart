@@ -24,6 +24,7 @@ class CardBox extends StatefulWidget {
   final String? productName;
   final int? productPrice;
   final String? productDescription;
+  final bool? isEmpty;
   final int? discountNumber;
   final int count;
   final String notes;
@@ -49,6 +50,7 @@ class CardBox extends StatefulWidget {
     this.productName,
     this.productPrice,
     this.productDescription,
+    this.isEmpty = false,
     this.discountNumber,
     required this.onTap,
     this.count = 0,
@@ -156,6 +158,7 @@ class _CardBoxState extends State<CardBox> {
       widget.businessOpenHour,
       widget.businessCloseHour,
     );
+    final isEmpty = widget.isEmpty ?? false;
 
     return GestureDetector(
       onTapDown: (_) => _setPressed(true),
@@ -213,7 +216,7 @@ class _CardBoxState extends State<CardBox> {
                         }
 
                         return ColorFiltered(
-                          colorFilter: isOpen
+                          colorFilter: isOpen && !isEmpty
                               ? const ColorFilter.mode(Colors.transparent, BlendMode.saturation)
                               : const ColorFilter.mode(AppColors.darkGray, BlendMode.saturation),
                           child: Image.asset(
@@ -234,7 +237,7 @@ class _CardBoxState extends State<CardBox> {
                       },
                     ),
 
-                    // Add this block to display halal logo
+                    // HALAL LOGO
                     if (widget.isHalal == true)
                       Positioned(
                         top: 8,
@@ -276,6 +279,26 @@ class _CardBoxState extends State<CardBox> {
                         ),
                       ),
 
+                    if (isOpen && isEmpty && widget.productImage != null)
+                      Positioned(
+                        top: 8,
+                        left: 8,
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                          decoration: BoxDecoration(
+                            color: AppColors.persianRed,
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                          child: Text(
+                            'HABIS',
+                            style: AppTextStyles.textBold(
+                              size: 13,
+                              color: AppColors.soapstone,
+                            ),
+                          ),
+                        ),
+                      ),
+
                     if (widget.discountNumber != null && widget.businessImage != null) 
                       Positioned(
                         bottom: 4,
@@ -303,7 +326,7 @@ class _CardBoxState extends State<CardBox> {
                         ),
                       ),
 
-                    // Updated: Counter display and buttons
+                    // ADD / REMOVE BUTTONS
                     if (widget.productImage != null)
                       Positioned(
                         bottom: 6,
@@ -324,7 +347,7 @@ class _CardBoxState extends State<CardBox> {
                                   ],
                                 ),
                                 child: InkWell(
-                                  onTap: isOpen ? _incrementCount : null,
+                                  onTap: (isOpen && !isEmpty) ? _incrementCount : null,
                                   borderRadius: BorderRadius.circular(14),
                                   child: const Icon(Icons.add, size: 16, color: AppColors.dark),
                                 ),
@@ -346,7 +369,7 @@ class _CardBoxState extends State<CardBox> {
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     GestureDetector(
-                                      onTap: isOpen ? _decrementCount : null,
+                                      onTap: (isOpen && !isEmpty) ? _decrementCount : null,
                                       child: const Icon(Icons.remove, size: 16, color: AppColors.dark),
                                     ),
                                     const SizedBox(width: 10),
@@ -359,7 +382,7 @@ class _CardBoxState extends State<CardBox> {
                                     ),
                                     const SizedBox(width: 10),
                                     GestureDetector(
-                                      onTap: isOpen ? _incrementCount : null,
+                                      onTap: (isOpen && !isEmpty) ? _incrementCount : null,
                                       child: const Icon(Icons.add, size: 16, color: AppColors.dark),
                                     ),
                                   ],

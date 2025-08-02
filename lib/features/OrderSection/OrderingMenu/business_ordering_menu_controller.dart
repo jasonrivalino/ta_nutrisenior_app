@@ -7,9 +7,12 @@ import '../../../database/recommended_product_list_table.dart';
 
 class BusinessOrderingMenuController {
   static Future<Map<String, List<Map<String, dynamic>>>> fetchProducts(int businessId) async {
-    // 1. Ambil semua product_id untuk bisnis ini
-    final matchedProductIds = businessProductListTable
+    // 1. Ambil semua relasi business-product
+    final productEntries = businessProductListTable
         .where((entry) => entry['business_id'] == businessId)
+        .toList();
+
+    final matchedProductIds = productEntries
         .map((entry) => entry['product_id'])
         .toSet();
 
@@ -22,7 +25,7 @@ class BusinessOrderingMenuController {
 
     // 3. Kelompokkan add-ons berdasarkan product_id
     final Map<int, List<Map<String, dynamic>>> productAddOnsMap = {};
-    for (final entry in businessProductListTable.where((e) => e['business_id'] == businessId)) {
+    for (final entry in productEntries) {
       final productId = entry['product_id'];
       final addOnsId = entry['add_ons_id'];
 
@@ -43,6 +46,13 @@ class BusinessOrderingMenuController {
           final productCopy = Map<String, dynamic>.from(product);
           final productId = product['product_id'];
 
+          // Ambil nilai is_empty dari relasi businessProductListTable
+          final matchingEntry = productEntries.firstWhere(
+            (entry) => entry['product_id'] == productId,
+            orElse: () => {},
+          );
+          productCopy['is_empty'] = matchingEntry['is_empty'] ?? false;
+
           if (discountNumber != null) {
             productCopy['discount_number'] = discountNumber;
             productCopy['discounted_price'] =
@@ -55,7 +65,7 @@ class BusinessOrderingMenuController {
         })
         .toList();
 
-    // 5. Ambil daftar produk rekomendasi hanya untuk businessId ini
+    // 5. Ambil daftar produk rekomendasi untuk bisnis ini
     final businessRecommendedEntries = recommendedProductListTable
         .where((entry) => entry['business_id'] == businessId)
         .toList();
@@ -79,7 +89,6 @@ class BusinessOrderingMenuController {
     };
   }
 
-  // Tambahan di BusinessOrderingMenuController
   static Map<String, dynamic> getPromoByBusinessId(int businessId) {
     return businessPromoListTable.firstWhere(
       (promo) => promo['business_id'] == businessId,

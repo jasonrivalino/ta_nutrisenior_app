@@ -22,6 +22,7 @@ class CardList extends StatefulWidget {
   final String? productName;
   final int? productPrice;
   final String? productDescription;
+  final bool? isEmpty;
   final int? discountNumber;
   final bool? isFreeShipment;
   final int? count;
@@ -47,6 +48,7 @@ class CardList extends StatefulWidget {
     this.productName,
     this.productPrice,
     this.productDescription,
+    this.isEmpty = false,
     this.discountNumber,
     this.isFreeShipment,
     required this.onTap,
@@ -145,6 +147,7 @@ class _CardListState extends State<CardList> {
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     final isOpen = widget.isOpen ?? true;
+    final isEmpty = widget.isEmpty ?? false;
 
     return Material(
       color: Colors.transparent,
@@ -155,7 +158,7 @@ class _CardListState extends State<CardList> {
         child: Ink(
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
-            color: isOpen ? AppColors.ecruWhite : AppColors.lightGray,
+            color: (isOpen && !isEmpty) ? AppColors.ecruWhite : AppColors.lightGray,
             border: Border.symmetric(
               horizontal: BorderSide(
                 color: AppColors.darkGray,
@@ -183,7 +186,7 @@ class _CardListState extends State<CardList> {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(8),
                           child: ColorFiltered(
-                            colorFilter: isOpen
+                            colorFilter: isOpen && !isEmpty
                                 ? const ColorFilter.mode(Colors.transparent, BlendMode.saturation)
                                 : const ColorFilter.mode(AppColors.darkGray, BlendMode.saturation),
                             child: Image.asset(
@@ -220,10 +223,35 @@ class _CardListState extends State<CardList> {
                             ),
                             alignment: Alignment.center,
                             child: Text(
-                              'Tutup',
+                              'TUTUP',
                               style: AppTextStyles.textBold(
                                 size: 13,
                                 color: AppColors.soapstone,
+                              ),
+                            ),
+                          ),
+                        ),
+
+                      if (isOpen && isEmpty && widget.productImage != null)
+                        Positioned.fill(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: AppColors.dark.withAlpha(120),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            alignment: Alignment.center,
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+                              decoration: BoxDecoration(
+                                color: AppColors.persianRed,
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              child: Text(
+                                'HABIS',
+                                style: AppTextStyles.textBold(
+                                  size: 12,
+                                  color: AppColors.soapstone,
+                                ),
                               ),
                             ),
                           ),
@@ -408,7 +436,7 @@ class _CardListState extends State<CardList> {
                                           color: AppColors.soapstone,
                                         ),
                                         child: InkWell(
-                                          onTap: isOpen ? _incrementCount : null,
+                                          onTap: (isOpen && !isEmpty) ? _incrementCount : null,
                                           borderRadius: BorderRadius.circular(20),
                                           child: const Icon(
                                             Icons.add,
@@ -429,7 +457,7 @@ class _CardListState extends State<CardList> {
                                             color: AppColors.soapstone,
                                           ),
                                           child: InkWell(
-                                            onTap: isOpen ? _decrementCount : null,
+                                            onTap: (isOpen && !isEmpty) ? _decrementCount : null,
                                             borderRadius: BorderRadius.circular(6),
                                             child: const Icon(
                                               Icons.remove,
@@ -456,7 +484,7 @@ class _CardListState extends State<CardList> {
                                             color: AppColors.soapstone,
                                           ),
                                           child: InkWell(
-                                            onTap: isOpen ? _incrementCount : null,
+                                            onTap: (isOpen && !isEmpty) ? _incrementCount : null,
                                             borderRadius: BorderRadius.circular(6),
                                             child: const Icon(
                                               Icons.add,
