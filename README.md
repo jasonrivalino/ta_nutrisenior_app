@@ -10,7 +10,7 @@
 ## Table of Contents
 * [Deskripsi Proyek](#deskripsi-proyek)
 * [Tech Stack](#tech-stack)
-* [Daftar Fitur Aplikasi](#daftar-fitur-aplikasi)
+* [Daftar Fungsionalitas Sistem](#daftar-fungsionalitas-sistem)
 * [Struktur Direktori File dan Class](#struktur-direktori-file-dan-class)
 * [Acknowledgements](#acknowledgements)
 
@@ -28,21 +28,31 @@ Proyek ini dikembangkan sebagai bagian dari pengerjaan Tugas Akhir guna memenuhi
 ## Tech Stack
 **Flutter 3.29.3 Version** 
 
-## Daftar Fitur Aplikasi
-|  ID   | Nama Fitur                                                                                                  |
-|:-----:|:------------------------------------------------------------------------------------------------------------|
-| F-01 | Fitur untuk registrasi dan login masuk ke dalam akun pengguna.                                               |
-| F-02 | Fitur pemberian informasi rekomendasi restoran ataupun pusat belanja kepada pengguna.                        |
-| F-03 | Fitur pencarian restoran ataupun pusat belanja yang diinginkan dengan search bar ataupun sort filter.        |
-| F-04 | Fitur untuk pemilihan makanan ataupun belanjaan yang diinginkan pada restoran atau pusat belanja.            |
-| F-05 | Fitur untuk melakukan pemesanan terhadap makanan ataupun belanjaan yang diinginkan.                          |
-| F-06 | Fitur untuk melakukan pengecekan terhadap status informasi keberadaan dari pengiriman pesanan.               |
-| F-07 | Fitur untuk melakukan pemberian rating dan komentar setelah melakukan pemesanan.                             |
-| F-08 | Fitur untuk melakukan pengecekan terhadap rating dan komentar dari berbagai restoran dan pusat belanja.      |
-| F-09 | Fitur untuk melakukan pengecekan terhadap riwayat daftar pembelian yang telah dilakukan sebelumnya.          |
-| F-10 | Fitur untuk menandai dan mengecek berbagai restoran dan pusat belanja sebagai favorit.                       |
-| F-11 | Fitur pemberian informasi terkait dengan daftar promo ataupun diskon pada restoran ataupun pusat belanja.    |
-| F-12 | Fitur pelaporan restoran ataupun pusat belanja pada pusat layanan aplikasi.                                  |
+## Daftar Fungsionalitas Sistem
+|  ID   | Nama Fungsionalitas Sistem                                                                                                                                                   |
+|:-----:|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| KF-01 | Sistem menyediakan proses registrasi atau <i>login</i> dan masuk ke dalam akun pribadi masing-masing untuk melakukan proses pemesanan.                                       |
+| KF-02 | Sistem menyediakan opsi <i>logout</i> dan keluar dari akun pribadi untuk mengganti akun.                                                                                     |
+| KF-03 | Sistem menyediakan daftar rekomendasi bisnis antara restoran ataupun pusat belanja pada menu utama.                                                                          |
+| KF-04 | Sistem menyediakan opsi pencarian dan <i>sorting</i> untuk memudahkan dalam menemukan bisnis yang diinginkan.                                                                |
+| KF-05 | Sistem menyediakan daftar bisnis yang menawarkan promo penjualan yang menarik antara restoran ataupun pusat belanja.                                                         |
+| KF-06 | Sistem menyediakan opsi untuk dapat memfavoritkan atau menghapus favorit dari suatu bisnis.                                                                                  |
+| KF-07 | Sistem menyediakan daftar bisnis yang ditandai favorit sebelumnya.                                                                                                           |
+| KF-08 | Sistem menyediakan informasi detail dari bisnis dengan tampilan yang mudah dilihat dan isi yang mudah dipahami.                                                              |
+| KF-09 | Sistem menyediakan informasi detail produk yang dijual pada bisnis dengan tampilan yang mudah dilihat dan isi yang mudah dipahami.                                           |
+| KF-10 | Sistem menyediakan opsi untuk dapat melakukan kustomisasi terhadap produk yang ingin dipesan (kuantitas, <i>add-ons</i>, ataupun <i>note</i>).                               |
+| KF-11 | Sistem menyediakan opsi untuk dapat menentukan alamat pengantaran pada pemesanan.                                                                                            |
+| KF-12 | Sistem menyediakan opsi untuk dapat memberikan catatan <i>note</i> untuk disampaikan kepada pengemudi yang mengantarkan pesanan.                                             |
+| KF-13 | Sistem menyediakan opsi untuk dapat menentukan metode pembayaran pada pemesanan.                                                                                             |
+| KF-14 | Sistem memungkinkan untuk dapat melakukan konfirmasi pemesanan terhadap berbagai produk yang dipilih beserta informasi yang telah dimasukkan sebelumnya.                     |
+| KF-15 | Sistem menyediakan detail informasi terkait dengan status keberadaan dari pemesanan yang telah dilakukan sebelumnya.                                                         |
+| KF-16 | Sistem menyediakan opsi untuk dapat melakukan pembatalan terhadap pemesanan ketika masih diproses pada bisnis.                                                               |
+| KF-17 | Sistem memungkinkan untuk dapat berkomunikasi dengan pengemudi yang mengantarkan pesanan.                                                                                    |
+| KF-18 | Sistem menyediakan informasi dalam bentuk pesan sederhana yang mudah dipahami ketika berhasil atau gagal dalam melakukan aksi.                                               |
+| KF-19 | Sistem menyediakan detail informasi terkait dengan riwayat histori dari pemesanan sebelumnya yang telah selesai.                                                             |
+| KF-20 | Sistem menyediakan opsi untuk dapat melakukan pemesanan kembali pada bisnis yang sebelumnya telah dipesan.                                                                   |
+| KF-21 | Sistem menyediakan opsi untuk dapat memberikan penilaian berupa <i>rating</i> dan komentar pada pengemudi yang mengantarkan pesanan ataupun bisnis yang dipesan sebelumnya.  |
+| KF-22 | Sistem menyediakan opsi untuk dapat melakukan pengecekan terhadap keseluruhan <i>rating</i> dan komentar dari suatu bisnis.                                                  |
 
 ## Struktur Direktori File dan Class
 ```
