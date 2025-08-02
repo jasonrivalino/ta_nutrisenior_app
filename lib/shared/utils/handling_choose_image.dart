@@ -23,7 +23,7 @@ Future<XFile?> handleChooseImage({
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
         content: Text('Maksimal 3 gambar diperbolehkan'),
-        duration: Duration(seconds: 6),
+        duration: Duration(seconds: 5),
       ),
     );
     return null;
@@ -77,7 +77,7 @@ Future<XFile?> handleChooseImage({
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
         content: Text('Izin ditolak'),
-        duration: Duration(seconds: 6),
+        duration: Duration(seconds: 5),
       ),
     );
     return null;

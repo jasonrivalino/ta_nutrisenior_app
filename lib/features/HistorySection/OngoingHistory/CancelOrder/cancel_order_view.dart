@@ -143,7 +143,7 @@ class _CancelOrderViewState extends State<CancelOrderView> {
                               content: Text("Pilih alasan pembatalan pesanan terlebih dahulu."),
                               backgroundColor: AppColors.persianRed,
                               behavior: SnackBarBehavior.floating,
-                              duration: Duration(seconds: 6),
+                              duration: Duration(seconds: 5),
                             ),
                           );
                           return;

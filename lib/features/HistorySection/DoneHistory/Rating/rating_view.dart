@@ -155,7 +155,7 @@ class _RatingViewState extends State<RatingView> {
                         content: Text("Rating tidak boleh kosong."),
                         backgroundColor: AppColors.persianRed,
                         behavior: SnackBarBehavior.floating,
-                        duration: Duration(seconds: 6),
+                        duration: Duration(seconds: 5),
                       ),
                     );
                     return;

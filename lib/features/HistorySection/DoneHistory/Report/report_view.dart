@@ -217,7 +217,7 @@ class _ReportViewState extends State<ReportView> {
                                         content: Text("Pilih alasan pelaporan terlebih dahulu."),
                                         backgroundColor: AppColors.persianRed,
                                         behavior: SnackBarBehavior.floating,
-                                        duration: Duration(seconds: 6),
+                                        duration: Duration(seconds: 5),
                                       ),
                                     );
                                     return;
@@ -229,7 +229,7 @@ class _ReportViewState extends State<ReportView> {
                                         content: Text("Penjelasan Laporan tidak boleh kosong."),
                                         backgroundColor: AppColors.persianRed,
                                         behavior: SnackBarBehavior.floating,
-                                        duration: Duration(seconds: 6),
+                                        duration: Duration(seconds: 5),
                                       ),
                                     );
                                     return;

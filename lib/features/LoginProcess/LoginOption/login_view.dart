@@ -86,7 +86,7 @@ class _LoginViewState extends State<LoginView> {
                         } catch (e) {
                           Fluttertoast.showToast(
                             msg: "Login tidak berhasil. \nSilahkan ulangi...",
-                            toastLength: Toast.LENGTH_LONG,
+                            toastLength: Toast.LENGTH_SHORT,
                             gravity: ToastGravity.BOTTOM,
                           );
                         }

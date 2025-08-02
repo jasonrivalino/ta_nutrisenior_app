@@ -534,7 +534,7 @@ class DeliverDriverCard extends StatelessWidget {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                             content: Text('Tidak dapat membuka aplikasi telepon'),
-                            duration: Duration(seconds: 6),
+                            duration: Duration(seconds: 5),
                           ),
                         );
                       }
@@ -542,7 +542,7 @@ class DeliverDriverCard extends StatelessWidget {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
                           content: Text('Izin telepon ditolak'),
-                          duration: Duration(seconds: 6),
+                          duration: Duration(seconds: 5),
                         ),
                       );
                     }
