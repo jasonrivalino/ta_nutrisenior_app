@@ -171,6 +171,7 @@ package "shared::widgets::recommend_menu_card_box_widgets" {
     +String? productName
     +int? productPrice
     +String? productDescription
+    +bool? isEmpty
     +int? discountNumber
     +int count
     +String notes
@@ -207,6 +208,7 @@ package "shared::widgets::list_menu_card_list_widgets" {
     +String? productName
     +int? productPrice
     +String? productDescription
+    +bool? isEmpty
     +int? discountNumber
     +bool? isFreeShipment
     +int? count
