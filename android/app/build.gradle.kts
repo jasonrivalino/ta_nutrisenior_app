@@ -6,6 +6,15 @@ plugins {
     id("com.google.gms.google-services")
 }
 
+val googleApiKey: String? =
+    rootProject.file("local.properties")
+        .takeIf { it.exists() }
+        ?.readLines()
+        ?.firstOrNull { it.startsWith("GOOGLE_MAPS_API_KEY=") }
+        ?.split("=")
+        ?.getOrNull(1)
+        ?.trim()
+
 android {
     namespace = "com.ta_nutrisenior_app"
     compileSdk = flutter.compileSdkVersion
@@ -30,6 +39,7 @@ android {
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+        manifestPlaceholders["googleMapsApiKey"] = googleApiKey ?: ""
     }
 
     buildTypes {
