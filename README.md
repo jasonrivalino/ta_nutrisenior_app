@@ -307,9 +307,14 @@ Proyek ini dikembangkan sebagai bagian dari pengerjaan Tugas Akhir guna memenuhi
 ```
 
 ## Acknowledgements
-- Tuhan Yang Maha Esa
-- Bapak Adi Mulyanto, S.T., M.T., selaku dosen pembimbing yang telah memberikan ilmu dan bimbingan selama pengerjaan Tugas Akhir
-- Ibu Tricya Esterina Widagdo, S.T., M.Sc. selaku dosen koordinator untuk pelaksanaan Tugas Akhir
-- Djoni Budijono dan Emma sebagai kedua orang tua dan Sherin Chelycia sebagai saudara kandung yang selalu memberikan semangat, doa, dan dukungan terhadap kelancaran dalam pengerjaan Tugas Akhir
-- Rekan-rekan mahasiswa Teknik Informatika yang telah memberikan semangat dan motivasi kepada penulis
-- Semua pihak lain yang memberikan bantuan, semangat dan doa pada penulis dalam menyelesaikan pengerjaan draf Tugas Akhir
+- Bapak Adi Mulyanto, S.T., M.T., selaku dosen pembimbing yang telah memberikan ilmu dan bimbingan selama keberlangsungan pengerjaan tugas akhir.
+- Ibu Tricya Esterina Widagdo, S.T., M.Sc. dan Ir. Robithoh Annur, S.T., M.Eng., Ph.D. selaku dosen koordinator untuk pelaksanaan mata kuliah tugas akhir.
+- Seluruh dosen dan tim pengajar dari keseluruhan mata kuliah pada Teknik Informatika yang telah memberikan ilmu pengetahuan selama masa perkuliahan yang membantu dalam pengerjaan tugas akhir.
+- Djoni Budijono dan Emma sebagai kedua orang tua dan Sherin Chelycia sebagai saudara kandung yang selalu ada untuk memberikan semangat, doa, dan motivasi dukungan terhadap kelancaran dalam keseluruhan proses pengerjaan tugas akhir.
+- Rekan-rekan mahasiswa Teknik Informatika, khususnya rekan mahasiswa Teknik Informatika Jatinangor (Angger, Bintang, Henry, Kelvin, Azmi, Matthew, Christo, Salman, Afnan, Haikal, Eunice, Syauqi, Willy, Laila, Syarifa, Ditra, Varraz, Willson, Radit, Kenny, Nadil, Haidar, Copa, Agsha, Zulfiansyah, Malik, Jauza, dan Fahrian) yang telah memberikan semangat dan motivasi dukungan kepada penulis dalam mengerjakan tugas akhir.
+- Seluruh kru aktif dari UKM Liga Film Mahasiswa ITB mulai dari Kruinz, Krusans, Krusuhan, hingga Kruwala yang memberikan berbagai pengalaman menyenangkan selama masa pengerjaan tugas akhir.
+- Darren dan Cilla sebagai anggota ‘Bulbul’ yang selalu ada untuk memberikan semangat dan nasehat yang memotivasi penulis dalam mengerjakan tugas akhir.
+- Naomi, Risma, Gege, dan Shaula sebagai anggota ‘Keluarga Berada’ yang merupakan teman seperjuangan bersama dari masa kerja praktik hingga masa pengerjaan tugas akhir.
+- Laptop penulis dan Kopi Kenangan yang setia menemani selama masa pengerjaan tugas akhir.
+- Seluruh responden yang terlibat selama proses pengerjaan tugas akhir mulai dari pengumpulan data hingga evaluasi pengujian aplikasi.
+- Semua pihak lain yang memberikan bantuan, semangat dan doa pada penulis dalam menyelesaikan pengerjaan tugas akhir.
