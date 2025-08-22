@@ -9,6 +9,7 @@
 
 ## Table of Contents
 * [Deskripsi Proyek](#deskripsi-proyek)
+* [Tampilan Aplikasi](#tampilan-aplikasi)
 * [Tech Stack](#tech-stack)
 * [Daftar Fungsionalitas Sistem](#daftar-fungsionalitas-sistem)
 * [Struktur Direktori File dan Class](#struktur-direktori-file-dan-class)
@@ -24,6 +25,12 @@
 </div>
 <br><br>
 Proyek ini dikembangkan sebagai bagian dari pengerjaan Tugas Akhir guna memenuhi salah satu syarat kelulusan program sarjana (S1) pada Program Studi Teknik Informatika, Institut Teknologi Bandung.
+
+## Tampilan Aplikasi
+<br>
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/c322e516-d02f-4e84-81c6-15dbdbeea64b" alt="Purple Pink Gradient Mobile Application Presentation" width="650" height="550" />
+</p>
 
 ## Tech Stack
 **Flutter 3.29.3 Version** 
