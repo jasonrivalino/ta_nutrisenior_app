@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+// import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../config/constants.dart';
@@ -24,7 +24,7 @@ class DriverRatingController {
       'rating_comment': ratingComment,
     });
 
-    debugPrint('[DEBUG] New driver rating added: ${historyRatingListTable.last}');
+    // debugPrint('[DEBUG] New driver rating added: ${historyRatingListTable.last}');
 
     // Add image data if any
     if (ratingImages != null && ratingImages.isNotEmpty) {
@@ -36,7 +36,7 @@ class DriverRatingController {
         });
       }
 
-      debugPrint('[DEBUG] Added driver rating images: $ratingImages');
+      // debugPrint('[DEBUG] Added driver rating images: $ratingImages');
     }
   }
 }
@@ -95,6 +95,6 @@ class BusinessRatingController {
       });
     }
 
-    debugPrint('[DEBUG] Business rating and images saved successfully.');
+    // debugPrint('[DEBUG] Business rating and images saved successfully.');
   }
 }

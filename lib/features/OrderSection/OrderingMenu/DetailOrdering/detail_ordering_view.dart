@@ -89,8 +89,8 @@ class _DetailOrderingViewState extends State<DetailOrderingView> {
       businessId: widget.businessId,
     );
 
-    print('Selected Add-Ons for Product ${widget.productId}: $selectedAddOnIds');
-    print('Generated Add-Ons List: $addOnsList');
+    // print('Selected Add-Ons for Product ${widget.productId}: $selectedAddOnIds');
+    // print('Generated Add-Ons List: $addOnsList');
   }
 
   @override

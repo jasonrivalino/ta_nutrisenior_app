@@ -28,7 +28,7 @@ class ReviewBusinessView extends StatefulWidget {
 
   factory ReviewBusinessView.fromExtra(BuildContext context, GoRouterState state) {
     final extra = state.extra as Map<String, dynamic>;
-    print('ReviewBusinessView.fromExtra: $extra');
+    // print('ReviewBusinessView.fromExtra: $extra');
 
     return ReviewBusinessView(
       businessId: extra['business_id'] as int,

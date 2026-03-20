@@ -139,7 +139,7 @@ class OTPVerificationInputState extends State<OTPVerificationInput> {
                         ),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () async {
-                            print('Kirim ulang clicked');
+                            // print('Kirim ulang clicked');
                             await OTPNotificationService.showNotification(
                               title: "OTP Verifikasi",
                               body: "Kode OTP untuk verifikasi nomor telepon Anda adalah 123456",

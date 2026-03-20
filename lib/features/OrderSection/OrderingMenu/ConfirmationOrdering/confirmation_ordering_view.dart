@@ -51,7 +51,7 @@ class OrderConfirmationView extends StatefulWidget {
 
   static OrderConfirmationView fromExtra(BuildContext context, GoRouterState state) {
     final extra = state.extra as Map<String, dynamic>;
-    print("Address ID: ${extra['selected_address_id']}");
+    // print("Address ID: ${extra['selected_address_id']}");
 
     return OrderConfirmationView(
       selectedProducts: extra['selected_products'] as List<Map<String, dynamic>>,
@@ -130,7 +130,7 @@ class _OrderConfirmationViewState extends State<OrderConfirmationView> {
 
   @override
   Widget build(BuildContext context) {
-    print("Selected Products: $_selectedProducts");
+    // print("Selected Products: $_selectedProducts");
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (didPop, result) async {
@@ -219,7 +219,7 @@ class _OrderConfirmationViewState extends State<OrderConfirmationView> {
                             setState(() {
                               driverNote = newNote;
                             });
-                            print("Note Pengantar: $driverNote");
+                            // print("Note Pengantar: $driverNote");
                           },
                         ),
                       );
@@ -359,21 +359,21 @@ class _OrderConfirmationViewState extends State<OrderConfirmationView> {
                 getDeliveryFee,
               );
 
-              print("=== Order Confirmation Debug Info ===");
-              print("Selected Products:");
-              for (var product in _selectedProducts) {
-                print(
-                  "Product ID: ${product['product_id']}, Name: ${product['product_name']}, "
-                  "Price: ${product['product_price']}, Quantity: ${product['qty_product']}, "
-                  "Notes: ${product['notes'] ?? '-'}, Add-Ons: ${product['add_ons'] ?? '-'}",
-                );
-              }
-              print("Service Fee: ${widget.serviceFee}");
-              print("Delivery Fee: $_deliveryFee");
-              print("Total Price: $updatedTotalPrice");
-              print("Address Delivery: ${_selectedAddress['address_detail']}");
-              print("Driver Note: $driverNote");
-              print("Payment Method: $_selectedPaymentMethod");
+              // print("=== Order Confirmation Debug Info ===");
+              // print("Selected Products:");
+              // for (var product in _selectedProducts) {
+              //   print(
+              //     "Product ID: ${product['product_id']}, Name: ${product['product_name']}, "
+              //     "Price: ${product['product_price']}, Quantity: ${product['qty_product']}, "
+              //     "Notes: ${product['notes'] ?? '-'}, Add-Ons: ${product['add_ons'] ?? '-'}",
+              //   );
+              // }
+              // print("Service Fee: ${widget.serviceFee}");
+              // print("Delivery Fee: $_deliveryFee");
+              // print("Total Price: $updatedTotalPrice");
+              // print("Address Delivery: ${_selectedAddress['address_detail']}");
+              // print("Driver Note: $driverNote");
+              // print("Payment Method: $_selectedPaymentMethod");
 
               final result = OrderConfirmationController.addOrder(
                 businessId: widget.businessId,

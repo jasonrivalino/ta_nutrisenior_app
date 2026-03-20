@@ -72,9 +72,9 @@ class _OTPVerificationViewState extends State<OTPVerificationView> {
                         _otpWidgetKey.currentState?.validateAndSetState();
                         if (_otpWidgetKey.currentState?.errorText == null) {
                           context.go('/homepage');
-                          print("OTP valid!");
+                          // print("OTP valid!");
                         } else {
-                          print("OTP not valid!");
+                          // print("OTP not valid!");
                         }
                       },
                     ),

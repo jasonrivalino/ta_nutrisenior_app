@@ -195,7 +195,7 @@ class RecommendedProductSection extends StatelessWidget {
 
                       final route = '/business/detail/$businessId/ordering/$productId';
 
-                      print('Navigating to: $route');
+                      // print('Navigating to: $route');
 
                       final result = await context.push<Map<String, dynamic>>(route, extra: {
                         'business_id': businessId,
@@ -217,7 +217,7 @@ class RecommendedProductSection extends StatelessWidget {
                         final notes = result['notes'] ?? '';
                         final addOnsResult = result['add_ons'] as Map<String, dynamic>?;
 
-                        print('Returned from detail: productId: $returnedProductId, qty: $newQty, notes: $notes, add_ons: $addOnsResult');
+                        // print('Returned from detail: productId: $returnedProductId, qty: $newQty, notes: $notes, add_ons: $addOnsResult');
 
                         onCountChanged(returnedProductId, newQty);
 
@@ -354,7 +354,7 @@ class ProductListSection extends StatelessWidget {
 
                     final route = '/business/detail/$businessId/ordering/$productId';
 
-                    print('Navigating to: $route');
+                    // print('Navigating to: $route');
 
                     final result = await context.push<Map<String, dynamic>>(route, extra: {
                       'business_id': businessId,
@@ -376,7 +376,7 @@ class ProductListSection extends StatelessWidget {
                       final notes = result['notes'] ?? '';
                       final addOnsResult = result['add_ons'] as Map<String, dynamic>?;
 
-                      print('Returned from detail: productId: $returnedProductId, qty: $newQty, notes: $notes');
+                      // print('Returned from detail: productId: $returnedProductId, qty: $newQty, notes: $notes');
 
                       onCountChanged(returnedProductId, newQty);
                       if (onNotesChanged != null) {

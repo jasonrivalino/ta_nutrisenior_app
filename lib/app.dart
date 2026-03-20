@@ -25,16 +25,16 @@ class _MyAppState extends State<MyApp> {
     });
 
     // Schedule a callback after first frame to safely access MediaQuery
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      final mediaQuery = MediaQuery.of(context);
-      final deviceWidth = mediaQuery.size.width;
-      final deviceHeight = mediaQuery.size.height;
-      final pixelRatio = mediaQuery.devicePixelRatio;
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   final mediaQuery = MediaQuery.of(context);
+    //   final deviceWidth = mediaQuery.size.width;
+    //   final deviceHeight = mediaQuery.size.height;
+    //   final pixelRatio = mediaQuery.devicePixelRatio;
 
-      print('Device Width: $deviceWidth');
-      print('Device Height: $deviceHeight');
-      print('Device Pixel Ratio: $pixelRatio');
-    });
+    //   print('Device Width: $deviceWidth');
+    //   print('Device Height: $deviceHeight');
+    //   print('Device Pixel Ratio: $pixelRatio');
+    // });
   }
 
   @override

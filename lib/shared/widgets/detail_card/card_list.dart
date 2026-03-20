@@ -97,7 +97,7 @@ class _CardListState extends State<CardList> {
 
         if (widget.onNotesChanged != null) {
           widget.onNotesChanged!(notes);
-          print('Notes changed: $notes');
+          // print('Notes changed: $notes');
         }
 
         if (widget.onAddOnsChanged != null && rawSelectedAddOns is Map) {
@@ -110,9 +110,9 @@ class _CardListState extends State<CardList> {
             );
 
             widget.onAddOnsChanged!(castedAddOns);
-            print('Add-ons changed: $castedAddOns');
+            // print('Add-ons changed: $castedAddOns');
           } catch (e) {
-            print('Error parsing add-ons map: $e');
+            // print('Error parsing add-ons map: $e');
           }
         }
       }

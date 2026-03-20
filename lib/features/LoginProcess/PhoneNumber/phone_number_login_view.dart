@@ -75,7 +75,7 @@ class _PhoneNumberLoginViewState extends State<PhoneNumberLoginView> {
                           );
                           context.push('/login/phone/otp');
                         } else {
-                          print("Validation failed");
+                          // print("Validation failed");
                         }
                       },
                     ),

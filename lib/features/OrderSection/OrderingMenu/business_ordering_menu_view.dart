@@ -147,7 +147,7 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
 
     num total = 0;
 
-    print("=== Product Price Calculation Debug ===");
+    // print("=== Product Price Calculation Debug ===");
 
     for (final entry in uniqueProducts.entries) {
       final id = entry.key;
@@ -171,7 +171,7 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
         total += addOnsTotalPrice;
 
         if (addOnsTotalPrice > 0) {
-          print("Add-Ons for Product ID $id: x$count = $addOnsTotalPrice");
+          // print("Add-Ons for Product ID $id: x$count = $addOnsTotalPrice");
         }
       } else {
         // Remove unused add-ons
@@ -179,7 +179,7 @@ class _BusinessOrderingMenuViewState extends State<BusinessOrderingMenuView> {
       }
     }
 
-    print("Final Total Price: $total");
+    // print("Final Total Price: $total");
 
     return total.toInt();
   }

@@ -499,12 +499,15 @@ class DeliverDriverCard extends StatelessWidget {
                 child: InkWell(
                   borderRadius: BorderRadius.circular(8),
                   onTap: () {
-                    context.push('/chatlist/detail/$driverId',
-                    extra: {
-                      'driver_id': driverId,
-                      'driver_name': driverName,
-                      'driver_image': driverImage,
-                    });
+                    context.push(
+                      '/chatlist/detail/$driverId',
+                      extra: {
+                        'driver_id': driverId,
+                        'driver_name': driverName,
+                        'driver_image': driverImage,
+                        'driver_phone_number': driverPhoneNumber,
+                      },
+                    );
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(6),

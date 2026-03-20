@@ -113,7 +113,7 @@ class OrderConfirmationController {
       });
     }
 
-    print('Order added with status: $randomStatus and history_id: $newHistoryId');
+    // print('Order added with status: $randomStatus and history_id: $newHistoryId');
 
     // Include all needed driver details in return
     return {
