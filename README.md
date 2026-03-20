@@ -1,22 +1,24 @@
-# Proyek Tugas Akhir - Nutrisenior Mobile App
-**Nutrisenior - <i>Food E-Commerce App for Elderly People</i> 👵👴🍽️**
+# Final Project Assignment - Nutrisenior Mobile App
+**Nutrisenior - <i>Food E-Commerce App for Elderly People</i>**
 
 ## Author
-- **Nama**: Jason Rivalino  
+- **Name**: Jason Rivalino  
 - **NIM**: 13521008 
-- **Institusi**: Institut Teknologi Bandung 
-- **Jurusan**: Teknik Informatika
+- **Institute**: Bandung Institute of Technology
+- **Major**: Informatics Engineering
 
 ## Table of Contents
-* [Deskripsi Proyek](#deskripsi-proyek)
-* [Tampilan Aplikasi](#tampilan-aplikasi)
+* [Project Description](#project-description)
+* [Application Interface Preview](#application-interface-preview)
 * [Tech Stack](#tech-stack)
-* [Daftar Fungsionalitas Sistem](#daftar-fungsionalitas-sistem)
-* [Struktur Direktori File dan Class](#struktur-direktori-file-dan-class)
+* [System Functionality List](#system-functionality-list)
+* [File and Class Directory Structure](#file-and-class-directory-structure)
+* [Poster](#poster)
+* [Documentation Link](#documentation-link)
 * [Acknowledgements](#acknowledgements)
 
-## Deskripsi Proyek
-**NutriSenior** adalah aplikasi <i>Food E-Commerce</i> berbasis <i>Mobile</i> yang dirancang khusus untuk memudahkan lansia dalam memilih dan memesan makanan sehat yang sesuai dengan kebutuhan nutrisi mereka. Aplikasi ini menyediakan fitur pemesanan makanan dari berbagai restoran dan pasar sehat serta rancangan antarmuka yang ramah pengguna untuk pengguna usia lanjut.
+## Project Description
+NutriSenior is a mobile-based food e-commerce application specifically designed to help the elderly easily select and order healthy meals that meet their nutritional needs. The application offers food ordering from various businesses, including restaurants and health markets, and features a user-friendly interface for senior users.
 <br><br>
 <div align="center">
   <img src="https://github.com/user-attachments/assets/f523d958-1852-4fda-97cc-9f48ba47d582" alt="NutriSenior App For Android" width="200" style="border-radius: 16px;" />
@@ -24,44 +26,44 @@
   <strong>NutriSenior App Logo</strong>
 </div>
 <br><br>
-Proyek ini dikembangkan sebagai bagian dari pengerjaan Tugas Akhir guna memenuhi salah satu syarat kelulusan program sarjana (S1) pada Program Studi Teknik Informatika, Institut Teknologi Bandung.
+This project was developed as part of the Final Project to complete the Bachelor’s degree program in Informatics Engineering at Bandung Institute of Technology.
 
-## Tampilan Aplikasi
+## Application Interface Preview
 <br>
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/c322e516-d02f-4e84-81c6-15dbdbeea64b" alt="Purple Pink Gradient Mobile Application Presentation" width="650" height="550" />
+  <img width="650" height="550" alt="Purple Pink Gradient Mobile Application Presentation-Photoroom (2)" src="https://github.com/user-attachments/assets/b7676ef2-4e63-4606-bb16-54b740126505" />
 </p>
 
 ## Tech Stack
 **Flutter 3.29.3 Version** 
 
-## Daftar Fungsionalitas Sistem
-|  ID   | Nama Fungsionalitas Sistem                                                                                                                                                   |
-|:-----:|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| KF-01 | Sistem menyediakan proses registrasi atau <i>login</i> dan masuk ke dalam akun pribadi masing-masing untuk melakukan proses pemesanan.                                       |
-| KF-02 | Sistem menyediakan opsi <i>logout</i> dan keluar dari akun pribadi untuk mengganti akun.                                                                                     |
-| KF-03 | Sistem menyediakan daftar rekomendasi bisnis antara restoran ataupun pusat belanja pada menu utama.                                                                          |
-| KF-04 | Sistem menyediakan opsi pencarian dan <i>sorting</i> untuk memudahkan dalam menemukan bisnis yang diinginkan.                                                                |
-| KF-05 | Sistem menyediakan daftar bisnis yang menawarkan promo penjualan yang menarik antara restoran ataupun pusat belanja.                                                         |
-| KF-06 | Sistem menyediakan opsi untuk dapat memfavoritkan atau menghapus favorit dari suatu bisnis.                                                                                  |
-| KF-07 | Sistem menyediakan daftar bisnis yang ditandai favorit sebelumnya.                                                                                                           |
-| KF-08 | Sistem menyediakan informasi detail dari bisnis dengan tampilan yang mudah dilihat dan isi yang mudah dipahami.                                                              |
-| KF-09 | Sistem menyediakan informasi detail produk yang dijual pada bisnis dengan tampilan yang mudah dilihat dan isi yang mudah dipahami.                                           |
-| KF-10 | Sistem menyediakan opsi untuk dapat melakukan kustomisasi terhadap produk yang ingin dipesan (kuantitas, <i>add-ons</i>, ataupun <i>note</i>).                               |
-| KF-11 | Sistem menyediakan opsi untuk dapat menentukan alamat pengantaran pada pemesanan.                                                                                            |
-| KF-12 | Sistem menyediakan opsi untuk dapat memberikan catatan <i>note</i> untuk disampaikan kepada pengemudi yang mengantarkan pesanan.                                             |
-| KF-13 | Sistem menyediakan opsi untuk dapat menentukan metode pembayaran pada pemesanan.                                                                                             |
-| KF-14 | Sistem memungkinkan untuk dapat melakukan konfirmasi pemesanan terhadap berbagai produk yang dipilih beserta informasi yang telah dimasukkan sebelumnya.                     |
-| KF-15 | Sistem menyediakan detail informasi terkait dengan status keberadaan dari pemesanan yang telah dilakukan sebelumnya.                                                         |
-| KF-16 | Sistem menyediakan opsi untuk dapat melakukan pembatalan terhadap pemesanan ketika masih diproses pada bisnis.                                                               |
-| KF-17 | Sistem memungkinkan untuk dapat berkomunikasi dengan pengemudi yang mengantarkan pesanan.                                                                                    |
-| KF-18 | Sistem menyediakan informasi dalam bentuk pesan sederhana yang mudah dipahami ketika berhasil atau gagal dalam melakukan aksi.                                               |
-| KF-19 | Sistem menyediakan detail informasi terkait dengan riwayat histori dari pemesanan sebelumnya yang telah selesai.                                                             |
-| KF-20 | Sistem menyediakan opsi untuk dapat melakukan pemesanan kembali pada bisnis yang sebelumnya telah dipesan.                                                                   |
-| KF-21 | Sistem menyediakan opsi untuk dapat memberikan penilaian berupa <i>rating</i> dan komentar pada pengemudi yang mengantarkan pesanan ataupun bisnis yang dipesan sebelumnya.  |
-| KF-22 | Sistem menyediakan opsi untuk dapat melakukan pengecekan terhadap keseluruhan <i>rating</i> dan komentar dari suatu bisnis.                                                  |
+## System Functionality List
+| KF-ID | System Functionality                                                                                                              |
+|:-----:|:----------------------------------------------------------------------------------------------------------------------------------|
+| KF-01 | Registration or login process to access each personal account.                                                                    |
+| KF-02 | Logout option to exit the personal account and switch to another account.                                                         |
+| KF-03 | List of recommended businesses.                                                                                                   |
+| KF-04 | Search and sorting for finding businesses.                                                                                        |
+| KF-05 | List of businesses offering sales promotions.                                                                                     |
+| KF-06 | Mark or unmark a business as a favorite.                                                                                          |
+| KF-07 | List of businesses marked as favorites.                                                                                           |
+| KF-08 | Detailed information about a business with a layout that is easy to view and content that is easy to understand.                  |
+| KF-09 | Detailed information about products sold by a business with a layout that is easy to view and content that is easy to understand. |
+| KF-10 | Customize the product to be ordered.                                                                                              |
+| KF-11 | Choose the delivery address for an order.                                                                                         |
+| KF-12 | Add delivery notes for the driver.                                                                                                |
+| KF-13 | Select a payment method for an order.                                                                                             |
+| KF-14 | Confirm an order for selected products along with the previously entered information.                                             |
+| KF-15 | Detailed information about the status and location of a previously placed order.                                                  |
+| KF-16 | Cancel an order that is still in processing.                                                                                      |
+| KF-17 | Chat with the delivery driver.                                                       |
+| KF-18 | Show a simple and easy-to-understand message upon success or failure of an action.   |
+| KF-19 | Detailed history of completed orders.                                                |
+| KF-20 | Reorder from a previously ordered business.                                          |
+| KF-21 | Give rating and comment for the driver or business that ordered from previously.     |
+| KF-22 | View all ratings and comments for a business.                                        |
 
-## Struktur Direktori File dan Class
+## File and Class Directory Structure
 ```
 ├── assets
 ├── config
@@ -313,15 +315,28 @@ Proyek ini dikembangkan sebagai bagian dari pengerjaan Tugas Akhir guna memenuhi
 └── main.dart
 ```
 
+## Poster
+<img width="1587" height="2245" alt="Blue Illustration Process of Hospital Patient Admission Flowchart Poster" src="https://github.com/user-attachments/assets/88c81aad-4f8d-4290-b947-42a43e9a4251" />
+
+## Documentation Link
+1. Application Demo Link: <br>
+https://youtu.be/Thlf4yUwftU
+2. Technical Document Link: <br>
+https://drive.google.com/file/d/11Qlss4Sy9Rr5Bxy_UVJZ-1W2w4VSf0EU
+3. Prototype Design Link: <br>
+https://www.figma.com/design/gJuODaLsdT8PQrgCz9ttUP/NutriSenior-App-for-TA?node-id=0-1&t=xJcGBQeaZ231TDM5-1 
+4. Full Documentation Link: <br>
+https://drive.google.com/drive/folders/1Nhfk7d_hv1i-yWmdAn9y-foLKIhDpc5C
+
 ## Acknowledgements
-- Bapak Adi Mulyanto, S.T., M.T., selaku dosen pembimbing yang telah memberikan ilmu dan bimbingan selama keberlangsungan pengerjaan tugas akhir.
-- Ibu Tricya Esterina Widagdo, S.T., M.Sc. dan Ir. Robithoh Annur, S.T., M.Eng., Ph.D. selaku dosen koordinator untuk pelaksanaan mata kuliah tugas akhir.
-- Seluruh dosen dan tim pengajar dari keseluruhan mata kuliah pada Teknik Informatika yang telah memberikan ilmu pengetahuan selama masa perkuliahan yang membantu dalam pengerjaan tugas akhir.
-- Djoni Budijono dan Emma sebagai kedua orang tua dan Sherin Chelycia sebagai saudara kandung yang selalu ada untuk memberikan semangat, doa, dan motivasi dukungan terhadap kelancaran dalam keseluruhan proses pengerjaan tugas akhir.
-- Rekan-rekan mahasiswa Teknik Informatika, khususnya rekan mahasiswa Teknik Informatika Jatinangor (Angger, Bintang, Henry, Kelvin, Azmi, Matthew, Christo, Salman, Afnan, Haikal, Eunice, Syauqi, Willy, Laila, Syarifa, Ditra, Varraz, Willson, Radit, Kenny, Nadil, Haidar, Copa, Agsha, Zulfiansyah, Malik, Jauza, dan Fahrian) yang telah memberikan semangat dan motivasi dukungan kepada penulis dalam mengerjakan tugas akhir.
-- Seluruh kru aktif dari UKM Liga Film Mahasiswa ITB mulai dari Kruinz, Krusans, Krusuhan, hingga Kruwala yang memberikan berbagai pengalaman menyenangkan selama masa pengerjaan tugas akhir.
-- Darren dan Cilla sebagai anggota ‘Bulbul’ yang selalu ada untuk memberikan semangat dan nasehat yang memotivasi penulis dalam mengerjakan tugas akhir.
-- Naomi, Risma, Gege, dan Shaula sebagai anggota ‘Keluarga Berada’ yang merupakan teman seperjuangan bersama dari masa kerja praktik hingga masa pengerjaan tugas akhir.
-- Laptop penulis dan Kopi Kenangan yang setia menemani selama masa pengerjaan tugas akhir.
-- Seluruh responden yang terlibat selama proses pengerjaan tugas akhir mulai dari pengumpulan data hingga evaluasi pengujian aplikasi.
-- Semua pihak lain yang memberikan bantuan, semangat dan doa pada penulis dalam menyelesaikan pengerjaan tugas akhir.
+- Mr. Adi Mulyanto, S.T., M.T., as the thesis supervisor who has provided knowledge and guidance throughout the completion of this final project.
+- Mrs. Tricya Esterina Widagdo, S.T., M.Sc., and Ir. Robithoh Annur, S.T., M.Eng., Ph.D., as the course coordinators for the implementation of the final project course.
+- All lecturers and teaching staff of the Informatics Engineering Department who have imparted knowledge during the study period, which greatly contributed to the completion of this final project.
+- Djoni Budijono and Emma as my beloved parents, and Sherin Chelycia as my sibling, who have always been there to provide encouragement, prayers, and unwavering support throughout the entire process of completing this final project.
+- Fellow Informatics Engineering students, especially those from Informatics Engineering Jatinangor (Angger, Bintang, Henry, Kelvin, Azmi, Matthew, Christo, Salman, Afnan, Haikal, Eunice, Syauqi, Willy, Laila, Syarifa, Ditra, Varraz, Wilson, Radit, Kenny, Nadil, Haidar, Copa, Agsha, Zulfiansyah, Malik, Jauza, and Fahrian) who have given encouragement and motivational support to the author in completing this final project.
+- All active crew members of Liga Film Mahasiswa ITB, from Kruinz, Krusans, Krusuhan, to Kruwala, who provided many enjoyable experiences during the final project period.
+- Darren and Cilla as members of ‘Bulbul,’ who were always there to provide encouragement and advice that motivated the author in completing this final project.
+- Naomi, Risma, Gege, and Shaula as members of ‘Keluarga Berada,’ who were companions in struggle from the internship period to the completion of this final project.
+- The author’s laptop and Kopi Kenangan, which faithfully accompanied the final project journey.
+- All respondents involved in the process, from data collection to application testing and evaluation.
+- All other parties who have given assistance, encouragement, and prayers to the author in completing this final project.
